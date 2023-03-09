@@ -51,9 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Migrations\202303060741320_Initial.cs" />
-    <Compile Include="Migrations\202303060741320_Initial.Designer.cs">
-      <DependentUpon>202303060741320_Initial.cs</DependentUpon>
+    <Compile Include="LoginRepository.cs" />
+    <Compile Include="Migrations\202303090440304_Initial.cs" />
+    <Compile Include="Migrations\202303090440304_Initial.Designer.cs">
+      <DependentUpon>202303090440304_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +71,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202303060741320_Initial.resx">
-      <DependentUpon>202303060741320_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303090440304_Initial.resx">
+      <DependentUpon>202303090440304_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

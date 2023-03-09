@@ -13,7 +13,7 @@ namespace CRMS.DataAccess.SQL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202303060741320_Initial"; }
+            get { return "202303090440304_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,4 +1,6 @@
-﻿using CRMS.DataAccess.SQL;
+﻿using CRMS.Core.Contracts;
+using CRMS.Core.Models;
+using CRMS.DataAccess.SQL;
 using CRMS.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,11 +20,19 @@ namespace CRMS.WebUI.Controllers
     
     public class AccountController : Controller
     {
-        SqlRepository repository= new SqlRepository();
-        public  AccountController()
+        LoginRepository repository = new LoginRepository();
+
+        //IRepository repository = new IRepository();
+        //private SqlRepository<User> repository;
+        //public  AccountController(SqlRepository<User> repository)
+        //{
+        //    this.repository = repository;
+        //}
+        public AccountController()
         {
-           
+            
         }
+
         // GET: Account       
 
         public ActionResult Login(string returnUrl)
@@ -33,24 +43,24 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-           var log = repository.LoginRepository().Where(x => x.Email == model.Email && x.Password == model.Password);
-            
-                if (!ModelState.IsValid)
+            var log = repository.loginRepository().Where(x => x.Email == model.Email && x.Password == model.Password);
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                if (log.Count() > 0)
                 {
-                    return View(model);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    if (log.Count() > 0)
-                    {
-                        return RedirectToAction("Index","Home");
-                    }
-                    else
-                    {
-                        ViewBag.Message = "UserName or password is wrong";
-                        return View();
-                    }
+                    ViewBag.Message = "UserName or password is wrong";
+                    return View();
                 }
+            }            
         }        
     }
 }

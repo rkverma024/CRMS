@@ -42,11 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRMS.Core\CRMS.Core.csproj">
       <Project>{132daa78-e07d-4036-96a3-c9732eabd8a0}</Project>
       <Name>CRMS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRMS.DataAccess.SQL\CRMS.DataAccess.SQL.csproj">
+      <Project>{6C03F3F3-5B89-4A6C-9F92-12FF096BEC03}</Project>
+      <Name>CRMS.DataAccess.SQL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

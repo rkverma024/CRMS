@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Models
 {
-    public class Roles
-    {
-        [Key]
-        public Guid RoleId { get; set; }
-
+    public class Role : BaseEntity
+    {        
         public string RoleType { get; set; }
+        public string RoleCode { get; set; }
+        public Role()
+        {
+            Id = Guid.NewGuid();
+        }
+        
     }
 }

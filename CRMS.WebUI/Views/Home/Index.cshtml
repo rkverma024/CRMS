@@ -6,6 +6,20 @@
     <h1>CRMS</h1>
     </div>
 
+<div class="cold-md-6">
+    <h4>Role Management</h4>
+    <div class="list-group">
+        @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })
+
+        <h4>User Management</h4>
+        @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
+        @* <h4>User Management</h4>
+        <div class="list-group">
+            @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
+        </div>*@
+    </div>
+    <div class="cold-md-12 clearfix"></div>
+</div>
     @*<div class="jumbotron">
             <h1>CRMS</h1>
             <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>

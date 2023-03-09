@@ -8,27 +8,20 @@ namespace CRMS.DataAccess.SQL.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.BaseEntities",
+                "dbo.Roles",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
+                        RoleType = c.String(),
+                        RoleCode = c.String(),
                         CreatedBy = c.Guid(nullable: false),
-                        CreatedOn = c.DateTime(nullable: false),
+                        CreatedOn = c.DateTime(),
                         UpdatedBy = c.Guid(nullable: false),
-                        UpdatedOn = c.DateTime(nullable: false),
+                        UpdatedOn = c.DateTime(),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Roles",
-                c => new
-                    {
-                        RoleId = c.Guid(nullable: false),
-                        RoleType = c.String(),
-                    })
-                .PrimaryKey(t => t.RoleId);
             
             CreateTable(
                 "dbo.UserRoles",
@@ -37,6 +30,12 @@ namespace CRMS.DataAccess.SQL.Migrations
                         Id = c.Guid(nullable: false),
                         RoleId = c.Guid(nullable: false),
                         UserId = c.Guid(nullable: false),
+                        CreatedBy = c.Guid(nullable: false),
+                        CreatedOn = c.DateTime(),
+                        UpdatedBy = c.Guid(nullable: false),
+                        UpdatedOn = c.DateTime(),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
@@ -48,7 +47,7 @@ namespace CRMS.DataAccess.SQL.Migrations
                 "dbo.Users",
                 c => new
                     {
-                        UserId = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false),
                         Password = c.String(),
                         FirstName = c.String(),
                         LastName = c.String(),
@@ -57,8 +56,14 @@ namespace CRMS.DataAccess.SQL.Migrations
                         Department = c.String(),
                         Designation = c.String(),
                         Role = c.String(),
+                        CreatedBy = c.Guid(nullable: false),
+                        CreatedOn = c.DateTime(),
+                        UpdatedBy = c.Guid(nullable: false),
+                        UpdatedOn = c.DateTime(),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.UserId);
+                .PrimaryKey(t => t.Id);
             
         }
         
@@ -71,7 +76,6 @@ namespace CRMS.DataAccess.SQL.Migrations
             DropTable("dbo.Users");
             DropTable("dbo.UserRoles");
             DropTable("dbo.Roles");
-            DropTable("dbo.BaseEntities");
         }
     }
 }

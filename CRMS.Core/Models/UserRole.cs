@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Models
 {
-    public class UserRole
-    {
-        [Key]
-        public  Guid Id { get; set; }
-
+    public class UserRole : BaseEntity
+    {    
         public Guid RoleId { get; set; }
         public Guid UserId { get; set; }
 
@@ -21,6 +18,6 @@ namespace CRMS.Core.Models
         public User user { get; set; }
 
         [ForeignKey("RoleId")]
-        public Roles roles { get; set; }
+        public Role role { get; set; }
     }
 }

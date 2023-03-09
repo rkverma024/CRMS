@@ -13,8 +13,8 @@ namespace CRMS.DataAccess.SQL
         public DataContext()
             :base("CRMS"){
         }           
-        public DbSet<BaseEntity> BaseEntity { get; set; }
-        public DbSet<Roles> Roles { get; set; }
+        //public DbSet<BaseEntity> BaseEntity { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> User_Roles { get; set; }
 
