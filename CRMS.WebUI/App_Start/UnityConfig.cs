@@ -47,6 +47,8 @@ namespace CRMS.WebUI
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType< IRepository<Role>, SqlRepository<Role>>();
             container.RegisterType<IRoleRepository, RoleService>();
+            container.RegisterType<IUserRepository, UserRepository>();
+            //container.RegisterType<IUserRepository, UserService>(); 
         }
     }
 }

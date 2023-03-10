@@ -13,9 +13,7 @@ namespace CRMS.DataAccess.SQL
     {
 
         internal DataContext context;
-        internal DbSet<T> dbSet;
-
-        //public bool IsDeleted { get; set; }
+        internal DbSet<T> dbSet;        
 
         public SqlRepository(DataContext context)
         {
@@ -47,12 +45,7 @@ namespace CRMS.DataAccess.SQL
         {
             return dbSet.Find(Id);
         }
-
-        //public T Find(Guid Id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
+      
         public void Insert(T t)
         {
             dbSet.Add(t);
@@ -65,17 +58,3 @@ namespace CRMS.DataAccess.SQL
         }        
     }
 }
-/*internal DataContext context;
-
-
-public SqlRepository()
-{
-
-    //this.context = context;
-    context = new DataContext();
-}
-public IQueryable<User> LoginRepository()
-{
-    var user = context.Users.Where(x => x.Role == "Admin");
-    return user;
-}*/

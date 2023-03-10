@@ -14,8 +14,7 @@ namespace CRMS.Core.Contracts
         void Delete(Guid Id);
         T Find(Guid Id);
         void Insert(T t);
-        void Update(T t);
-        
+        void Update(T t);        
     }
     
 

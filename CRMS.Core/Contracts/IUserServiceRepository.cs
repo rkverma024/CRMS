@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Contracts
 {
-    public interface UserRepository
+    public interface IUserServiceRepository
     {
         void CreateUser(User user);
-        List<User>GetUsersList();
+        List<User> GetRolesList();
         User GetUser(Guid Id);
-        void UpdateUser(Role updateUser);
-
-
+        void UpdateUser(User updateUser);
+        void RemoveUser(User removeUser);
     }
 }

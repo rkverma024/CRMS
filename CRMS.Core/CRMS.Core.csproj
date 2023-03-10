@@ -47,7 +47,8 @@
   <ItemGroup>
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
-    <Compile Include="Contracts\UserRepository.cs" />
+    <Compile Include="Contracts\IUserRepository.cs" />
+    <Compile Include="Contracts\IUserServiceRepository.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />

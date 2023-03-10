@@ -13,6 +13,6 @@ namespace CRMS.Core.Contracts
         List<Role> GetRolesList();
         Role GetRole(Guid Id);
         void UpdateRole(Role updateRole);
-        
+        void RemoveRole(Role removeRole);
     }
 }

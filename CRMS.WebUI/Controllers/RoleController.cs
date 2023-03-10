@@ -25,7 +25,7 @@ namespace CRMS.WebUI.Controllers
             return View(roles);
         }
 
-        public ActionResult Details(Guid Id)
+        /*public ActionResult Details(Guid Id)
         {
             Role role = context.Find(Id);
             if (role == null)
@@ -36,7 +36,7 @@ namespace CRMS.WebUI.Controllers
             {
                 return View(role);
             }
-        }
+        }*/
 
         public ActionResult Create()
         {

@@ -28,19 +28,19 @@ namespace CRMS.Services
             return rolecontext.Find(Id);
         }
 
-        public Role GetRole(string Id)
+       /* public Role GetRole(string Id)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public List<Role> GetRolesList()
         {
             return rolecontext.Collection().ToList();
         }
 
-        public void RemoveRole(Role removerole)
+        public void RemoveRole(Role removeRole)
         {
-            removerole.IsDeleted = true;
+            removeRole.IsDeleted = true;
             rolecontext.Commit();
         }
     

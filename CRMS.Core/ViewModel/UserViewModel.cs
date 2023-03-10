@@ -11,6 +11,7 @@ namespace CRMS.Core.ViewModel
     public class UserViewModel
     {
         [Required]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
@@ -42,5 +43,7 @@ namespace CRMS.Core.ViewModel
         public string Role { get; set; }
 
         public User User { get; set; }
+
+        //public IEnumerable<Role> Roles { get; set; }
     }
 }
