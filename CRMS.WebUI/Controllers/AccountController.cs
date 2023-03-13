@@ -17,7 +17,7 @@ using System.Web.Security;
 
 namespace CRMS.WebUI.Controllers
 {
-    
+    [Authorize]
     public class AccountController : Controller
     {
         LoginRepository repository = new LoginRepository();
@@ -34,13 +34,16 @@ namespace CRMS.WebUI.Controllers
         }
 
         // GET: Account       
-
+       
+        //[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View("");
         }
         [HttpPost]
+        
+        //[AllowAnonymous]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             var log = repository.loginRepository().Where(x => x.Email == model.Email && x.Password == model.Password);

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CRMS.Services
 {
-    public class RoleService : IRoleRepository
+    public class RoleService : IRoleServiceRepository
     {
-        SqlRepository<Role> rolecontext;
+        RoleRepository rolecontext;
 
-        public RoleService(SqlRepository<Role> rolecontext)
+        public RoleService(RoleRepository rolecontext)
         {
             this.rolecontext = rolecontext;
         }
@@ -23,28 +23,23 @@ namespace CRMS.Services
             rolecontext.Insert(role);
         }
 
-        public Role GetRole(Guid Id)
-        {
-            return rolecontext.Find(Id);
-        }
-
-       /* public Role GetRole(string Id)
-        {
-            throw new NotImplementedException();
-        }*/
-
         public List<Role> GetRolesList()
         {
             return rolecontext.Collection().ToList();
         }
 
-        public void RemoveRole(Role removeRole)
+        public Role GetUser(Guid Id)
+        {
+            return rolecontext.Find(Id);
+        }
+
+        public void RemoveUser(Role removeRole)
         {
             removeRole.IsDeleted = true;
             rolecontext.Commit();
         }
-    
-        public void UpdateRole(Role updateRole)
+
+        public void UpdateUser(Role updateRole)
         {
             rolecontext.Update(updateRole);
             rolecontext.Commit();

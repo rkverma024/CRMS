@@ -8,15 +8,7 @@ using System.Threading.Tasks;
 namespace CRMS.Core.Contracts
 {
     public interface IUserRepository
-    {
-        //IQueryable Collection();
-
-        //void CreateUser(User user);
-        //List<User>GetUsersList();
-        //User GetUser(Guid Id);
-        //void UpdateUser(User updateUser);
-        //void RemoveUser(User removeUser);        
-
+    {      
         IQueryable<User> Collection();
         void Commit();
         void Delete(Guid Id);

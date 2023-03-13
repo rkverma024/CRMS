@@ -9,10 +9,11 @@ namespace CRMS.Core.Contracts
 {
     public interface IRoleRepository
     {
-        void CreateRole(Role role);
-        List<Role> GetRolesList();
-        Role GetRole(Guid Id);
-        void UpdateRole(Role updateRole);
-        void RemoveRole(Role removeRole);
+        IQueryable<Role> Collection();
+        void Commit();
+        void Delete(Guid Id);
+        Role Find(Guid Id);
+        void Insert(Role role);
+        void Update(Role updateRole);
     }
 }

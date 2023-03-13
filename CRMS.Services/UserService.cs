@@ -21,7 +21,7 @@ namespace CRMS.Services
             usercontext.Insert(user);
         }
 
-        public List<User> GetRolesList()
+        public List<User> GetUsersList()
         {
             return usercontext.Collection().ToList();
         }

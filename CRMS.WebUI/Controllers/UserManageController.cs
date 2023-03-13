@@ -9,11 +9,12 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
+    [Authorize]
     public class UserManageController : Controller
     {
         IUserRepository context;
-        //IRepository<Role> role;
-        // public UserManageController(IUserRepository usercontext, IRepository<Role> rolecontext)
+        IRoleRepository role;
+        // public UserManageController(IUserRepository usercontext, IRoleRepository rolecontext)
         public UserManageController(IUserRepository usercontext)
         {
             context = usercontext;

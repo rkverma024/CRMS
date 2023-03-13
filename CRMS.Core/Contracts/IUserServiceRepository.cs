@@ -10,7 +10,7 @@ namespace CRMS.Core.Contracts
     public interface IUserServiceRepository
     {
         void CreateUser(User user);
-        List<User> GetRolesList();
+        List<User> GetUsersList();
         User GetUser(Guid Id);
         void UpdateUser(User updateUser);
         void RemoveUser(User removeUser);
