@@ -26,11 +26,16 @@ namespace CRMS.Core.ViewModel
         [Required]
         public Guid RoleId { get; set; }
 
+        public Guid UserId { get; set; }
         public List<DropDown> RoleDropdown { get; set; }
 
+        /*[Display(Name = "Role")]
+        public string Role { get; set; }*/
 
         public User User { get; set; }
-        //public IEnumerable<Role> Roles { get; set; }
-
+        public UserViewModel()
+        {
+            UserId = Guid.NewGuid();
+        }
     }
 }

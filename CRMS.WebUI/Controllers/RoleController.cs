@@ -11,9 +11,9 @@ namespace CRMS.WebUI.Controllers
     //[Authorize]
     public class RoleController : Controller
     {
-        private IRoleServiceRepository roleservice;
+        private IRoleService roleservice;
 
-        public RoleController(IRoleServiceRepository roleService)
+        public RoleController(IRoleService roleService)
         {
             roleservice = roleService;
         }

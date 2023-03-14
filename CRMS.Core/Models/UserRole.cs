@@ -13,6 +13,11 @@ namespace CRMS.Core.Models
         public Guid RoleId { get; set; }
 
         public Guid UserId { get; set; }
-               
+        public UserRole()
+        {
+            Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
+        }
+
     }
 }

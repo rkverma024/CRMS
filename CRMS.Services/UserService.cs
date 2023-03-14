@@ -1,5 +1,6 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using CRMS.DataAccess.SQL;
 using System;
 using System.Collections.Generic;
@@ -9,38 +10,59 @@ using System.Threading.Tasks;
 
 namespace CRMS.Services
 {
-    public class UserService : IUserServiceRepository
+    public class UserService : IUserService
     {
-        UserRepository usercontext;
-        public UserService(UserRepository usercontext)
+        IUserRepository userrepository;
+        IUserRoleRepository userRolerepository;
+        IRoleRepository rolerepository;
+
+        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
         {
-            this.usercontext = usercontext;
-        }
-        public void CreateUser(User user)
-        {
-            usercontext.Insert(user);
+            this.userrepository = userRepository;
+            this.userRolerepository = userRoleRepository;
+            this.rolerepository = roleRepository;
         }
 
-        public List<User> GetUsersList()
+        public void CreateUser(UserViewModel model)
         {
-            return usercontext.Collection().ToList();
+            User user = new User();
+
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.Password = model.Password;
+            
+            userrepository.Insert(user);
+            userrepository.Commit();
+
+            UserRole userrole = new UserRole();
+            userrole.UserId = model.UserId;
+            userrole.RoleId = model.RoleId;
+
+            userRolerepository.Insert(userrole);
+            userRolerepository.Commit();
         }
 
         public User GetUser(Guid Id)
         {
-            return usercontext.Find(Id);
+            User user = userrepository.Find(Id); ;
+            return user;
+        }
+
+        public List<User> GetUserList()
+        {
+            return userrepository.Collection().Where(b => b.IsDeleted == false).ToList();
         }
 
         public void RemoveUser(User removeUser)
         {
             removeUser.IsDeleted = true;
-            usercontext.Commit();
+            userrepository.Commit();
         }
 
         public void UpdateUser(User updateUser)
         {
-            usercontext.Update(updateUser);
-            usercontext.Commit();
+            userrepository.Update(updateUser);
+            userrepository.Commit();
         }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="RoleRepository.cs" />
     <Compile Include="SqlRepository.cs" />
     <Compile Include="UserRepository.cs" />
+    <Compile Include="UserRoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRMS.Core\CRMS.Core.csproj">

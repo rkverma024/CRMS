@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Contracts
 {
-    public interface IRoleServiceRepository
+    public interface IRoleService
     {
         void CreateRole(RoleViewModel model);
         List<Role> GetRolesList();

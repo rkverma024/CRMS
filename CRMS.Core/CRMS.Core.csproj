@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
-    <Compile Include="Contracts\IRoleServiceRepository.cs" />
+    <Compile Include="Contracts\IRoleService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
-    <Compile Include="Contracts\IUserServiceRepository.cs" />
+    <Compile Include="Contracts\IUserRoleRepository.cs" />
+    <Compile Include="Contracts\IUserRoleService.cs" />
+    <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />

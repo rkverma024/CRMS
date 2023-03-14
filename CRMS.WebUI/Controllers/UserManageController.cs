@@ -12,54 +12,57 @@ namespace CRMS.WebUI.Controllers
     //[Authorize]
     public class UserManageController : Controller
     {
-        IUserRepository context;
-        IRoleRepository role;
-      
-        public UserManageController(IUserRepository usercontext, IRoleRepository rolecontext)
+        private IUserService userservice;
+        private IRoleService roleservice;
+
+        public UserManageController(IUserService userService, IRoleService roleService)
         {
-            context = usercontext;
-            role = rolecontext;
+            userservice = userService;
+            roleservice = roleService;
+           
         }
 
         // GET: UserManage
         public ActionResult Index()
         {
-            List<User> users = context.Collection().ToList();
-            return View(users);
+            List<User> user = userservice.GetUserList().ToList();
+            return View(user);
         }
         public ActionResult Create()
         {
-            UserViewModel userViewModel = new UserViewModel();           
-            return View(userViewModel);
+            UserViewModel user = new UserViewModel();
+            user.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();                
+            return View(user);
         }
         [HttpPost]
-        public ActionResult Create(User user)
+        public ActionResult Create(UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return View(model);
             }
             else
             {
-                context.Insert(user);
-                context.Commit();
-
+                userservice.CreateUser(model);
                 return RedirectToAction("Index");
             }
         }
 
-        public ActionResult Edit(Guid Id)
+      /*  public ActionResult Edit(Guid Id)
         {
-            User user = context.Find(Id);
+            User user = userservice.GetUser(Id);
             if (user == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                UserViewModel viewModel = new UserViewModel();
-                viewModel.User = user;                
-                return View(user);
+                UserViewModel userModel = new UserViewModel();
+                userModel.Name = user.Name;
+                userModel.Email = user.Email;
+                userModel.Password = user.Password;
+                
+                return View(userModel);
             }
         }
 
@@ -117,6 +120,6 @@ namespace CRMS.WebUI.Controllers
                 context.Commit();
                 return RedirectToAction("Index");
             }
-        }
+        }*/
     }
 }
