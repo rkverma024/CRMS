@@ -372,6 +372,8 @@
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\UserManage\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

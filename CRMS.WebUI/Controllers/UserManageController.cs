@@ -14,12 +14,15 @@ namespace CRMS.WebUI.Controllers
     {
         private IUserService userservice;
         private IRoleService roleservice;
+        private IUserRoleService _useroleservice;
 
-        public UserManageController(IUserService userService, IRoleService roleService)
+        public UserManageController(IUserService userService, IRoleService roleService, IUserRoleService useroleservice)
         {
             userservice = userService;
             roleservice = roleService;
-           
+            _useroleservice = useroleservice;
+
+
         }
 
         // GET: UserManage
@@ -48,9 +51,9 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
-      /*  public ActionResult Edit(Guid Id)
-        {
-            User user = userservice.GetUser(Id);
+        public ActionResult Edit(Guid Id)
+        {            
+            User user = userservice.GetUserById(Id);            
             if (user == null)
             {
                 return HttpNotFound();
@@ -61,41 +64,28 @@ namespace CRMS.WebUI.Controllers
                 userModel.Name = user.Name;
                 userModel.Email = user.Email;
                 userModel.Password = user.Password;
-                
+                userModel.RoleId = _useroleservice.GetUserRole(user.Id).RoleId; ;
+                userModel.RoleDropdown= roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
                 return View(userModel);
             }
         }
 
         [HttpPost]
-        public ActionResult Edit(User user, Guid Id)
-        {
-            User userToEdit = context.Find(Id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View();
-                }
-                else 
-                {
-                    userToEdit.Name = user.Name;                    
-                    userToEdit.Email = user.Email;
-                    userToEdit.Password = user.Password;                   
-
-                    context.Update(userToEdit);
-                    context.Commit();
-                    context.Collection();
-                    return RedirectToAction("Index");                    
-                }
-            }
+        public ActionResult Edit(UserViewModel user, Guid Id)
+        {           
+           if (!ModelState.IsValid)
+           {
+               return View();
+           }
+           else
+           {                    
+               userservice.UpdateUser(user, Id);                   
+               return RedirectToAction("Index");                
+           }
         }
         public ActionResult Delete(Guid Id)
         {
-            User user = context.Find(Id);
+            User user = userservice.GetUserById(Id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,17 +99,16 @@ namespace CRMS.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(Guid Id)
         {
-            User userToDelete = context.Find(Id);
+            User userToDelete = userservice.GetUserById(Id);
             if (userToDelete == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                context.Delete(Id);
-                context.Commit();
+                userservice.RemoveUser(userToDelete);
                 return RedirectToAction("Index");
             }
-        }*/
+        }
     }
 }

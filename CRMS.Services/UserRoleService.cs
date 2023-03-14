@@ -24,7 +24,7 @@ namespace CRMS.Services
 
         public UserRole GetUserRole(Guid Id)
         {
-            UserRole userRole = userRolerepository.Find(Id);
+            UserRole userRole = userRolerepository.Collection().Where(x=> x.UserId == Id).FirstOrDefault();
             return userRole;
 
         }

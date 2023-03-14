@@ -12,8 +12,8 @@ namespace CRMS.Core.Contracts
     {
         void CreateUser(UserViewModel model);
         List<User> GetUserList();
-        User GetUser(Guid Id);
-        void UpdateUser(User updateUser);
+        User GetUserById(Guid Id);
+        void UpdateUser(UserViewModel model, Guid Id);
         void RemoveUser(User removeUser);
 
     }

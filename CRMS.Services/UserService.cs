@@ -15,12 +15,15 @@ namespace CRMS.Services
         IUserRepository userrepository;
         IUserRoleRepository userRolerepository;
         IRoleRepository rolerepository;
+        IUserRoleService _userRoleService;
 
-        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
+        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository,
+            IUserRoleService userRoleService)
         {
             this.userrepository = userRepository;
             this.userRolerepository = userRoleRepository;
             this.rolerepository = roleRepository;
+            _userRoleService = userRoleService;
         }
 
         public void CreateUser(UserViewModel model)
@@ -35,17 +38,16 @@ namespace CRMS.Services
             userrepository.Commit();
 
             UserRole userrole = new UserRole();
-            userrole.UserId = model.UserId;
+            userrole.UserId = user.Id;
             userrole.RoleId = model.RoleId;
 
             userRolerepository.Insert(userrole);
             userRolerepository.Commit();
         }
 
-        public User GetUser(Guid Id)
+        public User GetUserById(Guid Id)
         {
-            User user = userrepository.Find(Id); ;
-            return user;
+            return userrepository.Find(Id);
         }
 
         public List<User> GetUserList()
@@ -59,10 +61,24 @@ namespace CRMS.Services
             userrepository.Commit();
         }
 
-        public void UpdateUser(User updateUser)
+        public void UpdateUser(UserViewModel model, Guid Id)
         {
-            userrepository.Update(updateUser);
+            User userToEdit = GetUserById(Id);           
+
+            userToEdit.Name = model.Name;
+            userToEdit.Email = model.Email;
+            userToEdit.Password = model.Password;
+
+            userrepository.Update(userToEdit);
             userrepository.Commit();
+
+            UserRole userrole = _userRoleService.GetUserRole(userToEdit.Id); ;
+            userrole.RoleId = model.RoleId;           
+
+            userRolerepository.Update(userrole);
+            userRolerepository.Commit();
+
+
         }
     }
 }
