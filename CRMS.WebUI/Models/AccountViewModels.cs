@@ -7,7 +7,7 @@ using System.Web;
 
 namespace CRMS.WebUI.Models
 {
-    public class LoginViewModel
+    public class AccountViewModel
     {
         [Required]
         [EmailAddress]

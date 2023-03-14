@@ -46,6 +46,7 @@ namespace CRMS.WebUI
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType< IRepository<Role>, SqlRepository<Role>>();
+            container.RegisterType<IRoleServiceRepository, RoleService>();
             container.RegisterType<IRoleRepository, RoleRepository>();
             container.RegisterType<IUserRepository, UserRepository>();
             //container.RegisterType<IUserRepository, UserService>(); 

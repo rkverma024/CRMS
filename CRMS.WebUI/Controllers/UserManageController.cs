@@ -9,16 +9,16 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserManageController : Controller
     {
         IUserRepository context;
         IRoleRepository role;
-        // public UserManageController(IUserRepository usercontext, IRoleRepository rolecontext)
-        public UserManageController(IUserRepository usercontext)
+      
+        public UserManageController(IUserRepository usercontext, IRoleRepository rolecontext)
         {
             context = usercontext;
-            //role = rolecontext;
+            role = rolecontext;
         }
 
         // GET: UserManage
@@ -29,10 +29,7 @@ namespace CRMS.WebUI.Controllers
         }
         public ActionResult Create()
         {
-            UserViewModel userViewModel = new UserViewModel();
-
-            userViewModel.User = new User();
-            //userViewModel.Roles = new role.Collection();
+            UserViewModel userViewModel = new UserViewModel();           
             return View(userViewModel);
         }
         [HttpPost]
@@ -60,6 +57,8 @@ namespace CRMS.WebUI.Controllers
             }
             else
             {
+                UserViewModel viewModel = new UserViewModel();
+                viewModel.User = user;                
                 return View(user);
             }
         }
@@ -80,14 +79,9 @@ namespace CRMS.WebUI.Controllers
                 }
                 else 
                 {
-                    userToEdit.FirstName = user.FirstName;
-                    userToEdit.LastName = user.LastName;
+                    userToEdit.Name = user.Name;                    
                     userToEdit.Email = user.Email;
-                    userToEdit.Password = user.Password;
-                    userToEdit.Mobile_No = user.Mobile_No;
-                    userToEdit.Department = user.Department;
-                    userToEdit.Designation = user.Designation;
-                    userToEdit.Role = user.Role;
+                    userToEdit.Password = user.Password;                   
 
                     context.Update(userToEdit);
                     context.Commit();

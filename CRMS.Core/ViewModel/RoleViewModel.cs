@@ -10,13 +10,16 @@ namespace CRMS.Core.ViewModel
 {
     public class RoleViewModel
     {
+        public Guid Id { get; set; }
         [Required]
-        [Display(Name = "Role Code")]
-        public string RoleCode { get; set; }
+        [Display(Name = "Role Name")]
+        public string RoleName { get; set; }
 
         [Required]
-        [Display(Name = "Role Type")]
-        public string RoleType { get; set; }
+        [Display(Name = "Role Code")]
+        public string Code { get; set; }
+
+       
         public Role Role { get; set; }
     }
 }

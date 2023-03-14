@@ -1,4 +1,5 @@
 ﻿using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace CRMS.Core.Contracts
 {
     public interface IRoleServiceRepository
     {
-        void CreateRole(Role role);
+        void CreateRole(RoleViewModel model);
         List<Role> GetRolesList();
-        Role GetUser(Guid Id);
-        void UpdateUser(Role updateRole);
-        void RemoveUser(Role removeRole);
+        Role GetRole(Guid Id);
+        void UpdateRole(Role updateRole);
+        void RemoveRole(Role removeRole);
 
     }
 }

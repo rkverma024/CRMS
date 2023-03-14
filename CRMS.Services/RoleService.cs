@@ -1,5 +1,6 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using CRMS.DataAccess.SQL;
 using System;
 using System.Collections.Generic;
@@ -11,35 +12,40 @@ namespace CRMS.Services
 {
     public class RoleService : IRoleServiceRepository
     {
-        RoleRepository rolecontext;
+        IRoleRepository rolecontext;
 
-        public RoleService(RoleRepository rolecontext)
+        public RoleService(IRoleRepository rolecontext)
         {
             this.rolecontext = rolecontext;
         }
 
-        public void CreateRole(Role role)
+        public void CreateRole(RoleViewModel model)
         {
+            Role role = new Role();
+            role.RoleName = model.RoleName;
+            role.Code = model.Code;
             rolecontext.Insert(role);
+            rolecontext.Commit();
         }
 
         public List<Role> GetRolesList()
         {
-            return rolecontext.Collection().ToList();
+            return rolecontext.Collection().Where(b => b.IsDeleted == false).ToList();
         }
 
-        public Role GetUser(Guid Id)
+        public Role GetRole(Guid Id)
         {
-            return rolecontext.Find(Id);
+            Role role = rolecontext.Find(Id); ;
+            return role;
         }
 
-        public void RemoveUser(Role removeRole)
+        public void RemoveRole(Role removeRole)
         {
             removeRole.IsDeleted = true;
             rolecontext.Commit();
         }
 
-        public void UpdateUser(Role updateRole)
+        public void UpdateRole(Role updateRole)
         {
             rolecontext.Update(updateRole);
             rolecontext.Commit();

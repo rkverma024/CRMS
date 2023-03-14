@@ -11,23 +11,6 @@
     <h4>Role</h4>
     <hr />
     <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RoleType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoleType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RoleCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RoleCode)
-        </dd>
-
         @*<dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
@@ -74,9 +57,23 @@
 
         <dd>
             @Html.DisplayFor(model => model.IsDeleted)
-        </dd>*@
+        </dd>
+*@
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
 
     </dl>
 

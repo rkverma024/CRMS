@@ -47,6 +47,7 @@ namespace CRMS.DataAccess.SQL
         public void Insert(Role role)
         {
             dbSet.Add(role);
+            
         }
 
         public void Update(Role updateRole)

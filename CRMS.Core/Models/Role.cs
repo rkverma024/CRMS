@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 namespace CRMS.Core.Models
 {
     public class Role : BaseEntity
-    {        
-        public string RoleType { get; set; }
-        public string RoleCode { get; set; }
+    {
+                 
+        public string RoleName { get; set; }
+             
+        public string Code { get; set; }
+
         public Role()
         {
             Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
         }
-        
+
     }
 }

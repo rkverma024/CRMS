@@ -17,7 +17,7 @@ using System.Web.Security;
 
 namespace CRMS.WebUI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         LoginRepository repository = new LoginRepository();
@@ -30,11 +30,11 @@ namespace CRMS.WebUI.Controllers
         //}
         public AccountController()
         {
-            
+
         }
 
         // GET: Account       
-       
+
         //[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -42,11 +42,11 @@ namespace CRMS.WebUI.Controllers
             return View("");
         }
         [HttpPost]
-        
+
         //[AllowAnonymous]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(User model, string returnUrl)
         {
-            var log = repository.loginRepository().Where(x => x.Email == model.Email && x.Password == model.Password);
+            int user = repository.Login(model) ;
 
             if (!ModelState.IsValid)
             {
@@ -54,7 +54,7 @@ namespace CRMS.WebUI.Controllers
             }
             else
             {
-                if (log.Count() > 0)
+                if (user > 0)
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -62,9 +62,8 @@ namespace CRMS.WebUI.Controllers
                 {
                     ViewBag.Message = "UserName or password is wrong";
                     return View();
-                }
-            }            
-        }        
+                }                
+            }
+        }
     }
 }
-
