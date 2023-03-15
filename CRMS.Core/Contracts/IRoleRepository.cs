@@ -9,6 +9,7 @@ namespace CRMS.Core.Contracts
 {
     public interface IRoleRepository
     {
+
         IQueryable<Role> Collection();
         void Commit();
         void Delete(Guid Id);
