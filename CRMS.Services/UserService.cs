@@ -74,7 +74,7 @@ namespace CRMS.Services
             userrepository.Update(userToEdit);
             userrepository.Commit();
 
-            UserRole userrole = _userRoleService.GetUserRole(userToEdit.Id); ;
+            UserRole userrole = _userRoleService.GetUserRole(userToEdit.Id);
             userrole.RoleId = model.RoleId;           
 
             userRolerepository.Update(userrole);
