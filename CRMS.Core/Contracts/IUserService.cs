@@ -11,6 +11,7 @@ namespace CRMS.Core.Contracts
     public interface IUserService
     {
         void CreateUser(UserViewModel model);
+        IEnumerable<IndexViewModel> GetUserRoleList();
         List<User> GetUserList();
         User GetUserById(Guid Id);
         void UpdateUser(UserViewModel model, Guid Id);

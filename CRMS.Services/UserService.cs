@@ -16,14 +16,15 @@ namespace CRMS.Services
         IUserRoleRepository userRolerepository;
         IRoleRepository rolerepository;
         IUserRoleService _userRoleService;
-
+        IRoleService _roleService;
         public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository,
-            IUserRoleService userRoleService)
+            IUserRoleService userRoleService, IRoleService roleService)
         {
             this.userrepository = userRepository;
             this.userRolerepository = userRoleRepository;
             this.rolerepository = roleRepository;
-            _userRoleService = userRoleService;
+            this. _userRoleService = userRoleService;
+            this._roleService = roleService;
         }
 
         public void CreateUser(UserViewModel model)
@@ -52,6 +53,7 @@ namespace CRMS.Services
 
         public List<User> GetUserList()
         {
+
             return userrepository.Collection().Where(b => b.IsDeleted == false).ToList();
         }
 
@@ -77,8 +79,32 @@ namespace CRMS.Services
 
             userRolerepository.Update(userrole);
             userRolerepository.Commit();
+        }
 
+        public IEnumerable<IndexViewModel> GetUserRoleList()
+        {
+
+            List<User> user = GetUserList();
+            IEnumerable<Role> role = _roleService.GetRolesList();
+            IEnumerable<UserRole> userrole = _userRoleService.GetUserRoleList();
+
+            var list = from _user in user
+                       join ur in userrole on _user.Id equals ur.UserId
+                       join r in role on ur.RoleId equals r.Id
+                       select new IndexViewModel()
+                       {
+                           Id = _user.Id,
+                           Name = _user.Name,
+                           Email = _user.Email,
+                           Role = r.RoleName
+                       };
+            return list;
 
         }
+
+        //List<User> IUserService.GetUserList()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -21,15 +21,17 @@ namespace CRMS.WebUI.Controllers
             userservice = userService;
             roleservice = roleService;
             _useroleservice = useroleservice;
-
-
         }
 
         // GET: UserManage
         public ActionResult Index()
         {
-            List<User> user = userservice.GetUserList().ToList();
-            return View(user);
+            //List<User> user = userservice.GetUserList().ToList();
+            var list = userservice.GetUserRoleList();
+            return View(list);
+
+            /*List<User> user = userservice.GetUserList().ToList();
+            return View(user);*/
         }
         public ActionResult Create()
         {

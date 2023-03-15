@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
+﻿@model IEnumerable<CRMS.Core.Models.ConferenceRoom>
 <br>
 <h3>
-    @Html.ActionLink("Create New User", "Create")
+    @Html.ActionLink("Create New Conference Room", "Create")
 </h3>
 <br>
 <table class="table">
@@ -25,13 +25,10 @@
             @Html.DisplayNameFor(model => model.IsDeleted)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.ConferenceRoomNo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
+            @Html.DisplayNameFor(model => model.Capacity)
         </th>
         <th></th>
     </tr>
@@ -57,13 +54,10 @@
             @Html.DisplayFor(modelItem => item.IsDeleted)
         </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => item.ConferenceRoomNo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
+            @Html.DisplayFor(modelItem => item.Capacity)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -4,6 +4,7 @@ using Unity;
 using CRMS.Services;
 using CRMS.DataAccess.SQL;
 using CRMS.Core.Models;
+using CRMS.Core;
 
 namespace CRMS.WebUI
 {
@@ -45,13 +46,19 @@ namespace CRMS.WebUI
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType< IRepository<Role>, SqlRepository<Role>>();            
+            container.RegisterType< IRepository<Role>, SqlRepository<Role>>();     
+            
             container.RegisterType<IRoleRepository, RoleRepository>();
             container.RegisterType<IRoleService, RoleService>();
+
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IUserService, UserService>();
+
             container.RegisterType<IUserRoleRepository, UserRoleRepository>();
             container.RegisterType<IUserRoleService, UserRoleService>();
+
+            container.RegisterType<IConferenceRoomRepository, ConferenceRoomRepository>();
+            container.RegisterType<IConferenceRoomService, ConferenceRoomService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

@@ -319,6 +319,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ConferenceRoomManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
@@ -370,10 +371,14 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
-    <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\UserManage\Create.cshtml" />
     <Content Include="Views\UserManage\Edit.cshtml" />
     <Content Include="Views\UserManage\Delete.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\ConferenceRoomManage\Index.cshtml" />
+    <Content Include="Views\ConferenceRoomManage\Create.cshtml" />
+    <Content Include="Views\ConferenceRoomManage\Edit.cshtml" />
+    <Content Include="Views\ConferenceRoomManage\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
