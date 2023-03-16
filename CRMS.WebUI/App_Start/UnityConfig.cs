@@ -59,6 +59,9 @@ namespace CRMS.WebUI
 
             container.RegisterType<IConferenceRoomRepository, ConferenceRoomRepository>();
             container.RegisterType<IConferenceRoomService, ConferenceRoomService>();
+
+            container.RegisterType<IRepository<CommanLookUp>, SqlRepository<CommanLookUp>>();
+            container.RegisterType<ICommanLookUpService, CommanLookUpService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

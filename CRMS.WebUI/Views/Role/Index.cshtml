@@ -33,40 +33,50 @@
     }
 </style>
 
-<table class="table" style="width:100%">
-        <tr>
-            <th>
-                SNo.
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Code)
-            </th>
-            <th>Action</th>
-        </tr>
-    @{ int count = 0;}
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @{count += 1; }
-                    @count
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Code)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-                    @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                    <a href="@Url.Action("Delete", "Role", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.RoleName')">Delete</a>
-                </td>
-            </tr>
-        }
 
-    </table>
+@if (@TempData["MSG"] != null)
+{<div class="alert alert-success alert-dismissible" role="alert">
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @TempData["MSG"]
+    </div> }
+@**@
+
+
+
+<table class="table" style="width:100%">
+    <tr>
+        <th>
+            SNo.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>Action</th>
+    </tr>
+    @{ int count = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{count += 1; }
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                <a href="@Url.Action("Delete", "Role", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.RoleName')">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

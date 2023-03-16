@@ -18,6 +18,7 @@ namespace CRMS.DataAccess.SQL
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<ConferenceRoom> ConferenceRooms { get; set; }
+        public DbSet<CommanLookUp> CommanLookUps { get; set; }
 
 
 

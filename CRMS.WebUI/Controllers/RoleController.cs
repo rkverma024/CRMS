@@ -44,6 +44,7 @@ namespace CRMS.WebUI.Controllers
             else
             {                               
                 roleservice.CreateRole(model);
+                TempData["MSG"] = "Role Added Successfully..!";
                 return RedirectToAction("Index");
             }
         }
