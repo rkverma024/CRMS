@@ -85,7 +85,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-        public ActionResult Delete(Guid Id)
+        /*public ActionResult Delete(Guid Id)
         {
             ConferenceRoom conferenceroom = conferenceroomService.GetConferenceRoomById(Id);
             if (conferenceroom == null)
@@ -96,23 +96,24 @@ namespace CRMS.WebUI.Controllers
             {
                 return View(conferenceroom);
             }
-        }
+        }*/
 
-        [HttpPost]
-        [ActionName("Delete")]
-        public ActionResult ConfirmDelete(Guid Id)
+        //[HttpPost]
+        //[ActionName("Delete")]
+        public ActionResult Delete(Guid Id)
         {
             ConferenceRoom conferenceroomToDelete = conferenceroomService.GetConferenceRoomById(Id);
-            if (conferenceroomToDelete == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
-                conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
-                return RedirectToAction("Index");
-            }
+            conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
+            return RedirectToAction("Index");
+            //if (conferenceroomToDelete == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //else
+            //{
+            //    conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
+            //    return RedirectToAction("Index");
+            //}
         }
     }
 }

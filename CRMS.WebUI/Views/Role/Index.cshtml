@@ -4,37 +4,69 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Role</h2>
+<br>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>        
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-</table>
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+
+    th {
+        font-size: 150%;
+        background: #d25f67;
+        color: aliceblue;
+    }
+</style>
+
+<table class="table" style="width:100%">
+        <tr>
+            <th>
+                SNo.
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>Action</th>
+        </tr>
+    @{ int count = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{count += 1; }
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                    @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                    <a href="@Url.Action("Delete", "Role", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.RoleName')">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </table>

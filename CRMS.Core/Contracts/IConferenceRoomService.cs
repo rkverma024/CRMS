@@ -15,5 +15,6 @@ namespace CRMS.Core
         ConferenceRoom GetConferenceRoomById(Guid Id);
         void UpdateConferenceRoom(ConferenceRoom updateConferenceRoom);
         void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom);
+        /*void ConferenceRoom DeleteConferenceRoom(Guid Id);*/
     }
 }

@@ -85,7 +85,7 @@ namespace CRMS.WebUI.Controllers
                return RedirectToAction("Index");                
            }
         }
-        public ActionResult Delete(Guid Id)
+        /*public ActionResult Delete(Guid Id)
         {
             User user = userservice.GetUserById(Id);
             if (user == null)
@@ -96,13 +96,16 @@ namespace CRMS.WebUI.Controllers
             {
                 return View(user);
             }
-        }
-        [HttpPost]
-        [ActionName("Delete")]
-        public ActionResult ConfirmDelete(Guid Id)
+        }*/
+        //[HttpPost]
+        //[ActionName("Delete")]
+        public ActionResult Delete(Guid Id)
         {
             User userToDelete = userservice.GetUserById(Id);
-            if (userToDelete == null)
+            userservice.RemoveUser(userToDelete);
+            return RedirectToAction("Index");
+
+           /* if (userToDelete == null)
             {
                 return HttpNotFound();
             }
@@ -110,7 +113,7 @@ namespace CRMS.WebUI.Controllers
             {
                 userservice.RemoveUser(userToDelete);
                 return RedirectToAction("Index");
-            }
+            }*/
         }
     }
 }

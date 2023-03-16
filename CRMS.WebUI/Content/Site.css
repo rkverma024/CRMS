@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.dropdown-right .dropdown-menu {
+    left: auto;
+    right: 0;
+    margin-top: 6px;
+}

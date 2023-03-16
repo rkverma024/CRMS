@@ -88,7 +88,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-        public ActionResult Delete(Guid Id)
+        /*public ActionResult Delete(Guid Id)
         {
             Role role = roleservice.GetRole(Id);
             if (role == null)
@@ -99,14 +99,17 @@ namespace CRMS.WebUI.Controllers
             {
                 return View(role);
             }
-        }
+        }*/
 
-        [HttpPost]
-        [ActionName("Delete")]
-        public ActionResult ConfirmDelete(Guid Id)
+       /* [HttpPost]
+        [ActionName("Delete")]*/
+        public ActionResult Delete(Guid Id)
         {
 
             Role roleToDelete = roleservice.GetRole(Id);
+            roleservice.RemoveRole(roleToDelete);
+            return RedirectToAction("Index");
+/*
             if (roleToDelete == null)
             {
                 return HttpNotFound();
@@ -115,7 +118,7 @@ namespace CRMS.WebUI.Controllers
             {
                 roleservice.RemoveRole(roleToDelete);                
                 return RedirectToAction("Index");
-            }            
+            }            */
         }        
     }   
 }

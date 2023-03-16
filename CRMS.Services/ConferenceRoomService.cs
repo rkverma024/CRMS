@@ -27,6 +27,14 @@ namespace CRMS.Services
             _conferenceRoomRepository.Commit();
         }
 
+       /* public void ConferenceRoom DeleteConferenceRoom(Guid Id)
+        {
+            ConferenceRoom conferenceRoom = GetConferenceRoomById(Id);
+            _conferenceRoomRepository.Delete(Id);
+
+
+        }
+*/
         public ConferenceRoom GetConferenceRoomById(Guid Id)
         {
             ConferenceRoom conferenceRoom = _conferenceRoomRepository.Find(Id);
@@ -39,10 +47,7 @@ namespace CRMS.Services
         }
 
         public void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom)
-        /*public void RemoveConferenceRoom(Guid Id)*/
         {
-            /*ConferenceRoom conferenceroom = _conferenceRoomRepository.Find(Id);
-            _conferenceRoomRepository.Delete(Id);*/
             removeConferenceRoom.IsDeleted = true;
             _conferenceRoomRepository.Commit();
 
