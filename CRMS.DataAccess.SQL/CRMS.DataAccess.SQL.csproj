@@ -53,17 +53,9 @@
     <Compile Include="ConferenceRoomRepository.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="LoginRepository.cs" />
-    <Compile Include="Migrations\202303130734549_Initial.cs" />
-    <Compile Include="Migrations\202303130734549_Initial.Designer.cs">
-      <DependentUpon>202303130734549_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303150715129_Initial1.cs" />
-    <Compile Include="Migrations\202303150715129_Initial1.Designer.cs">
-      <DependentUpon>202303150715129_Initial1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202303161148592_Comman.cs" />
-    <Compile Include="Migrations\202303161148592_Comman.Designer.cs">
-      <DependentUpon>202303161148592_Comman.cs</DependentUpon>
+    <Compile Include="Migrations\202303170443306_CommonLook.cs" />
+    <Compile Include="Migrations\202303170443306_CommonLook.Designer.cs">
+      <DependentUpon>202303170443306_CommonLook.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,14 +75,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202303130734549_Initial.resx">
-      <DependentUpon>202303130734549_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303150715129_Initial1.resx">
-      <DependentUpon>202303150715129_Initial1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202303161148592_Comman.resx">
-      <DependentUpon>202303161148592_Comman.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202303170443306_CommonLook.resx">
+      <DependentUpon>202303170443306_CommonLook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -39,6 +39,7 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            
             return View("");
         }
         [HttpPost]
@@ -50,12 +51,14 @@ namespace CRMS.WebUI.Controllers
 
             if (!ModelState.IsValid)
             {
+                
                 return View(model);
             }
             else
             {
                 if (user > 0)
                 {
+                    TempData["AlertMessage"] = "Login Successfully..!";
                     return RedirectToAction("Index", "Home");
                 }
                 else

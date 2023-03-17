@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\ICommanLookUpService.cs" />
+    <Compile Include="Contracts\ICommonLookUpService.cs" />
     <Compile Include="Contracts\IConferenceRoomRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
@@ -56,13 +56,13 @@
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Contracts\IConferenceRoomService.cs" />
     <Compile Include="Models\BaseEntity.cs" />
-    <Compile Include="Models\CommanLookUp.cs" />
+    <Compile Include="Models\CommonLookUp.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\ConferenceRoom.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\CommanLookUpViewModel.cs" />
+    <Compile Include="ViewModel\CommonLookUpViewModel.cs" />
     <Compile Include="ViewModel\ConferenceRoomViewModel.cs" />
     <Compile Include="ViewModel\DropDown.cs" />
     <Compile Include="ViewModel\IndexViewModel.cs" />

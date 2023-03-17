@@ -40,6 +40,7 @@ namespace CRMS.WebUI.Controllers
             else
             {
                 conferenceroomService.CreateConferenceRoom(model);
+                TempData["AlertMessage"] = "Conference Room Added Successfully..!";
                 return RedirectToAction("Index");
             }
         }
@@ -80,7 +81,7 @@ namespace CRMS.WebUI.Controllers
                     conferenceRoomToEdit.ConferenceRoomNo = conferenceRoom.ConferenceRoomNo;
                     conferenceRoomToEdit.Capacity = conferenceRoom.Capacity;
                     conferenceroomService.UpdateConferenceRoom(conferenceRoomToEdit);
-
+                    TempData["AlertMessage"] = "Conference Room Added Successfully..!";
                     return RedirectToAction("Index");
                 }
             }
@@ -104,6 +105,7 @@ namespace CRMS.WebUI.Controllers
         {
             ConferenceRoom conferenceroomToDelete = conferenceroomService.GetConferenceRoomById(Id);
             conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
+            TempData["AlertMessage"] = "Conference Room Added Successfully..!";
             return RedirectToAction("Index");
             //if (conferenceroomToDelete == null)
             //{

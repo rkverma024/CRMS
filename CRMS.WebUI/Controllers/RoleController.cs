@@ -44,7 +44,7 @@ namespace CRMS.WebUI.Controllers
             else
             {                               
                 roleservice.CreateRole(model);
-                TempData["MSG"] = "Role Added Successfully..!";
+                TempData["AlertMessage"] = "Role Added Successfully..!";
                 return RedirectToAction("Index");
             }
         }
@@ -84,7 +84,7 @@ namespace CRMS.WebUI.Controllers
                     roleToEdit.RoleName = role.RoleName;
                     roleToEdit.Code = role.Code;
                     roleservice.UpdateRole(roleToEdit);
-
+                    TempData["AlertMessage"] = "Role Updated Successfully..!";
                     return RedirectToAction("Index");
                 }
             }
@@ -109,6 +109,7 @@ namespace CRMS.WebUI.Controllers
 
             Role roleToDelete = roleservice.GetRole(Id);
             roleservice.RemoveRole(roleToDelete);
+            TempData["AlertMessage"] = "Role Deleted Successfully..!";
             return RedirectToAction("Index");
 /*
             if (roleToDelete == null)

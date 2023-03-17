@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Models
 {
-    public class CommanLookUp : BaseEntity
+    public class CommonLookUp : BaseEntity
     {        
         public string ConfigName { get; set; }
         public string ConfigKey { get; set; }
@@ -14,7 +14,7 @@ namespace CRMS.Core.Models
         public int? DisplayOrder { get; set; }
         public string Description { get; set; }
 
-        public CommanLookUp()
+        public CommonLookUp()
         {
             Id = Guid.NewGuid();
             CreatedOn = DateTime.Now;

@@ -5,31 +5,40 @@
     div.jumbotron {
         background: #d25f67;
         color: aliceblue;
-    }    
-    </style>
+    }
+</style>
 
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        <strong>Success..!</strong>
+        @TempData["AlertMessage"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>  }
 
 <div class="jumbotron">
     <h1>CRMS</h1>
 </div>
+
+
 <div class="container">
-<div class="cold-md-6">
-   @* <h4>Role Manage</h4>
-    <div class="list-group">
+    <div class="cold-md-6">
+        @* <h4>Role Manage</h4>
+            <div class="list-group">
 
-       @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })       
+               @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })
 
-        <h4>User Manage</h4>
-        <div class="list-group">
-          @Html.ActionLink("User", "Index", "UserManage", null, new { @class = "list-group-item" })
-        </div>
+                <h4>User Manage</h4>
+                <div class="list-group">
+                  @Html.ActionLink("User", "Index", "UserManage", null, new { @class = "list-group-item" })
+                </div>
 
-        <h4>Conference Room Manage</h4>
-        <div class="list-group">
-         @Html.ActionLink("ConferenceRoom", "Index", "ConferenceRoomManage", null, new { @class = "list-group-item" })
-        </div>
-    </div>*@
- </div>
+                <h4>Conference Room Manage</h4>
+                <div class="list-group">
+                 @Html.ActionLink("ConferenceRoom", "Index", "ConferenceRoomManage", null, new { @class = "list-group-item" })
+                </div>
+            </div>*@
+    </div>
     <div class="cold-md-12 clearfix"></div>
 </div>
-   
+

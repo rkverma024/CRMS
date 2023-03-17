@@ -33,6 +33,15 @@
     }
 </style>
 
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        <strong>Success..!</strong>
+        @TempData["AlertMessage"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>  }
+
+
 <table class="table" style="width:100%">
     <tr>
         <th>SNo.</th>
@@ -49,28 +58,28 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @{count += 1; }
-        @count
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ConferenceRoomNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Capacity)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
+        <tr>
+            <td>
+                @{count += 1; }
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConferenceRoomNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" }) |
 
 
-        @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-        <a href="@Url.Action("Delete", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConferenceRoomNo')">Delete</a>
+                @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+                <a href="@Url.Action("Delete", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConferenceRoomNo')">Delete</a>
 
 
 
-    </td>
-</tr>
+            </td>
+        </tr>
 
     }
 </table>

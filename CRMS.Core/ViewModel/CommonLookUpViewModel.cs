@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class CommanLookUpViewModel : BaseEntity
+    public class CommonLookUpViewModel : BaseEntity
     {        
         [Required]
         [Display(Name = "Config Name")]
