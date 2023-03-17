@@ -33,8 +33,8 @@ namespace CRMS.Services
 
         public CommonLookUp GetCommonLookUp(Guid Id)
         {
-            CommonLookUp commanLookUp = commonLookUprepository.Find(Id);
-            return commanLookUp;
+            CommonLookUp commonLookUp = commonLookUprepository.Find(Id);
+            return commonLookUp;
         }
 
         public List<CommonLookUp> GetCommonLookUpsList()

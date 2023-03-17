@@ -40,7 +40,7 @@
                         <li>@Html.ActionLink("Role", "Index", "Role")</li>
                         <li>@Html.ActionLink("User", "Index", "UserManage")</li>
                         <li>@Html.ActionLink("Conference Room", "Index", "ConferenceRoomManage")</li>
-                        <li>@Html.ActionLink("CommanLookUp", "Index", "CommanLookUp")</li>
+                        <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>
 
 
                         @*<li>@Html.ActionLink("About", "About", "Home")</li>
@@ -75,6 +75,8 @@
     @*<script src="~/Content/bootstrap.bundle.min.js"></script>*@
 
 <script src="~/Content/Custom.js"></script>
+
+    @RenderSection("scripts",required:false)
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
