@@ -26,6 +26,7 @@ namespace CRMS.Services
             commonLookUp.DisplayOrder = model.DisplayOrder;
             commonLookUp.Description = model.Description;
             commonLookUp.ConfigValue = model.ConfigValue;
+            commonLookUp.IsActive = model.IsActive;
             commonLookUprepository.Insert(commonLookUp);
             commonLookUprepository.Commit();
 

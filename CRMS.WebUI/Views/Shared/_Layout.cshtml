@@ -4,13 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - CRMS</title>
-   @* @Styles.Render("~/Content/css")*@
+    @* @Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    @*<script src="~/Content/bootstrap.bundle.min.js"></script>*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     @* <style>
            ul.navbar-nav {
@@ -24,7 +25,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div style="background-color: #10608a">
+        <div style="background-color: #21618C ">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -80,24 +81,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   @* @RenderSection("scripts", required: false)*@
 </body>
 </html>
-@*<script>
-    $(document).ready(function () {
-        $('.dropdown').hover(
-            function () {
-                $(this).find('ul').css({
-                    "display": "block",
-                    "margin-top": 0
-                });
-            },
-            function () {
-                $(this).find('ul').css({
-                    "display": "none",
-                    "margin-top": 0
-                });
-            }
-        );
-    });
-</script>*@

@@ -20,9 +20,6 @@ namespace CRMS.DataAccess.SQL
         public DbSet<ConferenceRoom> ConferenceRooms { get; set; }
         public DbSet<CommonLookUp> CommonLookUps { get; set; }
 
-
-
-
-
+        
     }
 }

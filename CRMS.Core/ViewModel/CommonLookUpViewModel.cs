@@ -10,11 +10,11 @@ namespace CRMS.Core.ViewModel
 {
     public class CommonLookUpViewModel : BaseEntity
     {        
-        [Required]
+        [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Config Name")]
         public string ConfigName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Config Key")]
         public string ConfigKey { get; set; }
 
