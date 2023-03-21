@@ -5,6 +5,7 @@
 }
 
 <h2>Common LookUp</h2>
+<br>
 <div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
     <div class=" modal-dialog" role="document">
         <div class="modal-content" id="commonLookBody"></div>
@@ -37,16 +38,14 @@
 
     th {
         font-size: 120%;
-        background: #EC7063;
+        background: #d25f67;
         color: aliceblue;
     }
 </style>
 
-<button type="button" class="btn btn-success" id="clup"> Add </button>
-@*<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("_Create","CommonLookUp")')"><i class="fa fa-plus"></i> Add New</a>*@
+<button type="button" class="btn btn-success" id="clup"><i class="glyphicon glyphicon-plus"></i> Add </button>
 
-@*<a class="btn btn-primary" style="margin-bottom:10px"><i class="fa fa-plus"></i>Add</a>*@
-
+<hr>
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         @*<strong>Success..!</strong>*@
@@ -108,20 +107,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
-            <td>
-                @* @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |*@
-                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                @* <button type="button" class="btn btn-primary" id="editclup"><i class="bi bi-pen"></i> Edit</button>*@
-                @* <a href="@Url.Action("Edit", "CommonLookUp",new { id = item.Id })" class="btn btn-primary" id="modaledit" >Edit</a>*@
-                <button id="@item.Id" type="button" class="btn btn-sm btn-primary" onclick="editcommonlookup(this)">Edit</button>
-
-                @*<button class="btn btn-primary" id="editmodal">Edit</button>*@
-
-                @* <a href="@Url.Action("Edit", "CommonLookUp")" class="btn btn-primary" onclick="Edit(@item.Id)"><i class="glyphicon glyphicon-pencil">Editi> </a> *@
-
-
-                <a href="@Url.Action("Delete", "CommonLookUp", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConfigName')">Delete</a>
+            <td>                
+                <button id="@item.Id" type="button" class="btn btn-primary" onclick="editclup(this)"><i class="glyphicon glyphicon-pencil"></i></button> |              
+                <a href="@Url.Action("Delete", "CommonLookUp", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConfigName')"><i class=" glyphicon glyphicon-trash"></i></a>
             </td>
         </tr>
     }
@@ -141,12 +129,12 @@
     });
 </script>
 
-<div id="createPopupModalForm">
+<div id="EditModal">
 <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
     </div>
 <script type="text/javascript">
 
-     function editcommonlookup(data) {
+    function editclup(data) {
 
         var id = $(data).attr('id')
         $.ajax({
@@ -154,61 +142,9 @@
             type: "Get",
             data: { 'id': id },
             success: function (data) {
-                $("#createPopupModalForm").html(data);
+                $("#EditModal").html(data);
                 $("#modaledit").modal('show');
             }
         });
     }
-
-
-
-
-   @* $(document).ready(function () {
-
-        $('#editclup').click(function () {
-            var id = $(data).attr('id')
-            var url = $('#modaledit').data('url');
-            data: { 'id': id },
-            $.get(url, function (data) {
-                $("#modaledit").html(data);
-                $("#modaledit").modal('show');
-            });
-        });
-    });*@
-
-
-
-     @*$(document).ready(function () {
-
-        $('#editclup').click(function () {
-            var id = $(data).attr('id')
-            var url = $('#modaledit').data('url');
-            data: { 'id': id },
-            $.get(url, function (data) {
-                $("#modaledit").html(data);
-                $("#modaledit").modal('show');
-            });
-        });
-    });*@
 </script>
-
-
-
-
-
-
-
-
-@*  function editcommonlookup(data) {
-
-        var id = $(data).attr('id')
-        $.ajax({
-            url: '@Url.Action("Edit","CommonLookUp")',
-            type: "Get",
-            data: { 'id': id },
-            success: function (data) {
-                $("#modaledit").html(data);
-                $("#modaledit").modal('show');
-            }
-        });
-    }*@
