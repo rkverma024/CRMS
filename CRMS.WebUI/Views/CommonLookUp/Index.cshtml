@@ -6,11 +6,11 @@
 
 <h2>Common LookUp</h2>
 
-<div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
+@*<div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
     <div class=" modal-dialog" role="document">
         <div class="modal-content" id="commonLookBody"></div>
     </div>
-</div>
+</div>*@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -122,13 +122,13 @@
 
 
 
-<div class="createPopupModalForm ">
-<div class="modal" id="modal" data-url='@Url.Action("Create","CommonLookUp")'></div>
-</div>
+@*<div class="createPopupModalForm ">
+<div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")'></div>
+</div>*@
 <script type="text/javascript">
          function createcommonlookup() {
             $.ajax({
-                url: '@Url.Action("Create","CommonLookUps")',
+                url: '@Url.Action("Create","CommonLookUp")',
                 type: "Get",
                 success: function (data) {
                     $("#createPopupModalForm").html(data);
