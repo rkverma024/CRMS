@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
-<br>
 <h2>User</h2>
-<h3>
+<p>
     @*@Html.ActionLink("Add", "Create", null, new { @class = "btn btn-success" })*@
     <a href="@Url.Action("Create", "UserManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-</h3>
-<br>
+</p>
+<hr>
 
 <style>
     table {
