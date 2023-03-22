@@ -102,7 +102,15 @@
     function SubmitForm(form) {
         debugger;
         form.submit(function (e) {
+
+
             e.preventDefault();
+            var ConfigName = $('#ConfigName').val();
+            var ConfigKey = $('#ConfigKey').val();
+            if (ConfigName != "" && (ConfigName == ConfigKey)) {
+                alert("ConfigName and ConfigKey can not be same...!")
+                return false;
+            }
             if (!form.valid) return false;
             $.validator.unobtrusive.parse(form);
             $.ajax({
@@ -113,6 +121,10 @@
                  success: function (data) {
                      if (data == true) {
                          location.reload();
+                     }
+                     @*Test*@
+                     else if (data == "Exists") {
+                         alert("Data Already Exists");
                      }
                  }
             });
