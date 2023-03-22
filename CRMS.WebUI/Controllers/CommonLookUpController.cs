@@ -51,7 +51,7 @@ namespace CRMS.WebUI.Controllers
                 else
                 {
                     commonLookUpservice.CreateCommonLookUp(model);
-                    TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+                    TempData["AlertMessage"] = "Added Successfully..!";
                     /*return RedirectToAction("Index");*/
                 }
                 return RedirectToAction("Index");
@@ -114,7 +114,7 @@ namespace CRMS.WebUI.Controllers
                     commonLookUpToEdit.ConfigValue = commonLookUp.ConfigValue;
                     commonLookUpToEdit.IsActive = commonLookUp.IsActive;
                     commonLookUpservice.UpdateCommonLookUp(commonLookUpToEdit);
-                    TempData["AlertMessage"] = "Common LookUp Updated Successfully..!";
+                    TempData["AlertMessage"] = "Updated Successfully..!";
                     return RedirectToAction("Index");
                 }
             }
@@ -125,7 +125,7 @@ namespace CRMS.WebUI.Controllers
 
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
-            TempData["AlertMessage"] = "CommonLookUp Deleted Successfully..!";
+            TempData["AlertMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");           
         }
     }

@@ -4,11 +4,13 @@
 }
 <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
 <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
+
 <!--{<div class="alert alert-success">-->
 @*<strong>Success..!</strong>*@
-<!--@TempData["AlertMessage"]
+@*@TempData["AlertMessage"]*@
 
-</div>}-->
+@*</div>}*@
+
 @using (Html.BeginForm("Create", "CommonLookUp", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
 {
 
@@ -121,8 +123,7 @@
                  success: function (data) {
                      if (data == true) {
                          location.reload();
-                     }
-                     @*Test*@
+                     }@*Test*@
                      else if (data == "Exists") {
                          alert("Data Already Exists");
                      }
