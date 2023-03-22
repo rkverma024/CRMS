@@ -3,90 +3,96 @@
     Layout = null;
 }
 
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        @*<strong>Success..!</strong>*@
+        @TempData["AlertMessage"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>}
 @using (Html.BeginForm("Create", "CommonLookUp", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
 {
-    
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Create</h4>
-                    @*<button type="button" class="close" data-mbd-dismiss="model">&times;</button>*@
-                </div>
-                <div class="modal-body">
 
-                    <div class="row g-3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Create</h4>
+                @*<button type="button" class="close" data-mbd-dismiss="model">&times;</button>*@
+            </div>
 
-                        <div class="form-group" id="form">
-                            @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="form-group" id="form">
+                        @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-3" })
 
-                            @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })
 
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                            @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                            @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                            @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                            @*<label class="form-check-label" for="">Is Active</label>*@
-                            <input type="hidden" name="IsActive" value="True" checked>
-                            <input type="checkbox" id="IsActive" class="form-check-input" name="IsActive" value="False" checked>
-
-                            @*<div class="checkbox">
-            @Html.EditorFor(model => model.IsActive)
-            @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
-        </div>*@
-
-                        </div>
-                        <br />
                     </div>
-                    <br />
                     <div class="form-group">
+                        @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-3" })
 
-                        <input type="submit" value="Submit" class="btn btn-primary left" />
-                        <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger">Cancel</a>
-                        @*<input type="reset" value="Reset" class="btn" />*@
+                        @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })
 
                     </div>
-                    @* <button class="btn btn-primary btn-md" id="AddCoomanlookup" type="submit">Submit</button>
-                        <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger float-right right">Cancel</a>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @*<label class="form-check-label" for="">Is Active</label>*@
+                        <input type="hidden" name="IsActive" value="True" checked>
+                        <input type="checkbox" id="IsActive" class="form-check-input" name="IsActive" value="False" checked>
+
+                        @*<div class="checkbox">
+                                @Html.EditorFor(model => model.IsActive)
+                                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                            </div>*@
+
+                    </div>
                     <br />
+                </div>
+                <br />
+                <div class="form-group">
+
+                    <input type="submit" value="Submit" class="btn btn-primary left" />
+                    <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger">Cancel</a>
+                    @*<input type="reset" value="Reset" class="btn" />*@
 
                 </div>
+                @* <button class="btn btn-primary btn-md" id="AddCoomanlookup" type="submit">Submit</button>
+                    <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger float-right right">Cancel</a>*@
+                <br />
+
             </div>
         </div>
+    </div>
 
-  
-        }
+
+}
 
 
 
