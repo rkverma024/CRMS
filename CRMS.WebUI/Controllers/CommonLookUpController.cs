@@ -45,7 +45,7 @@ namespace CRMS.WebUI.Controllers
 
                 if (existingmodel > 0)
                 {
-                    TempData["AlertMessage"] = "Alredy Data is exist";
+                    TempData["Already"] = "Alredy Data is exist";
 
                 }
                 else
