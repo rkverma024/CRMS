@@ -38,7 +38,7 @@ namespace CRMS.WebUI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                return Content("False");
             }
             else
             {
@@ -46,15 +46,16 @@ namespace CRMS.WebUI.Controllers
                 if (existingmodel > 0)
                 {
                     TempData["Already"] = "Alredy Data is exist";
+                    return Content("exists");
 
                 }
                 else
                 {
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+                    return Content("true");
                     /*return RedirectToAction("Index");*/
                 }
-                return RedirectToAction("Index");
             }
             /*
                         if (!ModelState.IsValid)
@@ -71,6 +72,7 @@ namespace CRMS.WebUI.Controllers
 
         public ActionResult Edit(Guid Id)
         {
+
             CommonLookUp commonLookUp = commonLookUpservice.GetCommonLookUp(Id);
             if (commonLookUp == null)
             {

@@ -44,9 +44,7 @@
 </style>
 
 @*<button type="button" class="btn btn-success" id="clup"><i class="glyphicon glyphicon-plus"></i> Add </button>*@
-<button type="button" class="btn btn-sm btn-primary" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>
-    Add
-</button>
+<button type="button" class="btn btn-success" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>Add</button>
 
 <hr>
 @if (@TempData["AlertMessage"] != null)
@@ -122,19 +120,17 @@
 
 
 
-@*<div class="createPopupModalForm ">
+<div class="createPopupModalForm ">
 <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")'></div>
-</div>*@
+</div>
 <script type="text/javascript">
-         function createcommonlookup() {
-            $.ajax({
-                url: '@Url.Action("Create","CommonLookUp")',
-                type: "Get",
-                success: function (data) {
-                    $("#createPopupModalForm").html(data);
-                    $("#addmodal").modal('show');
-                }
-            });
+    function createcommonlookup() {
+        debugger;
+        var url = $('#addmodal').data('url');
+        $.get(url, function (data) {
+            $("#addmodal").html(data);
+            $("#addmodal").modal('show');
+        });
         }
 
 
