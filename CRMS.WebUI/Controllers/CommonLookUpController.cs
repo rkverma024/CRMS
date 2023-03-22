@@ -35,6 +35,8 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Create(CommonLookUpViewModel model)
         {
 
+            var existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == model.ConfigKey && x.ConfigName == model.ConfigName).Count();
+
 
             if (!ModelState.IsValid)
             {
@@ -42,10 +44,31 @@ namespace CRMS.WebUI.Controllers
             }
             else
             {
-                commonLookUpservice.CreateCommonLookUp(model);
-                TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+
+                if (existingmodel > 0)
+                {
+                    TempData["AlertMessage"] = "Alredy Data is exist";
+
+                }
+                else
+                {
+                    commonLookUpservice.CreateCommonLookUp(model);
+                    TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+                    /*return RedirectToAction("Index");*/
+                }
                 return RedirectToAction("Index");
             }
+            /*
+                        if (!ModelState.IsValid)
+                        {
+                            return View(model);
+                        }
+                        else
+                        {
+                            commonLookUpservice.CreateCommonLookUp(model);
+                            TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+                            return RedirectToAction("Index");
+                        }*/
         }
 
         public ActionResult Edit(Guid Id)
