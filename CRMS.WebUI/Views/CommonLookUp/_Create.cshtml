@@ -100,9 +100,22 @@
 
 <script>
     function SubmitForm(form) {
+        debugger;
         form.submit(function (e) {
             e.preventDefault();
             if (!form.valid) return false;
+            $.validator.unobtrusive.parse(form);
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: form.action,
+                data: $(form).serialize(),
+                 success: function (data) {
+                     if (data == true) {
+                         location.reload();
+                     }
+                 }
+            });
         });
         @*var ConfigName = $('#ConfigName').val();
         var ConfigKey = $('#ConfigKey').val();
@@ -111,27 +124,11 @@
             return false;
         }*@
 
-        $.validator.unobtrusive.parse(form);
-        if ($(form).valid()) {
-            debugger;
-                $.ajax({
-                    type: "POST",
-                    url: form.action,
-                    data: $(form).serialize(),
-                @* success: function (data) {
-                    if (data.success) {
-                        Popup.dialog('close');
-                        dataTable.ajax.reload();
-
-                        $.notify(data.message, {
-                            globalPosition: "top center",
-                            className: "success"
-                        })
-
-                    }
-                }*@
-            });
-        }
+       /* $.validator.unobtrusive.parse(form);*/
+        //if ($(form).valid()) {
+        //    debugger;
+              
+        /*}*/
         /*return false;*/
     }
 </script>

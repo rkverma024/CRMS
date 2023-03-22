@@ -15,6 +15,7 @@ namespace CRMS.Core.ViewModel
         public string ConfigName { get; set; }
 
         [Required(ErrorMessage = "This Field is Required")]
+        [RegularExpression(@"[A-Z]",ErrorMessage = "Only uppercase Characters are allowed.")]
         [Display(Name = "Config Key")]
         public string ConfigKey { get; set; }
 

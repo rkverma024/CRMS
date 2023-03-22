@@ -34,13 +34,11 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
         {
-
             var existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == model.ConfigKey && x.ConfigName == model.ConfigName).Count();
-
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction("Index");
             }
             else
             {
