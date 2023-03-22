@@ -107,12 +107,14 @@
 
 
             e.preventDefault();
+
             var ConfigName = $('#ConfigName').val();
             var ConfigKey = $('#ConfigKey').val();
             if (ConfigName != "" && (ConfigName == ConfigKey)) {
                 alert("ConfigName and ConfigKey can not be same...!")
                 return false;
             }
+
             if (!form.valid) return false;
             $.validator.unobtrusive.parse(form);
             $.ajax({
@@ -120,6 +122,7 @@
                 dataType: 'json',
                 url: form.action,
                 data: $(form).serialize(),
+
                  success: function (data) {
                      if (data == true) {
                          location.reload();
