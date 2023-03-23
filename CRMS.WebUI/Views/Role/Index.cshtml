@@ -36,13 +36,20 @@
 
 
 @if (@TempData["AlertMessage"] != null)
-{<div class="alert alert-success">     
+{<div class="alert alert-success">
+        <span class="glyphicon glyphicon-saved"></span>
         @TempData["AlertMessage"]
-    <button type="button" class="close" data-dismiss="alert">
-       
-    </button>
-    </div> }
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>  }
 
+@if (@TempData["DeleteMessage"] != null)
+{<div class="alert alert-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        @TempData["DeleteMessage"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>  }
 
 
 

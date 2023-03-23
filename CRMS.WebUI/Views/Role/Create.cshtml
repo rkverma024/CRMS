@@ -7,11 +7,12 @@
 <h2>Add Role</h2>
 
 @if (@TempData["Already"] != null)
-{<div class="alert alert-success">        
-        @TempData["Already"]
+{<div class="alert alert-danger">        
+     <span class="glyphicon glyphicon-remove-circle"></span>  
+    @TempData["Already"]
         <button type="button" class="close" data-dismiss="alert">
         </button>
- </div>  }
+ </div>}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

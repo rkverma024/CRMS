@@ -130,7 +130,7 @@ namespace CRMS.WebUI.Controllers
         {
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
-            TempData["AlertMessage"] = "Deleted Successfully..!";
+            TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
         }
     }

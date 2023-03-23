@@ -49,7 +49,7 @@ namespace CRMS.WebUI.Controllers
             else
             {
                 userservice.CreateUser(model);
-                TempData["AlertMessage"] = "User Added Successfully..!";
+                TempData["AlertMessage"] = "Added Successfully..!";
                 return RedirectToAction("Index");
             }
         }
@@ -83,7 +83,7 @@ namespace CRMS.WebUI.Controllers
            else
            {                    
                userservice.UpdateUser(user, Id);
-                TempData["AlertMessage"] = "User Updated Successfully..!";
+                TempData["AlertMessage"] = "Updated Successfully..!";
                 return RedirectToAction("Index");                
            }
         }
@@ -105,7 +105,7 @@ namespace CRMS.WebUI.Controllers
         {
             User userToDelete = userservice.GetUserById(Id);
             userservice.RemoveUser(userToDelete);
-            TempData["AlertMessage"] = "User Deleted Successfully..!";
+            TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
 
            /* if (userToDelete == null)
