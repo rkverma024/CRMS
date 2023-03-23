@@ -5,12 +5,12 @@
 }
 
 <h2>Common LookUp</h2>
-<br>
-<div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
-    <div class=" modal-dialog" role="document">
-        <div class="modal-content" id="commonLookBody"></div>
-    </div>
-</div>
+
+@*<div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
+        <div class=" modal-dialog" role="document">
+            <div class="modal-content" id="commonLookBody"></div>
+        </div>
+    </div>*@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -42,16 +42,14 @@
         color: aliceblue;
     }
 </style>
-
-<button type="button" class="btn btn-success" id="clup"><i class="glyphicon glyphicon-plus"></i> Add </button>
+<button type="button" class="btn btn-success" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>Add</button>
 
 <hr>
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         @*<strong>Success..!</strong>*@
         @TempData["AlertMessage"]
-        <button type="button" class="close" data-dismiss="alert">
-        </button>
+
     </div>  }
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -107,8 +105,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
-            <td>                
-                <button id="@item.Id" type="button" class="btn btn-primary" onclick="editclup(this)"><i class="glyphicon glyphicon-pencil"></i></button> |              
+            <td>
+                <button id="@item.Id" type="button" class="btn btn-primary" onclick="editclup(this)"><i class="glyphicon glyphicon-pencil"></i></button> |
                 <a href="@Url.Action("Delete", "CommonLookUp", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConfigName')"><i class=" glyphicon glyphicon-trash"></i></a>
             </td>
         </tr>
@@ -116,22 +114,28 @@
 </table>
 
 
-<div class="modal" id="modal" data-url='@Url.Action("Create","CommonLookUp")'></div>
+
+
+
+<div class="createPopupModalForm ">
+    <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")'></div>
+</div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#clup').click(function () {
-            var url = $('#modal').data('url');
-            $.get(url, function (data) {
-                $("#modal").html(data);
-                $("#modal").modal('show');
-            });
+    function createcommonlookup() {
+        var url = $('#addmodal').data('url');
+        $.get(url, function (data) {
+            $("#addmodal").html(data);
+            $("#addmodal").modal('show');
         });
-    });
+    }
 </script>
 
+
+
+
 <div id="EditModal">
-<div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
-    </div>
+    <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
+</div>
 <script type="text/javascript">
 
     function editclup(data) {
@@ -142,7 +146,7 @@
             type: "Get",
             data: { 'id': id },
             success: function (data) {
-                $("#EditModal").html(data);
+                $("#modaledit").html(data);
                 $("#modaledit").modal('show');
             }
         });

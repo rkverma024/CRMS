@@ -28,35 +28,34 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Create()
         {
             CommonLookUpViewModel commonlookup = new CommonLookUpViewModel();
-            return PartialView("_Create",commonlookup);
+            return PartialView("_Create", commonlookup);
         }
 
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
         {
-
             var existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == model.ConfigKey && x.ConfigName == model.ConfigName).Count();
-
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Content("False");
             }
             else
             {
 
                 if (existingmodel > 0)
                 {
+                    TempData["Already"] = "Alredy Data is exist";
+                    return Content("exists");
 
-                    TempData["AlertMessage"] = "Alredy Data is exist";
                 }
                 else
                 {
                     commonLookUpservice.CreateCommonLookUp(model);
-                    TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
+                    TempData["AlertMessage"] = "Added Successfully..!";
+                    return Content("true");
                     /*return RedirectToAction("Index");*/
                 }
-                return RedirectToAction("Index");
             }
             /*
                         if (!ModelState.IsValid)
@@ -73,6 +72,7 @@ namespace CRMS.WebUI.Controllers
 
         public ActionResult Edit(Guid Id)
         {
+
             CommonLookUp commonLookUp = commonLookUpservice.GetCommonLookUp(Id);
             if (commonLookUp == null)
             {
@@ -90,12 +90,14 @@ namespace CRMS.WebUI.Controllers
 
                 return PartialView("_Edit", commonLookUpModel);
             }
-        }              
+        }
 
         [HttpPost]
-        public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
+        public ActionResult Edit(CommonLookUpViewModel commonLookUp)
         {
-            CommonLookUp commonLookUpToEdit = commonLookUpservice.GetCommonLookUp(Id);
+            bool existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == commonLookUp.ConfigKey && x.ConfigName == commonLookUp.ConfigName && x.Id != commonLookUp.Id).Any();
+
+            CommonLookUp commonLookUpToEdit = commonLookUpservice.GetCommonLookUp(commonLookUp.Id);
 
             if (commonLookUpToEdit == null)
             {
@@ -105,30 +107,41 @@ namespace CRMS.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View();
+                    return Content("False");
+                    //return View();
                 }
                 else
                 {
-                    commonLookUpToEdit.ConfigName = commonLookUp.ConfigName;
-                    commonLookUpToEdit.ConfigKey = commonLookUp.ConfigKey;
-                    commonLookUpToEdit.DisplayOrder = commonLookUp.DisplayOrder;
-                    commonLookUpToEdit.Description = commonLookUp.Description;
-                    commonLookUpToEdit.ConfigValue = commonLookUp.ConfigValue;
-                    commonLookUpToEdit.IsActive = commonLookUp.IsActive;
-                    commonLookUpservice.UpdateCommonLookUp(commonLookUpToEdit);
-                    TempData["AlertMessage"] = "Common LookUp Updated Successfully..!";
-                    return RedirectToAction("Index");
+                    if (existingmodel)
+                    {
+                        TempData["Already"] = "Alredy Data is exist";
+                        return Content("exists");
+
+                    }
+                    else
+                    {
+                        commonLookUpToEdit.ConfigName = commonLookUp.ConfigName;
+                        commonLookUpToEdit.ConfigKey = commonLookUp.ConfigKey;
+                        commonLookUpToEdit.DisplayOrder = commonLookUp.DisplayOrder;
+                        commonLookUpToEdit.Description = commonLookUp.Description;
+                        commonLookUpToEdit.ConfigValue = commonLookUp.ConfigValue;
+                        commonLookUpToEdit.IsActive = commonLookUp.IsActive;
+                        commonLookUpservice.UpdateCommonLookUp(commonLookUpToEdit);
+                        TempData["AlertMessage"] = "Updated Successfully..!";
+                        return Content("true");
+                        //return RedirectToAction("Index");
+
+                    }
                 }
             }
         }
 
         public ActionResult Delete(Guid Id)
         {
-
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
-            TempData["AlertMessage"] = "CommonLookUp Deleted Successfully..!";
-            return RedirectToAction("Index");           
+            TempData["AlertMessage"] = "Deleted Successfully..!";
+            return RedirectToAction("Index");
         }
     }
 }

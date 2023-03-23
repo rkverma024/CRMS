@@ -3,96 +3,111 @@
     Layout = null;
 }
 
-@using (Html.BeginForm("Edit", "CommonLookUp", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
-{
-    <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-           
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4>Edit</h4>
-                        @*<button type="button" class="close" data-mbd-dismiss="model">&times;</button>*@
-                    </div>
-                    <div class="modal-body">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit</h3>
+        </div>
+        <div class="modal-body">
+            <form id="Editform">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id, htmlAttributes: new { @Id = "Id" })
+                <div class="form-group">
+                    <div class="row">
+                        @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-3" })
 
-                        <div class="row g-3">
-                            @Html.HiddenFor(model => model.Id)
-                            <div class="form-group" id="form">
-                                @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })
-
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
-
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
-
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.IsActive)
-                                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-                            <br />
-                        </div>
-                        <br />
-                        <div class="form-group">
-
-                            <input type="submit" value="Submit" class="btn btn-primary" />
-                            <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger float-right right">Cancel</a>
-                            @*<input type="reset" value="Reset" class="btn" />*@
-
-                        </div>
-                        @* <button class="btn btn-primary btn-md" id="AddCoomanlookup" type="submit">Submit</button>
-                            <a href="@Url.Action("Index", "CommonLookUp")" class="btn btn-danger float-right right">Cancel</a>*@
-                        <br />
+                        @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigName, "", new { @class = "text-danger" })
 
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <div class="row">
+                        @Html.LabelFor(model => model.ConfigKey, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.ConfigKey, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigKey, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+
+                        @Html.LabelFor(model => model.ConfigValue, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.ConfigValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfigValue, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+
+                        @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+
+                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                        @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="closePopup()">Close</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+
     </div>
-            }
-            <script>
-                function SubmitForm(form) {
-                    $.validator.unobtrusive.parse(form);
-                    if ($(form).valid()) {
-                        $.ajax({
-                            type: "POST",
-                            url: form.action,
-                            data: $(form).serialize(),
-                        });
-                    }
-                    return false;
+</div>
+
+<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
+
+<script>
+    function closePopup() {
+        location.reload();
+    }
+    $('#Editform').submit(function (e) {
+        debugger;
+        e.preventDefault();
+        var $form = $(this);
+        if (!$form.valid) return false;
+        var ConfigName = $('#ConfigName').val();
+        var ConfigKey = $('#ConfigKey').val();
+        if (ConfigName != "" && (ConfigName == ConfigKey)) {
+            alert("ConfigName and ConfigKey not be Same")
+            return false;
+        }
+        $.ajax({
+            url: '@Url.Action("Edit","CommonLookUp")',
+            type: "Post",
+            data:  $form.serialize(),
+            success: function (data) {
+                debugger;
+                if (data == "true") {
+                    location.reload();
                 }
-            </script>
+                else if (data == "exists") {
+                    alert("Data Already Exists");
+                }
+            }
+        });
+    });
+</script>
