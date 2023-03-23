@@ -15,5 +15,7 @@ namespace CRMS.Core.Contracts
         CommonLookUp GetCommonLookUp(Guid Id);
         void UpdateCommonLookUp(CommonLookUp updatecommonLookUp);
         void RemoveCommonLookUp(CommonLookUp removecommonLookUp);
+
+         bool IsExist(CommonLookUpViewModel model, bool IsAvailable);
     }
 }

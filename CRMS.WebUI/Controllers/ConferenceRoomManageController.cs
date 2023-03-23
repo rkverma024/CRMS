@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
+    //[Authorize]
     public class ConferenceRoomManageController : Controller
     {
         IConferenceRoomService conferenceroomService;

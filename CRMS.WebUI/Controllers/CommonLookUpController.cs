@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
+    //[Authorize]
     public class CommonLookUpController : Controller
     {
         private ICommonLookUpService commonLookUpservice;
@@ -34,7 +35,7 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
         {
-            var existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == model.ConfigKey && x.ConfigName == model.ConfigName).Count();
+            bool existingmodel = commonLookUpservice.IsExist(model, true);
 
             if (!ModelState.IsValid)
             {
@@ -43,7 +44,7 @@ namespace CRMS.WebUI.Controllers
             else
             {
 
-                if (existingmodel > 0)
+                if (existingmodel)
                 {
                     TempData["Already"] = "Alredy Data is exist";
                     return Content("exists");
@@ -95,7 +96,7 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(CommonLookUpViewModel commonLookUp)
         {
-            bool existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == commonLookUp.ConfigKey && x.ConfigName == commonLookUp.ConfigName && x.Id != commonLookUp.Id).Any();
+            bool existingmodel = commonLookUpservice.IsExist(commonLookUp, false);
 
             CommonLookUp commonLookUpToEdit = commonLookUpservice.GetCommonLookUp(commonLookUp.Id);
 

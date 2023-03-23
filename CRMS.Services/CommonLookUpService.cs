@@ -42,7 +42,7 @@ namespace CRMS.Services
         {
             return commonLookUprepository.Collection().Where(b => b.IsDeleted == false).ToList();
         }
-
+       
         public void RemoveCommonLookUp(CommonLookUp removecommonLookUp)
         {
             removecommonLookUp.IsDeleted = true;
@@ -53,6 +53,19 @@ namespace CRMS.Services
         {
             commonLookUprepository.Update(updatecommonLookUp);
             commonLookUprepository.Commit();
+        }
+
+        public bool IsExist(CommonLookUpViewModel model, bool IsAvailable = false)
+        {
+            bool existingmodel = GetCommonLookUpsList().Where(x =>(IsAvailable || x.Id != model.Id)&& (x.ConfigKey == model.ConfigKey && 
+                                                                    x.ConfigName == model.ConfigName)).Any();
+            if (existingmodel)
+            {
+                return true;
+            }
+            return false;
+          
+          
         }
     }
 }
