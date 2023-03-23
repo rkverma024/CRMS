@@ -37,15 +37,26 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
+            bool existingmodel = roleservice.IsExist(model, true);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             else
-            {                               
-                roleservice.CreateRole(model);
-                TempData["AlertMessage"] = "Role Added Successfully..!";
-                return RedirectToAction("Index");
+            {
+                if (existingmodel)
+                {
+                    TempData["Already"] = "Already Data is exist";
+                    return View();
+                }
+                else
+                {
+                    roleservice.CreateRole(model);
+                    TempData["AlertMessage"] = "Role Added Successfully..!";                 
+                    return RedirectToAction("Index");
+                }
+                
             }
         }
         public ActionResult Edit(Guid Id)
@@ -67,6 +78,7 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(RoleViewModel role, Guid Id)
         {
+            bool existingmodel = roleservice.IsExist(role, false);
             Role roleToEdit = roleservice.GetRole(Id);
 
             if (roleToEdit == null)
@@ -81,11 +93,21 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
-                    roleToEdit.RoleName = role.RoleName;
-                    roleToEdit.Code = role.Code;
-                    roleservice.UpdateRole(roleToEdit);
-                    TempData["AlertMessage"] = "Role Updated Successfully..!";
-                    return RedirectToAction("Index");
+                    if (existingmodel)
+                    {
+                        TempData["Already"] = "Alredy Data is exist";
+                        return View();
+
+                    }
+                    else
+                    {
+                        roleToEdit.RoleName = role.RoleName;
+                        roleToEdit.Code = role.Code;
+                        roleservice.UpdateRole(roleToEdit);
+                        TempData["AlertMessage"] = "Role Updated Successfully..!";
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
             }
         }

@@ -57,18 +57,7 @@ namespace CRMS.WebUI.Controllers
                     return Content("true");
                     /*return RedirectToAction("Index");*/
                 }
-            }
-            /*
-                        if (!ModelState.IsValid)
-                        {
-                            return View(model);
-                        }
-                        else
-                        {
-                            commonLookUpservice.CreateCommonLookUp(model);
-                            TempData["AlertMessage"] = "CommonLookUp Added Successfully..!";
-                            return RedirectToAction("Index");
-                        }*/
+            }            
         }
 
         public ActionResult Edit(Guid Id)

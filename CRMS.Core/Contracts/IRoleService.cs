@@ -15,6 +15,7 @@ namespace CRMS.Core.Contracts
         Role GetRole(Guid Id);
         void UpdateRole(Role updateRole);
         void RemoveRole(Role removeRole);
+        bool IsExist(RoleViewModel model, bool IsAvailable);
 
     }
 }

@@ -50,5 +50,16 @@ namespace CRMS.Services
             rolerepository.Update(updateRole);
             rolerepository.Commit();
         }
+
+        public bool IsExist(RoleViewModel model, bool IsAvailable)
+        {
+            bool existingmodel = GetRolesList().Where(x => (IsAvailable || x.Id != model.Id) &&
+                                                              (x.RoleName == model.RoleName)).Any();
+            if (existingmodel)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
