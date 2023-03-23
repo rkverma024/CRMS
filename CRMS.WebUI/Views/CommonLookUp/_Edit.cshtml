@@ -10,11 +10,11 @@
             @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
         </div>
         <div class="modal-body">
-            <form name="Editform" id="myform">
+            <form  id="Editform">
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id, htmlAttributes: new { @Id = "Id" })
                 <div class="form-group">
                     <div class="row">
-
                         @Html.LabelFor(model => model.ConfigName, htmlAttributes: new { @class = "control-label col-md-3" })
 
                         @Html.EditorFor(model => model.ConfigName, new { htmlAttributes = new { @class = "form-control" } })
@@ -85,8 +85,8 @@
     function closePopup() {
         location.reload();
     }
-    $('#myform').submit(function (e) {
-
+    $('#Editform').submit(function (e) {
+        debugger;
         e.preventDefault();
         var $form = $(this);
         if (!$form.valid) return false;
@@ -97,11 +97,11 @@
             return false;
         }
         $.ajax({
-            @*url: '@Url.Action("Edit","CommonLookUp")',*@
+            url: '@Url.Action("Edit","CommonLookUp")',
             type: "Post",
-            data: $form.serialize(),
+            data:  $form.serialize(),
             success: function (data) {
-                //debugger;
+                debugger;
                 if (data == "true") {
                     location.reload();
                 }

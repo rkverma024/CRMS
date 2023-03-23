@@ -93,11 +93,11 @@ namespace CRMS.WebUI.Controllers
         }              
 
         [HttpPost]
-        public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
+        public ActionResult Edit(CommonLookUpViewModel commonLookUp)
         {
-            var existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == commonLookUp.ConfigKey && x.ConfigName == commonLookUp.ConfigName && x.Id == commonLookUp.Id).Count();
+            bool existingmodel = commonLookUpservice.GetCommonLookUpsList().Where(x => x.ConfigKey == commonLookUp.ConfigKey && x.ConfigName == commonLookUp.ConfigName && x.Id != commonLookUp.Id).Any();
 
-            CommonLookUp commonLookUpToEdit = commonLookUpservice.GetCommonLookUp(Id);
+            CommonLookUp commonLookUpToEdit = commonLookUpservice.GetCommonLookUp(commonLookUp.Id);
 
             if (commonLookUpToEdit == null)
             {
@@ -112,7 +112,7 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
-                    if (existingmodel > 0)
+                    if (existingmodel)
                     {
                         TempData["Already"] = "Alredy Data is exist";
                         return Content("exists");
