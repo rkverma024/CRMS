@@ -124,26 +124,13 @@
 <div class="modal" id="addmodal" data-url='@Url.Action("Create","CommonLookUp")'></div>
 </div>
 <script type="text/javascript">
-    function createcommonlookup() {
-        debugger;
+    function createcommonlookup() {       
         var url = $('#addmodal').data('url');
         $.get(url, function (data) {
             $("#addmodal").html(data);
             $("#addmodal").modal('show');
         });
-        }
-
-
-
-       @* $(document).ready(function () {
-            $('#clup').click(function () {
-                var url = $('#modal').data('url');
-                $.get(url, function (data) {
-                    $("#modal").html(data);
-                    $("#modal").modal('show');
-                });
-            });
-        });*@
+        }    
 </script>
 
 
@@ -162,7 +149,7 @@
             type: "Get",
             data: { 'id': id },
             success: function (data) {
-                $("#EditModal").html(data);
+                $("#modaledit").html(data);
                 $("#modaledit").modal('show');
             }
         });
