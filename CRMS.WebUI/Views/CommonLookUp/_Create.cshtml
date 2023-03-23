@@ -100,14 +100,7 @@
 
 <script>
     function SubmitForm(form) {
-        @* Alert Message *@
-        var ConfigName = $('#ConfigName').val();
-        var ConfigKey = $('#ConfigKey').val();
-        if (ConfigName == ConfigKey) {
-            alert("ConfigName and ConfigKey can not be same...!")
-            return false;
-        }
-
+        
         $.validator.unobtrusive.parse(form);
         if ($(form).valid()) {
             $.ajax({
