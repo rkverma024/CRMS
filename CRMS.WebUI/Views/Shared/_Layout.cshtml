@@ -6,22 +6,11 @@
     <title>@ViewBag.Title - CRMS</title>
     @* @Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
-
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @* <style>
-           ul.navbar-nav {
-                color:aliceblue;
-            }
-        </style>*@
-
-
-
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -41,26 +30,8 @@
                         <li>@Html.ActionLink("Role", "Index", "Role")</li>
                         <li>@Html.ActionLink("User", "Index", "UserManage")</li>
                         <li>@Html.ActionLink("Conference Room", "Index", "ConferenceRoomManage")</li>
-                        <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>
-
-
-                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-
-                        @*<li class="nav-item">
-            <div class="dropdown-right">
-                <a class="nav-link">System</a>
-                <ul class="dropdown-menu table-hover text-small shadow">
-                    <li><a class="dropdown-item" href="@Url.Action("Index","Role")">Role</a></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Index","UserManage")">User</a></li>
-                    <li><a class="dropdown-item" href="@Url.Action("Index","ConferenceRoomManage")">Conference Room</a></li>
-                </ul>
-            </div>
-        </li>*@
+                        <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>                       
                     </ul>
-
-
-
                     @*@Html.Partial("_LoginPratial");*@
                 </div>
             </div>
@@ -72,15 +43,10 @@
         @*<footer>
             <p>&copy; @DateTime.Now.Year - CRMS</p>
         </footer>*@
-    </div>
-    @*<script src="~/Content/bootstrap.bundle.min.js"></script>*@
-
+    </div>  
 <script src="~/Content/Custom.js"></script>
-
     @RenderSection("scripts",required:false)
-
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-   @* @RenderSection("scripts", required: false)*@
+    @Scripts.Render("~/bundles/bootstrap")   
 </body>
 </html>

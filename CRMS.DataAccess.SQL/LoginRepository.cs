@@ -13,9 +13,7 @@ namespace CRMS.DataAccess.SQL
         internal DataContext context;
 
         public LoginRepository()
-        {
-
-            //this.context = context;
+        {           
             context = new DataContext();
         }
         /*public IQueryable<UserRole> loginRepository()

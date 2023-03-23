@@ -10,15 +10,16 @@ namespace CRMS.Core.ViewModel
 {
     public class UserViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Name")]
         public string Name { get; set; }                       
 
-        [Required]
+        [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This Field is Required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

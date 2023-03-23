@@ -46,7 +46,7 @@ namespace CRMS.WebUI.Controllers
 
                 if (existingmodel)
                 {
-                    TempData["Already"] = "Alredy Data is exist";
+                    TempData["Already"] = "Already Data is exist";
                     return Content("exists");
 
                 }

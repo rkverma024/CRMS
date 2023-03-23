@@ -1,5 +1,6 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using CRMS.DataAccess.SQL;
 using CRMS.WebUI.Models;
 using Microsoft.AspNet.Identity;
@@ -22,12 +23,6 @@ namespace CRMS.WebUI.Controllers
     {
         LoginRepository repository = new LoginRepository();
 
-        //IRepository repository = new IRepository();
-        //private SqlRepository<User> repository;
-        //public  AccountController(SqlRepository<User> repository)
-        //{
-        //    this.repository = repository;
-        //}
         public AccountController()
         {
 
@@ -51,7 +46,7 @@ namespace CRMS.WebUI.Controllers
 
             if (!ModelState.IsValid)
             {
-                
+
                 return View(model);
             }
             else
@@ -65,7 +60,7 @@ namespace CRMS.WebUI.Controllers
                 {
                     ViewBag.Message = "UserName or password is wrong";
                     return View();
-                }                
+                }
             }
         }
     }
