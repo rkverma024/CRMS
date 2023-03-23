@@ -58,7 +58,7 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "UserName or password is wrong";
+                    TempData["Message"] = "Enter Correct Email OR Password " ;                    
                     return View();
                 }
             }
