@@ -6,10 +6,9 @@
 
 <h2>Edit Role</h2>
 @if (@TempData["Already"] != null)
-{<div class="alert alert-success">
-        @TempData["Already"]
-        <button type="button" class="close" data-dismiss="alert">
-        </button>
+{<div class="alert alert-danger">
+     <span class="glyphicon glyphicon-remove-circle"></span>    
+    @TempData["Already"]        
     </div>     }
 
 @using (Html.BeginForm())
