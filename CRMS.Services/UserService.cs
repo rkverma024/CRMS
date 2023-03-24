@@ -30,7 +30,7 @@ namespace CRMS.Services
         public void CreateUser(UserViewModel model)
         {
             User user = new User();
-
+            //user.Id = model.Id;
             user.Name = model.Name;
             user.Email = model.Email;
             user.Password = model.Password;
@@ -102,7 +102,7 @@ namespace CRMS.Services
 
         }
 
-       /* public bool IsExist(UserViewModel model, bool IsAvailable)
+        public bool IsExist(UserViewModel model, bool IsAvailable)
         {
             bool existingmodel = GetUserList().Where(x => (IsAvailable || x.Id != model.Id) &&
                                                               (x.Email == model.Email)).Any();
@@ -111,6 +111,6 @@ namespace CRMS.Services
                 return true;
             }
             return false;
-        }  */    
+        }
     }
 }

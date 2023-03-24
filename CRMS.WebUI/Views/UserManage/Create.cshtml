@@ -5,13 +5,14 @@
 }
 
 <h2>Add User</h2>
+<hr />
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
-    <span class="glyphicon glyphicon-remove-circle"></span>
-    @TempData["Already"]
-    <button type="button" class="close" data-dismiss="alert">
-    </button>
-</div>}
+        <span class="glyphicon glyphicon-remove-circle"></span>
+        @TempData["Already"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>}
 
 @using (Html.BeginForm())
 {
@@ -19,7 +20,7 @@
 
     <div class="form-horizontal">
         @*<h4>UserViewModel</h4>*@
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -38,29 +38,26 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {
-            //bool existingmodel = userservice.IsExist(model, true);
+            bool existingmodel = userservice.IsExist(model, true);
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View();
             }
             else
             {
-               /* if (existingmodel)
+                if (existingmodel)
                 {
-                    TempData["Already"] = "Email Already is exist";
-                    return View();
+                    TempData["Already"] = "Email is Already exist";
+                    model.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
+                    return View(model);
                 }
                 else
                 {
                     userservice.CreateUser(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
-                }*/
-                userservice.CreateUser(model);
-                TempData["AlertMessage"] = "Added Successfully..!";
-                return RedirectToAction("Index");
-
+                }               
             }
         }
 
@@ -84,17 +81,29 @@ namespace CRMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(UserViewModel user, Guid Id)
-        {           
-           if (!ModelState.IsValid)
+        public ActionResult Edit(UserViewModel model, Guid Id)
+        {
+            bool existingmodel = userservice.IsExist(model, false);
+
+            if (!ModelState.IsValid)
            {
                return View();
            }
            else
-           {                    
-                userservice.UpdateUser(user, Id);
-                TempData["AlertMessage"] = "Updated Successfully..!";
-                return RedirectToAction("Index");                
+           {
+                if (existingmodel)
+                {
+                    TempData["Already"] = "Email is Already exist";
+                    model.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
+                    return View(model);
+                }
+                else
+                {
+                    userservice.UpdateUser(model, Id);
+                    TempData["AlertMessage"] = "Updated Successfully..!";
+                    return RedirectToAction("Index");
+                }
+                             
            }
         }       
         public ActionResult Delete(Guid Id)
