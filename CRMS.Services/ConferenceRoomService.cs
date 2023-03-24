@@ -55,7 +55,7 @@ namespace CRMS.Services
         public bool IsExist(ConferenceRoomViewModel model, bool IsAvailable)
         {
             bool existingmodel = GetConferenceRoomList().Where(x => (IsAvailable || x.Id != model.Id) &&
-                                                              (x.ConferenceRoomNo == model.ConferenceRoomNo)).Any();
+                                                              (x.ConferenceRoomNo.ToLower() == model.ConferenceRoomNo.ToLower())).Any();
             if (existingmodel)
             {
                 return true;

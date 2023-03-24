@@ -50,7 +50,7 @@ namespace CRMS.WebUI.Controllers
                 else
                 {
                     conferenceroomService.CreateConferenceRoom(model);
-                    TempData["AlertMessage"] = "Added Successfully..!";
+                    TempData["AlertMessage"] = "Added Successfully..!";                    
                     return RedirectToAction("Index");
                 }               
             }

@@ -65,8 +65,8 @@ namespace CRMS.Services
         public bool IsExist(CommonLookUpViewModel model, bool IsAvailable = false)
         {
             bool existingmodel = GetCommonLookUpsList().Where(x =>(IsAvailable || x.Id != model.Id)&& 
-                                                             (x.ConfigKey == model.ConfigKey && 
-                                                              x.ConfigName == model.ConfigName)).Any();
+                                                             (x.ConfigKey.ToLower() == model.ConfigKey.ToLower() && 
+                                                              x.ConfigName.ToLower() == model.ConfigName.ToLower())).Any();
             if (existingmodel)
             {
                 return true;

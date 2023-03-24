@@ -29,8 +29,7 @@ namespace CRMS.Services
 
         public void CreateUser(UserViewModel model)
         {
-            User user = new User();
-            //user.Id = model.Id;
+            User user = new User();            
             user.Name = model.Name;
             user.Email = model.Email;
             user.Password = model.Password;
@@ -105,7 +104,7 @@ namespace CRMS.Services
         public bool IsExist(UserViewModel model, bool IsAvailable)
         {
             bool existingmodel = GetUserList().Where(x => (IsAvailable || x.Id != model.Id) &&
-                                                              (x.Email == model.Email)).Any();
+                                                              (x.Email.ToLower() == model.Email.ToLower())).Any();
             if (existingmodel)
             {
                 return true;

@@ -57,7 +57,7 @@ namespace CRMS.Services
         public bool IsExist(RoleViewModel model, bool IsAvailable)
         {
             bool existingmodel = GetRolesList().Where(x => (IsAvailable || x.Id != model.Id) &&
-                                                              (x.RoleName == model.RoleName)).Any();
+                                                              (x.RoleName.ToLower() == model.RoleName.ToLower())).Any();
             if (existingmodel)
             {
                 return true;

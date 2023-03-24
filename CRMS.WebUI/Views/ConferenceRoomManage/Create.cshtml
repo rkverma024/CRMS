@@ -1,20 +1,23 @@
 ﻿@model CRMS.Core.ViewModel.ConferenceRoomViewModel
 
+<h3>Add Conference Room</h3>
+@if (@TempData["Already"] != null)
+{<div class="alert alert-danger">
+        <span class="glyphicon glyphicon-remove-circle"></span>
+        @TempData["Already"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>}
+<hr />
+
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <br>
     <div class="form-horizontal">
-        <h3>Add Conference Room</h3>
-        @if (@TempData["Already"] != null)
-        {<div class="alert alert-danger">
-                <span class="glyphicon glyphicon-remove-circle"></span>
-                @TempData["Already"]
-                <button type="button" class="close" data-dismiss="alert">
-                </button>
-            </div>}
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ConferenceRoomNo, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -34,7 +37,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input id="submit" type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>
