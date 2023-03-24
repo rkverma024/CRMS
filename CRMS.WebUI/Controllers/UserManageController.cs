@@ -25,13 +25,9 @@ namespace CRMS.WebUI.Controllers
 
         // GET: UserManage
         public ActionResult Index()
-        {
-            //List<User> user = userservice.GetUserList().ToList();
+        {            
             var list = userservice.GetUserRoleList();
-            return View(list);
-
-            /*List<User> user = userservice.GetUserList().ToList();
-            return View(user);*/
+            return View(list);           
         }
         public ActionResult Create()
         {
@@ -42,15 +38,29 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {
+            //bool existingmodel = userservice.IsExist(model, true);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             else
             {
+               /* if (existingmodel)
+                {
+                    TempData["Already"] = "Email Already is exist";
+                    return View();
+                }
+                else
+                {
+                    userservice.CreateUser(model);
+                    TempData["AlertMessage"] = "Added Successfully..!";
+                    return RedirectToAction("Index");
+                }*/
                 userservice.CreateUser(model);
                 TempData["AlertMessage"] = "Added Successfully..!";
                 return RedirectToAction("Index");
+
             }
         }
 
@@ -82,41 +92,17 @@ namespace CRMS.WebUI.Controllers
            }
            else
            {                    
-               userservice.UpdateUser(user, Id);
+                userservice.UpdateUser(user, Id);
                 TempData["AlertMessage"] = "Updated Successfully..!";
                 return RedirectToAction("Index");                
            }
-        }
-        /*public ActionResult Delete(Guid Id)
-        {
-            User user = userservice.GetUserById(Id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                return View(user);
-            }
-        }*/
-        //[HttpPost]
-        //[ActionName("Delete")]
+        }       
         public ActionResult Delete(Guid Id)
         {
             User userToDelete = userservice.GetUserById(Id);
             userservice.RemoveUser(userToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            return RedirectToAction("Index");
-
-           /* if (userToDelete == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                userservice.RemoveUser(userToDelete);
-                return RedirectToAction("Index");
-            }*/
+            return RedirectToAction("Index");           
         }
     }
 }

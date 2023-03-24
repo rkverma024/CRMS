@@ -1,33 +1,10 @@
 ﻿@model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
-<br>
 <h2>User</h2>
 <h3>
     @*@Html.ActionLink("Add", "Create", null, new { @class = "btn btn-success" })*@
     <a href="@Url.Action("Create", "UserManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
 </h3>
-<br>
-
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #D6EEEE;
-    }
-
-    th {
-        font-size: 120%;
-        background: #d25f67;
-        color: aliceblue;
-    }
-</style>
+<hr>
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">

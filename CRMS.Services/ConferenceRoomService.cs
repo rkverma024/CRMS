@@ -26,15 +26,7 @@ namespace CRMS.Services
             _conferenceRoomRepository.Insert(conferenceRoom);
             _conferenceRoomRepository.Commit();
         }
-
-       /* public void ConferenceRoom DeleteConferenceRoom(Guid Id)
-        {
-            ConferenceRoom conferenceRoom = GetConferenceRoomById(Id);
-            _conferenceRoomRepository.Delete(Id);
-
-
-        }
-*/
+       
         public ConferenceRoom GetConferenceRoomById(Guid Id)
         {
             ConferenceRoom conferenceRoom = _conferenceRoomRepository.Find(Id);
@@ -44,7 +36,7 @@ namespace CRMS.Services
         public List<ConferenceRoom> GetConferenceRoomList()
         {
             return _conferenceRoomRepository.Collection().Where(b => b.IsDeleted == false).ToList();
-        }
+        }        
 
         public void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom)
         {
@@ -52,11 +44,23 @@ namespace CRMS.Services
             _conferenceRoomRepository.Commit();
 
         }
-
-        public void UpdateConferenceRoom(ConferenceRoom updateConferenceRoom)
+        public void UpdateConferenceRoom(ConferenceRoomViewModel model, Guid Id)
         {
-            _conferenceRoomRepository.Update(updateConferenceRoom);
+            ConferenceRoom conferenceRoomToEdit = GetConferenceRoomById(Id);
+            conferenceRoomToEdit.ConferenceRoomNo = model.ConferenceRoomNo;
+            conferenceRoomToEdit.Capacity = model.Capacity;
+            _conferenceRoomRepository.Update(conferenceRoomToEdit);
             _conferenceRoomRepository.Commit();
+        }
+        public bool IsExist(ConferenceRoomViewModel model, bool IsAvailable)
+        {
+            bool existingmodel = GetConferenceRoomList().Where(x => (IsAvailable || x.Id != model.Id) &&
+                                                              (x.ConferenceRoomNo == model.ConferenceRoomNo)).Any();
+            if (existingmodel)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

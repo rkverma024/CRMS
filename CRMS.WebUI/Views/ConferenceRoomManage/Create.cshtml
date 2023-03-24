@@ -1,12 +1,19 @@
 ﻿@model CRMS.Core.ViewModel.ConferenceRoomViewModel
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <br>
     <div class="form-horizontal">
         <h3>Add Conference Room</h3>
+        @if (@TempData["Already"] != null)
+        {<div class="alert alert-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+                @TempData["Already"]
+                <button type="button" class="close" data-dismiss="alert">
+                </button>
+            </div>}
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

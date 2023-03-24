@@ -5,12 +5,18 @@
 }
 
 <h2>Add User</h2>
+@if (@TempData["Already"] != null)
+{<div class="alert alert-danger">
+    <span class="glyphicon glyphicon-remove-circle"></span>
+    @TempData["Already"]
+    <button type="button" class="close" data-dismiss="alert">
+    </button>
+</div>}
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @*<h4>UserViewModel</h4>*@
         <hr />

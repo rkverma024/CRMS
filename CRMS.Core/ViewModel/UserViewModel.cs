@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class UserViewModel
+    public class UserViewModel : BaseEntity
     {
         [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Name")]

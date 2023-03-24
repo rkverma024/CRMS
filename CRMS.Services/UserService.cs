@@ -102,9 +102,15 @@ namespace CRMS.Services
 
         }
 
-        //List<User> IUserService.GetUserList()
-        //{
-        //    throw new NotImplementedException();
-        //}
+       /* public bool IsExist(UserViewModel model, bool IsAvailable)
+        {
+            bool existingmodel = GetUserList().Where(x => (IsAvailable || x.Id != model.Id) &&
+                                                              (x.Email == model.Email)).Any();
+            if (existingmodel)
+            {
+                return true;
+            }
+            return false;
+        }  */    
     }
 }

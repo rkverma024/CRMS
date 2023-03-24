@@ -5,35 +5,11 @@
 }
 
 <h2>Role</h2>
-<br>
 
-<p>
-    @*@Html.ActionLink("Add", "Create", null, new { @class = "btn btn-success" })*@
+<h3>   
     <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-</p>
+</h3>
 <hr>
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #D6EEEE;
-    }
-
-    th {
-        font-size: 120%;
-        background: #d25f67;
-        color: aliceblue;
-    }
-</style>
-
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">

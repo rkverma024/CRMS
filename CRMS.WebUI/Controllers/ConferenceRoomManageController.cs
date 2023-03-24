@@ -34,15 +34,25 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(ConferenceRoomViewModel model)
         {
+            bool existingmodel = conferenceroomService.IsExist(model, true);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             else
             {
-                conferenceroomService.CreateConferenceRoom(model);
-                TempData["AlertMessage"] = "Added Successfully..!";
-                return RedirectToAction("Index");
+                if (existingmodel)
+                {
+                    TempData["Already"] = "Same Name ConferenceRoom is exist";
+                    return View();
+                }
+                else
+                {
+                    conferenceroomService.CreateConferenceRoom(model);
+                    TempData["AlertMessage"] = "Added Successfully..!";
+                    return RedirectToAction("Index");
+                }               
             }
         }
 
@@ -63,60 +73,35 @@ namespace CRMS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ConferenceRoomViewModel conferenceRoom, Guid Id)
+        public ActionResult Edit(ConferenceRoomViewModel model, Guid Id)
         {
-            ConferenceRoom conferenceRoomToEdit = conferenceroomService.GetConferenceRoomById(Id);
-
-            if (conferenceRoomToEdit == null)
+            bool existingmodel = conferenceroomService.IsExist(model, false);                
+            if (!ModelState.IsValid)
             {
-                return HttpNotFound();
+                return View();
             }
             else
             {
-                if (!ModelState.IsValid)
+                if (existingmodel)
                 {
+                    TempData["Already"] = "Same Name ConferenceRoom is exist";
                     return View();
                 }
                 else
                 {
-                    conferenceRoomToEdit.ConferenceRoomNo = conferenceRoom.ConferenceRoomNo;
-                    conferenceRoomToEdit.Capacity = conferenceRoom.Capacity;
-                    conferenceroomService.UpdateConferenceRoom(conferenceRoomToEdit);
+                    conferenceroomService.UpdateConferenceRoom(model, Id);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
-                }
-            }
-        }
-        /*public ActionResult Delete(Guid Id)
-        {
-            ConferenceRoom conferenceroom = conferenceroomService.GetConferenceRoomById(Id);
-            if (conferenceroom == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                return View(conferenceroom);
-            }
-        }*/
-
-        //[HttpPost]
-        //[ActionName("Delete")]
+                }                
+            }            
+        }       
+        //[HttpPost]     
         public ActionResult Delete(Guid Id)
         {
             ConferenceRoom conferenceroomToDelete = conferenceroomService.GetConferenceRoomById(Id);
             conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
             TempData["DeleteMessage"] = "Added Successfully..!";
-            return RedirectToAction("Index");
-            //if (conferenceroomToDelete == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //else
-            //{
-            //    conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
-            //    return RedirectToAction("Index");
-            //}
+            return RedirectToAction("Index");           
         }
     }
 }

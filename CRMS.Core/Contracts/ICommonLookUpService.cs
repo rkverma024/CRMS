@@ -13,7 +13,7 @@ namespace CRMS.Core.Contracts
         void CreateCommonLookUp(CommonLookUpViewModel model);
         List<CommonLookUp> GetCommonLookUpsList();
         CommonLookUp GetCommonLookUp(Guid Id);
-        void UpdateCommonLookUp(CommonLookUp updatecommonLookUp);
+        void UpdateCommonLookUp(CommonLookUpViewModel model, Guid ID);
         void RemoveCommonLookUp(CommonLookUp removecommonLookUp);
 
          bool IsExist(CommonLookUpViewModel model, bool IsAvailable);

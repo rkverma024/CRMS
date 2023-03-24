@@ -13,8 +13,9 @@ namespace CRMS.Core
         void CreateConferenceRoom(ConferenceRoomViewModel model);
         List<ConferenceRoom> GetConferenceRoomList();
         ConferenceRoom GetConferenceRoomById(Guid Id);
-        void UpdateConferenceRoom(ConferenceRoom updateConferenceRoom);
+        void UpdateConferenceRoom(ConferenceRoomViewModel model, Guid Id);
         void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom);
         /*void ConferenceRoom DeleteConferenceRoom(Guid Id);*/
+        bool IsExist(ConferenceRoomViewModel model, bool IsAvailable);
     }
 }

@@ -45,9 +45,12 @@ namespace CRMS.Services
             rolerepository.Commit();
         }
 
-        public void UpdateRole(Role updateRole)
+        public void UpdateRole(RoleViewModel model,Guid Id)
         {
-            rolerepository.Update(updateRole);
+            Role roleToEdit = GetRole(Id);
+            roleToEdit.RoleName = model.RoleName;
+            roleToEdit.Code = model.Code;
+            rolerepository.Update(roleToEdit);
             rolerepository.Commit();
         }
 

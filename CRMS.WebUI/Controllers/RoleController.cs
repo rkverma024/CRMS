@@ -16,11 +16,7 @@ namespace CRMS.WebUI.Controllers
         public RoleController(IRoleService roleService)
         {
             roleservice = roleService;
-        }
-        /*public RoleController()
-        {
-
-        }*/
+        }        
         // GET: RoleManagement
         public ActionResult Index()
         {
@@ -55,8 +51,7 @@ namespace CRMS.WebUI.Controllers
                     roleservice.CreateRole(model);
                     TempData["AlertMessage"] = "Added Successfully..!";                 
                     return RedirectToAction("Index");
-                }
-                
+                }                
             }
         }
         public ActionResult Edit(Guid Id)
@@ -78,71 +73,35 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(RoleViewModel role, Guid Id)
         {
-            bool existingmodel = roleservice.IsExist(role, false);
-            Role roleToEdit = roleservice.GetRole(Id);
-
-            if (roleToEdit == null)
+            bool existingmodel = roleservice.IsExist(role, false);                    
+            if (!ModelState.IsValid)
             {
-                return HttpNotFound();
+                return View();
             }
             else
             {
-                if (!ModelState.IsValid)
+                if (existingmodel)
                 {
+                    TempData["Already"] = "Alredy Data is exist";
                     return View();
                 }
                 else
-                {
-                    if (existingmodel)
-                    {
-                        TempData["Already"] = "Alredy Data is exist";
-                        return View();
-
-                    }
-                    else
-                    {
-                        roleToEdit.RoleName = role.RoleName;
-                        roleToEdit.Code = role.Code;
-                        roleservice.UpdateRole(roleToEdit);
-                        TempData["AlertMessage"] = "Updated Successfully..!";
-                        return RedirectToAction("Index");
-                    }
-                    
-                }
+                {                       
+                    roleservice.UpdateRole(role,Id);
+                    TempData["AlertMessage"] = "Updated Successfully..!";
+                    return RedirectToAction("Index");
+                }                                 
             }
         }
-        /*public ActionResult Delete(Guid Id)
-        {
-            Role role = roleservice.GetRole(Id);
-            if (role == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                return View(role);
-            }
-        }*/
-
+     
        /* [HttpPost]
         [ActionName("Delete")]*/
         public ActionResult Delete(Guid Id)
         {
-
             Role roleToDelete = roleservice.GetRole(Id);
             roleservice.RemoveRole(roleToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
-/*
-            if (roleToDelete == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                roleservice.RemoveRole(roleToDelete);                
-                return RedirectToAction("Index");
-            }            */
         }        
     }   
 }

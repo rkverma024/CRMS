@@ -49,9 +49,16 @@ namespace CRMS.Services
             commonLookUprepository.Commit();
         }
 
-        public void UpdateCommonLookUp(CommonLookUp updatecommonLookUp)
+        public void UpdateCommonLookUp(CommonLookUpViewModel model, Guid Id)
         {
-            commonLookUprepository.Update(updatecommonLookUp);
+            CommonLookUp commonLookUpToEdit =GetCommonLookUp(model.Id);
+            commonLookUpToEdit.ConfigName = model.ConfigName;
+            commonLookUpToEdit.ConfigKey = model.ConfigKey;
+            commonLookUpToEdit.DisplayOrder = model.DisplayOrder;
+            commonLookUpToEdit.Description = model.Description;
+            commonLookUpToEdit.ConfigValue = model.ConfigValue;
+            commonLookUpToEdit.IsActive = model.IsActive;
+            commonLookUprepository.Update(commonLookUpToEdit);
             commonLookUprepository.Commit();
         }
 

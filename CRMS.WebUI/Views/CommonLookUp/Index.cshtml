@@ -6,12 +6,6 @@
 
 <h2>Common LookUp</h2>
 
-@*<div class="modal fade" role="dialog" id="CommonLookModal" aria-labelledby="CommonLookModalLabel" aria-hidden="true">
-        <div class=" modal-dialog" role="document">
-            <div class="modal-content" id="commonLookBody"></div>
-        </div>
-    </div>*@
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -21,30 +15,10 @@
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
 
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #D6EEEE;
-    }
-
-    th {
-        font-size: 120%;
-        background: #d25f67;
-        color: aliceblue;
-    }
-</style>
-<button type="button" class="btn btn-success" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>Add</button>
-
+<h3><button type="button" class="btn btn-success" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>Add</button></h3>
 <hr>
+
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
