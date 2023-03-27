@@ -33,6 +33,9 @@ namespace CRMS.Services
             user.Name = model.Name;
             user.Email = model.Email;
             user.Password = model.Password;
+            user.UserName = model.UserName;
+            user.Gender = model.Gender;
+            user.MobileNo = model.MobileNo;
             
             userrepository.Insert(user);
             userrepository.Commit();
@@ -69,6 +72,9 @@ namespace CRMS.Services
             userToEdit.Name = model.Name;
             userToEdit.Email = model.Email;
             userToEdit.Password = model.Password;
+            userToEdit.UserName = model.UserName;
+            userToEdit.Gender = model.Gender;
+            userToEdit.MobileNo = model.MobileNo;
 
             userrepository.Update(userToEdit);
             userrepository.Commit();
@@ -95,6 +101,9 @@ namespace CRMS.Services
                            Id = _user.Id,
                            Name = _user.Name,
                            Email = _user.Email,
+                           UserName =_user.UserName,
+                           Gender = _user.Gender,
+                           MobileNo = _user.MobileNo,
                            Role = r.RoleName
                        };
             return list;

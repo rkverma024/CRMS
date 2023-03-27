@@ -11,6 +11,7 @@ namespace CRMS.Core.ViewModel
     public class UserViewModel : BaseEntity
     {
         [Required(ErrorMessage = "Name is Required")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only Letters and Spaces are allowed")]
         [Display(Name = "Name")]
         public string Name { get; set; }                       
 
@@ -25,20 +26,20 @@ namespace CRMS.Core.ViewModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Role is Required")]
         public Guid RoleId { get; set; }
 
         public List<DropDown> RoleDropdown { get; set; }
 
-        [Required(ErrorMessage = "UserName is Required")]
-        [Display(Name = "UserName")]
+        [Required(ErrorMessage = "User Name is Required")]
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Gender is Required")]
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
-        [Required(ErrorMessage = "MobileNo is Required")]
+        [Required(ErrorMessage = "Mobile No. is Required")]
         //[DataType(DataType.PhoneNumber)]
         //[StringLength(10, MinimumLength = 10)]
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Please Enter Valid Mobile Number.")]

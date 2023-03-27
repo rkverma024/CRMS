@@ -37,15 +37,15 @@ namespace CRMS.WebUI.Controllers
         }
         [HttpPost]
         public ActionResult Create(UserViewModel model)
-        {
-            bool existingmodel = userservice.IsExist(model, true);
-
+        {            
             if (!ModelState.IsValid)
             {
-                return View();
+                model.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
+                return View(model);
             }
-            else
+            else 
             {
+                bool existingmodel = userservice.IsExist(model, true);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Email is Already exist";
@@ -74,6 +74,9 @@ namespace CRMS.WebUI.Controllers
                 userModel.Name = user.Name;
                 userModel.Email = user.Email;
                 userModel.Password = user.Password;
+                userModel.UserName = user.UserName;
+                userModel.Gender = user.Gender;
+                userModel.MobileNo = user.MobileNo;
                 userModel.RoleId = _useroleservice.GetUserRole(user.Id).RoleId; ;
                 userModel.RoleDropdown= roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
                 return View(userModel);
@@ -82,15 +85,14 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(UserViewModel model, Guid Id)
-        {
-            bool existingmodel = userservice.IsExist(model, false);
-
+        {            
             if (!ModelState.IsValid)
            {
                return View();
            }
            else
            {
+                bool existingmodel = userservice.IsExist(model, false);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Email is Already exist";
