@@ -33,15 +33,14 @@ namespace CRMS.WebUI.Controllers
         }
         [HttpPost]
         public ActionResult Create(ConferenceRoomViewModel model)
-        {
-            bool existingmodel = conferenceroomService.IsExist(model, true);
-
+        {            
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             else
             {
+                bool existingmodel = conferenceroomService.IsExist(model, true);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Same Name ConferenceRoom is exist";
@@ -74,14 +73,14 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(ConferenceRoomViewModel model, Guid Id)
-        {
-            bool existingmodel = conferenceroomService.IsExist(model, false);                
+        {                      
             if (!ModelState.IsValid)
             {
                 return View();
             }
             else
             {
+                bool existingmodel = conferenceroomService.IsExist(model, false);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Same Name ConferenceRoom is exist";

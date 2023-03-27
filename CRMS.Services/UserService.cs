@@ -42,7 +42,7 @@ namespace CRMS.Services
 
             UserRole userrole = new UserRole();
             userrole.UserId = user.Id;
-            userrole.RoleId = model.RoleId;
+            userrole.RoleId = model.Role;
 
             userRolerepository.Insert(userrole);
             userRolerepository.Commit();
@@ -80,7 +80,7 @@ namespace CRMS.Services
             userrepository.Commit();
 
             UserRole userrole = _userRoleService.GetUserRole(userToEdit.Id);
-            userrole.RoleId = model.RoleId;           
+            userrole.RoleId = model.Role;           
 
             userRolerepository.Update(userrole);
             userRolerepository.Commit();

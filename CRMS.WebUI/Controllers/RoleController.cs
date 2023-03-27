@@ -32,15 +32,14 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
-        {
-            bool existingmodel = roleservice.IsExist(model, true);
-
+        {            
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             else
             {
+                bool existingmodel = roleservice.IsExist(model, true);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Already Data is exist";
@@ -72,14 +71,14 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(RoleViewModel role, Guid Id)
-        {
-            bool existingmodel = roleservice.IsExist(role, false);                    
+        {                        
             if (!ModelState.IsValid)
             {
                 return View();
             }
             else
             {
+                bool existingmodel = roleservice.IsExist(role, false);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Alredy Data is exist";

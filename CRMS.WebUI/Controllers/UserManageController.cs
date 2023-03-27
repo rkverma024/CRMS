@@ -77,7 +77,7 @@ namespace CRMS.WebUI.Controllers
                 userModel.UserName = user.UserName;
                 userModel.Gender = user.Gender;
                 userModel.MobileNo = user.MobileNo;
-                userModel.RoleId = _useroleservice.GetUserRole(user.Id).RoleId; ;
+                userModel.Role = _useroleservice.GetUserRole(user.Id).RoleId; ;
                 userModel.RoleDropdown= roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
                 return View(userModel);
             }

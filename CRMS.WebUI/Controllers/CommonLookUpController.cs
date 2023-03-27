@@ -34,15 +34,14 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
-        {
-            bool existingmodel = commonLookUpservice.IsExist(model, true);
-
+        {            
             if (!ModelState.IsValid)
             {
                 return Content("False");
             }
             else
             {
+                bool existingmodel = commonLookUpservice.IsExist(model, true);
                 if (existingmodel)
                 {
                     TempData["Already"] = "Already Data is exist";
@@ -81,27 +80,26 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
-        {
-            bool existingmodel = commonLookUpservice.IsExist(commonLookUp, false);
-            
+        {                       
                 if (!ModelState.IsValid)
                 {
                     return Content("False");                    
                 }
                 else
                 {
+                    bool existingmodel = commonLookUpservice.IsExist(commonLookUp, false);
                     if (existingmodel)
-                    {
-                        TempData["Already"] = "Alredy Data is exist";
-                        return Content("exists");
+                        {
+                            TempData["Already"] = "Alredy Data is exist";
+                            return Content("exists");
+                        }
+                        else
+                        {                        
+                            commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
+                            TempData["AlertMessage"] = "Updated Successfully..!";
+                            return Content("true");                        
+                        }
                     }
-                    else
-                    {                        
-                        commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
-                        TempData["AlertMessage"] = "Updated Successfully..!";
-                        return Content("true");                        
-                    }
-                }
             }        
         public ActionResult Delete(Guid Id)
         {

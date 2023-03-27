@@ -27,7 +27,7 @@ namespace CRMS.Core.ViewModel
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Role is Required")]
-        public Guid RoleId { get; set; }
+        public Guid Role { get; set; }
 
         public List<DropDown> RoleDropdown { get; set; }
 
