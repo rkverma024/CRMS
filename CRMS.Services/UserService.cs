@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Scrypt;
 
 namespace CRMS.Services
 {
@@ -29,10 +30,13 @@ namespace CRMS.Services
 
         public void CreateUser(UserViewModel model)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
+
             User user = new User();            
             user.Name = model.Name;
             user.Email = model.Email;
             user.Password = model.Password;
+            user.Password = encoder.Encode(model.Password);
             user.UserName = model.UserName;
             user.Gender = model.Gender;
             user.MobileNo = model.MobileNo;

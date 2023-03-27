@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Scrypt;
 namespace CRMS.DataAccess.SQL
 {
     public class LoginRepository
@@ -22,10 +22,12 @@ namespace CRMS.DataAccess.SQL
             return user;
         }*/
 
-        public int Login(User model)
+        public User Login(string email)
         {
-            var user = context.Users.Where(a => a.Email == model.Email && a.Password == model.Password).Count();
-            return user;
+            var validUser = (from u in context.Users where u.Email.Equals(email) select u).FirstOrDefault();
+            return validUser;
+            /*var user = context.Users.Where(a => a.Email == model.Email && a.Password == model.Password).Count();
+            return user;*/
         }
     }
 }

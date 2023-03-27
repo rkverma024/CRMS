@@ -31,7 +31,20 @@
                         <li>@Html.ActionLink("Role", "Index", "Role")</li>
                         <li>@Html.ActionLink("User", "Index", "UserManage")</li>
                         <li>@Html.ActionLink("Conference Room", "Index", "ConferenceRoomManage")</li>
-                        <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>                       
+                        <li>@Html.ActionLink("CommonLookUp", "Index", "CommonLookUp")</li>
+                        @* <li>
+                @if (Request.IsAuthenticated)
+                {
+                    <strong>@Html.Encode(User.Identity.Name)</strong>
+                   @Html.ActionLink("Log Out", "Login", "Account")
+                }
+            </li>*@
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @*@Html.ActionLink("Hello " + User.Identity.Name() + "!", "Index" })*@
+                        </li>
+                        <li>@Html.ActionLink("Log Out", "Login", "Account")
                     </ul>
                     @*@Html.Partial("_LoginPratial");*@
                 </div>

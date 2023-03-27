@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Protocol.Core.Types;
+using Scrypt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,30 +39,37 @@ namespace CRMS.WebUI.Controllers
             return View("");
         }
         [HttpPost]
-
         //[AllowAnonymous]
-        public ActionResult Login(User model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            int user = repository.Login(model) ;
-
-            if (!ModelState.IsValid)
+            ScryptEncoder encoder = new ScryptEncoder();
+           
+            if (!ModelState.IsValid)    
             {
 
                 return View(model);
             }
             else
-            {
-                if (user > 0)
+            {                               
+
+                User user = repository.Login(model.Email);
+                bool isValidUser = encoder.Compare(model.Password, user.Password);
+                if (isValidUser)
                 {
                     TempData["AlertMessage"] = "Login Successfully..!";
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    TempData["Message"] = "Enter Correct Email OR Password " ;                    
+                    TempData["Message"] = "Incorrect Email OR Password " ;                    
                     return View();
                 }
             }
+        }
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

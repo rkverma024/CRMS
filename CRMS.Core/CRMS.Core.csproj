@@ -34,6 +34,9 @@
     <Reference Include="FiftyOne.Foundation, Version=3.2.21.1, Culture=neutral, PublicKeyToken=e0b3a8da0bbce49c, processorArchitecture=MSIL">
       <HintPath>..\packages\51Degrees.mobi-core.3.2.21.1\lib\NET40\FiftyOne.Foundation.dll</HintPath>
     </Reference>
+    <Reference Include="Scrypt, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scrypt.NET.1.3.0\lib\net20\Scrypt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -47,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Contracts\ICommonLookUpService.cs" />
     <Compile Include="Contracts\IConferenceRoomRepository.cs" />
+    <Compile Include="Contracts\ILoginService.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
