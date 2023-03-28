@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Scrypt;
 namespace CRMS.DataAccess.SQL
 {
-    public class LoginRepository
+    public class LoginRepository 
     {
         internal DataContext context;
 
-        public LoginRepository()
-        {           
-            context = new DataContext();
+        public LoginRepository(DataContext context)
+        {
+            this.context = context;
+            //context = new DataContext();
         }
         /*public IQueryable<UserRole> loginRepository()
         {

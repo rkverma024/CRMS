@@ -10,7 +10,7 @@ using Scrypt;
 
 namespace CRMS.WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UserManageController : Controller
     {
         private IUserService userservice;
@@ -55,7 +55,8 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
-                    userservice.CreateUser(model);
+                    model.CreatedBy = (Guid)Session["Id"];
+                    userservice.CreateUser(model);                    
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
                 }               
@@ -86,10 +87,11 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(UserViewModel model, Guid Id)
-        {            
+        {                        
             if (!ModelState.IsValid)
            {
-               return View();
+                model.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
+                return View(model);
            }
            else
            {
@@ -101,7 +103,7 @@ namespace CRMS.WebUI.Controllers
                     return View(model);
                 }
                 else
-                {
+                {                    
                     userservice.UpdateUser(model, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
                     return RedirectToAction("Index");

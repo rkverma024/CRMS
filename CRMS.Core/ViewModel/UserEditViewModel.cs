@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class UserViewModel : BaseEntity
+    public class UserEditViewModel : BaseEntity
     {
         [Required(ErrorMessage = "Name is Required")]
         [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only Letters and Spaces are allowed")]
@@ -20,11 +20,11 @@ namespace CRMS.Core.ViewModel
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is Required")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]        
+       /* [Required(ErrorMessage = "Password is Required")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        public string Password { get; set; }
+        public string Password { get; set; }*/
 
         [Required(ErrorMessage = "Role is Required")]
         public Guid Role { get; set; }
@@ -45,9 +45,5 @@ namespace CRMS.Core.ViewModel
         [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Please Enter Valid Mobile Number.")]
         [Display(Name = "MobileNo")]
         public string MobileNo { get; set; }
-
-        /*[Display(Name = "Role")]
-        public string Role { get; set; }*/
-
     }
 }

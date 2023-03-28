@@ -24,6 +24,8 @@ namespace CRMS.Services
             Role role = new Role();
             role.RoleName = model.RoleName;
             role.Code = model.Code;
+            role.CreatedBy = model.CreatedBy;
+            //role.CreatedOn = DateTime.Now;
             rolerepository.Insert(role);
             rolerepository.Commit();
         }
@@ -41,6 +43,7 @@ namespace CRMS.Services
 
         public void RemoveRole(Role removeRole)
         {
+            
             removeRole.IsDeleted = true;
             rolerepository.Commit();
         }
@@ -50,6 +53,8 @@ namespace CRMS.Services
             Role roleToEdit = GetRole(Id);
             roleToEdit.RoleName = model.RoleName;
             roleToEdit.Code = model.Code;
+            roleToEdit.UpdatedBy = model.UpdatedBy;
+            roleToEdit.UpdatedOn = DateTime.Now;
             rolerepository.Update(roleToEdit);
             rolerepository.Commit();
         }

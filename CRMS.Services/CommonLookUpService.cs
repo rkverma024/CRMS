@@ -27,6 +27,8 @@ namespace CRMS.Services
             commonLookUp.Description = model.Description;
             commonLookUp.ConfigValue = model.ConfigValue;
             commonLookUp.IsActive = model.IsActive;
+            commonLookUp.CreatedBy = model.CreatedBy;
+            /*commonLookUp.CreatedOn = DateTime.Now;*/
             commonLookUprepository.Insert(commonLookUp);
             commonLookUprepository.Commit();
 
@@ -58,6 +60,8 @@ namespace CRMS.Services
             commonLookUpToEdit.Description = model.Description;
             commonLookUpToEdit.ConfigValue = model.ConfigValue;
             commonLookUpToEdit.IsActive = model.IsActive;
+            commonLookUpToEdit.UpdatedBy = model.UpdatedBy;
+            commonLookUpToEdit.UpdatedOn = DateTime.Now;
             commonLookUprepository.Update(commonLookUpToEdit);
             commonLookUprepository.Commit();
         }

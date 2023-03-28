@@ -40,7 +40,8 @@ namespace CRMS.Services
             user.UserName = model.UserName;
             user.Gender = model.Gender;
             user.MobileNo = model.MobileNo;
-            
+            user.CreatedBy = model.CreatedBy;
+            /*user.CreatedOn = model.CreatedOn;*/
             userrepository.Insert(user);
             userrepository.Commit();
 
@@ -59,7 +60,6 @@ namespace CRMS.Services
 
         public List<User> GetUserList()
         {
-
             return userrepository.Collection().Where(b => b.IsDeleted == false).ToList();
         }
 
@@ -79,7 +79,8 @@ namespace CRMS.Services
             userToEdit.UserName = model.UserName;
             userToEdit.Gender = model.Gender;
             userToEdit.MobileNo = model.MobileNo;
-
+            userToEdit.UpdatedBy = model.UpdatedBy;
+            userToEdit.UpdatedOn = DateTime.Now;
             userrepository.Update(userToEdit);
             userrepository.Commit();
 

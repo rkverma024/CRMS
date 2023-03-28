@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CommonLookUpController : Controller
     {
         private ICommonLookUpService commonLookUpservice;
@@ -44,11 +44,13 @@ namespace CRMS.WebUI.Controllers
                 bool existingmodel = commonLookUpservice.IsExist(model, true);
                 if (existingmodel)
                 {
+                    
                     TempData["Already"] = "Already Data is exist";
                     return Content("exists");
                 }
                 else
                 {
+                    model.CreatedBy = (Guid)Session["Id"];
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return Content("true");                    
@@ -94,7 +96,8 @@ namespace CRMS.WebUI.Controllers
                             return Content("exists");
                         }
                         else
-                        {                        
+                        {
+                            commonLookUp.UpdatedBy = (Guid)Session["Id"];                  
                             commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
                             TempData["AlertMessage"] = "Updated Successfully..!";
                             return Content("true");                        

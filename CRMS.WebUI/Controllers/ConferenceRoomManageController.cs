@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ConferenceRoomManageController : Controller
     {
         IConferenceRoomService conferenceroomService;
@@ -48,6 +48,7 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
+                    model.CreatedBy = (Guid)Session["Id"];
                     conferenceroomService.CreateConferenceRoom(model);
                     TempData["AlertMessage"] = "Added Successfully..!";                    
                     return RedirectToAction("Index");
@@ -88,6 +89,7 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
+                    model.UpdatedBy = (Guid)Session["Id"];
                     conferenceroomService.UpdateConferenceRoom(model, Id);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");

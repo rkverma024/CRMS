@@ -17,5 +17,6 @@ namespace CRMS.Core.Contracts
         void UpdateUser(UserViewModel model, Guid Id);
         void RemoveUser(User removeUser);
         bool IsExist(UserViewModel model, bool IsAvailable);
+       
     }
 }

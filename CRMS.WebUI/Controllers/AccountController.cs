@@ -2,6 +2,7 @@
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
 using CRMS.DataAccess.SQL;
+using CRMS.Services;
 using CRMS.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -22,13 +23,16 @@ namespace CRMS.WebUI.Controllers
     //[Authorize]
     public class AccountController : Controller
     {
-        LoginRepository repository = new LoginRepository();
+        private LoginService loginService;
+        private UserService userservice;
+        //LoginRepository repository = new LoginRepository();
 
-        public AccountController()
+        public AccountController(LoginService LoginService, UserService userService)
         {
-
+            loginService = LoginService;
+            userservice = userService;
         }
-
+       
         // GET: Account       
 
         //[AllowAnonymous]
@@ -41,35 +45,45 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         //[AllowAnonymous]
         public ActionResult Login(LoginViewModel model, string returnUrl)
-        {
-            ScryptEncoder encoder = new ScryptEncoder();
-           
+        {          
             if (!ModelState.IsValid)    
             {
-
                 return View(model);
             }
             else
-            {                               
-
-                User user = repository.Login(model.Email);
-                bool isValidUser = encoder.Compare(model.Password, user.Password);
-                if (isValidUser)
+            {
+                User user = loginService.Login(model);
+                if (user != null)
                 {
-                    TempData["AlertMessage"] = "Login Successfully..!";
-                    return RedirectToAction("Index", "Home");
+                    ScryptEncoder encoder = new ScryptEncoder();
+                    bool isValidUser = encoder.Compare(model.Password, user.Password);
+                    if (isValidUser)
+                    {
+                        Session["Email"] = user.Email;
+                        Session["UserName"] = user.UserName;
+                        Session["Id"] = user.Id;
+                        FormsAuthentication.SetAuthCookie(model.Email, false);
+                        TempData["AlertMessage"] = "Login Successfully..!";
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Incorrect Email OR Password ";
+                        return View();
+                    }
                 }
                 else
                 {
-                    TempData["Message"] = "Incorrect Email OR Password " ;                    
+                    TempData["Message"] = "Incorrect Email OR Password ";
                     return View();
                 }
+
             }
         }
         public ActionResult LogOut()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            FormsAuthentication.SignOut();            
+            return RedirectToAction("Login");
         }
     }
 }

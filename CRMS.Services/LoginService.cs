@@ -1,5 +1,8 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
+using CRMS.DataAccess.SQL;
+using CRMS.WebUI.Models;
+using Scrypt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +11,20 @@ using System.Threading.Tasks;
 
 namespace CRMS.Services
 {
-    public class LoginService : ILoginService
+    public class LoginService
     {
-        IRepository<User> repository;
-        public LoginService(IRepository<User> loginRepository)
+        LoginRepository loginrepository;
+        public LoginService(LoginRepository loginRepository)
         {
-            this.repository = loginRepository;
+            this.loginrepository = loginRepository;
         }
-        /*public User Login(string email)
+
+        public User Login(LoginViewModel model)
         {
-            var validUser = (from u in repository.User where u.Email.Equals(email) select u).FirstOrDefault();
-            return validUser;
-        }*/
+            
+            User user = loginrepository.Login(model.Email);           
+            return user;
+        }
+
     }
 }

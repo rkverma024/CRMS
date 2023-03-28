@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Contracts\ICommonLookUpService.cs" />
     <Compile Include="Contracts\IConferenceRoomRepository.cs" />
-    <Compile Include="Contracts\ILoginService.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
@@ -70,7 +69,9 @@
     <Compile Include="ViewModel\ConferenceRoomViewModel.cs" />
     <Compile Include="ViewModel\DropDown.cs" />
     <Compile Include="ViewModel\IndexViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
+    <Compile Include="ViewModel\UserEditViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

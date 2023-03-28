@@ -1,10 +1,10 @@
-﻿@using CRMS.WebUI.Models
-@model LoginViewModel
+﻿@model CRMS.WebUI.Models.LoginViewModel
+
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Login";
     Layout = null;
 }
-
+@*<h2>Login</h2>*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@
     <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
     <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 
-   
+
 </head>
 <body>
     @using (Html.BeginForm())
@@ -53,7 +53,8 @@
                         @if (TempData["Message"] != null)
                         {
                             <span style="color:red;">
-                            @TempData["Message"]</span>
+                                @TempData["Message"]
+                            </span>
                         }
                     </div>
                     <div class="mt-4">

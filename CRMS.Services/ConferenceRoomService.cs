@@ -23,6 +23,8 @@ namespace CRMS.Services
             ConferenceRoom conferenceRoom = new ConferenceRoom();
             conferenceRoom.ConferenceRoomNo = model.ConferenceRoomNo;
             conferenceRoom.Capacity = model.Capacity;
+            conferenceRoom.CreatedBy = model.CreatedBy;
+            /*conferenceRoom.CreatedOn = DateTime.Now;*/
             _conferenceRoomRepository.Insert(conferenceRoom);
             _conferenceRoomRepository.Commit();
         }
@@ -49,6 +51,8 @@ namespace CRMS.Services
             ConferenceRoom conferenceRoomToEdit = GetConferenceRoomById(Id);
             conferenceRoomToEdit.ConferenceRoomNo = model.ConferenceRoomNo;
             conferenceRoomToEdit.Capacity = model.Capacity;
+            conferenceRoomToEdit.UpdatedBy = model.UpdatedBy;
+            conferenceRoomToEdit.UpdatedOn = DateTime.Now;
             _conferenceRoomRepository.Update(conferenceRoomToEdit);
             _conferenceRoomRepository.Commit();
         }

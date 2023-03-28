@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class RoleViewModel
+    public class RoleViewModel : BaseEntity
     {
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
         [Required]
         [Display(Name = "Role Name")]
         public string RoleName { get; set; }
 
         [Required]
-        [RegularExpression(@"[A-Z]{2,10}$", 
+        [RegularExpression(@"[A-Z]{1,10}$", 
          ErrorMessage = "Only uppercase Characters are allowed.")]
         [Display(Name = "Role Code")]
         public string Code { get; set; }
 
        
-        public Role Role { get; set; }
+        //public Role Role { get; set; }
     }
 }
