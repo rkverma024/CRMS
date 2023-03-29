@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>   
+<head>
     <style>
-       li{
+        li {
             color: white;
         }
     </style>
@@ -10,6 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - CRMS</title>
     @* @Styles.Render("~/Content/css")*@
+    <script src="~/Content/Custom.js"></script>
+    @RenderSection("scripts", required: false)
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    @*Kendo*@
+
+    @Styles.Render("~/bundles/kendoCss")
+    @Scripts.Render("~/bundles/kendoJs")
+
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -55,9 +65,5 @@
             <p>&copy; @DateTime.Now.Year - CRMS</p>
         </footer>*@
     </div>  
-<script src="~/Content/Custom.js"></script>
-    @RenderSection("scripts",required:false)
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")   
 </body>
 </html>

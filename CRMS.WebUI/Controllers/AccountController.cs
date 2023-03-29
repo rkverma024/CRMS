@@ -77,7 +77,6 @@ namespace CRMS.WebUI.Controllers
                     TempData["Message"] = "Incorrect Email OR Password ";
                     return View();
                 }
-
             }
         }
         public ActionResult LogOut()

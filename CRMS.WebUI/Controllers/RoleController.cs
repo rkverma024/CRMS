@@ -1,6 +1,8 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,13 @@ namespace CRMS.WebUI.Controllers
         public RoleController(IRoleService roleService)
         {
             roleservice = roleService;
-        }        
+        }
         // GET: RoleManagement
         public ActionResult Index()
         {
             List<Role> roles = roleservice.GetRolesList().ToList();
             return View(roles);
+
         }
 
         public ActionResult Create()
@@ -32,7 +35,7 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
-        {            
+        {
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -49,9 +52,9 @@ namespace CRMS.WebUI.Controllers
                 {
                     model.CreatedBy = (Guid)Session["Id"];
                     roleservice.CreateRole(model);
-                    TempData["AlertMessage"] = "Added Successfully..!";                 
+                    TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
-                }                
+                }
             }
         }
         public ActionResult Edit(Guid Id)
@@ -72,7 +75,7 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(RoleViewModel role, Guid Id)
-        {                        
+        {
             if (!ModelState.IsValid)
             {
                 return View();
@@ -88,21 +91,27 @@ namespace CRMS.WebUI.Controllers
                 else
                 {
                     role.UpdatedBy = (Guid)Session["Id"];
-                    roleservice.UpdateRole(role,Id);
+                    roleservice.UpdateRole(role, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
                     return RedirectToAction("Index");
-                }                                 
+                }
             }
         }
-     
-       /* [HttpPost]
-        [ActionName("Delete")]*/
+
+        /* [HttpPost]
+         [ActionName("Delete")]*/
         public ActionResult Delete(Guid Id)
         {
             Role roleToDelete = roleservice.GetRole(Id);
             roleservice.RemoveRole(roleToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
+        }
+        public JsonResult Grid([DataSourceRequest] DataSourceRequest request)
+        {
+            IEnumerable<Role> roles = roleservice.GetRolesList().ToList();
+            return Json(roles.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }        
+
     }   
 }

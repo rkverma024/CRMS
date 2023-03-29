@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CRMS.Core.Models.Role>
+﻿@using Kendo.Mvc.UI
+
+@model IEnumerable<CRMS.Core.Models.Role>
 
 @{
     ViewBag.Title = "Index";
@@ -10,56 +12,93 @@
     <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
 </h3>
 <hr>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
-        @TempData["AlertMessage"]        
+        @TempData["AlertMessage"]
     </div>  }
 
 @if (@TempData["DeleteMessage"] != null)
 {<div class="alert alert-danger">
         <span class="glyphicon glyphicon-trash"></span>
-        @TempData["DeleteMessage"]        
+        @TempData["DeleteMessage"]
     </div>  }
 
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+@(
+    Html.Kendo().Grid(Model).Name("grid").Columns(columns => {
+    columns.Bound(expression: c => c.RoleName);
+    columns.Bound(expression: c => c.Code);
+
+    columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+                       .Title("Action"); 
+    }).Sortable()
+    .Scrollable()
+    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("Grid", "Role"))
+    .Model(model => model.Id(p => p.Id)))
+    )
 
 
-<table class="table table-striped table-bordered" style="width:100%">
-    <tr>
-        <th>
-            SNo.
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th>Action</th>
-    </tr>
-    @{ int count = 0;}
-    @foreach (var item in Model)
-    {
+
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+        $('#grid').data('kendoGrid').dataSource.read();
+        $('#grid').data('kendoGrid').refresh();
+
+    });
+</script>
+
+@*  .Sortable()
+    .Scrollable()
+    .Pageable()
+    .Pageable(pageable => pageable.Refresh(true))
+    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("Grid", "Role"))
+    .PageSize(10).Model(model => model.Id(expression: p => p.Id)))*@
+
+
+@*<table class="table table-striped table-bordered" style="width:100%">
         <tr>
-            <td>
-                @{count += 1; }
-                @count
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |*@
-                <a href="@Url.Action("Edit", "Role", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |
-                @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                <a href="@Url.Action("Delete", "Role", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.RoleName')"><i class=" glyphicon glyphicon-trash"></i></a>
-            </td>
+            <th>
+                SNo.
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>Action</th>
         </tr>
-    }
+        @{ int count = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{count += 1; }
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
 
-</table>
+                    <a href="@Url.Action("Edit", "Role", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |
+
+                    <a href="@Url.Action("Delete", "Role", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.RoleName')"><i class=" glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>*@
