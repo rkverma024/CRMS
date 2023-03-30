@@ -1,6 +1,8 @@
 ﻿using CRMS.Core;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +105,12 @@ namespace CRMS.WebUI.Controllers
             conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
             TempData["DeleteMessage"] = "Added Successfully..!";
             return RedirectToAction("Index");           
+        }
+
+        public JsonResult ConferenceGrid([DataSourceRequest] DataSourceRequest request)
+        {
+            IEnumerable<ConferenceRoom> conferenceRoom = conferenceroomService.GetConferenceRoomList().ToList();
+            return Json(conferenceRoom.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

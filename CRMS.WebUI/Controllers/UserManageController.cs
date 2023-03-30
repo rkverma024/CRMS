@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Scrypt;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace CRMS.WebUI.Controllers
 {
@@ -75,7 +77,7 @@ namespace CRMS.WebUI.Controllers
                 UserViewModel userModel = new UserViewModel();
                 userModel.Name = user.Name;
                 userModel.Email = user.Email;
-                userModel.Password = user.Password;
+                //userModel.Password = user.Password;
                 userModel.UserName = user.UserName;
                 userModel.Gender = user.Gender;
                 userModel.MobileNo = user.MobileNo;
@@ -117,6 +119,12 @@ namespace CRMS.WebUI.Controllers
             userservice.RemoveUser(userToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");           
+        }
+
+        public JsonResult UserGrid([DataSourceRequest] DataSourceRequest request)
+        {
+            IEnumerable<IndexViewModel> list = userservice.GetUserRoleList().ToList();
+            return Json(list.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

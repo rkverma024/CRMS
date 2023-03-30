@@ -11,7 +11,7 @@ namespace CRMS.Core.Contracts
     public interface ICommonLookUpService
     {
         void CreateCommonLookUp(CommonLookUpViewModel model);
-        List<CommonLookUp> GetCommonLookUpsList();
+        List<CommonLookUpViewModel> GetCommonLookUpsList();
         CommonLookUp GetCommonLookUp(Guid Id);
         void UpdateCommonLookUp(CommonLookUpViewModel model, Guid ID);
         void RemoveCommonLookUp(CommonLookUp removecommonLookUp);

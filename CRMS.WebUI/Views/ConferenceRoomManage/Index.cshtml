@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CRMS.Core.Models.ConferenceRoom>
+﻿@using Kendo.Mvc.UI
+@model IEnumerable<CRMS.Core.Models.ConferenceRoom>
 
 <h2>Conference Room</h2>
 
@@ -13,7 +14,7 @@
         @TempData["AlertMessage"]
         <button type="button" class="close" data-dismiss="alert">
         </button>
- </div>}
+    </div>}
 
 @if (@TempData["DeleteMessage"] != null)
 {<div class="alert alert-danger">
@@ -21,9 +22,77 @@
         @TempData["DeleteMessage"]
         <button type="button" class="close" data-dismiss="alert">
         </button>
- </div> }
+    </div> }
 
-<table class="table table-striped table-bordered" style="width:100%">
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
+
+@(
+    Html.Kendo().Grid(Model).Name("ConferenceGrid").Columns(columns => {
+        columns.Bound(expression: c => c.ConferenceRoomNo);
+        columns.Bound(expression: c => c.Capacity);
+
+        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "ConferenceRoomManage") +
+            "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" +
+            " | " + "<a href='" + Url.Action("Delete", "ConferenceRoomManage") +
+            "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+            .Title("Action").Filterable(false);
+    }) .ToolBar(toolbar =>
+    {
+    toolbar.Template(@<text>
+                <div class="toolbar">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                <input type="text" class="form-control" id='FieldFilter' placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </text>);
+    })
+    .Sortable()
+    .Resizable(resizing => resizing.Columns(true))
+    .Scrollable()
+    .Filterable()
+    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("ConferenceGrid", "ConferenceRoomManage"))
+    .Model(model => model.Id(p => p.Id)))
+  )
+
+<script>
+    $(document).ready(function () {
+        $('#ConferenceGrid').data('kendoGrid').dataSource.read();
+        $('#ConferenceGrid').data('kendoGrid').refresh();
+
+        $("#FieldFilter").keyup(function () {
+
+            var value = $("#FieldFilter").val();
+            grid = $("#ConferenceGrid").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({ field: "ConferenceRoomNo", operator: "contains", value: value });
+            } else {
+                grid.dataSource.filter({});
+            }
+        });
+    });
+
+   @* $(document).ready(function () {
+       
+    });*@
+</script>
+
+
+
+@*<table class="table table-striped table-bordered" style="width:100%">
     <tr>
         <th>SNo.</th>
         <th>
@@ -33,38 +102,38 @@
             @Html.DisplayNameFor(model => model.Capacity)
         </th>
         <th>Action</th>
-    </tr>
+    </tr>*@
 
-    @{ int count = 0;}
+@*  @{ int count = 0;}
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @{count += 1; }
-                @count
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConferenceRoomNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |*@
+    @foreach (var item in Model)*@
+<!--{
+    <tr>
+        <td>-->
+@*  @{count += 1; }
+    @count*@
+<!--</td>
+<td>-->
+@*@Html.DisplayFor(modelItem => item.ConferenceRoomNo)*@
+<!--</td>
+<td>-->
+@*  @Html.DisplayFor(modelItem => item.Capacity)*@
+<!--</td>
+<td>-->
+@*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |*@
 
-                <a href="@Url.Action("Edit", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |
+@*<a href="@Url.Action("Edit", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |*@
 
-                @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-                <a href="@Url.Action("Delete", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConferenceRoomNo')"><i class=" glyphicon glyphicon-trash"></i></a>
+@*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+@*<a href="@Url.Action("Delete", "ConferenceRoomManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.ConferenceRoomNo')"><i class=" glyphicon glyphicon-trash"></i></a>*@
 
 
+@*
+                </td>
+            </tr>
 
-            </td>
-        </tr>
-
-    }
-</table>
+        }
+    </table>*@
 @*<script type="text/javascript">
 
         $(document).on('click', '#delete', function ()

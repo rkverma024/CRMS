@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
+﻿@using Kendo.Mvc.UI
+@model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
 <h2>User</h2>
 <h3>
     @*@Html.ActionLink("Add", "Create", null, new { @class = "btn btn-success" })*@
@@ -9,52 +10,159 @@
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
-        @TempData["AlertMessage"]        
- </div>}
+        @TempData["AlertMessage"]
+    </div>}
 
 @if (@TempData["DeleteMessage"] != null)
 {<div class="alert alert-danger">
         <span class="glyphicon glyphicon-trash"></span>
-        @TempData["DeleteMessage"]        
- </div>}
+        @TempData["DeleteMessage"]
+    </div>}
 
-<table class="table table-striped table-bordered" style="width:100%">
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
+
+@(
+    Html.Kendo().Grid(Model).Name("UserGrid").Columns(columns => {
+        columns.Bound(expression: c => c.Name);
+        columns.Bound(expression: c => c.Email);
+        columns.Bound(expression: c => c.UserName);
+        columns.Bound(expression: c => c.Role);
+        columns.Bound(expression: c => c.Gender);
+        columns.Bound(expression: c => c.MobileNo);
+        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+                       .Title("Action").Filterable(false);
+    }).ToolBar(toolbar =>
+            {
+            toolbar.Template(@<text>
+                    <div class="toolbar">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                    <input type="text" class="form-control" id='FieldFilter' placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </text>);
+    })
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("UserGrid", "UserManage"))
+    .Model(model => model.Id(p => p.Id)))
+    )
+
+
+<script>
+    $(document).ready(function () {
+        $('#UserGrid').data('kendoGrid').dataSource.read();
+        $('#UserGrid').data('kendoGrid').refresh();
+
+        $("#FieldFilter").keyup(function () {
+            var value = $("#FieldFilter").val();
+            grid = $("#UserGrid").data("kendoGrid");
+
+           @* if (value) {
+                grid.dataSource.filter({ field: "Name", operator: "contains", value: value });
+            }*@
+            if (value) {
+                grid.dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "Name",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "Email",
+                            operator: "contains",
+                            value: value
+                        },                      
+                        {
+                            field: "UserName",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "Role",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "Gender",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "MobileNo",
+                            operator: "contains",
+                            value: value
+                        },
+                    ]
+                });
+            }else {
+                grid.dataSource.filter({});
+            }
+        });
+
+    });
+
+
+
+</script>
+
+
+
+
+
+@*<table class="table table-striped table-bordered" style="width:100%">
     <tr>
         <th>
             SNo.
-        </th>
+        </th>*@
 
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </th>
-        <th>Action</th>
-    </tr>
+@* <th>
+        @Html.DisplayNameFor(model => model.Name)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Email)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.UserName)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Role)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.Gender)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.MobileNo)
+    </th>*@
+@*<th>Action</th>
+    </tr>*@
 
-    @{int count = 0; }
+@* @{int count = 0; }
 
     @foreach (var item in Model)
-    {
-<tr>
+    {*@
+@*<tr>
     <td>
         @{count += 1; }
         @count
-    </td>
-    <td>
+    </td>*@
+@* <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
     <td>
@@ -71,15 +179,13 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.MobileNo)
-    </td>
-    <td>
-        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |*@
-        <a href="@Url.Action("Edit", "UserManage", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |
-        @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
-        @* @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-        <a href="@Url.Action("Delete", "UserManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.Name')"><i class=" glyphicon glyphicon-trash"></i></a>
-    </td>
-</tr>
-    }
+    </td>*@
+@* <td>
 
-</table>
+        <a href="@Url.Action("Edit", "UserManage", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |
+        <a href="@Url.Action("Delete", "UserManage", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.Name')"><i class=" glyphicon glyphicon-trash"></i></a>
+    </td>*@
+@*</tr>
+        }
+
+    </table>*@

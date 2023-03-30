@@ -17,7 +17,7 @@ namespace CRMS.Core.Models
         public CommonLookUp()
         {
             Id = Guid.NewGuid();
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.Now;           
         }
     }
 }

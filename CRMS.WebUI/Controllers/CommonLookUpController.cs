@@ -1,6 +1,8 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +24,7 @@ namespace CRMS.WebUI.Controllers
         // GET: CommonLookUp
         public ActionResult Index()
         {
-            List<CommonLookUp> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
+            List<CommonLookUpViewModel> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
             return View(commonLookUp);
         }
 
@@ -50,7 +52,7 @@ namespace CRMS.WebUI.Controllers
                 }
                 else
                 {
-                    model.CreatedBy = (Guid)Session["Id"];
+                    //model.CreatedBy = (Guid)Session["Id"];
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return Content("true");                    
@@ -97,7 +99,7 @@ namespace CRMS.WebUI.Controllers
                         }
                         else
                         {
-                            commonLookUp.UpdatedBy = (Guid)Session["Id"];                  
+                            //commonLookUp.UpdatedBy = (Guid)Session["Id"];                  
                             commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
                             TempData["AlertMessage"] = "Updated Successfully..!";
                             return Content("true");                        
@@ -110,6 +112,12 @@ namespace CRMS.WebUI.Controllers
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
+        }
+
+        public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)
+        {
+            IEnumerable<CommonLookUpViewModel> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
+            return Json(commonLookUp.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }
