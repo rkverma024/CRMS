@@ -24,7 +24,7 @@ namespace CRMS.WebUI.Controllers
         // GET: CommonLookUp
         public ActionResult Index()
         {
-            List<CommonLookUpViewModel> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
+            List<CommonLookUp> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
             return View(commonLookUp);
         }
 
@@ -36,7 +36,7 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
-        {            
+        {
             if (!ModelState.IsValid)
             {
                 return Content("False");
@@ -46,18 +46,18 @@ namespace CRMS.WebUI.Controllers
                 bool existingmodel = commonLookUpservice.IsExist(model, true);
                 if (existingmodel)
                 {
-                    
+
                     TempData["Already"] = "Already Data is exist";
                     return Content("exists");
                 }
                 else
                 {
-                    //model.CreatedBy = (Guid)Session["Id"];
+                    model.CreatedBy = (Guid)Session["Id"];
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    return Content("true");                    
+                    return Content("true");
                 }
-            }            
+            }
         }
 
         public ActionResult Edit(Guid Id)
@@ -84,28 +84,28 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
-        {                       
-                if (!ModelState.IsValid)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Content("False");
+            }
+            else
+            {
+                bool existingmodel = commonLookUpservice.IsExist(commonLookUp, false);
+                if (existingmodel)
                 {
-                    return Content("False");                    
+                    TempData["Already"] = "Alredy Data is exist";
+                    return Content("exists");
                 }
                 else
                 {
-                    bool existingmodel = commonLookUpservice.IsExist(commonLookUp, false);
-                    if (existingmodel)
-                        {
-                            TempData["Already"] = "Alredy Data is exist";
-                            return Content("exists");
-                        }
-                        else
-                        {
-                            //commonLookUp.UpdatedBy = (Guid)Session["Id"];                  
-                            commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
-                            TempData["AlertMessage"] = "Updated Successfully..!";
-                            return Content("true");                        
-                        }
-                    }
-            }        
+                    commonLookUp.UpdatedBy = (Guid)Session["Id"];
+                    commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
+                    TempData["AlertMessage"] = "Updated Successfully..!";
+                    return Content("true");
+                }
+            }
+        }
         public ActionResult Delete(Guid Id)
         {
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
@@ -113,11 +113,10 @@ namespace CRMS.WebUI.Controllers
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
         }
-
         public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)
         {
-            IEnumerable<CommonLookUpViewModel> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
-            return Json(commonLookUp.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            IEnumerable<CommonLookUp> commonLookup = commonLookUpservice.GetCommonLookUpsList().ToList();
+            return Json(commonLookup.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }
 }

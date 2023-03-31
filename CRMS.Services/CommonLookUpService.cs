@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI;
 
 namespace CRMS.Services
 {
-    public class CommonLookUpService :Page ,ICommonLookUpService
+    public class CommonLookUpService : ICommonLookUpService
     {
         IRepository<CommonLookUp> commonLookUprepository;
 
@@ -28,8 +27,7 @@ namespace CRMS.Services
             commonLookUp.Description = model.Description;
             commonLookUp.ConfigValue = model.ConfigValue;
             commonLookUp.IsActive = model.IsActive;
-            commonLookUp.CreatedBy = (Guid)Session["Id"];
-            //commonLookUp.CreatedBy = model.CreatedBy;
+            commonLookUp.CreatedBy = model.CreatedBy;
             /*commonLookUp.CreatedOn = DateTime.Now;*/
             commonLookUprepository.Insert(commonLookUp);
             commonLookUprepository.Commit();
@@ -42,25 +40,11 @@ namespace CRMS.Services
             return commonLookUp;
         }
 
-        public List<CommonLookUpViewModel> GetCommonLookUpsList()
+        public List<CommonLookUp> GetCommonLookUpsList()
         {
-            var model = commonLookUprepository.Collection().Where(b => b.IsDeleted == false).ToList();
-            List<CommonLookUpViewModel> list = new List<CommonLookUpViewModel>();
-            foreach (var item in model)
-            {
-                CommonLookUpViewModel commonLookUpViewModel = new CommonLookUpViewModel();
-                commonLookUpViewModel.Id = item.Id;
-                commonLookUpViewModel.ConfigName = item.ConfigName;
-                commonLookUpViewModel.ConfigKey = item.ConfigKey;
-                commonLookUpViewModel.ConfigValue = item.ConfigValue;
-                commonLookUpViewModel.DisplayOrder = item.DisplayOrder;
-                commonLookUpViewModel.Description = item.Description;
-                commonLookUpViewModel.IsActive = item.IsActive;                
-                list.Add(commonLookUpViewModel);
-            }
-            return list;
+            return commonLookUprepository.Collection().Where(b => b.IsDeleted == false).ToList();
         }
-       
+
         public void RemoveCommonLookUp(CommonLookUp removecommonLookUp)
         {
             removecommonLookUp.IsDeleted = true;
@@ -76,8 +60,7 @@ namespace CRMS.Services
             commonLookUpToEdit.Description = model.Description;
             commonLookUpToEdit.ConfigValue = model.ConfigValue;
             commonLookUpToEdit.IsActive = model.IsActive;
-            //commonLookUpToEdit.UpdatedBy = model.UpdatedBy;
-            commonLookUpToEdit.UpdatedBy = (Guid)Session["Id"];
+            commonLookUpToEdit.UpdatedBy = model.UpdatedBy;
             commonLookUpToEdit.UpdatedOn = DateTime.Now;
             commonLookUprepository.Update(commonLookUpToEdit);
             commonLookUprepository.Commit();
@@ -85,16 +68,16 @@ namespace CRMS.Services
 
         public bool IsExist(CommonLookUpViewModel model, bool IsAvailable = false)
         {
-            bool existingmodel = GetCommonLookUpsList().Where(x =>(IsAvailable || x.Id != model.Id)&& 
-                                                             (x.ConfigKey.ToLower() == model.ConfigKey.ToLower() && 
+            bool existingmodel = GetCommonLookUpsList().Where(x => (IsAvailable || x.Id != model.Id) &&
+                                                             (x.ConfigKey.ToLower() == model.ConfigKey.ToLower() &&
                                                               x.ConfigName.ToLower() == model.ConfigName.ToLower())).Any();
             if (existingmodel)
             {
                 return true;
             }
             return false;
-          
-          
+
+
         }
     }
 }

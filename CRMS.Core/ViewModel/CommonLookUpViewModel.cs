@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class CommonLookUpViewModel 
+    public class CommonLookUpViewModel : BaseEntity
     {
-        [ScaffoldColumn(false)]
+      /*  [ScaffoldColumn(false)]
         public Guid Id { get; set; }      
-
+*/
         [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Config Name")]
         public string ConfigName { get; set; }
@@ -29,7 +29,7 @@ namespace CRMS.Core.ViewModel
 
         [Display(Name = "Description")]
         public string Description { get; set; }
-        public bool IsActive { get; set; }
+       
 
     }
 }
