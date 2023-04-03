@@ -1,12 +1,19 @@
 ﻿@using Kendo.Mvc.UI
 @model IEnumerable<CRMS.Core.Models.ConferenceRoom>
 
-<h2>Conference Room</h2>
+@*<h2>Conference Room</h2>*@
+<br>
+<div class="align-center align-between pb20">
+    <h2>Conference Room</h2>
+    <div class="btnDiv">
+        <a href="@Url.Action("Create", "ConferenceRoomManage")" >Add</a>
+    </div>
+</div>
 
-<h3>
+@*<h3>
     <a href="@Url.Action("Create", "ConferenceRoomManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
 </h3>
-<hr>
+<hr>*@
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
@@ -49,9 +56,9 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
                                 <input type="text" class="form-control" id='FieldFilter' placeholder="Search for...">
-                                <span class="input-group-btn">
+                                @*<span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                </span>
+                                </span>*@
                             </div>
                         </div>
                     </div>
@@ -71,7 +78,7 @@
     $(document).ready(function () {
         $('#ConferenceGrid').data('kendoGrid').dataSource.read();
         $('#ConferenceGrid').data('kendoGrid').refresh();
-
+     
         $("#FieldFilter").keyup(function () {
 
             var value = $("#FieldFilter").val();
@@ -79,7 +86,8 @@
 
             if (value) {
                 grid.dataSource.filter({ field: "ConferenceRoomNo", operator: "contains", value: value });
-            } else {
+            }           
+            else {
                 grid.dataSource.filter({});
             }
         });

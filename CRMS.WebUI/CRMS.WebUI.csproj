@@ -343,6 +343,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\Custom.js" />
     <Content Include="Content\kendo\2017.2.621\Black\editor.png" />
     <Content Include="Content\kendo\2017.2.621\Black\imagebrowser.png" />
@@ -743,6 +744,15 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\image\down-arrow.svg" />
+    <Content Include="Content\image\edit.svg" />
+    <Content Include="Content\image\eye.svg" />
+    <Content Include="Content\image\key.svg" />
+    <Content Include="Content\image\login-bg.jpg" />
+    <Content Include="Content\image\logo.svg" />
+    <Content Include="Content\image\search.svg" />
+    <Content Include="Content\image\trash.svg" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Scripts\kendo\2017.2.621\angular.min.js" />
     <Content Include="Scripts\kendo\2017.2.621\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\kendo\2017.2.621\cultures\kendo.culture.af.min.js" />
@@ -2456,6 +2466,10 @@
     <Content Include="Views\CommonLookUp\_Edit.cshtml" />
     <Content Include="Views\CommonLookUp\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\UserManage\_ListPartialView.cshtml" />
+    <Content Include="Views\Shared\_SettingLayout.cshtml" />
+    <Content Include="Views\Role\_RoleListLayout.cshtml" />
+    <Content Include="Views\CommonLookUp\_CommonListLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
