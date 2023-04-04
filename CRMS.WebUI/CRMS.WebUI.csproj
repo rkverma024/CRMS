@@ -701,8 +701,6 @@
     <Content Include="Content\kendo\Office365\sprite_2x.png" />
     <Content Include="Content\kendo\Office365\sprite_kpi.png" />
     <Content Include="Content\kendo\Office365\sprite_kpi_2x.png" />
-    <Content Include="Content\style.css" />
-    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

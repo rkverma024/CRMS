@@ -23,7 +23,8 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Index()
         {
             List<Role> roles = roleservice.GetRolesList().ToList();
-            return View(roles);
+            return PartialView("_RoleListLayout", roles);
+            /*return View(roles);*/
 
         }
 
@@ -53,7 +54,7 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     roleservice.CreateRole(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
             }
         }
@@ -93,7 +94,7 @@ namespace CRMS.WebUI.Controllers
                     role.UpdatedBy = (Guid)Session["Id"];
                     roleservice.UpdateRole(role, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
             }
         }
@@ -105,7 +106,7 @@ namespace CRMS.WebUI.Controllers
             Role roleToDelete = roleservice.GetRole(Id);
             roleservice.RemoveRole(roleToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         public JsonResult Grid([DataSourceRequest] DataSourceRequest request)
         {

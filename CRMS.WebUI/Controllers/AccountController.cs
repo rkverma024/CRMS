@@ -63,7 +63,7 @@ namespace CRMS.WebUI.Controllers
                         Session["UserName"] = user.UserName;
                         Session["Id"] = user.Id;
                         FormsAuthentication.SetAuthCookie(model.Email, false);
-                        TempData["AlertMessage"] = "Login Successfully..!";
+                        /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         return RedirectToAction("Index", "Home");
                     }
                     else

@@ -8,7 +8,7 @@
         <!-- END Header -->
         <!-- Section -->
         <div class="section">
-            <div class="container">
+            <div class="">
                 <div class="topTitleHead pb20">
                     <h1> Systems</h1>
                 </div>
@@ -19,20 +19,21 @@
                         <li> <a class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                         <li> <a class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
                         <li> <a class="tablinks" onclick="openSystems(event, 'CommonLookUp')"> CommonLookUp</a> </li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'Settings')">Settings </a> </li>
+                        @*<li> <a class="tablinks" onclick="openSystems(event, 'Settings')">Settings </a> </li>*@
                         <li> <a class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
                         <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
                     </ul>
                 </div>
-
+                
                 <div class="tabContentDetails">
                     <div id="UserManagement" class="tabcontent" style="display: block">
                         @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")
                     </div>
-                    <div id="RoleManagement" class="tabcontent">
-                        @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")
+                    <div id="RoleManagement" class="tabcontent" data-url='@Url.Action("Index","Role")'>
+                        @*@Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
                     </div>
-                    <div id="CommonLookUp" class="tabcontent">
+
+                    <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>
                         @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")
                     </div>
                     <div id="Settings" class="tabcontent">
@@ -204,16 +205,10 @@
                         </div>
                     </div>
                 </div>
-
                 <!----- END Tabs ---->
-
-
-
             </div>
         </div>
         <!-- END Section -->
-
-
     </div>
 </body>
 <script>
@@ -229,8 +224,37 @@
         }
         document.getElementById(SystemsName).style.display = "block";
         evt.currentTarget.className += " active";
-        @*if (SystemsName = 'RoleManagement') {
-        @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")
-        }*@
+
+        if (SystemsName = 'RoleManagement') {
+            var url = $('#RoleManagement').data('url');
+            $.get(url, function (data) {
+                $("#RoleManagement").html(data).load($(this).data('url'));
+            });
+        }
+        @*switch (SystemsName) {*@
+
+           @* case 'UserManagement':
+                var url = $('#UserManagement').data('url');
+                $.get(url, function (data) {
+                    $("#UserManagement").html(data).load($(this).data('url'));
+                });
+                break;*@
+
+           @* case 'RoleManagement':
+                var url = $('#RoleManagement').data('url');
+                $.get(url, function (data) {
+                    $("#RoleManagement").html(data).load($(this).data('url'));
+                });
+                break;*@
+
+           @* case 'CommonLookUp':
+                var url = $('#CommonLookUp').data('url');
+                $.get(url, function (data) {
+                    $("#CommonLookUp").html(data).load($(this).data('url'));
+                });
+                break;
+            default:*@
+       @* }*@
+
     }
 </script>

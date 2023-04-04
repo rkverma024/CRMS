@@ -1,52 +1,101 @@
 ﻿@model CRMS.Core.ViewModel.ConferenceRoomViewModel
 
-<h3>Add Conference Room</h3>
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove-circle"></span>
-        @TempData["Already"]
-        <button type="button" class="close" data-dismiss="alert">
-        </button>
+        @TempData["Already"]        
     </div>}
-<hr />
 
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <br>
-    <div class="form-horizontal">
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConferenceRoomNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConferenceRoomNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConferenceRoomNo, "", new { @class = "text-danger" })
+        <div class="mainDiv">
+            <!-- Section -->
+            <div class="section">
+                <div class="container">
+                    <!----- Form ---->
+                    @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
+                    <div class="formDiv">
+                        <div class="topTitleHead pb20">
+                            <h1> Add Conference Room</h1>
+                        </div>
+                        <div class="formSection">
+                            <div class="inputBox">
+                                <label>ConferenceRoomNo</label>
+                                @Html.EditorFor(model => model.ConferenceRoomNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ConferenceRoomNo, "", new { @class = "errorMsg" })
+                                @*<p class="errorMsg">This field is required</p>*@
+                            </div>
+                            <div class="inputBox">
+                                <label>Capacity</label>
+                                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "errorMsg" })
+                                @*<p class="errorMsg">This field is required</p>*@
+                            </div>
+                            <div class="inputBox">
+                                @*<button class="btnDiv">Login</button>*@
+                                <button type="submit" value="Create" class="btnDiv">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!----- END Form ---->
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="submit" type="submit" value="Create" class="btn btn-success" />
-            </div>
-        </div>
+    }
+    <div>
+        <a href="javascript:void(0);" onclick="history.go(-1);">Back to List</a>
+        @* @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })*@
     </div>
-}
+    @*<div>
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        </div>
+    *@
+</body>
+</html>
 
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <br>
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConferenceRoomNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConferenceRoomNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConferenceRoomNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="submit" type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }*@
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+    </div>
+*@

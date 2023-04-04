@@ -1,25 +1,56 @@
-﻿@model IEnumerable<CRMS.Core.Models.CommonLookUp>
+﻿
+@model IEnumerable<CRMS.Core.Models.CommonLookUp>
 
 @{
     ViewBag.Title = "Index";
 }
+<script type="text/javascript">
+    function editclup(e) {
+
+        var selectedId = this.dataItem($(e.currentTarget).closest("tr"));
+        var id = selectedId.Id;
+        $.ajax({
+            url: '@Url.Action("Edit","CommonLookUp")',
+            type: "Get",
+            data: { 'id': id },
+            success: function (data) {
+                $("#modaledit").html(data);
+                $("#modaledit").modal('show');
+            }
+        });
+        console.log(url);
+    }
+
+    function DeleteModal(e) {
+        var selectedId = this.dataItem($(e.currentTarget).closest("tr")).Id;
+        if (confirm("Are You Sure. You Want To Delete.?") == true) {
+            $.ajax({
+                url: '@Url.Action("Delete","CommonLookUp")',
+                data: { 'id': selectedId},
+                type: "post",
+                success: function (savingStatus) {
+                    location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        }
+    }
+</script>
+<div id="DeleteModal">
+    <div class="modal" id="modaledit" data-url='@Url.Action("Delete","CommonLookUp")'></div>
+</div>
+
 
 @*<h2>Common LookUp</h2>*@
 
-@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"></script>
-
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />*@
 
 <div class="align-center align-between pb20">
     <h2>Common LookUp</h2>
-    <div class="btnDiv">
+    <button class="btnDiv">
         <a onclick="createcommonlookup()">+ Add CommonLookUp</a>
-    </div>
+    </button>
 </div>
 @*<h3><button type="button" class="btn btn-success" onclick="createcommonlookup()"><i class="glyphicon glyphicon-plus"></i>Add</button></h3>
     <hr>*@
@@ -209,38 +240,3 @@
 <div id="EditModal">
     <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
 </div>
-<script type="text/javascript">
-    function editclup(e) {
-        var selectedId = this.dataItem($(e.currentTarget).closest("tr"));
-        var id = selectedId.Id;
-        $.ajax({
-            url: '@Url.Action("Edit","CommonLookUp")',
-            type: "Get",
-            data: { 'id': id },
-            success: function (data) {
-                $("#modaledit").html(data);
-                $("#modaledit").modal('show');
-            }
-        });
-    }
-</script>
-<div id="DeleteModal">
-    <div class="modal" id="modaledit" data-url='@Url.Action("Delete","CommonLookUp")'></div>
-</div>
-<script>
-    function DeleteModal(e) {
-        var selectedId = this.dataItem($(e.currentTarget).closest("tr")).Id;
-        if (confirm("Are You Sure. You Want To Delete.?") == true) {
-            $.ajax({
-                url: '@Url.Action("Delete","CommonLookUp")',
-                data: { 'id': selectedId},
-                type: "post",
-                success: function (savingStatus) {
-                    location.reload();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                }
-            });
-        }
-    }
-</script>

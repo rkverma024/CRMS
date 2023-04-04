@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = null;
 }
 
 <div class="align-center align-between pb20">
@@ -29,10 +30,42 @@
         <span class="glyphicon glyphicon-trash"></span>
         @TempData["DeleteMessage"]
     </div> }
+<script>
+    $(document).ready(function () {
+        $('#grid').data('kendoGrid').dataSource.read();
+        $('#grid').data('kendoGrid').refresh();
 
+        $("#FieldFilter").keyup(function () {
+
+            var value = $("#FieldFilter").val();
+            grid = $("#grid").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "RoleName",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "Code",
+                            operator: "contains",
+                            value: value
+                        },
+                    ]
+                });
+            } else {
+                grid.dataSource.filter({});
+            }
+        });
+    });
+</script>
 @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
 <script src="~/Scripts/kendo/kendo.all.min.js"></script>
 <script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
 <div class="container">
     <div class="row">
 
@@ -72,38 +105,7 @@
 
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#grid').data('kendoGrid').dataSource.read();
-        $('#grid').data('kendoGrid').refresh();
 
-        $("#FieldFilter").keyup(function () {
-
-            var value = $("#FieldFilter").val();
-            grid = $("#grid").data("kendoGrid");
-
-            if (value) {
-                grid.dataSource.filter({
-                    logic :"or",
-                    filters: [
-                        {
-                            field: "RoleName",
-                            operator: "contains",
-                            value: value
-                        },
-                        {
-                            field: "Code",
-                            operator: "contains",
-                            value: value
-                        },
-                    ]
-                });
-            } else {
-                grid.dataSource.filter({});
-            }
-        });
-    });
-</script>
 
 
 @*  .Sortable()
