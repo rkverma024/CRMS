@@ -9,8 +9,9 @@ namespace CRMS.WebUI.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int activeTabId = 0)
         {
+            ViewBag.activeTabId = activeTabId;
             return View();
         }
 

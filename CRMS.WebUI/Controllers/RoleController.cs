@@ -54,7 +54,9 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     roleservice.CreateRole(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    return RedirectToAction("Index","Home");
+                    /*return RedirectToAction("Index","Home");*/
+                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 1 }));
+                    //return Redirect(Request.UrlReferrer.ToString());
                 }
             }
         }
@@ -94,7 +96,8 @@ namespace CRMS.WebUI.Controllers
                     role.UpdatedBy = (Guid)Session["Id"];
                     roleservice.UpdateRole(role, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
-                    return RedirectToAction("Index","Home");
+                    /*return RedirectToAction("Index","Home");*/
+                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 1 }));
                 }
             }
         }
@@ -106,9 +109,10 @@ namespace CRMS.WebUI.Controllers
             Role roleToDelete = roleservice.GetRole(Id);
             roleservice.RemoveRole(roleToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            return RedirectToAction("Index", "Home");
+            /*return RedirectToAction("Index", "Home");*/
+            return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 1 }));
         }
-        public JsonResult Grid([DataSourceRequest] DataSourceRequest request)
+        public JsonResult RoleGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<Role> roles = roleservice.GetRolesList().ToList();
             return Json(roles.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);

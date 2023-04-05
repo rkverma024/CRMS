@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -85,7 +85,6 @@
         location.reload();
     }
     $('#Editform').submit(function (e) {
-        debugger;
         e.preventDefault();
         var $form = $(this);
         if (!$form.valid) return false;
@@ -100,9 +99,9 @@
             type: "Post",
             data:  $form.serialize(),
             success: function (data) {
-                debugger;
                 if (data == "true") {
-                    location.reload();
+                    @* location.reload();*@
+                    location.href ="@Url.Action("Index","Home", new { activeTabId = 2 })";
                 }
                 else if (data == "exists") {
                     alert("Data Already Exists");

@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+@*<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
 @if (@TempData["Already"] != null)
 {<div class="alert alert-success">
         @*<strong>Success..!</strong>*@
@@ -72,7 +72,7 @@
                 border-radius: 50%;
             }
     </style>*@
-<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -169,10 +169,10 @@
 
 <script>
     function closePopup() {
-        location.reload();
+       @* location.reload();*@
+        location.href = "@Url.Action("Index","Home", new { activeTabId = 2 })";
     }
     $('#myform').submit(function (e) {
-
         e.preventDefault();
         var $form = $(this);
         if (!$form.valid) return false;
@@ -188,7 +188,8 @@
             data: $form.serialize(),
             success: function (data) {
                 if (data == "true") {
-                    location.reload();
+                    @*location.reload();*@
+                    location.href = "@Url.Action("Index","Home", new { activeTabId = 2 })";
                 }
                 else if (data == "exists") {
                     alert("Data Already Exists");

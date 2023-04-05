@@ -77,7 +77,7 @@ namespace CRMS.WebUI.Controllers
                 UserViewModel userModel = new UserViewModel();
                 userModel.Name = user.Name;
                 userModel.Email = user.Email;
-                //userModel.Password = user.Password;
+                userModel.Password = user.Password;
                 userModel.UserName = user.UserName;
                 userModel.Gender = user.Gender;
                 userModel.MobileNo = user.MobileNo;
@@ -108,7 +108,8 @@ namespace CRMS.WebUI.Controllers
                 {                    
                     userservice.UpdateUser(model, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
-                    return RedirectToAction("Index");
+                    // return RedirectToAction("Index");
+                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 0 }));
                 }
                              
            }

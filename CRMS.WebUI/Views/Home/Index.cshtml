@@ -1,10 +1,15 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
+<html>
+<head>
+    <title></title>
+
+</head>
 <body>
     <div class="mainDiv">
         <!-- Header -->
-        
         <!-- END Header -->
         <!-- Section -->
         <div class="section">
@@ -24,64 +29,20 @@
                         <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
                     </ul>
                 </div>
-                
+
                 <div class="tabContentDetails">
+                    @*<div id="UserManagement" class="tabcontent" style="display: block" data-url='@Url.Action("Index","UserManage")'>*@
                     <div id="UserManagement" class="tabcontent" style="display: block">
-                        @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")
+                       @* @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
                     </div>
                     <div id="RoleManagement" class="tabcontent" data-url='@Url.Action("Index","Role")'>
-                        @*@Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
+                        @* @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
                     </div>
 
                     <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>
-                        @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")
+                        @* @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")*@
                     </div>
-                    <div id="Settings" class="tabcontent">
-                        <div class="align-center align-between pb20">
-                            <h2>Settings</h2>
-                            <div class="btnDiv">
-                                <a href="#">+ Add Setting</a>
-                            </div>
-                        </div>
-                        <div class="tableDiv">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th> Config Key </th>
-                                        <th> Config Name</th>
-                                        <th> Config Value</th>
-                                        <th class="text-center" style="width: 12%;"> Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> aws Key  </td>
-                                        <td> aws </td>
-                                        <td> 153 </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> token  </td>
-                                        <td> refresh token </td>
-                                        <td> 134 </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
                     <div id="Activitylogs" class="tabcontent">
                         <div class="align-center align-between pb20">
                             <h2>Activity logs</h2>
@@ -211,8 +172,29 @@
         <!-- END Section -->
     </div>
 </body>
+
+</html>
+
+
+
 <script>
+    function loadTab(SystemsName) {
+        if (SystemsName == "RoleManagement") {
+            url = "@Url.Action("Index","Role")"
+            $("#RoleManagement").load(url)
+        }
+        if (SystemsName == "CommonLookUp") {
+            url = "@Url.Action("Index","CommonLookUp")"
+            $("#CommonLookUp").load(url)
+        }
+        if (SystemsName == "UserManagement") {
+            url = "@Url.Action("Index","UserManage")"
+            $("#UserManagement").load(url)
+        }
+    }
     function openSystems(evt, SystemsName) {
+        isUserLoaded = false;
+        loadTab(SystemsName);
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -224,37 +206,156 @@
         }
         document.getElementById(SystemsName).style.display = "block";
         evt.currentTarget.className += " active";
+    }
 
-        if (SystemsName = 'RoleManagement') {
-            var url = $('#RoleManagement').data('url');
-            $.get(url, function (data) {
-                $("#RoleManagement").html(data).load($(this).data('url'));
-            });
+    $(document).ready(function ()
+    {
+        var activeTabId = parseInt('@ViewBag.activeTabId');
+        var tabcontent = document.getElementsByClassName("tabcontent");
+        var tablinks = document.getElementsByClassName("tablinks");
+        var isUserLoaded = true;
+
+       if (activeTabId == 0)
+        {
+            loadTab("UserManagement");
+            tablinks[0].className = 'tablinks active';
+            tabcontent[0].style.display = "block";
+       }
+       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != 0) {       
+
+            @*url = "@Url.Action("Index","Home")"
+           $("#UserManagement").load(url);*@
+           location.href= "@Url.Action("Index","Home")"
+            /*loadTab("UserManagement");*/
+            tablinks[0].className = 'tablinks active';
+            tabcontent[0].style.display = "block";
         }
-        @*switch (SystemsName) {*@
+        else
+        {
+            isUserLoaded = false;
+            tablinks[0].className = 'tablinks';
+            tabcontent[0].style.display = "none";
+            tabcontent[activeTabId].style.display = "block";
+            if (activeTabId == 1) {
+                loadTab("RoleManagement")
+            }
+            if (activeTabId == 2) {
+                loadTab("CommonLookUp")
+            }
+            tablinks[activeTabId].className = 'tablinks active';
+        }
+        if (isUserLoaded || activeTabId == null) {
+                activeTabId = 0;
+                url = "@Url.Action("Index","UserManage")"
+            $("#UserManagement").load(url)
+                //location.href = "/Acccount/Dashboard?activeTabId=0";
+        }
+    });
 
-           @* case 'UserManagement':
-                var url = $('#UserManagement').data('url');
-                $.get(url, function (data) {
-                    $("#UserManagement").html(data).load($(this).data('url'));
-                });
-                break;*@
+</script>
 
-           @* case 'RoleManagement':
+
+<!--<script>
+    function openSystems(evt, SystemsName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(SystemsName).style.display = "block";
+        evt.currentTarget.className += " active";-->
+@* if (SystemsName == "UserManagement") {
+        var url = $('#UserManagement').data('url');
+        $.get(url, function (data) {
+            $("#UserManagement").html(data).load($(this).data('url'));
+        });
+    }*@
+@* if (SystemsName == "RoleManagement") {
+        var url = $('#RoleManagement').data('url');
+        $.get(url, function (data) {
+            $("#RoleManagement").html(data).load($(this).data('url'));
+        });
+    }
+    else if (SystemsName == "CommonLookUp") {
+        var url = $('#CommonLookUp').data('url');
+        $.get(url, function (data) {
+            $("#CommonLookUp").html(data).load($(this).data('url'));
+        });
+    }*@
+@*else {
+        var url = $('#UserManagement').data('url');
+        $.get(url, function (data) {
+            $("#UserManagement").html(data).load($(this).data('url'));
+        });
+    }*@
+
+
+@*if (SystemsName = 'RoleManagement') {
+        var url = $('#RoleManagement').data('url');
+        $.get(url, function (data) {
+            $("#RoleManagement").html(data).load($(this).data('url'));
+        });
+    }*@
+<!--switch (SystemsName) {
+
+            //case 'UserManagement':
+            //    var url = $('#UserManagement').data('url');
+            //    $.get(url, function (data) {
+            //        $("#UserManagement").html(data).load($(this).data('url'));
+            //    });
+            //    break;
+
+            case 'RoleManagement':
                 var url = $('#RoleManagement').data('url');
                 $.get(url, function (data) {
                     $("#RoleManagement").html(data).load($(this).data('url'));
                 });
-                break;*@
+                break;
 
-           @* case 'CommonLookUp':
+            case 'CommonLookUp':
                 var url = $('#CommonLookUp').data('url');
                 $.get(url, function (data) {
                     $("#CommonLookUp").html(data).load($(this).data('url'));
                 });
                 break;
-            default:*@
-       @* }*@
+            default:
+        }
 
     }
-</script>
+
+    $(document).ready(function ()
+    {
+        var activeTabId = parseInt('@ViewBag.activeTabId');
+        var tabcontent = document.getElementsByClassName("tabcontent");
+        var tablinks = document.getElementsByClassName("tablinks");
+        if (activeTabId == 0)
+        {
+            tablinks[0].className = 'tablinks active';
+            tabcontent[0].style.display = "block";
+        }
+        else
+        {
+            tablinks[0].className = 'tablinks';
+            tabcontent[0].style.display = "none";
+            tablinks[activeTabId].className = 'tablinks active';
+            tabcontent[activeTabId].style.display = "block";
+        }
+        if (activeTabId == 1) {
+            var url = $('#RoleManagement').data('url');
+            $.get(url, function (data) {
+                $("#RoleManagement").html(data).load($(this).data('url'));
+            });
+        }
+        if (activeTabId == 2) {
+            var url = $('#CommonLookUp').data('url');
+            $.get(url, function (data) {
+                $("#CommonLookUp").html(data).load($(this).data('url'));
+            });
+        }
+    });
+
+</script>-->

@@ -30,15 +30,60 @@
         <span class="glyphicon glyphicon-trash"></span>
         @TempData["DeleteMessage"]
     </div> }
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
+<div class="container">
+    <div class="row">
+
+        @(
+        Html.Kendo().Grid(Model).Name("Rolegrid").Columns(columns => {
+        columns.Bound(expression: c => c.RoleName);
+        columns.Bound(expression: c => c.Code);
+
+        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+                           .Title("Action").Filterable(false);
+
+        }).ToolBar(toolbar =>
+            {
+            toolbar.Template(@<text>
+                    <div class="toolbar">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                    <input type="text" class="form-control" id='RoleFieldFilter' placeholder="Search for...">
+                                    @*<span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                    </span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </text>);
+        })
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("RoleGrid", "Role"))
+        .Model(model => model.Id(p => p.Id)))
+    )
+
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
-        $('#grid').data('kendoGrid').dataSource.read();
-        $('#grid').data('kendoGrid').refresh();
+       @* $('#Rolegrid').data('kendoGrid').dataSource.read();
+        $('#Rolegrid').data('kendoGrid').refresh();*@
 
-        $("#FieldFilter").keyup(function () {
+        $("#RoleFieldFilter").keyup(function () {
 
-            var value = $("#FieldFilter").val();
-            grid = $("#grid").data("kendoGrid");
+            var value = $("#RoleFieldFilter").val();
+            grid = $("#Rolegrid").data("kendoGrid");
 
             if (value) {
                 grid.dataSource.filter({
@@ -62,51 +107,6 @@
         });
     });
 </script>
-@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
-<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
-
-<div class="container">
-    <div class="row">
-
-        @(
-        Html.Kendo().Grid(Model).Name("grid").Columns(columns => {
-        columns.Bound(expression: c => c.RoleName);
-        columns.Bound(expression: c => c.Code);
-
-        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
-                           .Title("Action").Filterable(false);
-
-        }).ToolBar(toolbar =>
-            {
-            toolbar.Template(@<text>
-                    <div class="toolbar">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                    <input type="text" class="form-control" id='FieldFilter' placeholder="Search for...">
-                                    @*<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                    </span>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </text>);
-        })
-        .Sortable()
-        .Scrollable()
-        .Filterable()
-        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
-        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("Grid", "Role"))
-        .Model(model => model.Id(p => p.Id)))
-    )
-
-    </div>
-</div>
-
-
 
 @*  .Sortable()
     .Scrollable()

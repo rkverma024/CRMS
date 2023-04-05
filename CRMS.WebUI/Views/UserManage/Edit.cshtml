@@ -97,7 +97,8 @@
         </div>
     }
     <div>
-        @Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <a href="javascript:history.go(-1);">Back to List</a>    
+    @*@Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-primary" })*@
     </div>
 </body>
 </html>

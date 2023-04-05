@@ -4,6 +4,13 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<div id="EditModal">
+    <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
+</div>
+<div id="DeleteModal">
+    <div class="modal" id="modaledit" data-url='@Url.Action("Delete","CommonLookUp")'></div>
+</div>
 <script type="text/javascript">
     function editclup(e) {
 
@@ -18,7 +25,6 @@
                 $("#modaledit").modal('show');
             }
         });
-        console.log(url);
     }
 
     function DeleteModal(e) {
@@ -29,7 +35,8 @@
                 data: { 'id': selectedId},
                 type: "post",
                 success: function (savingStatus) {
-                    location.reload();
+                    @*location.reload();*@
+                    location.href = "@Url.Action("Index","Home", new { activeTabId = 2 })";
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                 }
@@ -37,9 +44,8 @@
         }
     }
 </script>
-<div id="DeleteModal">
-    <div class="modal" id="modaledit" data-url='@Url.Action("Delete","CommonLookUp")'></div>
-</div>
+
+
 
 
 @*<h2>Common LookUp</h2>*@
@@ -87,7 +93,7 @@
         columns.Bound(expression: c => c.IsActive);
 
             columns.Command(c =>{ c.Custom("Edit").Click("editclup");
-            c.Custom("Delete").Click("DeleteModal");}).Title("Action");
+            c.Custom("Delete").Click("DeleteModal");}).Title("Action").Width(200);
 
 
        @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "CommonLookUp") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "CommonLookUp") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
@@ -101,7 +107,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                    <input type="text" class="form-control" id='FieldFilter' placeholder="Search for...">
+                                    <input type="text" class="form-control" id='commonFieldFilter' placeholder="Search for...">
                                     @*<span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
                                     </span>*@
@@ -123,12 +129,12 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#Commongrid').data('kendoGrid').dataSource.read();
-        $('#Commongrid').data('kendoGrid').refresh();
+       @* $('#Commongrid').data('kendoGrid').dataSource.read();
+        $('#Commongrid').data('kendoGrid').refresh();*@
 
-        $("#FieldFilter").keyup(function () {
+        $("#commonFieldFilter").keyup(function () {
 
-            var value = $("#FieldFilter").val();
+            var value = $("#commonFieldFilter").val();
             grid = $("#Commongrid").data("kendoGrid");
 
             if (value) {
@@ -141,10 +147,21 @@
                             value: value
                         },
                         {
-                            field: "ConfigValue",
+                            field: "ConfigKey",
                             operator: "contains",
                             value: value
                         },
+                        {
+                            field: "ConfigValue",
+                            operator: "contains",
+                            value: value
+                        },                                            
+                        {
+                            field: "Description",
+                            operator: "contains",
+                            value: value
+                        },
+                        
                     ]
                 });
             } else {
@@ -237,6 +254,3 @@
 
 
 
-<div id="EditModal">
-    <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
-</div>

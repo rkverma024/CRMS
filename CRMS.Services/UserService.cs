@@ -75,7 +75,7 @@ namespace CRMS.Services
 
             userToEdit.Name = model.Name;
             userToEdit.Email = model.Email;
-            //userToEdit.Password = model.Password;
+            userToEdit.Password = model.Password;
             userToEdit.UserName = model.UserName;
             userToEdit.Gender = model.Gender;
             userToEdit.MobileNo = model.MobileNo;

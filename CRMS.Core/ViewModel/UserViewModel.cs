@@ -21,7 +21,7 @@ namespace CRMS.Core.ViewModel
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is Required")]
-        [MinLength(6, ErrorMessage = "The length must be six.")]        
+        //[MinLength(6, ErrorMessage = "The length must be six.")]        
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

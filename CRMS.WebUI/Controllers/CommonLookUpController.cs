@@ -112,7 +112,8 @@ namespace CRMS.WebUI.Controllers
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            return RedirectToAction("Index");
+            /*return RedirectToAction("Index");*/
+            return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 2 }));
         }
         public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)
         {
