@@ -329,6 +329,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\ConferenceRoomManageController.cs" />
+    <Compile Include="Controllers\FormMstController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
@@ -751,6 +752,8 @@
     <Content Include="Content\image\search.svg" />
     <Content Include="Content\image\trash.svg" />
     <Content Include="Content\css\login.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Scripts\kendo\2017.2.621\angular.min.js" />
     <Content Include="Scripts\kendo\2017.2.621\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\kendo\2017.2.621\cultures\kendo.culture.af.min.js" />
@@ -1288,6 +1291,8 @@
     <Content Include="Content\kendo\fonts\glyphs\WebComponentsIcons.eot" />
     <Content Include="Content\kendo\fonts\glyphs\WebComponentsIcons.ttf" />
     <Content Include="Content\kendo\fonts\glyphs\WebComponentsIcons.woff" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\kendo\2017.2.621\kendo.all-vsdoc.js" />
     <None Include="Scripts\kendo\2017.2.621\kendo.all.min.intellisense.js" />
     <Content Include="Scripts\kendo\2017.2.621\kendo.all.min.js" />
@@ -2421,6 +2426,8 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -2468,6 +2475,9 @@
     <Content Include="Views\Shared\_SettingLayout.cshtml" />
     <Content Include="Views\Role\_RoleListLayout.cshtml" />
     <Content Include="Views\CommonLookUp\_CommonListLayout.cshtml" />
+    <Content Include="Views\FormMst\Index.cshtml" />
+    <Content Include="Views\FormMst\Create.cshtml" />
+    <Content Include="Views\FormMst\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

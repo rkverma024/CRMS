@@ -1,0 +1,227 @@
+﻿@using Kendo.Mvc.UI
+@model IEnumerable<CRMS.Core.Models.FormMst>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="align-center align-between pb20">
+    <h2>Form</h2>
+    <div class="btnDiv">
+        <a href="@Url.Action("Create", "FormMst")">Add Form</a>
+    </div>
+</div>
+@*<h3>
+        <a href="@Url.Action("Create", "FormMst")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
+    </h3>
+*@
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        <span class="glyphicon glyphicon-saved"></span>
+        @TempData["AlertMessage"]
+    </div>  }
+
+@if (@TempData["DeleteMessage"] != null)
+{<div class="alert alert-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        @TempData["DeleteMessage"]
+    </div> }
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+
+<div class="container">
+    <div class="row">
+
+        @(
+        Html.Kendo().Grid(Model).Name("Formgrid").Columns(columns => {
+            columns.Bound(expression: c => c.Name);
+            columns.Bound(expression: c => c.NavigateURL);
+            columns.Bound(expression: c => c.ParentFormId);
+            columns.Bound(expression: c => c.FormAccessCode);
+            columns.Bound(expression: c => c.DisplayIndex);
+            columns.Bound(expression: c => c.IsActive);
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+                           .Title("Action").Filterable(false).Width(200);
+
+        }).ToolBar(toolbar =>
+        {
+        toolbar.Template(@<text>
+                    <div class="toolbar">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                    <input type="text" class="form-control" id='FormFieldFilter' placeholder="Search for...">
+                                    @*<span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                    </span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </text>);
+        })
+        @*.HeaderHtmlAttributes(new { @class = "k-grid-header" })*@
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("FormMstGrid", "FormMst"))
+        .Model(model => model.Id(p => p.Id)))
+    )
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+       @* $('#Formgrid').data('kendoGrid').dataSource.read();
+        $('#Formgrid').data('kendoGrid').refresh();*@
+
+        $("#FormFieldFilter").keyup(function () {
+
+            var value = $("#FormFieldFilter").val();
+            grid = $("#Formgrid").data("kendoGrid");
+
+            if (value) {
+                grid.dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "Name",
+                            operator: "contains",
+                            value: value
+                        },
+                        {
+                            field: "NavigateURL",
+                            operator: "contains",
+                            value: value
+                        },
+                        @*{
+                            field: "ParentFormId",
+                            operator: "contains",
+                            value: value
+                        },*@
+                        {
+                            field: "FormAccessCode",
+                            operator: "contains",
+                            value: value
+                        },
+                       @* {
+                            field: "DisplayIndex",
+                            operator: "contains",
+                            value: value
+                        },*@
+                    ]
+                });
+            } else {
+                grid.dataSource.filter({});
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NavigateURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentFormId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FormAccessCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayIndex)
+            </th>*@
+@* <th>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.CreatedOn)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.UpdatedBy)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.UpdatedOn)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.IsActive)
+    </th>*@
+@*  <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NavigateURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentFormId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormAccessCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayIndex)
+            </td>*@
+@* <td>
+        @Html.DisplayFor(modelItem => item.CreatedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedOn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedBy)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UpdatedOn)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IsActive)
+    </td>*@
+<!--<td>-->
+@* @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+<!--</td>
+        </tr>
+    }
+
+</table>-->

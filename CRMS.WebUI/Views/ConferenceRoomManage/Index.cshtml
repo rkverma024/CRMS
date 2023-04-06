@@ -1,8 +1,8 @@
 ﻿@using Kendo.Mvc.UI
 @model IEnumerable<CRMS.Core.Models.ConferenceRoom>
+<br /><br /><br /><br /><br />
 
-@*<h2>Conference Room</h2>*@
-<br>
+
 <div class="align-center align-between pb20">
     <h2>Conference Room</h2>
     <div class="btnDiv">
@@ -11,9 +11,9 @@
 </div>
 
 @*<h3>
-    <a href="@Url.Action("Create", "ConferenceRoomManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-</h3>
-<hr>*@
+        <a href="@Url.Action("Create", "ConferenceRoomManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
+    </h3>
+    <hr>*@
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
@@ -38,7 +38,13 @@
 
 @(
     Html.Kendo().Grid(Model).Name("ConferenceGrid").Columns(columns => {
-        columns.Bound(expression: c => c.ConferenceRoomNo);
+        columns.Bound(expression: c => c.ConferenceRoomNo).Template(@<text>
+            @if(@item.ConferenceRoomNo != null){
+                 @item.ConferenceRoomNo
+            } else {
+
+            }
+            </text>);
         columns.Bound(expression: c => c.Capacity);
 
         columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "ConferenceRoomManage") +
@@ -78,7 +84,7 @@
     $(document).ready(function () {
         $('#ConferenceGrid').data('kendoGrid').dataSource.read();
         $('#ConferenceGrid').data('kendoGrid').refresh();
-     
+
         $("#CRFieldFilter").keyup(function () {
 
             var value = $("#CRFieldFilter").val();
@@ -86,7 +92,7 @@
 
             if (value) {
                 grid.dataSource.filter({ field: "ConferenceRoomNo", operator: "contains", value: value });
-            }           
+            }
             else {
                 grid.dataSource.filter({});
             }
@@ -94,7 +100,7 @@
     });
 
    @* $(document).ready(function () {
-       
+
     });*@
 </script>
 

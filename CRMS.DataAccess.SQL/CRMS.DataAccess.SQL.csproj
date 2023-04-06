@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ConferenceRoomRepository.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="FormMstRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Migrations\202303170443306_CommonLook.cs" />
     <Compile Include="Migrations\202303170443306_CommonLook.Designer.cs">
@@ -63,6 +64,18 @@
     <Compile Include="Migrations\202303270500107_UpdateUserModel.cs" />
     <Compile Include="Migrations\202303270500107_UpdateUserModel.Designer.cs">
       <DependentUpon>202303270500107_UpdateUserModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304060806209_FormMstData.cs" />
+    <Compile Include="Migrations\202304060806209_FormMstData.Designer.cs">
+      <DependentUpon>202304060806209_FormMstData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304060927082_FormMstDataPINUll.cs" />
+    <Compile Include="Migrations\202304060927082_FormMstDataPINUll.Designer.cs">
+      <DependentUpon>202304060927082_FormMstDataPINUll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304061016239_FormMstDataBase.cs" />
+    <Compile Include="Migrations\202304061016239_FormMstDataBase.Designer.cs">
+      <DependentUpon>202304061016239_FormMstDataBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +100,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303270500107_UpdateUserModel.resx">
       <DependentUpon>202303270500107_UpdateUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304060806209_FormMstData.resx">
+      <DependentUpon>202304060806209_FormMstData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304060927082_FormMstDataPINUll.resx">
+      <DependentUpon>202304060927082_FormMstDataPINUll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304061016239_FormMstDataBase.resx">
+      <DependentUpon>202304061016239_FormMstDataBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

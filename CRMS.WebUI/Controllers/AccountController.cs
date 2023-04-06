@@ -24,7 +24,9 @@ namespace CRMS.WebUI.Controllers
     public class AccountController : Controller
     {
         private LoginService loginService;
-        private UserService userservice;
+        private IUserService userservice;
+     
+
         //LoginRepository repository = new LoginRepository();
 
         public AccountController(LoginService LoginService, UserService userService)
@@ -59,10 +61,12 @@ namespace CRMS.WebUI.Controllers
                     bool isValidUser = encoder.Compare(model.Password, user.Password);
                     if (isValidUser)
                     {
+                     
+                        FormsAuthentication.SetAuthCookie(model.Email, false);
                         Session["Email"] = user.Email;
                         Session["UserName"] = user.UserName;
                         Session["Id"] = user.Id;
-                        FormsAuthentication.SetAuthCookie(model.Email, false);
+                       
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         return RedirectToAction("Index", "Home");
                     }
@@ -80,9 +84,17 @@ namespace CRMS.WebUI.Controllers
             }
         }
         public ActionResult LogOut()
-        {
-            FormsAuthentication.SignOut();            
+        {            
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
             return RedirectToAction("Login");
         }
+
+     /*   public ActionResult ForgotPassword()
+        {
+            return ();
+        }*/
     }
 }

@@ -6,6 +6,13 @@
     ViewBag.Title = "Index";
     Layout = null;
 }
+<!-- Load the Kendo UI stylesheets -->
+<link href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="https://kendo.cdn.telerik.com/2017.3.1026/styles/kendo.default.min.css" rel="stylesheet" />
+
+<!-- Load the Kendo UI JavaScript files -->
+<script src="https://kendo.cdn.telerik.com/2017.3.1026/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.3.1026/js/kendo.all.min.js"></script>
 
 <div class="align-center align-between pb20">
     <h2>Role</h2>
@@ -17,7 +24,11 @@
 @*<h3>
     <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
 </h3>*@
-
+<style>
+    .k-grid-header {
+        background-color: #f2f2f2;
+    }
+    </style>
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
@@ -64,6 +75,7 @@
                     </div>
                 </text>);
         })
+        @*.HeaderHtmlAttributes(new { @class = "k-grid-header" })*@
         .Sortable()
         .Scrollable()
         .Filterable()

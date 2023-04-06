@@ -62,6 +62,9 @@ namespace CRMS.WebUI
 
             container.RegisterType<IRepository<CommonLookUp>, SqlRepository<CommonLookUp>>();
             container.RegisterType<ICommonLookUpService, CommonLookUpService>();
+
+            container.RegisterType<IFormMstRepository, FormMstRepository>();
+            container.RegisterType<IFormMstService, FormMstService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

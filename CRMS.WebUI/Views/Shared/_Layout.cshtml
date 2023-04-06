@@ -1,13 +1,13 @@
 ﻿
-
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/css/style.css" rel="stylesheet" />
 @* <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<link href="~/Content/toastr.css" rel="stylesheet" />*@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Content/Custom.js"></script>
-
+@*<script src="~/Scripts/toastr.js"></script>*@
 <html>
 <head>
 
@@ -18,11 +18,30 @@
 
 </head>
 <body>
+@*    @if (@TempData["AlertMessage"] != null)
+    {<div class="alert alert-success">
+            <span class="glyphicon glyphicon-saved"></span>
+            @TempData["AlertMessage"]
+        </div>}
+
+    @if (@TempData["Already"] != null)
+    {<div class="alert alert-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+            @TempData["Already"]
+        </div>}
+
+    @if (@TempData["DeleteMessage"] != null)
+    {<div class="alert alert-danger">
+            <span class="glyphicon glyphicon-trash"></span>
+            @TempData["DeleteMessage"]
+        </div> }*@
+@*      <span id="Messages" class="d-none">@TempData["AlertMessage"]</span>
+        <span id="EMessages" class="d-none">@TempData["Already"]</span>*@
     <div class="header">
         <div class="container">
             <div class="align-center align-between">
                 <div class="align-center">
-                    <div class="logoDiv"> <a href="#"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
+                    <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
 
                     <div class="menuDiv">
                         <ul class="align-center">
@@ -30,6 +49,7 @@
                             <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
                             @*<li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>*@
                             <li> @Html.ActionLink("Systems", "Index", "Home")</li>
+                            <li> @Html.ActionLink("Form", "Index", "FormMst")</li>
                         </ul>
                     </div>
                 </div>
@@ -37,7 +57,7 @@
                 <div class="userInfo">
                     <div class="align-center">
                         <div class="userProfile">
-                            
+
                         </div>
                         <div class="userName align-center">
                             <span>@Session["UserName"] </span>
@@ -52,7 +72,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -78,3 +97,34 @@
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryval")
+
+@*<script>
+    $(document).ready(function () {
+        $('.dropdown').hover(
+            function () {
+                $(this).find('ul').css({
+                    "display": "block",
+                    "margin-top": 0
+                });
+            },
+            function () {
+                $(this).find('ul').css({
+                    "display": "none",
+                    "margin-top": 0
+                });
+            }
+        );
+        var message = $('#AlertMessage').text();
+        if (message != '') {
+            toastr.success(message);
+        }
+        var message = $('#Already').text();
+        if (message != '') {
+            toastr.success(message);
+        }
+        var emessage = $('#DeleteMessage').text();
+        if (emessage != '') {
+            toastr.error(emessage);
+        }
+    });
+</script>*@
