@@ -15,27 +15,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Systems </title>
+    <style>
+        h1 {
+            color: white;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+    </style>
+
 
 </head>
 <body>
-@*    @if (@TempData["AlertMessage"] != null)
-    {<div class="alert alert-success">
-            <span class="glyphicon glyphicon-saved"></span>
-            @TempData["AlertMessage"]
-        </div>}
+    @*    @if (@TempData["AlertMessage"] != null)
+        {<div class="alert alert-success">
+                <span class="glyphicon glyphicon-saved"></span>
+                @TempData["AlertMessage"]
+            </div>}
 
-    @if (@TempData["Already"] != null)
-    {<div class="alert alert-danger">
-            <span class="glyphicon glyphicon-trash"></span>
-            @TempData["Already"]
-        </div>}
+        @if (@TempData["Already"] != null)
+        {<div class="alert alert-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+                @TempData["Already"]
+            </div>}
 
-    @if (@TempData["DeleteMessage"] != null)
-    {<div class="alert alert-danger">
-            <span class="glyphicon glyphicon-trash"></span>
-            @TempData["DeleteMessage"]
-        </div> }*@
-@*      <span id="Messages" class="d-none">@TempData["AlertMessage"]</span>
+        @if (@TempData["DeleteMessage"] != null)
+        {<div class="alert alert-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+                @TempData["DeleteMessage"]
+            </div> }*@
+    @*      <span id="Messages" class="d-none">@TempData["AlertMessage"]</span>
         <span id="EMessages" class="d-none">@TempData["Already"]</span>*@
     <div class="header">
         <div class="container">
@@ -50,13 +60,34 @@
                             @*<li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>*@
                             <li> @Html.ActionLink("Systems", "Index", "Home")</li>
                             <li> @Html.ActionLink("Form", "Index", "FormMst")</li>
+                            @if (Session["FormLists"] != null)
+                            {
+                                var items = (List<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
+                                foreach (var item in items.GroupBy(x => x.ParentForm))
+                                {
+                                    <li class="dropdown">
+                                        <a class="dropdown-header">@item.Key</a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var subList in item)
+                                            {
+                                                <li><a href="">@subList.Name</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    @*<li><a>@item.Name</a></li>*@
+                                }
+                             }
                         </ul>
                     </div>
                 </div>
-
                 <div class="userInfo">
                     <div class="align-center">
                         <div class="userProfile">
+                            @{
+                                string Name = Session["UserName"].ToString();
+                                char firstLetter = Name[0];
+                            }
+                            <h1>@firstLetter</h1>
 
                         </div>
                         <div class="userName align-center">
@@ -64,10 +95,18 @@
                             <i> <img src="~/Content/image/down-arrow.svg" alt="Dropdown Icon"> </i>
                             <div class="userInfoDiv">
                                 <div class="userInfoBox">
+                                   @* @foreach (var item in (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["Rohit"])
+                                        {
+                                            if (item.ParentFormId == null)
+                                            {
+                                                <a>@item.Name</a>
+                                            }
+                                        }*@
                                     <a href="#">Profile</a>
                                     <a href="#">Settings</a>
                                     @*<a href="login.html">LogOut</a>*@
                                     <a>@Html.ActionLink("LogOut", "LogOut", "Account")</a>
+
                                 </div>
                             </div>
                         </div>
@@ -84,6 +123,7 @@
                 <p>&copy; @DateTime.Now.Year - CRMS</p>
             </footer>*@
     </div>
+
 </body>
 </html>
 <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
@@ -99,32 +139,32 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 @*<script>
-    $(document).ready(function () {
-        $('.dropdown').hover(
-            function () {
-                $(this).find('ul').css({
-                    "display": "block",
-                    "margin-top": 0
-                });
-            },
-            function () {
-                $(this).find('ul').css({
-                    "display": "none",
-                    "margin-top": 0
-                });
+        $(document).ready(function () {
+            $('.dropdown').hover(
+                function () {
+                    $(this).find('ul').css({
+                        "display": "block",
+                        "margin-top": 0
+                    });
+                },
+                function () {
+                    $(this).find('ul').css({
+                        "display": "none",
+                        "margin-top": 0
+                    });
+                }
+            );
+            var message = $('#AlertMessage').text();
+            if (message != '') {
+                toastr.success(message);
             }
-        );
-        var message = $('#AlertMessage').text();
-        if (message != '') {
-            toastr.success(message);
-        }
-        var message = $('#Already').text();
-        if (message != '') {
-            toastr.success(message);
-        }
-        var emessage = $('#DeleteMessage').text();
-        if (emessage != '') {
-            toastr.error(emessage);
-        }
-    });
-</script>*@
+            var message = $('#Already').text();
+            if (message != '') {
+                toastr.success(message);
+            }
+            var emessage = $('#DeleteMessage').text();
+            if (emessage != '') {
+                toastr.error(emessage);
+            }
+        });
+    </script>*@

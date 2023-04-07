@@ -16,6 +16,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace CRMS.WebUI.Controllers
@@ -25,30 +26,31 @@ namespace CRMS.WebUI.Controllers
     {
         private LoginService loginService;
         private IUserService userservice;
-     
+        private IFormMstService formMstService;
 
         //LoginRepository repository = new LoginRepository();
 
-        public AccountController(LoginService LoginService, UserService userService)
+        public AccountController(LoginService LoginService, UserService userService, IFormMstService FormMstService)
         {
             loginService = LoginService;
             userservice = userService;
+            formMstService = FormMstService;
         }
-       
+
         // GET: Account       
 
         //[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            
+
             return View("");
         }
         [HttpPost]
         //[AllowAnonymous]
         public ActionResult Login(LoginViewModel model, string returnUrl)
-        {          
-            if (!ModelState.IsValid)    
+        {
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -61,14 +63,17 @@ namespace CRMS.WebUI.Controllers
                     bool isValidUser = encoder.Compare(model.Password, user.Password);
                     if (isValidUser)
                     {
-                     
+
                         FormsAuthentication.SetAuthCookie(model.Email, false);
                         Session["Email"] = user.Email;
                         Session["UserName"] = user.UserName;
+                        Session["Name"] = user.Name;
                         Session["Id"] = user.Id;
-                       
+                        IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
+                        Session["FormLists"] = formList;
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
-                        return RedirectToAction("Index", "Home");
+                        /* return RedirectToAction("Index", "Home");*/
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                     }
                     else
                     {
@@ -84,7 +89,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
         public ActionResult LogOut()
-        {            
+        {
             FormsAuthentication.SignOut();
             Session.Abandon();
             Session.Clear();
@@ -92,9 +97,9 @@ namespace CRMS.WebUI.Controllers
             return RedirectToAction("Login");
         }
 
-     /*   public ActionResult ForgotPassword()
-        {
-            return ();
-        }*/
+        /*   public ActionResult ForgotPassword()
+           {
+               return ();
+           }*/
     }
 }

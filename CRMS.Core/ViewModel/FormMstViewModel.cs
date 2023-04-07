@@ -20,8 +20,8 @@ namespace CRMS.Core.ViewModel
         public string NavigateURL { get; set; }
 
         /*[Required(ErrorMessage = "This Field is Required")]*/
-        [Display(Name = "Parent Form Id")]
-        public Guid ParentFormId { get; set; }
+
+        public Guid? ParentFormId { get; set; }
 
         [Required(ErrorMessage = "This Field is Required")]
         [RegularExpression(@"[A-Z]{1,10}$",
@@ -37,6 +37,10 @@ namespace CRMS.Core.ViewModel
         public DateTime CreatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }       
+        public IEnumerable<DropDown> Dropdown { get; set; }
+
+        [Display(Name = "Parent Form")]
+        public string ParentForm { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove-circle"></span>
-        @TempData["Already"]        
+        @TempData["Already"]
     </div>}
 
 <html>
@@ -23,7 +23,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
                     <div class="formDiv">
                         <div class="topTitleHead pb20">
-                            <h1> Add Conference Room</h1>
+                            <h2> Add Conference Room</h2>
                         </div>
                         <div class="formSection">
                             <div class="inputBox">

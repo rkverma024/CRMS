@@ -28,7 +28,7 @@ namespace CRMS.Services
             FormMst formMst = new FormMst();
             formMst.Name = model.Name;
             formMst.NavigateURL = model.NavigateURL;
-            //formMst.ParentFormId = model.ParentFormId;
+            formMst.ParentFormId = model.ParentFormId;
             formMst.FormAccessCode = model.FormAccessCode;
             formMst.DisplayIndex = model.DisplayIndex;
             formMst.IsActive = model.IsActive;
@@ -42,12 +42,12 @@ namespace CRMS.Services
             FormMst formMst = formMstrepository.Find(Id);
             return formMst;
         }
-      
+
         public void RemoveFormMst(FormMst removeformMst)
         {
             formMstrepository.Delete(removeformMst.Id);
             formMstrepository.Commit();
-           
+
         }
 
         public void UpdateFormMst(FormMstViewModel model, Guid ID)
@@ -55,7 +55,7 @@ namespace CRMS.Services
             FormMst formMstToEdit = GetFormMstById(ID);
             formMstToEdit.Name = model.Name;
             formMstToEdit.NavigateURL = model.NavigateURL;
-            //formMstToEdit.ParentFormId = model.ParentFormId;
+            formMstToEdit.ParentFormId = model.ParentFormId;
             formMstToEdit.FormAccessCode = model.FormAccessCode;
             formMstToEdit.DisplayIndex = model.DisplayIndex;
             formMstToEdit.IsActive = model.IsActive;
@@ -67,7 +67,52 @@ namespace CRMS.Services
 
         public bool IsExist(FormMstViewModel model, bool IsAvailable)
         {
-            throw new NotImplementedException();
+            bool existingmodel = GetFormMstsList().Where(x => (IsAvailable || x.Id != model.Id) &&
+                                                             (x.Name.ToLower() == model.Name.ToLower())).Any();
+            /*bool existingmodel = GetRolesList().Where(x => x.IsDeleted == false && (IsAvailable || x.Id != model.Id) &&
+                                                              x.RoleName.ToLower() == model.RoleName.ToLower()).Any();*/
+            if (existingmodel)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public List<FormMst> GetFormDropdownList()
+        {
+            return formMstrepository.Collection().Where(b => b.ParentFormId == null).ToList();
+        }
+
+        public List<FormMstViewModel> GetFormMstsIndexList()
+        {
+            var forms = formMstrepository.Collection().ToList();           
+            var formList = (from form in forms
+                            join fm in forms
+                            on form.ParentFormId equals fm.Id into parentforms
+                            from p in parentforms.DefaultIfEmpty()
+                            select new FormMstViewModel()
+                            {
+                                Id = form.Id,
+                                Name = form.Name,
+                                NavigateURL = form.NavigateURL,
+                                ParentForm = p?.Name,
+                                ParentFormId = form.ParentFormId,
+                                FormAccessCode = form.FormAccessCode,
+                                IsActive = form.IsActive,
+                                DisplayIndex = form.DisplayIndex
+                            }).ToList();
+
+            //foreach (var fms in query)
+            //{
+            //    FormMstViewModel formMst = new FormMstViewModel();
+            //    formMst.Id = fms.Id;
+            //    formMst.Name = fms.Name;
+            //    formMst.NavigateURL = fms.NavigateURL;
+            //    formMst.ParentForm = ;
+            //}
+            return formList;
+
+
         }
     }
 }

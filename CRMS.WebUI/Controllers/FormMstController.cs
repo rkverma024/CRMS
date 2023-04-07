@@ -23,12 +23,15 @@ namespace CRMS.WebUI.Controllers
         // GET: FormMst
         public ActionResult Index()
         {
-            List<FormMst> formMsts = formMstservice.GetFormMstsList().ToList();
+            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
+            Session["Rohit"] = formMsts;
             return View(formMsts);
         }
+        
         public ActionResult Create()
         {
             FormMstViewModel formMstViewModel = new FormMstViewModel();
+            formMstViewModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
             return View(formMstViewModel);
         }
 
@@ -37,14 +40,26 @@ namespace CRMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
                 return View(model);
             }
             else
             {
-                model.CreatedBy = (Guid)Session["Id"];
-                formMstservice.CreateFormMst(model);
-                TempData["AlertMessage"] = "Added Successfully..!";
-                return RedirectToAction("Index");
+                bool existingmodel = formMstservice.IsExist(model, true);
+                if (existingmodel)
+                {
+                    TempData["Already"] = "Already Data is exist.";
+                    model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                    return View(model);
+                }
+                else
+                {
+                    model.CreatedBy = (Guid)Session["Id"];
+                    formMstservice.CreateFormMst(model);
+                    TempData["AlertMessage"] = "Added Successfully..!";
+                    return RedirectToAction("Index");
+                }
+                
             }
         }
         public ActionResult Edit(Guid Id)
@@ -59,9 +74,10 @@ namespace CRMS.WebUI.Controllers
                 FormMstViewModel formMstModel = new FormMstViewModel();
                 formMstModel.Name = formMst.Name;
                 formMstModel.NavigateURL = formMst.NavigateURL;
-                //formMstModel.ParentFormId = formMst.ParentFormId;
+                formMstModel.ParentFormId = formMst.ParentFormId;
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
+                formMstModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
                 return View(formMstModel);
             }
         }
@@ -70,14 +86,24 @@ namespace CRMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                return View(model);
             }
             else
             {
-                model.UpdatedBy = (Guid)Session["Id"];
-                formMstservice.UpdateFormMst(model, Id);
-                TempData["AlertMessage"] = "Updated Successfully..!";
-                return RedirectToAction("Index");
+                bool existingmodel = formMstservice.IsExist(model, false);
+                if (existingmodel)
+                {
+                    TempData["Already"] = "Alredy Data is exist";
+                    model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                    return View(model);
+                }
+                else {
+                    model.UpdatedBy = (Guid)Session["Id"];
+                    formMstservice.UpdateFormMst(model, Id);
+                    TempData["AlertMessage"] = "Updated Successfully..!";
+                    return RedirectToAction("Index");
+                }                
             }
         }
         public ActionResult Delete(Guid Id)

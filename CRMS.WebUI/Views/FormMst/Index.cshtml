@@ -1,5 +1,5 @@
 ﻿@using Kendo.Mvc.UI
-@model IEnumerable<CRMS.Core.Models.FormMst>
+@model IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>
 
 <br />
 <br />
@@ -40,7 +40,7 @@
         Html.Kendo().Grid(Model).Name("Formgrid").Columns(columns => {
             columns.Bound(expression: c => c.Name);
             columns.Bound(expression: c => c.NavigateURL);
-            columns.Bound(expression: c => c.ParentFormId);
+            columns.Bound(expression: c => c.ParentForm);
             columns.Bound(expression: c => c.FormAccessCode);
             columns.Bound(expression: c => c.DisplayIndex);
             columns.Bound(expression: c => c.IsActive);
