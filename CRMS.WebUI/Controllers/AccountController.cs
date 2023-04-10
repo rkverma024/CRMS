@@ -68,7 +68,7 @@ namespace CRMS.WebUI.Controllers
                         Session["Email"] = user.Email;
                         Session["UserName"] = user.UserName;
                         Session["Name"] = user.Name;
-                        Session["Id"] = user.Id;
+                        Session["Id"] = user.Id;                        
                         IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
                         Session["FormLists"] = formList;
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/

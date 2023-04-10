@@ -68,7 +68,8 @@ namespace CRMS.Services
         public bool IsExist(FormMstViewModel model, bool IsAvailable)
         {
             bool existingmodel = GetFormMstsList().Where(x => (IsAvailable || x.Id != model.Id) &&
-                                                             (x.Name.ToLower() == model.Name.ToLower())).Any();
+                                                             (x.Name.ToLower() == model.Name.ToLower() ||
+                                                              x.FormAccessCode.ToLower() == model.FormAccessCode.ToLower())).Any();
             /*bool existingmodel = GetRolesList().Where(x => x.IsDeleted == false && (IsAvailable || x.Id != model.Id) &&
                                                               x.RoleName.ToLower() == model.RoleName.ToLower()).Any();*/
             if (existingmodel)
@@ -111,8 +112,6 @@ namespace CRMS.Services
             //    formMst.ParentForm = ;
             //}
             return formList;
-
-
         }
     }
 }
