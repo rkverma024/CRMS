@@ -25,15 +25,15 @@ namespace CRMS.WebUI.Controllers
         {
             List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
             Session["FormLists"] = formMsts;
-           
+
             return View(formMsts);
         }
-        
+
         public ActionResult Create()
         {
             FormMstViewModel formMstViewModel = new FormMstViewModel();
             formMstViewModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-            
+
             return View(formMstViewModel);
         }
 
@@ -61,7 +61,7 @@ namespace CRMS.WebUI.Controllers
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
                 }
-                
+
             }
         }
         public ActionResult Edit(Guid Id)
@@ -80,7 +80,7 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
                 //formMstModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-                formMstModel.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != formMstModel.Id)
+                formMstModel.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != formMst.Id)
                            .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 return View(formMstModel);
             }
@@ -88,11 +88,11 @@ namespace CRMS.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(FormMstViewModel model, Guid Id)
         {
-            if (!ModelState.IsValid)    
+            if (!ModelState.IsValid)
             {
-                //model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-                model.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != model.Id)
-                            .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                /* model.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != model.Id)
+                             .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();*/
                 return View(model);
             }
             else
@@ -101,21 +101,22 @@ namespace CRMS.WebUI.Controllers
                 if (existingmodel)
                 {
                     TempData["Already"] = "Alredy Data is exist";
-                    //model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-                    model.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != model.Id)
-                           .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                    model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                    /*model.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != model.Id)
+                           .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();*/
                     return View(model);
                 }
-                else {
+                else
+                {
                     model.UpdatedBy = (Guid)Session["Id"];
                     formMstservice.UpdateFormMst(model, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
                     return RedirectToAction("Index");
-                }                
+                }
             }
         }
         public ActionResult Delete(Guid Id)
-        {           
+        {
             FormMst formMstToDelete = formMstservice.GetFormMstById(Id);
             formMstservice.RemoveFormMst(formMstToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
@@ -124,7 +125,7 @@ namespace CRMS.WebUI.Controllers
 
         public JsonResult FormMstGrid([DataSourceRequest] DataSourceRequest request)
         {
-            IEnumerable<FormMst> formMst = formMstservice.GetFormMstsList().ToList();
+            IEnumerable<FormMstViewModel> formMst = formMstservice.GetFormMstsIndexList().ToList();
             return Json(formMst.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
     }

@@ -86,7 +86,7 @@ namespace CRMS.Services
 
         public List<FormMstViewModel> GetFormMstsIndexList()
         {
-            var forms = formMstrepository.Collection().ToList();           
+            var forms = formMstrepository.Collection().ToList();
             var formList = (from form in forms
                             join fm in forms
                             on form.ParentFormId equals fm.Id into parentforms
@@ -107,9 +107,7 @@ namespace CRMS.Services
             //{
             //    FormMstViewModel formMst = new FormMstViewModel();
             //    formMst.Id = fms.Id;
-            //    formMst.Name = fms.Name;
-            //    formMst.NavigateURL = fms.NavigateURL;
-            //    formMst.ParentForm = ;
+            //    formMst.Name = fms.Name;            
             //}
             return formList;
         }
