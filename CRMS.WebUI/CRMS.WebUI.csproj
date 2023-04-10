@@ -2478,6 +2478,7 @@
     <Content Include="Views\FormMst\Index.cshtml" />
     <Content Include="Views\FormMst\Create.cshtml" />
     <Content Include="Views\FormMst\Edit.cshtml" />
+    <Content Include="Views\Shared\_FormPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

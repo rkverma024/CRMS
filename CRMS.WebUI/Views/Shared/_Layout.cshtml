@@ -25,7 +25,7 @@
         <div class="container">
             <div class="align-center align-between">
                 <div class="align-center">
-                    <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>                    
+                    <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
                     <div class="menuDiv">
                         <ul class="align-center">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -33,31 +33,9 @@
                             @*<li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>*@
                             <li> @Html.ActionLink("Systems", "Index", "Home")</li>
                             <li> @Html.ActionLink("Form", "Index", "FormMst")</li>
-                            @if (Session["FormLists"] != null)
-                            {
-                                var items = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
-                                foreach (var item in items.Where(s => s.ParentForm == null).GroupBy(Obj => new { Obj.Id }).Distinct().ToList())
-                                {
-                                    var data = items.Where(s => s.ParentFormId == item.FirstOrDefault().Id).ToList();
-                                    if (data.Count == 0)
-                                    {
-                                        <li><a >@item.FirstOrDefault().Name</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li>
-                                            <a class="popout" >@item.FirstOrDefault().Name</a>
-                                            <ul class="level2 dropdown-menu">
-                                                @foreach (var firstItem in data)
-                                                {
-                                                    <li><a class="" >@firstItem.Name</a></li>
-                                                }
-                                            </ul>
-                                        </li>
-                                    }
-                                }
-                            }
 
+                            @*Form DropDown*@
+                            @Html.Partial("_FormPartialView")
                         </ul>
                     </div>
                 </div>
@@ -74,7 +52,7 @@
                             <span>@Session["UserName"] </span>
                             <i> <img src="~/Content/image/down-arrow.svg" alt="Dropdown Icon"> </i>
                             <div class="userInfoDiv">
-                                <div class="userInfoBox">                                  
+                                <div class="userInfoBox">
                                     <a href="#">Profile</a>
                                     <a href="#">Settings</a>
                                     @*<a href="login.html">LogOut</a>*@
@@ -89,7 +67,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />       
+        <hr />
     </div>
 </body>
 </html>

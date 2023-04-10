@@ -25,7 +25,6 @@ namespace CRMS.WebUI.Controllers
         {
             List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
             Session["FormLists"] = formMsts;
-
             return View(formMsts);
         }
 
@@ -33,7 +32,6 @@ namespace CRMS.WebUI.Controllers
         {
             FormMstViewModel formMstViewModel = new FormMstViewModel();
             formMstViewModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-
             return View(formMstViewModel);
         }
 
@@ -80,8 +78,9 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
                 //formMstModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
-                formMstModel.Dropdown = formMstservice.GetFormDropdownList().Where(x => x.ParentFormId == null && x.Id != formMst.Id)
-                           .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                formMstModel.Dropdown = formMstservice.GetFormDropdownList()
+                    .Where(x => x.ParentFormId == null && x.Id != formMst.Id)
+                    .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 return View(formMstModel);
             }
         }
