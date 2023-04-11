@@ -24,8 +24,14 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Index()
         {
             List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
-            Session["FormLists"] = formMsts;
+            //Session["FormLists"] = formMsts;
             return View(formMsts);
+        }
+
+        public JsonResult GetFormLists()
+        {
+            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
+            return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()
@@ -77,6 +83,7 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.ParentFormId = formMst.ParentFormId;
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
+                formMstModel.IsActive = formMst.IsActive;
                 //formMstModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
                 formMstModel.Dropdown = formMstservice.GetFormDropdownList()
                     .Where(x => x.ParentFormId == null && x.Id != formMst.Id)

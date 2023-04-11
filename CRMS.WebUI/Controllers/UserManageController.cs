@@ -60,7 +60,8 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     userservice.CreateUser(model);                    
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
+                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 0 }));
                 }               
             }
         }

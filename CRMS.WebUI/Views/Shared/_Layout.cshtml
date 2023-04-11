@@ -17,7 +17,7 @@
 
         .align-center {
             text-align: center;
-        }
+        }        
     </style>
 </head>
 <body>
@@ -27,15 +27,21 @@
                 <div class="align-center">
                     <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
                     <div class="menuDiv">
-                        <ul class="align-center">
+                        <ul id="my-list" class="align-center">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
                             @*<li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>*@
-                            <li> @Html.ActionLink("Systems", "Index", "Home")</li>
+                            @*<li> @Html.ActionLink("Systems", "Index", "Home")</li>*@
                             <li> @Html.ActionLink("Form", "Index", "FormMst")</li>
+                            @*<li class="dropdown">*@
 
+                            @*<a class="popout" href="#">AI</a>
+                                <ul class="level2 dropdown-menu">
+                                    <li>Rohit</li>
+                                </ul>*@
+                            @* </li>*@
                             @*Form DropDown*@
-                            @Html.Partial("_FormPartialView")
+                            @*@Html.Partial("_FormPartialView")*@
                         </ul>
                     </div>
                 </div>
@@ -74,9 +80,54 @@
 <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
 <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 @RenderSection("scripts", required: false)
+
 @*Kendo*@
 @Styles.Render("~/bundles/kendoCss")
 @Scripts.Render("~/bundles/kendoJs")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    function result() {        
+        $(".dropdown").hover(
+            function () {
+                $(this).find(".dropdown-menu").stop(true, true).fadeIn("fast");
+            },
+            function () {
+                $(this).find(".dropdown-menu").stop(true, true).fadeOut("fast");
+            }
+        );
+    }
+
+    $(document).ready(function() {
+      $.ajax({
+        url: '@Url.Action("GetFormLists","FormMst")',
+        type: "GET",
+        dataType: "json",
+          success: function (data) {
+              var result = data.filter(x => x.ParentFormId == null);
+              $.each(result, function (index, item) {
+                  var dropdown = data.filter(x => x.ParentFormId == item.Id);
+                  if (dropdown.length == 0) {
+
+                  $("<li><a>" + item.Name + "</a></li>").appendTo("#my-list");
+                  }
+                  else {
+                      //var li = $("<a class='popout' href='#'>" + item.Name + "</a>").appendTo(".dropdown");
+
+                      var li = $('<li class="dropdown"><a onmouseover="result()" class="popout" href="#"> ' + item.Name + '<i><img style="padding: 0 4px 0 4px" src="/Content/image/down-arrow.svg"></i></a></li>)').appendTo("#my-list");
+                      var ul = $("<ul class='level2 dropdown-menu userInfoDiv'></ul>").appendTo(li);
+                      var result = data.filter(x => x.ParentFormId == item.Id);
+                      $.each(result, function (i, child) {
+                          $("<li><a href='" + child.NavigateURL + "'>" + child.Name + "</a></li>").appendTo(ul);
+                      });
+                  }
+              });
+          },
+          error: function (xhr, status, error) {
+            console.log(error);
+          }
+      });    
+    });
+</script>
