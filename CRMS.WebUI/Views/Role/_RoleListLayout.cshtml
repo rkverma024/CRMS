@@ -22,13 +22,13 @@
 </div>
 
 @*<h3>
-    <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-</h3>*@
+        <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>        
+    </h3>*@
 <style>
     .k-grid-header {
         background-color: #f2f2f2;
     }
-    </style>
+</style>
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
@@ -51,15 +51,15 @@
 
         @(
         Html.Kendo().Grid(Model).Name("Rolegrid").Columns(columns => {
-        columns.Bound(expression: c => c.RoleName);
-        columns.Bound(expression: c => c.Code);
+            columns.Bound(expression: c => c.RoleName);
+            columns.Bound(expression: c => c.Code);
 
-        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
-                           .Title("Action").Filterable(false);
+            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>" + " | " + "<a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-cog'></i></a>")
+                               .Title("Action").Filterable(false);
 
         }).ToolBar(toolbar =>
-            {
-            toolbar.Template(@<text>
+        {
+        toolbar.Template(@<text>
                     <div class="toolbar">
                         <div class="row">
                             <div class="col-md-4">

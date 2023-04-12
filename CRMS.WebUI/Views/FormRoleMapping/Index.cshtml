@@ -1,0 +1,101 @@
+﻿@model IEnumerable<CRMS.Core.ViewModel.FormRoleMappingViewModel>
+
+<br />
+<br />
+<h2>Form Access List</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table id="RoleRights" class="table table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectAll)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowView)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowInsert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowEdit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowDelete)
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr class="align-middle" id="row_@item.FormId">
+                <td>
+                    <input type="checkbox" class="Selectall" id="FullRights_@item.FormId" @(item.SelectAll == false ? "" : "checked='checked'") onclick="SelectAll(this)" />
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => item.FormId)
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    <input type="checkbox" value="@item.AllowView" @(item.AllowView == false ? "" : "checked='checked'") class="Checkbox" onclick="CheckValue('@item.FormId')" id="View_@item.FormId" />
+                </td>
+                <td>
+                    <input type="checkbox" value="@item.AllowInsert" @(item.AllowInsert == false ? "" : "checked='checked'") class="Checkbox" onclick="CheckValue('@item.FormId')" id="Insert_@item.FormId" />
+                </td>
+                <td>
+                    <input type="checkbox" value="@item.AllowEdit" @(item.AllowEdit == false ? "" : "checked='checked'") class="Checkbox" onclick="CheckValue('@item.FormId')" id="Update_@item.FormId" />
+                </td>
+                <td>
+                    <input type="checkbox" value="@item.AllowDelete" @(item.AllowDelete == false ? "" : "checked='checked'") class="Checkbox" onclick="CheckValue('@item.FormId')" id="Delete_@item.FormId" />
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+<button class="btn btn-primary btn-md" id="btnAdd" style="margin-top: 0px;" type="submit">Save</button>
+<button class="btn btn-danger btn-md" id="btnCancel" name="cancel" type="button" value="Cancel">Cancel</button>
+
+<script>
+    function SelectAll(a) {
+        a.closet
+        $("#row_" + a.id + ".Checkbox").each(function () {
+            this.checked = true;
+        });
+    }
+
+    $(".Selectall").click(function () {
+        if (this.checked) {
+            $(this).closest('tr').find('.Checkbox').each(function () {
+                this.checked = true;
+            });
+        }
+        else {
+            $(this).closest('tr').find('.Checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    function CheckValue(a) {
+        if ($("#View_" + a).prop("checked") == true && $("#Insert_" + a).prop("checked") == true && $("#Update_" + a).prop("checked") == true && $("#Delete_" + a).prop("checked") == true) {
+            $("#FullRights_" + a).prop("checked", true);
+        }
+
+        else {
+            $("#FullRights_" + a).prop("checked", false);
+        }
+
+    }
+    $('#btnCancel').click(function () {
+            window.location.href = '@Url.Action("Index", "Home")';
+            return false;
+         });
+</script>

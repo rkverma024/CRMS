@@ -31,12 +31,12 @@ namespace CRMS.DataAccess.SQL
 
         public void Delete(Guid Id)
         {
-            var conferenceroom = Find(Id);
-            if (context.Entry(conferenceroom).State == EntityState.Detached)
+            var formmst = Find(Id);
+            if (context.Entry(formmst).State == EntityState.Detached)
             {
-                dbSet.Attach(conferenceroom);
+                dbSet.Attach(formmst);
             }
-            dbSet.Remove(conferenceroom);
+            dbSet.Remove(formmst);
         }
 
         public FormMst Find(Guid Id)

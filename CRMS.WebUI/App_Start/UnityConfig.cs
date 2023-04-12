@@ -65,6 +65,9 @@ namespace CRMS.WebUI
 
             container.RegisterType<IFormMstRepository, FormMstRepository>();
             container.RegisterType<IFormMstService, FormMstService>();
+
+            container.RegisterType<IFormRoleMappingRepository, FormRoleMappingRepository>();
+            container.RegisterType<IFormRoleMappingService, FormRoleMappingService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

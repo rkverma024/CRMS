@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IFormRoleMappingService.cs" />
     <Compile Include="Contracts\ICommonLookUpService.cs" />
     <Compile Include="Contracts\IConferenceRoomRepository.cs" />
     <Compile Include="Contracts\IFormMstRepository.cs" />
     <Compile Include="Contracts\IFormMstService.cs" />
+    <Compile Include="Contracts\IFormRoleMappingRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CommonLookUp.cs" />
     <Compile Include="Models\FormMst.cs" />
+    <Compile Include="Models\FormRoleMapping.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\ConferenceRoom.cs" />
     <Compile Include="Models\User.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="ViewModel\ConferenceRoomViewModel.cs" />
     <Compile Include="ViewModel\DropDown.cs" />
     <Compile Include="ViewModel\FormMstViewModel.cs" />
+    <Compile Include="ViewModel\FormRoleMappingViewModel.cs" />
     <Compile Include="ViewModel\IndexViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />

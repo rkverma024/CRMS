@@ -56,6 +56,7 @@
     <Compile Include="ConferenceRoomRepository.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="FormMstRepository.cs" />
+    <Compile Include="FormRoleMappingRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Migrations\202303170443306_CommonLook.cs" />
     <Compile Include="Migrations\202303170443306_CommonLook.Designer.cs">
@@ -76,6 +77,10 @@
     <Compile Include="Migrations\202304061016239_FormMstDataBase.cs" />
     <Compile Include="Migrations\202304061016239_FormMstDataBase.Designer.cs">
       <DependentUpon>202304061016239_FormMstDataBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304120523590_FormRoleMapping.cs" />
+    <Compile Include="Migrations\202304120523590_FormRoleMapping.Designer.cs">
+      <DependentUpon>202304120523590_FormRoleMapping.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304061016239_FormMstDataBase.resx">
       <DependentUpon>202304061016239_FormMstDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304120523590_FormRoleMapping.resx">
+      <DependentUpon>202304120523590_FormRoleMapping.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

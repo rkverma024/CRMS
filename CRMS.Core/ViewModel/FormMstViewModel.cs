@@ -17,9 +17,7 @@ namespace CRMS.Core.ViewModel
 
         [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Navigate URL")]
-        public string NavigateURL { get; set; }
-
-        /*[Required(ErrorMessage = "This Field is Required")]*/
+        public string NavigateURL { get; set; }       
 
         public Guid? ParentFormId { get; set; }
 

@@ -330,6 +330,7 @@
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\ConferenceRoomManageController.cs" />
     <Compile Include="Controllers\FormMstController.cs" />
+    <Compile Include="Controllers\FormRoleMappingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
@@ -2479,6 +2480,7 @@
     <Content Include="Views\FormMst\Create.cshtml" />
     <Content Include="Views\FormMst\Edit.cshtml" />
     <Content Include="Views\Shared\_FormPartialView.cshtml" />
+    <Content Include="Views\FormRoleMapping\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
