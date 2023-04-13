@@ -101,14 +101,7 @@ namespace CRMS.Services
                                 FormAccessCode = form.FormAccessCode,
                                 IsActive = form.IsActive,
                                 DisplayIndex = form.DisplayIndex
-                            }).ToList();
-
-            //foreach (var fms in query)
-            //{
-            //    FormMstViewModel formMst = new FormMstViewModel();
-            //    formMst.Id = fms.Id;
-            //    formMst.Name = fms.Name;            
-            //}
+                            }).ToList();           
             return formList;
         }
     }

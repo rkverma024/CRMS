@@ -14,6 +14,8 @@ namespace CRMS.Core.Contracts
         void Delete(Guid Id);
         FormRoleMapping Find(Guid Id);
         void Insert(FormRoleMapping formRoleMapping);
+        void BulkInsert(IEnumerable<FormRoleMapping> formRoleMapping);
+        void BulkDelete(IEnumerable<FormRoleMapping> formRoleMapping);
         void Update(FormRoleMapping formRoleMapping);
     }
 }

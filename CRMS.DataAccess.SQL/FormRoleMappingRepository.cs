@@ -18,6 +18,19 @@ namespace CRMS.DataAccess.SQL
             this.context = context;
             this.dbSet = context.Set<FormRoleMapping>();
         }
+
+        public void BulkDelete(IEnumerable<FormRoleMapping> formRoleMapping)
+        {
+            dbSet.RemoveRange(formRoleMapping);
+            Commit();
+        }
+
+        public void BulkInsert(IEnumerable<FormRoleMapping> formRoleMapping)
+        {
+            dbSet.AddRange(formRoleMapping);
+            Commit();
+        }
+
         public IQueryable<FormRoleMapping> Collection()
         {
             return dbSet;

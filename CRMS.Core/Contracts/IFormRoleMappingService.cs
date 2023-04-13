@@ -10,8 +10,9 @@ namespace CRMS.Core.Contracts
 {
     public interface IFormRoleMappingService
     {
-        IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid Id);
-        bool UpdateFormRoleRights(IEnumerable<FormRoleMappingViewModel> formRolerights);
+        IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid? Id);
+        void AddFormRights(IEnumerable<FormRoleMapping> formRoleMapping);
+        List<FormRoleMapping> GetList();
 
 
 
@@ -20,10 +21,9 @@ namespace CRMS.Core.Contracts
 
 
 
-
-      /*  void CreateFormRights(FormRoleMappingViewModel model);
-        IEnumerable<FormRoleMapping> GetAllFormRights();        
-        void UpdateFormRoleRights(FormRoleMappingViewModel model, Guid Id);*/
+        /*  void CreateFormRights(FormRoleMappingViewModel model);
+          IEnumerable<FormRoleMapping> GetAllFormRights();        
+          void UpdateFormRoleRights(FormRoleMappingViewModel model, Guid Id);*/
 
         /* List<FormRoleMapping> GetAllForm();*/
         //List<FormRoleViewModel> GetFormRoleIndexList();

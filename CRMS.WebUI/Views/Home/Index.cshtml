@@ -5,7 +5,7 @@
 <html>
 <head>
     <title></title>
-
+    
 </head>
 <body>
     <div class="mainDiv">
@@ -17,7 +17,7 @@
                 <div class="topTitleHead pb20">
                     <h1> Systems</h1>
                 </div>
-
+                <label id="alertid" class="bg-success text-white"></label>
                 <!----- Tabs ---->
                 <div class="tab">
                     <ul class="align-center">
@@ -33,7 +33,7 @@
                 <div class="tabContentDetails">
                     @*<div id="UserManagement" class="tabcontent" style="display: block" data-url='@Url.Action("Index","UserManage")'>*@
                     <div id="UserManagement" class="tabcontent" style="display: block">
-                       @* @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
+                        @* @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
                     </div>
                     <div id="RoleManagement" class="tabcontent" data-url='@Url.Action("Index","Role")'>
                         @* @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@

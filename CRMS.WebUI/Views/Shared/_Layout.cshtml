@@ -28,20 +28,11 @@
                     <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
                     <div class="menuDiv">
                         <ul id="my-list" class="align-center">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
+                            <li>@Html.ActionLink("System", "Index", "Home")</li>
+                            @*<li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>*@
                             @*<li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>*@
                             @*<li> @Html.ActionLink("Systems", "Index", "Home")</li>*@
-                            <li> @Html.ActionLink("Form", "Index", "FormMst")</li>
-                            @*<li class="dropdown">*@
-
-                            @*<a class="popout" href="#">AI</a>
-                                <ul class="level2 dropdown-menu">
-                                    <li>Rohit</li>
-                                </ul>*@
-                            @* </li>*@
-                            @*Form DropDown*@
-                            @*@Html.Partial("_FormPartialView")*@
+                            @*<li> @Html.ActionLink("Form", "Index", "FormMst")</li>*@                                                     
                         </ul>
                     </div>
                 </div>
@@ -60,8 +51,7 @@
                             <div class="userInfoDiv">
                                 <div class="userInfoBox">
                                     <a href="#">Profile</a>
-                                    <a href="#">Settings</a>
-                                    @*<a href="login.html">LogOut</a>*@
+                                    <a href="#">Settings</a>                                    
                                     <a>@Html.ActionLink("LogOut", "LogOut", "Account")</a>
                                 </div>
                             </div>
@@ -111,7 +101,7 @@
                   var dropdown = data.filter(x => x.ParentFormId == item.Id);
                   if (dropdown.length == 0) {
 
-                  $("<li><a>" + item.Name + "</a></li>").appendTo("#my-list");
+                      $("<li><a href='" + item.NavigateURL + "'>" + item.Name + "</a></li>").appendTo("#my-list");
                   }
                   else {
                       //var li = $("<a class='popout' href='#'>" + item.Name + "</a>").appendTo(".dropdown");
