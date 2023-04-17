@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 
 namespace CRMS.Services
 {
@@ -31,6 +32,7 @@ namespace CRMS.Services
             Guid? findRoleId = formRoleMappingRepository.Collection().Where(x => x.RoleId == roleId).Select(x => x.RoleId).FirstOrDefault();
             if (findRoleId == null)
             {
+                
                 formRoleMappingRepository.BulkInsert(formRoleMapping);
             }
             else
@@ -40,7 +42,6 @@ namespace CRMS.Services
                 formRoleMappingRepository.BulkInsert(formRoleMapping);
             }
         }
-
         public IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid? Id)
         {
             var viewform = (from fm in fromMstRepository.Collection().ToList()
@@ -52,66 +53,19 @@ namespace CRMS.Services
                                 RoleId = Id,
                                 FormId = fm.Id,
                                 Name = fm.Name,
-                                SelectAll = f == null ? false : (f.AllowView && f.AllowInsert && f.AllowEdit && f.AllowDelete) ? true : false,
-                                //(      (f?.AllowView && f?.AllowInsert ? false : f.AllowView) 
-                                //    && (f?.AllowInsert == null ? false : f.AllowInsert) 
-                                //    && (f?.AllowEdit == null ? false : f.AllowEdit) 
-                                //    && (f?.AllowDelete == null ? false : f.AllowDelete)
-                                // ) 
-                                //? true : false,
+                                SelectAll = f == null ? false : (f.AllowView && f.AllowInsert && f.AllowEdit && f.AllowDelete) ? true : false,                                
                                 AllowView = f?.AllowView == null ? false : f.AllowView,
                                 AllowInsert = f?.AllowInsert == null ? false : f.AllowInsert,
                                 AllowEdit = f?.AllowEdit == null ? false : f.AllowEdit,
                                 AllowDelete = f?.AllowDelete == null ? false : f.AllowDelete
                             }).ToList();
-            return viewform;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /* var viewform = (from f in formMstservice.GetFormMstsList()
-                                        join fr in GetList() on f.Id equals fr.FormId
-                                        where (fr.RoleId == Id)
-                                        select new FormRoleMappingViewModel()
-                                        {
-                                            Name = f.Name,
-                                            FormId = f.Id,
-                                            RoleId = fr.RoleId,
-                                            AllowInsert = fr.AllowInsert,
-                                            AllowDelete = fr.AllowDelete,
-                                            AllowEdit = fr.AllowEdit,
-                                            AllowView = fr.AllowView,
-                                        }).ToList();
-             return viewform;*/
-
-
-            /*IEnumerable<FormRoleMapping> formRoleMapping = formRoleMappingRepository.Collection();
-            IEnumerable<FormMstViewModel> formMst = formMstservice.GetFormMstsIndexList();
-            List<FormRoleMappingViewModel> formRoleMappingViewModel = new List<FormRoleMappingViewModel>();
-            foreach (var item in formMst)
-            {
-                FormRoleMappingViewModel formRoleViewModel = new FormRoleMappingViewModel();
-                formRoleViewModel.FormId = item.Id;
-                formRoleViewModel.RoleId = Id;
-                formRoleViewModel.Name = item.Name;                
-                formRoleMappingViewModel.Add(formRoleViewModel);
-            }
-            return formRoleMappingViewModel;*/
+            return viewform;           
         }
 
         public List<FormRoleMapping> GetList()
         {
             return formRoleMappingRepository.Collection().ToList();
         }
+
     }
 }

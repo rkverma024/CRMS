@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using CRMS.Services;
 namespace CRMS.WebUI.Controllers
 {
     [Authorize]
@@ -22,12 +22,13 @@ namespace CRMS.WebUI.Controllers
         }
 
         // GET: ConferenceRoomManage
+        [ActionFilter("CRM",CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<ConferenceRoom> conferenceRoom = conferenceroomService.GetConferenceRoomList().ToList();
             return View(conferenceRoom);
         }
-
+        [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             ConferenceRoomViewModel conferenceRoom = new ConferenceRoomViewModel();
@@ -57,7 +58,7 @@ namespace CRMS.WebUI.Controllers
                 }               
             }
         }
-
+        [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
             ConferenceRoom conferenceRoom = conferenceroomService.GetConferenceRoomById(Id);
@@ -97,7 +98,8 @@ namespace CRMS.WebUI.Controllers
                     return RedirectToAction("Index");
                 }                
             }            
-        }       
+        }
+        [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsDelete)]
         //[HttpPost]     
         public ActionResult Delete(Guid Id)
         {

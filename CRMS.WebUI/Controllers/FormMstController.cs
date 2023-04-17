@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace CRMS.WebUI.Controllers
 {
     public class FormMstController : Controller
@@ -19,7 +18,7 @@ namespace CRMS.WebUI.Controllers
         {
             formMstservice = formMstService;
         }
-
+        //[ActionFilter("/FormMst/Index")]
         // GET: FormMst
         public ActionResult Index()
         {
@@ -83,8 +82,7 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.ParentFormId = formMst.ParentFormId;
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
-                formMstModel.IsActive = formMst.IsActive;
-                //formMstModel.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
+                formMstModel.IsActive = formMst.IsActive;                
                 formMstModel.Dropdown = formMstservice.GetFormDropdownList()
                     .Where(x => x.ParentFormId == null && x.Id != formMst.Id)
                     .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();

@@ -35,7 +35,7 @@
         columns.Bound(expression: c => c.Role);
         columns.Bound(expression: c => c.Gender);
         columns.Bound(expression: c => c.MobileNo);
-        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
                        .Title("Action").Filterable(false);
     }).ToolBar(toolbar =>
             {
@@ -56,6 +56,7 @@
                     </div>
                 </text>);
     })
+    .NoRecords("No record found")
     .Sortable()
     .Scrollable()
     .Filterable()

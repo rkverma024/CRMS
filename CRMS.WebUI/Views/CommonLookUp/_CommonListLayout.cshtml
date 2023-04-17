@@ -45,13 +45,6 @@
     }
 </script>
 
-
-
-
-@*<h2>Common LookUp</h2>*@
-
-
-
 <div class="align-center align-between pb20">
     <h2>Common LookUp</h2>
     <button class="btnDiv">
@@ -92,9 +85,8 @@
         columns.Bound(expression: c => c.Description);
         columns.Bound(expression: c => c.IsActive);
 
-            columns.Command(c =>{ c.Custom("Edit").Click("editclup");
-            c.Custom("Delete").Click("DeleteModal");}).Title("Action").Width(200);
-
+        columns.Command(c =>{ c.Custom("Edit").Click("editclup");
+        c.Custom("Delete").Click("DeleteModal");}).Title("Action").Width(200);
 
        @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "CommonLookUp") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "CommonLookUp") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
                        .Title("Action").Filterable(false);*@
@@ -117,6 +109,7 @@
                     </div>
                 </text>);
         })
+        .NoRecords("No record found")
         .Sortable()
         .Scrollable()
         .Filterable()
@@ -124,7 +117,6 @@
         .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("CommonLookUpGrid", "CommonLookUp"))
         .Model(model => model.Id(p => p.Id)))
     )
-
     </div>
 </div>
 <script>
@@ -155,13 +147,12 @@
                             field: "ConfigValue",
                             operator: "contains",
                             value: value
-                        },                                            
+                        },
                         {
                             field: "Description",
                             operator: "contains",
                             value: value
                         },
-                        
                     ]
                 });
             } else {
@@ -233,9 +224,6 @@
             </tr>
         }
     </table>*@
-
-
-
 
 
 <div class="createPopupModalForm ">

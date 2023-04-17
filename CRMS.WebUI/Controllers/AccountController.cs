@@ -25,19 +25,20 @@ namespace CRMS.WebUI.Controllers
     public class AccountController : Controller
     {
         private LoginService loginService;
-        private IUserService userservice;
-        private IFormMstService formMstService;
-
+        private UserService userservice;
+        private FormMstService formMstService;
+        private UserRoleService userRoleService;
+        private FormRoleMappingService formRoleMappingService;
         //LoginRepository repository = new LoginRepository();
 
-        public AccountController(LoginService LoginService, UserService userService, IFormMstService FormMstService)
+        public AccountController(LoginService LoginService, UserService userService, FormMstService FormMstService, UserRoleService userroleService, FormRoleMappingService FormRoleMappingService)
         {
             loginService = LoginService;
             userservice = userService;
             formMstService = FormMstService;
-        }
-
-        // GET: Account       
+            userRoleService = userroleService;
+            formRoleMappingService = FormRoleMappingService;
+        }        
 
         //[AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -63,16 +64,21 @@ namespace CRMS.WebUI.Controllers
                     bool isValidUser = encoder.Compare(model.Password, user.Password);
                     if (isValidUser)
                     {
-
                         FormsAuthentication.SetAuthCookie(model.Email, false);
                         Session["Email"] = user.Email;
                         Session["UserName"] = user.UserName;
                         Session["Name"] = user.Name;
-                        Session["Id"] = user.Id;                        
-                        IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
-                        Session["FormLists"] = formList;
+                        Session["Id"] = user.Id;
+
+                        var loginRoleId = userRoleService.GetUserRoleList().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+                        IEnumerable<FormRoleMapping> formRoleMappings = formRoleMappingService.GetList().Where(x => x.RoleId == loginRoleId).ToList();
+                        Session["Permission"] = formRoleMappings;
+
+                        /* IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
+                         Session["FormLists"] = formList;*/
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/
+
                         return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
                     }
                     else
@@ -101,5 +107,9 @@ namespace CRMS.WebUI.Controllers
            {
                return ();
            }*/
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace CRMS.Core.Contracts
         IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid? Id);
         void AddFormRights(IEnumerable<FormRoleMapping> formRoleMapping);
         List<FormRoleMapping> GetList();
+        /* List<FormRoleMapping> CheckFormAccess(string formsccesscode);*/
+
 
 
 

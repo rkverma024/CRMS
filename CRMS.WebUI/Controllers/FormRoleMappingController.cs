@@ -9,12 +9,15 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
+    [Authorize]
     public class FormRoleMappingController : Controller
     {
         private IFormRoleMappingService formRoleMappingService;
-        public FormRoleMappingController(IFormRoleMappingService formroleMappingService)
+        private IRoleService roleservice;
+        public FormRoleMappingController(IFormRoleMappingService formroleMappingService, IRoleService roleService)
         {
             formRoleMappingService = formroleMappingService;
+            roleservice = roleService;
         }
 
         // GET: FormRoleMapping
@@ -31,12 +34,12 @@ namespace CRMS.WebUI.Controllers
                 return View(model);
             }
             else
-            {
+            {               
                 formRoleMappingService.AddFormRights(model);
                 TempData["AlertMessage"] = "Permission Save Successfully..!";
                 return Content("true");
-
             }
         }
+
     }
 }

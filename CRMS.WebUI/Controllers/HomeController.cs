@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using CRMS.Services;
 namespace CRMS.WebUI.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        //[ActionFilter("/Home/Index")]
         public ActionResult Index(int activeTabId = 0)
         {
             ViewBag.activeTabId = activeTabId;
