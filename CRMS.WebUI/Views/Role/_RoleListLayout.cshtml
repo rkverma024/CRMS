@@ -1,7 +1,6 @@
 ﻿@using Kendo.Mvc.UI
-
 @model IEnumerable<CRMS.Core.Models.Role>
-
+@using CRMS.Core.ViewModel
 @{
     ViewBag.Title = "Index";
     Layout = null;
@@ -14,15 +13,21 @@
 <script src="https://kendo.cdn.telerik.com/2017.3.1026/js/jquery.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/2017.3.1026/js/kendo.all.min.js"></script>
 
+
+
 <div class="align-center align-between pb20">
     <h2>Role</h2>
-    <div class="btnDiv">
-        <a href="@Url.Action("Create", "Role")">+ Add Role</a>
-    </div>
+    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+    {
+        <div class="btnDiv">
+            <a href="@Url.Action("Create", "Role")">+ Add Role</a>
+        </div>
+    }
 </div>
 
+
 @*<h3>
-        <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>        
+        <a href="@Url.Action("Create", "Role")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
     </h3>*@
 <style>
     .k-grid-header {
@@ -50,11 +55,30 @@
 
         @(
         Html.Kendo().Grid(Model).Name("Rolegrid").Columns(columns => {
-            columns.Bound(expression: c => c.RoleName);
-            columns.Bound(expression: c => c.Code);
+        columns.Bound(expression: c => c.RoleName);
+        columns.Bound(expression: c => c.Code);
 
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>" + " | " + "<a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-cog'></i></a>")
-                               .Title("Action").Filterable(false);
+        @*columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>" + " | " + "<a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-cog'></i></a>")
+                           .Title("Action").Filterable(false);*@
+
+            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+            {
+                columns.Bound(p => p.Id).ClientTemplate(
+               "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+               + " <a href='" + Url.Action("Edit", "Role") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+               + "#}#"
+              
+               + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+               + " | <a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+               + "#}#"
+
+               + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+               + " | <a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#'class='btn btn-info'><i class='glyphicon glyphicon-cog'></i></a>"
+               + "#}#"
+               ).Width(200).Title("Action").Filterable(false);
+            }
+
+
 
         }).ToolBar(toolbar =>
         {

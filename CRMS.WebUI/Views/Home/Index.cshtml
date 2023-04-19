@@ -20,151 +20,30 @@
                 <label id="alertid" class="bg-success text-white"></label>
                 <!----- Tabs ---->
                 <div class="tab">
-                    <ul class="align-center">
-                        <li> <a class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
+                    <ul class="align-center" id="my-lists">
+                        @*<li> <a class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                         <li> <a class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'CommonLookUp')"> CommonLookUp</a> </li>
+                        <li> <a class="tablinks" onclick="openSystems(event, 'CommonLookUp')"> CommonLookUp</a> </li>*@
                         @*<li> <a class="tablinks" onclick="openSystems(event, 'Settings')">Settings </a> </li>*@
-                        <li> <a class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
+                        @*<li> <a class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
+                        <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>*@
                     </ul>
                 </div>
 
-                <div class="tabContentDetails">
+                <div class="tabContentDetails" id="tabContentDetails">
                     @*<div id="UserManagement" class="tabcontent" style="display: block" data-url='@Url.Action("Index","UserManage")'>*@
-                    <div id="UserManagement" class="tabcontent" style="display: block">
-                        @* @Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
+                    <div id="User" class="tabcontent">
+                         @*@Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
                     </div>
-                    <div id="RoleManagement" class="tabcontent" data-url='@Url.Action("Index","Role")'>
+                    <!--<div id="Role" class="tabcontent" data-url='@Url.Action("Index","Role")'>-->
                         @* @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
-                    </div>
+                    <!--</div>-->
 
                     <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>
                         @* @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")*@
                     </div>
 
-                    <div id="Activitylogs" class="tabcontent">
-                        <div class="align-center align-between pb20">
-                            <h2>Activity logs</h2>
-                        </div>
-                        <div class="tableDiv">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th> User Name </th>
-                                        <th> Url</th>
-                                        <th> Http Method </th>
-                                        <th> Http  Status </th>
-                                        <th> Excution Time </th>
-                                        <th class="text-center" style="width: 12%;"> Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> -  </td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="statusDiv Processing"> Processing  </div>
-                                        </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> -  </td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="statusDiv Failed"> Failed  </div>
-                                        </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> -  </td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="statusDiv Processed"> Processed  </div>
-                                        </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> -  </td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="statusDiv New"> New  </div>
-                                        </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="Errorlogs" class="tabcontent">
-                        <div class="align-center align-between pb20">
-                            <h2>Error logs</h2>
-                        </div>
-                        <div class="tableDiv">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th> User Name </th>
-                                        <th> Url</th>
-                                        <th> Http Method </th>
-                                        <th> Http  Status </th>
-                                        <th> Excution Time </th>
-                                        <th class="text-center" style="width: 12%;"> Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> -  </td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="statusDiv Failed"> Failed  </div>
-                                        </td>
-                                        <td> - </td>
-                                        <td>
-                                            <div class="actionIcon">
-                                                <a href="#"> <i> <img src="~/Content/image/edit.svg" alt="Edit icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/key.svg" alt="Key icon"> </i> </a>
-                                                <a href="#"> <i> <img src="~/Content/image/trash.svg" alt="Delete icon"> </i> </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    
                 </div>
                 <!----- END Tabs ---->
             </div>
@@ -179,18 +58,19 @@
 
 <script>
     function loadTab(SystemsName) {
-        if (SystemsName == "RoleManagement") {
+        if (SystemsName == "User") {
+            url = "@Url.Action("Index","UserManage")"
+            $("#User").load(url)
+        }
+        if (SystemsName == "Role") {
             url = "@Url.Action("Index","Role")"
-            $("#RoleManagement").load(url)
+            $("#Role").load(url)
         }
         if (SystemsName == "CommonLookUp") {
             url = "@Url.Action("Index","CommonLookUp")"
             $("#CommonLookUp").load(url)
         }
-        if (SystemsName == "UserManagement") {
-            url = "@Url.Action("Index","UserManage")"
-            $("#UserManagement").load(url)
-        }
+
     }
     function openSystems(evt, SystemsName) {
         isUserLoaded = false;
@@ -210,6 +90,29 @@
 
     $(document).ready(function ()
     {
+        $.ajax({
+            url: '@Url.Action("GetFormLists","FormMst")',
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var result = data.filter(x => x.ParentForm == 'System');
+                $.each(result, function (index, item) {
+                    $("<li><a class='tablinks' onclick='openSystems(event,\"" + item.Name + "\"\)'\'>" + item.Name + "</a></li>").appendTo("#my-lists");
+                });
+                $.each(result, function (index, item) {
+                    $("<div id='Role' class='tabcontent' data-url='@Url.Action("Index","Role")'></div>").appendTo("#tabContentDetails");
+                    if (item.Name == "Role") {
+
+                    loadTab("Role");
+                    }
+                });
+               
+                afterLoad();
+            }
+        });
+
+    });
+    function afterLoad() {
         var activeTabId = parseInt('@ViewBag.activeTabId');
         var tabcontent = document.getElementsByClassName("tabcontent");
         var tablinks = document.getElementsByClassName("tablinks");
@@ -217,11 +120,11 @@
 
        if (activeTabId == 0)
         {
-            loadTab("UserManagement");
+            //loadTab("User");
             tablinks[0].className = 'tablinks active';
-            tabcontent[0].style.display = "block";
+            //tabcontent[0].style.display = "block";
        }
-       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != 0) {       
+       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != 0) {
 
             @*url = "@Url.Action("Index","Home")"
            $("#UserManagement").load(url);*@
@@ -237,7 +140,7 @@
             tabcontent[0].style.display = "none";
             tabcontent[activeTabId].style.display = "block";
             if (activeTabId == 1) {
-                loadTab("RoleManagement")
+                loadTab("Role")
             }
             if (activeTabId == 2) {
                 loadTab("CommonLookUp")
@@ -247,10 +150,10 @@
         if (isUserLoaded || activeTabId == null) {
                 activeTabId = 0;
                 url = "@Url.Action("Index","UserManage")"
-            $("#UserManagement").load(url)
+            $("#User").load(url)
                 //location.href = "/Acccount/Dashboard?activeTabId=0";
         }
-    });
+    }
 
 </script>
 

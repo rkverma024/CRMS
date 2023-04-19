@@ -4,13 +4,12 @@ using CRMS.DataAccess.SQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+
 
 namespace CRMS.Services
 {
-    public class CheckAccess
+    public class CheckAccess 
     {
         /*  private FormMstService formMstservice;
           private FormRoleMappingService rolemappingService;

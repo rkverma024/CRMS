@@ -22,13 +22,14 @@ namespace CRMS.WebUI.Controllers
         }
 
         // GET: CommonLookUp
+        [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<CommonLookUp> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
             return PartialView("_CommonListLayout",commonLookUp);
             //return View(commonLookUp);
         }
-
+        [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             CommonLookUpViewModel commonlookup = new CommonLookUpViewModel();
@@ -60,7 +61,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-
+        [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
 
@@ -107,6 +108,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+        [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);

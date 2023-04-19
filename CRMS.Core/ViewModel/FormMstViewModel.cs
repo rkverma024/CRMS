@@ -40,5 +40,6 @@ namespace CRMS.Core.ViewModel
 
         [Display(Name = "Parent Form")]
         public string ParentForm { get; set; }
+        public string AllowAll { get; set; }
     }
 }

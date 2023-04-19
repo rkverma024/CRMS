@@ -21,14 +21,14 @@ namespace CRMS.WebUI.Controllers
             roleservice = roleService;
         }
         // GET: RoleManagement
+        [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<Role> roles = roleservice.GetRolesList().ToList();
             return PartialView("_RoleListLayout", roles);
             /*return View(roles);*/
-
         }
-
+        [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             RoleViewModel roles = new RoleViewModel();
@@ -61,6 +61,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+        [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
             Role role = roleservice.GetRole(Id);
@@ -105,6 +106,7 @@ namespace CRMS.WebUI.Controllers
 
         /* [HttpPost]
          [ActionName("Delete")]*/
+        [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             Role roleToDelete = roleservice.GetRole(Id);

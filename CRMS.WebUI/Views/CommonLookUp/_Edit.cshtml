@@ -68,7 +68,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="closePopup()">Close</button>
+                    @*<button type="button" class="btn btn-danger" onclick="closePopup()">Close</button>*@
+                    <button class="btn btn-danger btn-md" id="btnCancel" name="cancel" type="button" value="Cancel">Cancel</button>
                     <button type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
@@ -81,6 +82,11 @@
 <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 
 <script>
+    $('#btnCancel').click(function () {
+            window.location.href = location.href='@Url.Action("Index", "Home", new { activeTabId = 2 })';
+            return false;
+    });
+
     function closePopup() {
         location.reload();
     }

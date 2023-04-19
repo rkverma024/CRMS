@@ -18,21 +18,19 @@ namespace CRMS.WebUI.Controllers
         {
             formMstservice = formMstService;
         }
-        //[ActionFilter("/FormMst/Index")]
-        // GET: FormMst
+        [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
-            //Session["FormLists"] = formMsts;
+            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();            
             return View(formMsts);
         }
 
         public JsonResult GetFormLists()
         {
-            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
+            List<FormMstViewModel> formMsts = formMstservice.NavBarFormList();
             return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
-
+        [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             FormMstViewModel formMstViewModel = new FormMstViewModel();
@@ -67,6 +65,7 @@ namespace CRMS.WebUI.Controllers
 
             }
         }
+        [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
             FormMst formMst = formMstservice.GetFormMstById(Id);
@@ -119,6 +118,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+        [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             FormMst formMstToDelete = formMstservice.GetFormMstById(Id);

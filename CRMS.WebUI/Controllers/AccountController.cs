@@ -94,7 +94,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();

@@ -26,12 +26,13 @@ namespace CRMS.WebUI.Controllers
             _useroleservice = useroleservice;
         }
 
-        // GET: UserManage
+        [ActionFilter("US", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {            
             var list = userservice.GetUserRoleList();
             return View(list);           
         }
+        [ActionFilter("US", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             UserViewModel user = new UserViewModel();
@@ -65,7 +66,7 @@ namespace CRMS.WebUI.Controllers
                 }               
             }
         }
-
+        [ActionFilter("US", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {            
             User user = userservice.GetUserById(Id);            
@@ -114,7 +115,8 @@ namespace CRMS.WebUI.Controllers
                 }
                              
            }
-        }       
+        }
+        [ActionFilter("US", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             User userToDelete = userservice.GetUserById(Id);

@@ -1,6 +1,6 @@
 ﻿@using Kendo.Mvc.UI
 @model IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>
-
+@using CRMS.Core.ViewModel
 <br />
 <br />
 <br />
@@ -9,10 +9,13 @@
 
 <div class="align-center align-between pb20">
     <h2>Form</h2>
-    <div class="btnDiv">
-        <a href="@Url.Action("Create", "FormMst")">Add Form</a>
+    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+    {
+        <div class="btnDiv">
+            <a href="@Url.Action("Create", "FormMst")">Add Form</a>
+        </div>
+    }
     </div>
-</div>
 @*<h3>
         <a href="@Url.Action("Create", "FormMst")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
     </h3>
@@ -44,8 +47,21 @@
             columns.Bound(expression: c => c.FormAccessCode);
             columns.Bound(expression: c => c.DisplayIndex);
             columns.Bound(expression: c => c.IsActive);
-            columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
-                           .Title("Action").Filterable(false).Width(200);
+           @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
+                           .Title("Action").Filterable(false).Width(200);*@
+            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+            {
+                columns.Bound(p => p.Id).ClientTemplate(
+                  "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+                  + " <a href='" + Url.Action("Edit", "FormMst") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+                  + "#}#"
+
+                  + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                  + " | <a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+                  + "#}#"
+
+            ).Width(200).Title("Action").Filterable(false);
+            }
 
         }).ToolBar(toolbar =>
         {

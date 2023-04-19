@@ -18,6 +18,7 @@ namespace CRMS.Core.Contracts
         void RemoveFormMst(FormMst removeformMst);
         bool IsExist(FormMstViewModel model, bool IsAvailable);
         List<FormMst> GetFormDropdownList();
+        List<FormMstViewModel> NavBarFormList();
 
     }
 }

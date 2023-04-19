@@ -1,12 +1,17 @@
 ﻿@using Kendo.Mvc.UI
 @model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
+@using CRMS.Core.ViewModel
+
 
 <div class="align-center align-between pb20">
     <h2>User Management</h2>
-    <div class="btnDiv">
-        <a href="@Url.Action("Create", "UserManage")">+ Add User</a>
-    </div>
-</div>
+    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+    {
+        <div class="btnDiv">
+            <a href="@Url.Action("Create", "UserManage")">+ Add User</a>          
+        </div>
+    }
+ </div>
 
 
 @if (@TempData["AlertMessage"] != null)
@@ -35,11 +40,25 @@
         columns.Bound(expression: c => c.Role);
         columns.Bound(expression: c => c.Gender);
         columns.Bound(expression: c => c.MobileNo);
-        columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
-                       .Title("Action").Filterable(false);
+       @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
+                       .Title("Action").Filterable(false);*@
+
+        if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+        {
+            columns.Bound(p => p.Id).ClientTemplate(
+             "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+             + " <a href='" + Url.Action("Edit", "UserManage") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+             + "#}#"
+             + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+             + " | <a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+
+             + "#}#"
+             ).Width(200).Title("Action").Filterable(false);
+        }
+
     }).ToolBar(toolbar =>
-            {
-            toolbar.Template(@<text>
+    {
+    toolbar.Template(@<text>
                     <div class="toolbar">
 
                         <div class="row">

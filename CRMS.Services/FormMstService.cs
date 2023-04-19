@@ -6,16 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CRMS.Services
 {
     public class FormMstService : IFormMstService
     {
         IFormMstRepository formMstrepository;
+        IRoleRepository roleRepository;
 
-        public FormMstService(IFormMstRepository formMstRepository)
+        public FormMstService(IFormMstRepository formMstRepository, IRoleRepository RoleRepository)
         {
             this.formMstrepository = formMstRepository;
+            this.roleRepository = RoleRepository;
         }
         public List<FormMst> GetFormMstsList()
         {
@@ -86,11 +89,12 @@ namespace CRMS.Services
 
         public List<FormMstViewModel> GetFormMstsIndexList()
         {
+           
             var forms = formMstrepository.Collection().ToList();
             var formList = (from form in forms
                             join fm in forms
                             on form.ParentFormId equals fm.Id into parentforms
-                            from p in parentforms.DefaultIfEmpty()
+                            from p in parentforms.DefaultIfEmpty()                            
                             select new FormMstViewModel()
                             {
                                 Id = form.Id,
@@ -100,9 +104,36 @@ namespace CRMS.Services
                                 ParentFormId = form.ParentFormId,
                                 FormAccessCode = form.FormAccessCode,
                                 IsActive = form.IsActive,
-                                DisplayIndex = form.DisplayIndex
-                            }).ToList();           
+                                DisplayIndex = form.DisplayIndex,                                
+                            }).ToList();
             return formList;
         }
+
+        public List<FormMstViewModel> NavBarFormList()
+        {
+            var formrolelist = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
+            var forms = formMstrepository.Collection().ToList();
+            var formList = (from form in forms
+                            join fm in forms
+                            on form.ParentFormId equals fm.Id into parentforms
+                            from p in parentforms.DefaultIfEmpty()
+                            join formRole in formrolelist
+                            on form.Id equals formRole.FormId
+                            where formRole.AllowView == true
+                            select new FormMstViewModel()
+                            {
+                                Id = form.Id,
+                                Name = form.Name,
+                                NavigateURL = form.NavigateURL,
+                                ParentForm = p?.Name,
+                                ParentFormId = form.ParentFormId,
+                                FormAccessCode = form.FormAccessCode,
+                                IsActive = form.IsActive,
+                                DisplayIndex = form.DisplayIndex,
+                            }).ToList();
+            return formList;
+        }
+
+       
     }
 }
