@@ -1,6 +1,7 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using CRMS.Services;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,15 +14,18 @@ namespace CRMS.WebUI.Controllers
     public class FormMstController : Controller
     {
         private IFormMstService formMstservice;
+        
 
         public FormMstController(IFormMstService formMstService)
         {
             formMstservice = formMstService;
+           
         }
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();            
+         
+            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();          
             return View(formMsts);
         }
 

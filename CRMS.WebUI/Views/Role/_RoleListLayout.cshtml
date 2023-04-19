@@ -58,7 +58,7 @@
         columns.Bound(expression: c => c.RoleName);
         columns.Bound(expression: c => c.Code);
 
-        @*columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>" + " | " + "<a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-cog'></i></a>")
+      @*  columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>" + " | " + "<a href='" + Url.Action("Index", "FormRoleMapping") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-cog'></i></a>")
                            .Title("Action").Filterable(false);*@
 
             if (CheckRoleRights.Edit || CheckRoleRights.Delete)

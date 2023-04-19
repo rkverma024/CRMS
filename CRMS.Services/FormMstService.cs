@@ -72,9 +72,7 @@ namespace CRMS.Services
         {
             bool existingmodel = GetFormMstsList().Where(x => (IsAvailable || x.Id != model.Id) &&
                                                              (x.Name.ToLower() == model.Name.ToLower() ||
-                                                              x.FormAccessCode.ToLower() == model.FormAccessCode.ToLower())).Any();
-            /*bool existingmodel = GetRolesList().Where(x => x.IsDeleted == false && (IsAvailable || x.Id != model.Id) &&
-                                                              x.RoleName.ToLower() == model.RoleName.ToLower()).Any();*/
+                                                              x.FormAccessCode.ToLower() == model.FormAccessCode.ToLower())).Any();            
             if (existingmodel)
             {
                 return true;
@@ -89,51 +87,12 @@ namespace CRMS.Services
 
         public List<FormMstViewModel> GetFormMstsIndexList()
         {
-           
-            var forms = formMstrepository.Collection().ToList();
-            var formList = (from form in forms
-                            join fm in forms
-                            on form.ParentFormId equals fm.Id into parentforms
-                            from p in parentforms.DefaultIfEmpty()                            
-                            select new FormMstViewModel()
-                            {
-                                Id = form.Id,
-                                Name = form.Name,
-                                NavigateURL = form.NavigateURL,
-                                ParentForm = p?.Name,
-                                ParentFormId = form.ParentFormId,
-                                FormAccessCode = form.FormAccessCode,
-                                IsActive = form.IsActive,
-                                DisplayIndex = form.DisplayIndex,                                
-                            }).ToList();
-            return formList;
+           return formMstrepository.GetFormMstsIndex();
         }
 
         public List<FormMstViewModel> NavBarFormList()
         {
-            var formrolelist = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
-            var forms = formMstrepository.Collection().ToList();
-            var formList = (from form in forms
-                            join fm in forms
-                            on form.ParentFormId equals fm.Id into parentforms
-                            from p in parentforms.DefaultIfEmpty()
-                            join formRole in formrolelist
-                            on form.Id equals formRole.FormId
-                            where formRole.AllowView == true
-                            select new FormMstViewModel()
-                            {
-                                Id = form.Id,
-                                Name = form.Name,
-                                NavigateURL = form.NavigateURL,
-                                ParentForm = p?.Name,
-                                ParentFormId = form.ParentFormId,
-                                FormAccessCode = form.FormAccessCode,
-                                IsActive = form.IsActive,
-                                DisplayIndex = form.DisplayIndex,
-                            }).ToList();
-            return formList;
-        }
-
-       
+            return formMstrepository.NavBarList();
+        }       
     }
 }

@@ -34,12 +34,11 @@ namespace CRMS.WebUI.Controllers
                 return View(model);
             }
             else
-            {               
+            {
                 formRoleMappingService.AddFormRights(model);
                 TempData["AlertMessage"] = "Permission Save Successfully..!";
                 return Content("true");
             }
         }
-
     }
 }

@@ -20,51 +20,30 @@ namespace CRMS.Services
         }
         public void CreateConferenceRoom(ConferenceRoomViewModel model)
         {
-            ConferenceRoom conferenceRoom = new ConferenceRoom();
-            conferenceRoom.ConferenceRoomNo = model.ConferenceRoomNo;
-            conferenceRoom.Capacity = model.Capacity;
-            conferenceRoom.CreatedBy = model.CreatedBy;
-            /*conferenceRoom.CreatedOn = DateTime.Now;*/
-            _conferenceRoomRepository.Insert(conferenceRoom);
-            _conferenceRoomRepository.Commit();
+            _conferenceRoomRepository.AddConferenceRoom(model);
         }
        
         public ConferenceRoom GetConferenceRoomById(Guid Id)
         {
-            ConferenceRoom conferenceRoom = _conferenceRoomRepository.Find(Id);
-            return conferenceRoom;
+           return _conferenceRoomRepository.GetById(Id);            
         }
 
         public List<ConferenceRoom> GetConferenceRoomList()
         {
-            return _conferenceRoomRepository.Collection().Where(b => b.IsDeleted == false).ToList();
+            return _conferenceRoomRepository.GetList();
         }        
 
-        public void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom)
+        public void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom, Guid Id)
         {
-            removeConferenceRoom.IsDeleted = true;
-            _conferenceRoomRepository.Commit();
-
+            _conferenceRoomRepository.DeleteConferenceRoom(removeConferenceRoom, Id);
         }
         public void UpdateConferenceRoom(ConferenceRoomViewModel model, Guid Id)
         {
-            ConferenceRoom conferenceRoomToEdit = GetConferenceRoomById(Id);
-            conferenceRoomToEdit.ConferenceRoomNo = model.ConferenceRoomNo;
-            conferenceRoomToEdit.Capacity = model.Capacity;
-            conferenceRoomToEdit.UpdatedBy = model.UpdatedBy;
-            conferenceRoomToEdit.UpdatedOn = DateTime.Now;
-            _conferenceRoomRepository.Update(conferenceRoomToEdit);
-            _conferenceRoomRepository.Commit();
+            _conferenceRoomRepository.EditConferenceRoom(model,Id);
         }
         public bool IsExist(ConferenceRoomViewModel model, bool IsAvailable)
         {
-            bool existingmodel = GetConferenceRoomList().Where(x => (IsAvailable || x.Id != model.Id) &&
-                                                              (x.ConferenceRoomNo.ToLower() == model.ConferenceRoomNo.ToLower())).Any();
-            if (existingmodel)
-            {
-                return true;
-            }
-            return false;
+            return _conferenceRoomRepository.Exists(model, IsAvailable);
         }
     }
 }

@@ -9,9 +9,7 @@
 </head>
 <body>
     <div class="mainDiv">
-        <!-- Header -->
-        <!-- END Header -->
-        <!-- Section -->
+        
         <div class="section">
             <div class="">
                 <div class="topTitleHead pb20">
@@ -32,44 +30,38 @@
 
                 <div class="tabContentDetails" id="tabContentDetails">
                     @*<div id="UserManagement" class="tabcontent" style="display: block" data-url='@Url.Action("Index","UserManage")'>*@
-                    <div id="User" class="tabcontent">
+                    @*<div id="User" class="tabcontent">*@
                          @*@Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
-                    </div>
-                    <!--<div id="Role" class="tabcontent" data-url='@Url.Action("Index","Role")'>-->
-                        @* @Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
-                    <!--</div>-->
+                    @*</div>
+                    <div id="Role" class="tabcontent" data-url='@Url.Action("Index","Role")'>*@
+                         @*@Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
+                    @*</div>
 
-                    <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>
+                    <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>*@
                         @* @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")*@
-                    </div>
-
-                    
-                </div>
-                <!----- END Tabs ---->
+                    @*</div>*@                    
+                </div>                
             </div>
-        </div>
-        <!-- END Section -->
+        </div>        
     </div>
 </body>
 
 </html>
 
-
-
 <script>
     function loadTab(SystemsName) {
-        if (SystemsName == "User") {
-            url = "@Url.Action("Index","UserManage")"
+       @* if (SystemsName == "User") {
+            url = $("#"+SystemsName).data('url');
             $("#User").load(url)
         }
         if (SystemsName == "Role") {
-            url = "@Url.Action("Index","Role")"
-            $("#Role").load(url)
+            url = $("#"+SystemsName).data('url');
+            $("#" + SystemsName).load(url)
         }
-        if (SystemsName == "CommonLookUp") {
-            url = "@Url.Action("Index","CommonLookUp")"
-            $("#CommonLookUp").load(url)
-        }
+        if (SystemsName == "CommonLookUp") {*@
+            url = $("#"+SystemsName).data('url');
+            $("#" + SystemsName).load(url)
+       @* }*@
 
     }
     function openSystems(evt, SystemsName) {
@@ -84,6 +76,7 @@
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
+
         document.getElementById(SystemsName).style.display = "block";
         evt.currentTarget.className += " active";
     }
@@ -100,19 +93,15 @@
                     $("<li><a class='tablinks' onclick='openSystems(event,\"" + item.Name + "\"\)'\'>" + item.Name + "</a></li>").appendTo("#my-lists");
                 });
                 $.each(result, function (index, item) {
-                    $("<div id='Role' class='tabcontent' data-url='@Url.Action("Index","Role")'></div>").appendTo("#tabContentDetails");
-                    if (item.Name == "Role") {
-
-                    loadTab("Role");
-                    }
+                    $("<div id='" + item.Name + "' class='tabcontent' style='display: block' data-url='" + item.NavigateURL + "'></div>").appendTo("#tabContentDetails");
                 });
-               
-                afterLoad();
+
+                afterLoad(result[0].Name);
             }
         });
 
     });
-    function afterLoad() {
+    function afterLoad(tabName) {
         var activeTabId = parseInt('@ViewBag.activeTabId');
         var tabcontent = document.getElementsByClassName("tabcontent");
         var tablinks = document.getElementsByClassName("tablinks");
@@ -120,7 +109,7 @@
 
        if (activeTabId == 0)
         {
-            //loadTab("User");
+           loadTab(tabName);
             tablinks[0].className = 'tablinks active';
             //tabcontent[0].style.display = "block";
        }
@@ -147,12 +136,13 @@
             }
             tablinks[activeTabId].className = 'tablinks active';
         }
-        if (isUserLoaded || activeTabId == null) {
-                activeTabId = 0;
-                url = "@Url.Action("Index","UserManage")"
-            $("#User").load(url)
+        //if (isUserLoaded || activeTabId == null) {
+        //    activeTabId = 0;
+        //    loadTab(tabName);
+                @*url = "@Url.Action("Index","UserManage")"
+            $("#User").load(url)*@
                 //location.href = "/Acccount/Dashboard?activeTabId=0";
-        }
+        //}
     }
 
 </script>

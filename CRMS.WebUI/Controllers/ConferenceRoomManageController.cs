@@ -104,7 +104,7 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Delete(Guid Id)
         {
             ConferenceRoom conferenceroomToDelete = conferenceroomService.GetConferenceRoomById(Id);
-            conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete);
+            conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete,Id);
             TempData["DeleteMessage"] = "Added Successfully..!";
             return RedirectToAction("Index");           
         }

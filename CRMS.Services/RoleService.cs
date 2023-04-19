@@ -32,7 +32,7 @@ namespace CRMS.Services
 
         public List<Role> GetRolesList()
         {
-            return rolerepository.Collection().Where(b => b.IsDeleted == false).ToList();
+            return rolerepository.Collection().Where(b => b.IsDeleted == false).OrderBy(x => x.Code).ToList();
         }
 
         public Role GetRole(Guid Id)

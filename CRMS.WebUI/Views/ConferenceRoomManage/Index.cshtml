@@ -7,15 +7,17 @@
 <br />
 <br />
 
-@if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-{
-    <div class="align-center align-between pb20">
-        <h2>Conference Room</h2>
+
+<div class="align-center align-between pb20">
+    <h2>Conference Room</h2>
+    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+    {
         <div class="btnDiv">
             <a href="@Url.Action("Create", "ConferenceRoomManage")">+Add Conference Room</a>
         </div>
+    }
     </div>
-}
+
 @*<h3>
         <a href="@Url.Action("Create", "ConferenceRoomManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
     </h3>

@@ -120,6 +120,5 @@ namespace CRMS.WebUI.Controllers
             IEnumerable<Role> roles = roleservice.GetRolesList().ToList();
             return Json(roles.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }        
-
     }   
 }

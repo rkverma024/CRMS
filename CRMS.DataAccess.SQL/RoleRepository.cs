@@ -28,7 +28,6 @@ namespace CRMS.DataAccess.SQL
         {
             context.SaveChanges();
         }
-
         public void Delete(Guid Id)
         {
             var role = Find(Id);
@@ -38,7 +37,6 @@ namespace CRMS.DataAccess.SQL
             }
             dbSet.Remove(role);
         }
-
         public Role Find(Guid Id)
         {
             return dbSet.Find(Id);
@@ -47,9 +45,8 @@ namespace CRMS.DataAccess.SQL
         public void Insert(Role role)
         {
             dbSet.Add(role);
-            
-        }
 
+        }
         public void Update(Role updateRole)
         {
             dbSet.Attach(updateRole);

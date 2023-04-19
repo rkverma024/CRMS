@@ -58,7 +58,7 @@ namespace CRMS.Services
                                 AllowInsert = f?.AllowInsert == null ? false : f.AllowInsert,
                                 AllowEdit = f?.AllowEdit == null ? false : f.AllowEdit,
                                 AllowDelete = f?.AllowDelete == null ? false : f.AllowDelete
-                            }).ToList();
+                            }).OrderBy(x => x.Name).ToList();
             return viewform;           
         }
 

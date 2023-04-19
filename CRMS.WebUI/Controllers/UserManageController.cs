@@ -29,7 +29,7 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {            
-            var list = userservice.GetUserRoleList();
+            var list = userservice.GetUserRoleList().OrderBy(x => x.Role);
             return View(list);           
         }
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsInsert)]
