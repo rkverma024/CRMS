@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<script src="~/Scripts/bootstrap.min.js"></script>
 <div id="EditModal">
     <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
 </div>
@@ -34,8 +34,9 @@
                 data: { 'id': selectedId},
                 type: "post",
                 success: function (savingStatus) {
-                    @*location.reload();*@
-                    location.href = "@Url.Action("Index","Home", new { activeTabId = 2 })";
+                    debugger;
+                    location.reload();
+                    @*location.href = "@Url.Action("Index","Home")";*@
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                 }

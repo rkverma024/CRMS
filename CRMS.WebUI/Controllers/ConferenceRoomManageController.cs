@@ -21,22 +21,23 @@ namespace CRMS.WebUI.Controllers
             conferenceroomService = conferenceRoomService;
         }
 
-        // GET: ConferenceRoomManage
-        [ActionFilter("CRM",CheckRoleRights.FormAccessCode.IsView)]
+        [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<ConferenceRoom> conferenceRoom = conferenceroomService.GetConferenceRoomList().ToList();
             return View(conferenceRoom);
         }
+
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             ConferenceRoomViewModel conferenceRoom = new ConferenceRoomViewModel();
             return View(conferenceRoom);
         }
+
         [HttpPost]
         public ActionResult Create(ConferenceRoomViewModel model)
-        {            
+        {
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -53,11 +54,12 @@ namespace CRMS.WebUI.Controllers
                 {
                     model.CreatedBy = (Guid)Session["Id"];
                     conferenceroomService.CreateConferenceRoom(model);
-                    TempData["AlertMessage"] = "Added Successfully..!";                    
+                    TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
-                }               
+                }
             }
         }
+
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -77,7 +79,7 @@ namespace CRMS.WebUI.Controllers
 
         [HttpPost]
         public ActionResult Edit(ConferenceRoomViewModel model, Guid Id)
-        {                      
+        {
             if (!ModelState.IsValid)
             {
                 return View();
@@ -96,17 +98,17 @@ namespace CRMS.WebUI.Controllers
                     conferenceroomService.UpdateConferenceRoom(model, Id);
                     TempData["AlertMessage"] = "Added Successfully..!";
                     return RedirectToAction("Index");
-                }                
-            }            
+                }
+            }
         }
+
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsDelete)]
-        //[HttpPost]     
         public ActionResult Delete(Guid Id)
         {
             ConferenceRoom conferenceroomToDelete = conferenceroomService.GetConferenceRoomById(Id);
-            conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete,Id);
-            TempData["DeleteMessage"] = "Added Successfully..!";
-            return RedirectToAction("Index");           
+            conferenceroomService.RemoveConferenceRoom(conferenceroomToDelete, Id);
+            TempData["DeleteMessage"] = "Deleted Successfully..!";
+            return RedirectToAction("Index");
         }
 
         public JsonResult ConferenceGrid([DataSourceRequest] DataSourceRequest request)

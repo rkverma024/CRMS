@@ -77,6 +77,7 @@ namespace CRMS.DataAccess.SQL
         public void DeleteConferenceRoom(ConferenceRoom removeConferenceRoom, Guid Id)
         {
             removeConferenceRoom.IsDeleted = true;
+            Commit();
         }
 
         public void EditConferenceRoom(ConferenceRoomViewModel model, Guid Id)

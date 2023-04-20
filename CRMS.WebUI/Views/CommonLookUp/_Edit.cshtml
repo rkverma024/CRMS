@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+<script src="~/Scripts/bootstrap.min.js"></script>
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -83,7 +83,8 @@
 
 <script>
     $('#btnCancel').click(function () {
-            window.location.href = location.href='@Url.Action("Index", "Home", new { activeTabId = 2 })';
+            $("#modaledit").modal('hide');
+             location.href = 'javascript:history.go(-1);';
             return false;
     });
 
@@ -107,7 +108,7 @@
             success: function (data) {
                 if (data == "true") {
                     @* location.reload();*@
-                    location.href ="@Url.Action("Index","Home", new { activeTabId = 2 })";
+                    location.href ="@Url.Action("Index","Home")";
                 }
                 else if (data == "exists") {
                     alert("Data Already Exists");

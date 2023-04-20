@@ -41,8 +41,8 @@
                                 @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Code, "", new { @class = "errorMsg" })                               
                             </div>
-                            <div class="inputBox">                                
-                                <button type="submit" value="Create" class="btnDiv">Create</button>
+                            <div class="inputBox">
+                                <button type="submit" value="Create" class="btnDiv">Create</button>                                                                  
                             </div>
                         </div>
                     </div>                    
@@ -51,7 +51,9 @@
         </div>
     }
     <div>
-        <a href="javascript:history.go(-1);">Back to List</a>
+        <div class="btn btn-info">
+            <a style="color:white" href="javascript:history.go(-1);">Back</a>
+        </div>
 
 
         @* @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })*@

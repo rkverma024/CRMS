@@ -37,6 +37,7 @@ namespace CRMS.WebUI.Controllers
             {
                 formRoleMappingService.AddFormRights(model);
                 TempData["AlertMessage"] = "Permission Save Successfully..!";
+                TempData["FormName"] = "Role";
                 return Content("true");
             }
         }

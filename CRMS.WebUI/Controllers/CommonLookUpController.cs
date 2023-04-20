@@ -20,14 +20,11 @@ namespace CRMS.WebUI.Controllers
         {
             commonLookUpservice = CommonLookUpservice;
         }
-
-        // GET: CommonLookUp
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<CommonLookUp> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
-            return PartialView("_CommonListLayout",commonLookUp);
-            //return View(commonLookUp);
+            return PartialView("_CommonListLayout", commonLookUp);
         }
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
@@ -35,7 +32,6 @@ namespace CRMS.WebUI.Controllers
             CommonLookUpViewModel commonlookup = new CommonLookUpViewModel();
             return PartialView("_Create", commonlookup);
         }
-
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
         {
@@ -57,6 +53,7 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
+                    TempData["FormName"] = "CommonLookUp";
                     return Content("true");
                 }
             }
@@ -64,7 +61,6 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
-
             CommonLookUp commonLookUp = commonLookUpservice.GetCommonLookUp(Id);
             if (commonLookUp == null)
             {
@@ -79,11 +75,9 @@ namespace CRMS.WebUI.Controllers
                 commonLookUpModel.Description = commonLookUp.Description;
                 commonLookUpModel.ConfigValue = commonLookUp.ConfigValue;
                 commonLookUpModel.IsActive = commonLookUp.IsActive;
-
                 return PartialView("_Edit", commonLookUpModel);
             }
         }
-
         [HttpPost]
         public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
         {
@@ -104,6 +98,7 @@ namespace CRMS.WebUI.Controllers
                     commonLookUp.UpdatedBy = (Guid)Session["Id"];
                     commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
+                    TempData["FormName"] = "CommonLookUp";
                     return Content("true");
                 }
             }
@@ -114,8 +109,8 @@ namespace CRMS.WebUI.Controllers
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            /*return RedirectToAction("Index");*/
-            return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 2 }));
+            TempData["FormName"] = "CommonLookUp";
+            return Content("True");
         }
         public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)
         {

@@ -19,20 +19,22 @@ namespace CRMS.WebUI.Controllers
             formRoleMappingService = FormRoleMappingService;
         }
         [ActionFilter("SS", CheckRoleRights.FormAccessCode.IsView)]
-        public ActionResult Index(int activeTabId = 0)
-        {
-           /* var userId = (Guid)Session["Id"];
-            var loginRoleId = userRoleService.GetUserRoleList().Where(x => x.UserId == userId).Select(x => x.RoleId).FirstOrDefault();
-            IEnumerable<FormRoleMapping> formRoleMappings = formRoleMappingService.GetList().Where(x => x.RoleId == loginRoleId).ToList();
-            Session["Permission"] = formRoleMappings;*/
-            ViewBag.activeTabId = activeTabId;
+        public ActionResult Index()
+        {           
+            ViewBag.activeTabId = TempData["FormName"] as string;
+            //ViewBag.activeUrl = TempData["Url"] as string;
             return View();
         }
+
+        /*public ActionResult Index(int activeTabId = 0)
+        {            
+            ViewBag.activeTabId = activeTabId;
+            return View();
+        }*/
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

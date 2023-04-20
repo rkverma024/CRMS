@@ -5,11 +5,10 @@
 <html>
 <head>
     <title></title>
-    
+
 </head>
 <body>
     <div class="mainDiv">
-        
         <div class="section">
             <div class="">
                 <div class="topTitleHead pb20">
@@ -18,31 +17,12 @@
                 <label id="alertid" class="bg-success text-white"></label>
                 <!----- Tabs ---->
                 <div class="tab">
-                    <ul class="align-center" id="my-lists">
-                        @*<li> <a class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'CommonLookUp')"> CommonLookUp</a> </li>*@
-                        @*<li> <a class="tablinks" onclick="openSystems(event, 'Settings')">Settings </a> </li>*@
-                        @*<li> <a class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
-                        <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>*@
-                    </ul>
+                    <ul class="align-center" id="my-lists"></ul>
                 </div>
-
                 <div class="tabContentDetails" id="tabContentDetails">
-                    @*<div id="UserManagement" class="tabcontent" style="display: block" data-url='@Url.Action("Index","UserManage")'>*@
-                    @*<div id="User" class="tabcontent">*@
-                         @*@Html.Partial("~/Views/UserManage/_ListPartialView.cshtml")*@
-                    @*</div>
-                    <div id="Role" class="tabcontent" data-url='@Url.Action("Index","Role")'>*@
-                         @*@Html.Partial("~/Views/Role/_RoleListLayout.cshtml")*@
-                    @*</div>
-
-                    <div id="CommonLookUp" class="tabcontent" data-url='@Url.Action("Index","CommonLookUp")'>*@
-                        @* @Html.Partial("~/Views/CommonLookUp/_CommonListLayout.cshtml")*@
-                    @*</div>*@                    
-                </div>                
+                </div>
             </div>
-        </div>        
+        </div>
     </div>
 </body>
 
@@ -53,15 +33,9 @@
        @* if (SystemsName == "User") {
             url = $("#"+SystemsName).data('url');
             $("#User").load(url)
-        }
-        if (SystemsName == "Role") {
-            url = $("#"+SystemsName).data('url');
-            $("#" + SystemsName).load(url)
-        }
-        if (SystemsName == "CommonLookUp") {*@
-            url = $("#"+SystemsName).data('url');
-            $("#" + SystemsName).load(url)
-       @* }*@
+        }*@
+        url = $("#"+SystemsName).data('url');
+        $("#" + SystemsName).load(url)
 
     }
     function openSystems(evt, SystemsName) {
@@ -76,7 +50,6 @@
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-
         document.getElementById(SystemsName).style.display = "block";
         evt.currentTarget.className += " active";
     }
@@ -90,165 +63,40 @@
             success: function (data) {
                 var result = data.filter(x => x.ParentForm == 'System');
                 $.each(result, function (index, item) {
-                    $("<li><a class='tablinks' onclick='openSystems(event,\"" + item.Name + "\"\)'\'>" + item.Name + "</a></li>").appendTo("#my-lists");
+                    $("<li><a id='tab_"+item.Name+"' class='tablinks' onclick='openSystems(event,\"" + item.Name + "\"\)'\'>" + item.Name + "</a></li>").appendTo("#my-lists");
                 });
                 $.each(result, function (index, item) {
                     $("<div id='" + item.Name + "' class='tabcontent' style='display: block' data-url='" + item.NavigateURL + "'></div>").appendTo("#tabContentDetails");
                 });
-
                 afterLoad(result[0].Name);
             }
         });
-
     });
     function afterLoad(tabName) {
-        var activeTabId = parseInt('@ViewBag.activeTabId');
-        var tabcontent = document.getElementsByClassName("tabcontent");
-        var tablinks = document.getElementsByClassName("tablinks");
-        var isUserLoaded = true;
+        var activeTabId = '@ViewBag.activeTabId';
+        //var tabcontent = document.getElementsByClassName("tabcontent");
+        //var tablinks = document.getElementsByClassName("tablinks");
+        var tablinks = $("#tab_" + activeTabId);
 
-       if (activeTabId == 0)
-        {
+       if (activeTabId == '')
+       {
+           tablinks = $("#tab_" + tabName);
            loadTab(tabName);
-            tablinks[0].className = 'tablinks active';
-            //tabcontent[0].style.display = "block";
+           tablinks[0].className = 'tablinks active';
        }
-       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != 0) {
-
-            @*url = "@Url.Action("Index","Home")"
-           $("#UserManagement").load(url);*@
-           location.href= "@Url.Action("Index","Home")"
-            /*loadTab("UserManagement");*/
-            tablinks[0].className = 'tablinks active';
+       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != "")
+       {
+           var tabcontent = $("#" + activeTabId);
+           tabcontent[0].style.display = "block";
+           loadTab(activeTabId);
+           tablinks[0].className = 'tablinks active';
+       }
+       else
+       {
+           var tabcontent = $("#" + activeTabId);
             tabcontent[0].style.display = "block";
+            loadTab(activeTabId);
+            tablinks[0].className = 'tablinks active';
         }
-        else
-        {
-            isUserLoaded = false;
-            tablinks[0].className = 'tablinks';
-            tabcontent[0].style.display = "none";
-            tabcontent[activeTabId].style.display = "block";
-            if (activeTabId == 1) {
-                loadTab("Role")
-            }
-            if (activeTabId == 2) {
-                loadTab("CommonLookUp")
-            }
-            tablinks[activeTabId].className = 'tablinks active';
-        }
-        //if (isUserLoaded || activeTabId == null) {
-        //    activeTabId = 0;
-        //    loadTab(tabName);
-                @*url = "@Url.Action("Index","UserManage")"
-            $("#User").load(url)*@
-                //location.href = "/Acccount/Dashboard?activeTabId=0";
-        //}
     }
-
 </script>
-
-
-<!--<script>
-    function openSystems(evt, SystemsName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(SystemsName).style.display = "block";
-        evt.currentTarget.className += " active";-->
-@* if (SystemsName == "UserManagement") {
-        var url = $('#UserManagement').data('url');
-        $.get(url, function (data) {
-            $("#UserManagement").html(data).load($(this).data('url'));
-        });
-    }*@
-@* if (SystemsName == "RoleManagement") {
-        var url = $('#RoleManagement').data('url');
-        $.get(url, function (data) {
-            $("#RoleManagement").html(data).load($(this).data('url'));
-        });
-    }
-    else if (SystemsName == "CommonLookUp") {
-        var url = $('#CommonLookUp').data('url');
-        $.get(url, function (data) {
-            $("#CommonLookUp").html(data).load($(this).data('url'));
-        });
-    }*@
-@*else {
-        var url = $('#UserManagement').data('url');
-        $.get(url, function (data) {
-            $("#UserManagement").html(data).load($(this).data('url'));
-        });
-    }*@
-
-
-@*if (SystemsName = 'RoleManagement') {
-        var url = $('#RoleManagement').data('url');
-        $.get(url, function (data) {
-            $("#RoleManagement").html(data).load($(this).data('url'));
-        });
-    }*@
-<!--switch (SystemsName) {
-
-            //case 'UserManagement':
-            //    var url = $('#UserManagement').data('url');
-            //    $.get(url, function (data) {
-            //        $("#UserManagement").html(data).load($(this).data('url'));
-            //    });
-            //    break;
-
-            case 'RoleManagement':
-                var url = $('#RoleManagement').data('url');
-                $.get(url, function (data) {
-                    $("#RoleManagement").html(data).load($(this).data('url'));
-                });
-                break;
-
-            case 'CommonLookUp':
-                var url = $('#CommonLookUp').data('url');
-                $.get(url, function (data) {
-                    $("#CommonLookUp").html(data).load($(this).data('url'));
-                });
-                break;
-            default:
-        }
-
-    }
-
-    $(document).ready(function ()
-    {
-        var activeTabId = parseInt('@ViewBag.activeTabId');
-        var tabcontent = document.getElementsByClassName("tabcontent");
-        var tablinks = document.getElementsByClassName("tablinks");
-        if (activeTabId == 0)
-        {
-            tablinks[0].className = 'tablinks active';
-            tabcontent[0].style.display = "block";
-        }
-        else
-        {
-            tablinks[0].className = 'tablinks';
-            tabcontent[0].style.display = "none";
-            tablinks[activeTabId].className = 'tablinks active';
-            tabcontent[activeTabId].style.display = "block";
-        }
-        if (activeTabId == 1) {
-            var url = $('#RoleManagement').data('url');
-            $.get(url, function (data) {
-                $("#RoleManagement").html(data).load($(this).data('url'));
-            });
-        }
-        if (activeTabId == 2) {
-            var url = $('#CommonLookUp').data('url');
-            $.get(url, function (data) {
-                $("#CommonLookUp").html(data).load($(this).data('url'));
-            });
-        }
-    });
-
-</script>-->

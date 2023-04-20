@@ -32,6 +32,7 @@ namespace CRMS.WebUI.Controllers
             var list = userservice.GetUserRoleList().OrderBy(x => x.Role);
             return View(list);           
         }
+
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -61,8 +62,9 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     userservice.CreateUser(model);                    
                     TempData["AlertMessage"] = "Added Successfully..!";
+                    TempData["FormName"] = "User";
                     //return RedirectToAction("Index");
-                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 0 }));
+                    return new RedirectResult(Url.Action("Index", "Home"));
                 }               
             }
         }
@@ -110,8 +112,9 @@ namespace CRMS.WebUI.Controllers
                 {                    
                     userservice.UpdateUser(model, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
+                    TempData["FormName"] = "User";
                     // return RedirectToAction("Index");
-                    return new RedirectResult(Url.Action("Index", "Home", new { activeTabId = 0 }));
+                    return new RedirectResult(Url.Action("Index", "Home"));
                 }
                              
            }
@@ -122,6 +125,7 @@ namespace CRMS.WebUI.Controllers
             User userToDelete = userservice.GetUserById(Id);
             userservice.RemoveUser(userToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
+            TempData["FormName"] = "User";
             return RedirectToAction("Index");           
         }
 
