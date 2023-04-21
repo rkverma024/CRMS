@@ -74,7 +74,7 @@ namespace CRMS.WebUI.Controllers
                         IEnumerable<FormRoleMapping> formRoleMappings = formRoleMappingService.GetList().Where(x => x.RoleId == loginRoleId).ToList();
                         Session["Permission"] = formRoleMappings;
 
-                        /* IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
+                        /*IEnumerable<FormMstViewModel> formList = formMstService.GetFormMstsIndexList();
                          Session["FormLists"] = formList;*/
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/

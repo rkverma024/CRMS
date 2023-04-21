@@ -42,7 +42,7 @@
                             <div class="inputBox">
                                 <label>ParentForm</label>
                                 @* @Html.EditorFor(model => model.ParentFormId, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "text-danger" })*@
+            @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "text-danger" })*@
                                 @*<p class="errorMsg">This field is required</p>*@
                                 @Html.DropDownListFor(model => model.ParentFormId, new SelectList(Model.Dropdown, "Id", "Name"),
               "Select Parent", new { @class = "form-control" })
@@ -64,6 +64,12 @@
                                 @*<label>Display Index</label>*@
                                 @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-3" })
                                 @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                                @*<p class="errorMsg">This field is required</p>*@
+                            </div>
+                            <div class="inputBox">
+                                @*<label>Display Index</label>*@
+                                @Html.LabelFor(model => model.IsMenu, htmlAttributes: new { @class = "control-label col-md-3" })
+                                @Html.CheckBoxFor(model => model.IsMenu, new { htmlAttributes = new { @class = "form-control" } })
                                 @*<p class="errorMsg">This field is required</p>*@
                             </div>
                             <div class="inputBox">

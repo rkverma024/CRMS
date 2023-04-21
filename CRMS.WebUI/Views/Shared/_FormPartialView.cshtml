@@ -1,4 +1,4 @@
-﻿@*@if (Session["FormLists"] != null)
+﻿@if (Session["FormLists"] != null)
     {
         var items = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
         foreach (var item in items.Where(s => s.ParentForm == null).GroupBy(Obj => new { Obj.Id }).Distinct().ToList())
@@ -22,7 +22,7 @@
             }
         }
     }
-*@
+
 @*<nav>
         <ul id="my-list">
 
@@ -126,7 +126,7 @@
           $(this).find(".dropdown-menu").stop(true, true).fadeOut("fast");
         }
       );*@
-    });
+  @*  });
 </script>*@
 
 

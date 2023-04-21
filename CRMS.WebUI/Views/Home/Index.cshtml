@@ -39,6 +39,7 @@
 
     }
     function openSystems(evt, SystemsName) {
+        sessionStorage.setItem("tabName", SystemsName);
         isUserLoaded = false;
         loadTab(SystemsName);
         var i, tabcontent, tablinks;
@@ -57,7 +58,7 @@
     $(document).ready(function ()
     {
         $.ajax({
-            url: '@Url.Action("GetFormLists","FormMst")',
+            url: '@Url.Action("GetFormTabList", "FormMst")',
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -73,30 +74,42 @@
         });
     });
     function afterLoad(tabName) {
-        var activeTabId = '@ViewBag.activeTabId';
+        var activeTabId = sessionStorage.getItem("tabName");
         //var tabcontent = document.getElementsByClassName("tabcontent");
         //var tablinks = document.getElementsByClassName("tablinks");
         var tablinks = $("#tab_" + activeTabId);
 
-       if (activeTabId == '')
-       {
-           tablinks = $("#tab_" + tabName);
-           loadTab(tabName);
-           tablinks[0].className = 'tablinks active';
-       }
-       else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != "")
+       //if (activeTabId == '')
+       //{
+       //    tablinks = $("#tab_" + tabName);
+       //    loadTab(tabName);
+       //    tablinks[0].className = 'tablinks active';
+       //}
+      @* else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != "")
        {
            var tabcontent = $("#" + activeTabId);
            tabcontent[0].style.display = "block";
            loadTab(activeTabId);
            tablinks[0].className = 'tablinks active';
-       }
-       else
-       {
-           var tabcontent = $("#" + activeTabId);
+       }*@
+       //else
+       //{
+       //    var tabcontent = $("#" + activeTabId);
+       //     tabcontent[0].style.display = "block";
+       //     loadTab(activeTabId);
+       //     tablinks[0].className = 'tablinks active';
+        // }
+        if (window.performance.getEntriesByType("navigation")[0].type == 'reload' || activeTabId == "" || activeTabId == null) {
+            tablinks = $("#tab_" + tabName);
+           loadTab(tabName);
+           tablinks[0].className = 'tablinks active';
+        }
+        else {
+            var tabcontent = $("#" + activeTabId);
             tabcontent[0].style.display = "block";
             loadTab(activeTabId);
             tablinks[0].className = 'tablinks active';
         }
+       @* sessionStorage.setItem("tabName", "");*@
     }
 </script>

@@ -35,6 +35,7 @@ namespace CRMS.Services
             formMst.FormAccessCode = model.FormAccessCode;
             formMst.DisplayIndex = model.DisplayIndex;
             formMst.IsActive = model.IsActive;
+            formMst.IsMenu = model.IsMenu;
             formMst.CreatedBy = model.CreatedBy;
             formMstrepository.Insert(formMst);
             formMstrepository.Commit();
@@ -62,6 +63,7 @@ namespace CRMS.Services
             formMstToEdit.FormAccessCode = model.FormAccessCode;
             formMstToEdit.DisplayIndex = model.DisplayIndex;
             formMstToEdit.IsActive = model.IsActive;
+            formMstToEdit.IsMenu = model.IsMenu;
             formMstToEdit.UpdatedBy = model.UpdatedBy;
             formMstToEdit.UpdatedOn = DateTime.Now;
             formMstrepository.Update(formMstToEdit);
@@ -93,6 +95,10 @@ namespace CRMS.Services
         public List<FormMstViewModel> NavBarFormList()
         {
             return formMstrepository.NavBarList();
-        }       
+        }
+        public List<FormMstViewModel> TabFormLists()
+        {
+            return formMstrepository.TabFormList();
+        }
     }
 }

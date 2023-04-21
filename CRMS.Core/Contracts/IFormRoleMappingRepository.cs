@@ -1,4 +1,5 @@
 ﻿using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace CRMS.Core.Contracts
         void BulkInsert(IEnumerable<FormRoleMapping> formRoleMapping);
         void BulkDelete(IEnumerable<FormRoleMapping> formRoleMapping);
         void Update(FormRoleMapping formRoleMapping);
+
+        IEnumerable<FormRoleMappingViewModel> GetFormRights(Guid? Id);
     }
 }

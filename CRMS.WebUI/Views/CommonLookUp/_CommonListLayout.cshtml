@@ -35,8 +35,8 @@
                 type: "post",
                 success: function (savingStatus) {
                     debugger;
-                    location.reload();
-                    @*location.href = "@Url.Action("Index","Home")";*@
+                    //location.reload();
+                    location.href = "@Url.Action("Index","Home")";
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                 }
@@ -78,12 +78,34 @@
 
         @(
             Html.Kendo().Grid(Model).Name("Commongrid").Columns(columns => {
-                columns.Bound(expression: c => c.ConfigName);
-                columns.Bound(expression: c => c.ConfigKey);
-                columns.Bound(expression: c => c.ConfigValue);
-                columns.Bound(expression: c => c.DisplayOrder);
-                columns.Bound(expression: c => c.Description);
-                columns.Bound(expression: c => c.IsActive);
+            columns.Bound(expression: c => c.ConfigName);
+            columns.Bound(expression: c => c.ConfigKey);
+            columns.Bound(expression: c => c.ConfigValue);
+            columns.Bound(expression: c => c.DisplayOrder);
+            columns.Bound(expression: c => c.Description);
+            @*columns.Bound(expression: c => c.IsActive);*@
+
+            columns.Bound(p => p.IsActive)
+            .Title("Active")
+            .Width(90)
+            .ClientTemplate(
+            "# if (IsActive) { #" +
+            "<div class=\"img-circle\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/check.png\" alt=\"editok\" width=\"22\"></div>" +
+            "# } else { #" +
+            "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
+            "# } #"
+            );
+          @*  if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+            {
+                columns.Bound(p => p.Id).ClientTemplate(
+                 "#if ('" + CheckRoleRights.Edit + "'=='True') {#"
+                 + " <a onclick='editcommonlookup(\"#=Id#\")'><img src=\"/Content/image/edit.svg\" width=\"19\"></img></a>"
+                 + "#}#"
+                 + "#if ('" + CheckRoleRights.Delete + "'=='True') {#"
+                 + " | <a onclick='confirmDelete(\"#=Id#\")'><img src=\"/Content/image/trash.svg\"></img></i></a>"
+                 + "#}#"
+                 ).Width(100).Title("Action").Filterable(false);
+            }*@
 
                 if (CheckRoleRights.Edit || CheckRoleRights.Delete)
                 {

@@ -13,7 +13,7 @@ namespace CRMS.Core.Contracts
         IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid? Id);
         void AddFormRights(IEnumerable<FormRoleMapping> formRoleMapping);
         List<FormRoleMapping> GetList();
-        /* List<FormRoleMapping> CheckFormAccess(string formsccesscode);*/
+       
 
 
 
@@ -23,14 +23,7 @@ namespace CRMS.Core.Contracts
 
 
 
-        /*  void CreateFormRights(FormRoleMappingViewModel model);
-          IEnumerable<FormRoleMapping> GetAllFormRights();        
-          void UpdateFormRoleRights(FormRoleMappingViewModel model, Guid Id);*/
-
-        /* List<FormRoleMapping> GetAllForm();*/
-        //List<FormRoleViewModel> GetFormRoleIndexList();
-        /*  void RemoveFormRole(FormRoleMapping removeformRole);
-          bool IsExist(FormRoleMappingViewModel model, bool IsAvailable);*/
+  
 
     }
 }

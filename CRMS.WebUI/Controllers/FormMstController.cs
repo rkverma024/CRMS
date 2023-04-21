@@ -33,6 +33,12 @@ namespace CRMS.WebUI.Controllers
             return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetFormTabList()
+        {
+            List<FormMstViewModel> formMsts = formMstservice.TabFormLists();
+            return Json(formMsts, JsonRequestBehavior.AllowGet);
+        }
+
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -67,6 +73,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -84,6 +91,7 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
                 formMstModel.IsActive = formMst.IsActive;                
+                formMstModel.IsMenu = formMst.IsMenu;                
                 formMstModel.Dropdown = formMstservice.GetFormDropdownList()
                     .Where(x => x.ParentFormId == null && x.Id != formMst.Id)
                     .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
@@ -117,6 +125,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
