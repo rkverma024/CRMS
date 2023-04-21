@@ -53,7 +53,7 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     commonLookUpservice.CreateCommonLookUp(model);
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    TempData["FormName"] = "CommonLookUp";
+                    //TempData["FormName"] = "CommonLookUp";
                     return Content("true");
                 }
             }
@@ -98,7 +98,7 @@ namespace CRMS.WebUI.Controllers
                     commonLookUp.UpdatedBy = (Guid)Session["Id"];
                     commonLookUpservice.UpdateCommonLookUp(commonLookUp, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
-                    TempData["FormName"] = "CommonLookUp";
+                    //TempData["FormName"] = "CommonLookUp";
                     return Content("true");
                 }
             }
@@ -109,7 +109,7 @@ namespace CRMS.WebUI.Controllers
             CommonLookUp commonLookUpToDelete = commonLookUpservice.GetCommonLookUp(Id);
             commonLookUpservice.RemoveCommonLookUp(commonLookUpToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            TempData["FormName"] = "CommonLookUp";
+            //TempData["FormName"] = "CommonLookUp";
             return Content("True");
         }
         public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)

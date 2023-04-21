@@ -83,6 +83,14 @@
     <Compile Include="Migrations\202304120523590_FormRoleMapping.Designer.cs">
       <DependentUpon>202304120523590_FormRoleMapping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304210648591_FormRoleMapping_IsMenu.cs" />
+    <Compile Include="Migrations\202304210648591_FormRoleMapping_IsMenu.Designer.cs">
+      <DependentUpon>202304210648591_FormRoleMapping_IsMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304210656319_FormMst_IsMenu.cs" />
+    <Compile Include="Migrations\202304210656319_FormMst_IsMenu.Designer.cs">
+      <DependentUpon>202304210656319_FormMst_IsMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
@@ -118,6 +126,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304120523590_FormRoleMapping.resx">
       <DependentUpon>202304120523590_FormRoleMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304210648591_FormRoleMapping_IsMenu.resx">
+      <DependentUpon>202304210648591_FormRoleMapping_IsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304210656319_FormMst_IsMenu.resx">
+      <DependentUpon>202304210656319_FormMst_IsMenu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

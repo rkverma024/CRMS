@@ -19,5 +19,6 @@ namespace CRMS.Core.Contracts
 
         List<FormMstViewModel> GetFormMstsIndex();
         List<FormMstViewModel> NavBarList();
+        List<FormMstViewModel> TabFormList();
     }
 }

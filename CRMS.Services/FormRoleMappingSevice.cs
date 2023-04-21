@@ -43,23 +43,8 @@ namespace CRMS.Services
             }
         }
         public IEnumerable<FormRoleMappingViewModel> GetFormRoleRights(Guid? Id)
-        {
-            var viewform = (from fm in fromMstRepository.Collection().ToList()
-                            join frm in formRoleMappingRepository.Collection().ToList()
-                            on new { Id = fm?.Id, RoleId = Id } equals new { Id = frm.FormId, RoleId = frm.RoleId } into fs
-                            from f in fs.DefaultIfEmpty()
-                            select new FormRoleMappingViewModel()
-                            {
-                                RoleId = Id,
-                                FormId = fm.Id,
-                                Name = fm.Name,
-                                SelectAll = f == null ? false : (f.AllowView && f.AllowInsert && f.AllowEdit && f.AllowDelete) ? true : false,                                
-                                AllowView = f?.AllowView == null ? false : f.AllowView,
-                                AllowInsert = f?.AllowInsert == null ? false : f.AllowInsert,
-                                AllowEdit = f?.AllowEdit == null ? false : f.AllowEdit,
-                                AllowDelete = f?.AllowDelete == null ? false : f.AllowDelete
-                            }).OrderBy(x => x.Name).ToList();
-            return viewform;           
+        {            
+            return formRoleMappingRepository.GetFormRights(Id);           
         }
 
         public List<FormRoleMapping> GetList()

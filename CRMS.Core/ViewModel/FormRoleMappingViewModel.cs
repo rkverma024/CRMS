@@ -21,7 +21,6 @@ namespace CRMS.Core.ViewModel
        
         [Display(Name = "Edit")]
         public bool AllowEdit { get; set; }
-
        
         [Display(Name = "Delete")]
         public bool AllowDelete { get; set; }
@@ -30,8 +29,7 @@ namespace CRMS.Core.ViewModel
         public bool AllowView { get; set; }
 
         [Display(Name="All")]
-        public bool SelectAll { get; set; }
-
+        public bool SelectAll { get; set; }      
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }

@@ -19,6 +19,7 @@ namespace CRMS.Core.Contracts
         bool IsExist(FormMstViewModel model, bool IsAvailable);
         List<FormMst> GetFormDropdownList();
         List<FormMstViewModel> NavBarFormList();
+        List<FormMstViewModel> TabFormLists();
 
     }
 }

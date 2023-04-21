@@ -62,7 +62,7 @@ namespace CRMS.WebUI.Controllers
                     model.CreatedBy = (Guid)Session["Id"];
                     userservice.CreateUser(model);                    
                     TempData["AlertMessage"] = "Added Successfully..!";
-                    TempData["FormName"] = "User";
+                    //TempData["FormName"] = "User";
                     //return RedirectToAction("Index");
                     return new RedirectResult(Url.Action("Index", "Home"));
                 }               
@@ -112,7 +112,7 @@ namespace CRMS.WebUI.Controllers
                 {                    
                     userservice.UpdateUser(model, Id);
                     TempData["AlertMessage"] = "Updated Successfully..!";
-                    TempData["FormName"] = "User";
+                    //TempData["FormName"] = "User";
                     // return RedirectToAction("Index");
                     return new RedirectResult(Url.Action("Index", "Home"));
                 }
@@ -125,7 +125,7 @@ namespace CRMS.WebUI.Controllers
             User userToDelete = userservice.GetUserById(Id);
             userservice.RemoveUser(userToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
-            TempData["FormName"] = "User";
+            //TempData["FormName"] = "User";
             return RedirectToAction("Index");           
         }
 

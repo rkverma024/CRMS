@@ -30,7 +30,7 @@ namespace CRMS.Core.ViewModel
         [Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Display Index")]
         public int? DisplayIndex { get; set; }
-
+        public bool IsMenu { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
