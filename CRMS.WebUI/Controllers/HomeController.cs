@@ -22,7 +22,7 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Index()
         {           
             ViewBag.activeTabId = TempData["FormName"] as string;
-            //ViewBag.activeUrl = TempData["Url"] as string;
+            //ViewBag.activeUrl = TempData["Url"] as string;            
             return View();
         }
 

@@ -14,16 +14,17 @@ namespace CRMS.WebUI.Controllers
     public class FormMstController : Controller
     {
         private IFormMstService formMstservice;
-        
+
         public FormMstController(IFormMstService formMstService)
         {
-            formMstservice = formMstService;           
+            formMstservice = formMstService;
         }
 
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();          
+            List<FormMstViewModel> formMsts = formMstservice.GetFormMstsIndexList();
+            Session["FormLists"] = formMstservice.NavBarFormList();
             return View(formMsts);
         }
 
@@ -36,6 +37,7 @@ namespace CRMS.WebUI.Controllers
         public JsonResult GetFormTabList()
         {
             List<FormMstViewModel> formMsts = formMstservice.TabFormLists();
+            /*List<FormMstViewModel> formMsts = Session["FormLists"] as List<FormMstViewModel>;*/
             return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
 
@@ -90,8 +92,8 @@ namespace CRMS.WebUI.Controllers
                 formMstModel.ParentFormId = formMst.ParentFormId;
                 formMstModel.FormAccessCode = formMst.FormAccessCode;
                 formMstModel.DisplayIndex = formMst.DisplayIndex;
-                formMstModel.IsActive = formMst.IsActive;                
-                formMstModel.IsMenu = formMst.IsMenu;                
+                formMstModel.IsActive = formMst.IsActive;
+                formMstModel.IsMenu = formMst.IsMenu;
                 formMstModel.Dropdown = formMstservice.GetFormDropdownList()
                     .Where(x => x.ParentFormId == null && x.Id != formMst.Id)
                     .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
@@ -104,7 +106,7 @@ namespace CRMS.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();               
+                model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
                 return View(model);
             }
             else
@@ -113,7 +115,7 @@ namespace CRMS.WebUI.Controllers
                 if (existingmodel)
                 {
                     TempData["Already"] = "Alredy Data is exist";
-                    model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();                   
+                    model.Dropdown = formMstservice.GetFormDropdownList().Select(b => new DropDown() { Id = b.Id, Name = b.Name }).ToList();
                     return View(model);
                 }
                 else

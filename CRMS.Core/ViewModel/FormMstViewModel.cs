@@ -15,7 +15,7 @@ namespace CRMS.Core.ViewModel
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "This Field is Required")]
+        //[Required(ErrorMessage = "This Field is Required")]
         [Display(Name = "Navigate URL")]
         public string NavigateURL { get; set; }       
 
@@ -40,6 +40,9 @@ namespace CRMS.Core.ViewModel
 
         [Display(Name = "Parent Form")]
         public string ParentForm { get; set; }
-        public string AllowAll { get; set; }
+        public bool AllowAll { get; set; }
+        public bool IsChild { get; set; }
+
+        public bool AllowView { get; set; }
     }
 }

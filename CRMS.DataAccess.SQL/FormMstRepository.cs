@@ -58,6 +58,7 @@ namespace CRMS.DataAccess.SQL
         }
         public List<FormMstViewModel> GetFormMstsIndex()
         {
+            var list = context.FormMsts;
             var formList = (from form in context.FormMsts.ToList()
                             join fm in context.FormMsts.ToList()
                             on form.ParentFormId equals fm.Id into parentforms
@@ -73,11 +74,15 @@ namespace CRMS.DataAccess.SQL
                                 IsActive = form.IsActive,
                                 IsMenu = form.IsMenu,
                                 DisplayIndex = form.DisplayIndex,
-                            }).ToList();
+
+                                /*IsChild = list.Where(x => x.ParentFormId == form.Id && x.IsMenu).Select(x => x.Id).Any()*/
+                            }).OrderBy(x => x.DisplayIndex).ToList();
             return formList;
         }
         public List<FormMstViewModel> NavBarList()
         {
+
+            var list = context.FormMsts;
             var userId = (Guid)HttpContext.Current.Session["Id"];
             var loginRoleId = context.UserRoles.Where(x => x.UserId == userId && !x.IsDeleted ).Select(x => x.RoleId).FirstOrDefault();
             //var formrolelist = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
@@ -98,6 +103,9 @@ namespace CRMS.DataAccess.SQL
                                 FormAccessCode = form.FormAccessCode,
                                 IsActive = form.IsActive,
                                 DisplayIndex = form.DisplayIndex,
+                                IsMenu = form.IsMenu,
+
+                                IsChild = list.Where(x => x.ParentFormId == form.Id && x.IsMenu).Select(x => x.Id).Any()
                             }).OrderBy(x => x.DisplayIndex).ToList();
             return formList;
         }
@@ -124,6 +132,7 @@ namespace CRMS.DataAccess.SQL
                                 FormAccessCode = form.FormAccessCode,
                                 IsActive = form.IsActive,
                                 DisplayIndex = form.DisplayIndex,
+                                IsMenu = form.IsMenu
                             }).OrderBy(x => x.DisplayIndex).ToList();
             return formList;
         }

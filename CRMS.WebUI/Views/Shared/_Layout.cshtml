@@ -28,11 +28,67 @@
                     <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/logo.svg" alt="CRB Logo"> </a> </div>
                     <div class="menuDiv">
                         <ul id="my-list" class="align-center">
-                           @* <li>@Html.ActionLink("System", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
-                            <li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>
-                            <li> @Html.ActionLink("Systems", "Index", "Home")</li>
-                            <li> @Html.ActionLink("Form", "Index", "FormMst")</li>  *@                                                   
+                            @* <li>@Html.ActionLink("System", "Index", "Home")</li>
+                                <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
+                                <li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>
+                                <li> @Html.ActionLink("Systems", "Index", "Home")</li>
+                                <li> @Html.ActionLink("Form", "Index", "FormMst")</li>  *@
+                            @*@if (Session["FormLists"] != null)
+                                {
+                                    var items = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
+                                    foreach (var item in items.Where(s => s.ParentForm == null).GroupBy(Obj => new { Obj.Id }).Distinct().ToList())
+                                    {
+                                        var data = items.Where(s => s.ParentFormId == item.FirstOrDefault().Id).ToList();
+                                        if (data.Count == 0)
+                                        {
+                                            <li><a class="" href="@item.FirstOrDefault().NavigateURL">@item.FirstOrDefault().Name</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a class="popout" href="@item.FirstOrDefault().NavigateURL">@item.FirstOrDefault().Name</a>
+                                                <ul class="level dropdown-menu">
+                                                    @foreach (var firstItem in data)
+                                                    {
+                                                        <li><a class="" href="@firstItem.NavigateURL">@firstItem.Name</a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    }
+                                }*@
+                            @if (Session["FormLists"] != null)
+                            {
+                                var navbarlist = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
+                                foreach (var items in navbarlist)
+                                {
+                                    if (items.ParentFormId == null)
+                                    {
+                                        if (items.IsMenu && items.IsChild)
+                                        {
+                                            <li class="dropdown">
+                                                <a onmouseover="result()" class="popout" href="#">@items.Name<i><img style="padding: 0 4px 0 4px" src="/Content/image/down-arrow.svg"></i></a>
+                                                <div class="dropdown-menu userInfoDiv">
+                                                    @foreach (var child in navbarlist)
+                                                    {
+                                                        if (child.ParentFormId != null && child.ParentFormId == items.Id)
+                                                        {
+                                                            <ul>
+                                                                <li><a href="@child.NavigateURL">@child.Name</a></li>
+                                                            </ul>
+                                                        }
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@items.NavigateURL">@items.Name</a></li>
+                                        }
+
+                                    }
+                                }
+                            }
                         </ul>
                     </div>
                 </div>
@@ -79,6 +135,23 @@
 
 
 <script>
+    function result() {
+        $(".dropdown").hover(
+            function () {
+                $(this).find(".dropdown-menu").stop(true, true).fadeIn("fast");
+            },
+            function () {
+                $(this).find(".dropdown-menu").stop(true, true).fadeOut("fast");
+            }
+        );
+    }
+    function setTabName() {
+        sessionStorage.setItem("tabName", "");
+    }
+</script>
+
+
+@*<script>
         function result() {
             $(".dropdown").hover(
                 function () {
@@ -120,7 +193,7 @@
               }
           });
         });
-    </script>
+    </script>*@
 
 
 
