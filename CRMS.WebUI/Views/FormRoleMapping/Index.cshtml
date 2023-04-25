@@ -10,8 +10,7 @@
 <div class="container">
     <div class="align-center align-between pb20">
         <h2>Form Access List</h2>
-    </div>
-    @*<label id="alertid" class="bg-success text-white"></label>*@
+    </div>   
     @Html.Hidden("RoleId", Model.FirstOrDefault().RoleId)
     <table id="RoleRights" class="table table-sm">
         <thead>
@@ -103,11 +102,8 @@
         }
     }
 
-
-
      $('#btnAdd').click(function () {
-            var FormID = new Array();
-            //var AllowMenu = new Array();
+            var FormID = new Array();           
             var AllowInsert = new Array();
             var AllowEdit = new Array();
             var AllowView = new Array();
@@ -120,8 +116,7 @@
 
             for (var i = 0; i < trs.length; i = i + 6) {
                 SelectAll[flagcount] = trs[i].checked;
-                FormID[flagcount] = trs[i +1].value;
-                //AllowMenu[flagcount] = trs[i + 2].checked;
+                FormID[flagcount] = trs[i +1].value;                
                 AllowView[flagcount] = trs[i + 2].checked;
                 AllowInsert[flagcount] = trs[i + 3].checked;
                 AllowEdit[flagcount] = trs[i + 4].checked;
@@ -138,8 +133,7 @@
                 RoleMapping.push({
                     RoleID: RoleID,
                     FormID: FormID[i],
-                    SelectAll: SelectAll[i],
-                    //AllowMenu: AllowMenu[i],
+                    SelectAll: SelectAll[i],                   
                     AllowInsert: AllowInsert[i],
                     AllowEdit: AllowEdit[i],
                     AllowDelete: AllowDelete[i],

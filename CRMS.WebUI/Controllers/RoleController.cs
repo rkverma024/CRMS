@@ -65,17 +65,15 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
-            Role role = roleservice.GetRole(Id);
-            if (role == null)
+            Role obj = roleservice.GetRole(Id);
+            if (obj == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                RoleViewModel roleModel = new RoleViewModel();
-                roleModel.RoleName = role.RoleName;
-                roleModel.Code = role.Code;
-                return View(roleModel);
+                var roleViewModel = roleservice.BindRoleVW(obj);
+                return View(roleViewModel);
             }
         }
 
@@ -122,6 +120,6 @@ namespace CRMS.WebUI.Controllers
         {
             IEnumerable<Role> roles = roleservice.GetRolesList().ToList();
             return Json(roles.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
-        }        
-    }   
+        }
+    }
 }

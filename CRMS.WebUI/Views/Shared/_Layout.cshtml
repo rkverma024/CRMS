@@ -4,6 +4,8 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Content/Custom.js"></script>
+<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
 <html>
 <head>
     <meta charset="utf-8">
@@ -33,30 +35,7 @@
                                 <li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>
                                 <li> @Html.ActionLink("Systems", "Index", "Home")</li>
                                 <li> @Html.ActionLink("Form", "Index", "FormMst")</li>  *@
-                            @*@if (Session["FormLists"] != null)
-                                {
-                                    var items = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
-                                    foreach (var item in items.Where(s => s.ParentForm == null).GroupBy(Obj => new { Obj.Id }).Distinct().ToList())
-                                    {
-                                        var data = items.Where(s => s.ParentFormId == item.FirstOrDefault().Id).ToList();
-                                        if (data.Count == 0)
-                                        {
-                                            <li><a class="" href="@item.FirstOrDefault().NavigateURL">@item.FirstOrDefault().Name</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li>
-                                                <a class="popout" href="@item.FirstOrDefault().NavigateURL">@item.FirstOrDefault().Name</a>
-                                                <ul class="level dropdown-menu">
-                                                    @foreach (var firstItem in data)
-                                                    {
-                                                        <li><a class="" href="@firstItem.NavigateURL">@firstItem.Name</a></li>
-                                                    }
-                                                </ul>
-                                            </li>
-                                        }
-                                    }
-                                }*@
+
                             @if (Session["FormLists"] != null)
                             {
                                 var navbarlist = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
@@ -85,7 +64,6 @@
                                         {
                                             <li><a href="@items.NavigateURL">@items.Name</a></li>
                                         }
-
                                     }
                                 }
                             }

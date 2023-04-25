@@ -14,6 +14,7 @@ namespace CRMS.Core.Contracts
         IEnumerable<IndexViewModel> GetUserRoleList();
         List<User> GetUserList();
         User GetUserById(Guid Id);
+        UserViewModel BindUserVW(User model);
         void UpdateUser(UserViewModel model, Guid Id);
         void RemoveUser(User removeUser);
         bool IsExist(UserViewModel model, bool IsAvailable);

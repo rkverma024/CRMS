@@ -29,15 +29,17 @@ namespace CRMS.WebUI.Controllers
         private FormMstService formMstService;
         private UserRoleService userRoleService;
         private FormRoleMappingService formRoleMappingService;
+        private IRoleService roleService;
         //LoginRepository repository = new LoginRepository();
 
-        public AccountController(LoginService LoginService, UserService userService, FormMstService FormMstService, UserRoleService userroleService, FormRoleMappingService FormRoleMappingService)
+        public AccountController(LoginService LoginService, UserService userService, FormMstService FormMstService, UserRoleService userroleService, FormRoleMappingService FormRoleMappingService, IRoleService roleservice)
         {
             loginService = LoginService;
             userservice = userService;
             formMstService = FormMstService;
             userRoleService = userroleService;
             formRoleMappingService = FormRoleMappingService;
+            roleService = roleservice;
         }        
 
         //[AllowAnonymous]
@@ -69,13 +71,13 @@ namespace CRMS.WebUI.Controllers
                         Session["UserName"] = user.UserName;
                         Session["Name"] = user.Name;
                         Session["Id"] = user.Id;
-
+                        
                         var loginRoleId = userRoleService.GetUserRoleList().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
                         IEnumerable<FormRoleMapping> formRoleMappings = formRoleMappingService.GetList().Where(x => x.RoleId == loginRoleId).ToList();
                         Session["Permission"] = formRoleMappings;
-
                         Session["FormLists"] = formMstService.NavBarFormList();
-                        
+
+                        Session["RoleCode"] = roleService.GetRolesList().Where(x => x.Id == loginRoleId).Select(x => x.Code == "SADMIN").FirstOrDefault();
 
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/

@@ -71,23 +71,15 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {            
-            User user = userservice.GetUserById(Id);            
-            if (user == null)
+            User obj = userservice.GetUserById(Id);            
+            if (obj == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                UserViewModel userModel = new UserViewModel();
-                userModel.Name = user.Name;
-                userModel.Email = user.Email;
-                userModel.Password = user.Password;
-                userModel.UserName = user.UserName;
-                userModel.Gender = user.Gender;
-                userModel.MobileNo = user.MobileNo;
-                userModel.Role = _useroleservice.GetUserRole(user.Id).RoleId; ;
-                userModel.RoleDropdown= roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
-                return View(userModel);
+                var roleViewModel = userservice.BindUserVW(obj);
+                return View(roleViewModel);
             }
         }
 
@@ -115,8 +107,7 @@ namespace CRMS.WebUI.Controllers
                     //TempData["FormName"] = "User";
                     // return RedirectToAction("Index");
                     return new RedirectResult(Url.Action("Index", "Home"));
-                }
-                             
+                }                             
            }
         }
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsDelete)]
@@ -126,7 +117,7 @@ namespace CRMS.WebUI.Controllers
             userservice.RemoveUser(userToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             //TempData["FormName"] = "User";
-            return RedirectToAction("Index");           
+            return RedirectToAction("Index","Home");           
         }
 
         public JsonResult UserGrid([DataSourceRequest] DataSourceRequest request)

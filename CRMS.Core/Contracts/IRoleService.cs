@@ -13,6 +13,7 @@ namespace CRMS.Core.Contracts
         void CreateRole(RoleViewModel model);
         List<Role> GetRolesList();
         Role GetRole(Guid Id);
+        RoleViewModel BindRoleVW(Role model);
         void UpdateRole(RoleViewModel model, Guid Id);
         void RemoveRole(Role removeRole);
         bool IsExist(RoleViewModel model, bool IsAvailable);

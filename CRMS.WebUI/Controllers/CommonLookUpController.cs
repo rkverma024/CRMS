@@ -61,21 +61,15 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
-            CommonLookUp commonLookUp = commonLookUpservice.GetCommonLookUp(Id);
-            if (commonLookUp == null)
+            CommonLookUp obj = commonLookUpservice.GetCommonLookUp(Id);
+            if (obj == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                CommonLookUpViewModel commonLookUpModel = new CommonLookUpViewModel();
-                commonLookUpModel.ConfigName = commonLookUp.ConfigName;
-                commonLookUpModel.ConfigKey = commonLookUp.ConfigKey;
-                commonLookUpModel.DisplayOrder = commonLookUp.DisplayOrder;
-                commonLookUpModel.Description = commonLookUp.Description;
-                commonLookUpModel.ConfigValue = commonLookUp.ConfigValue;
-                commonLookUpModel.IsActive = commonLookUp.IsActive;
-                return PartialView("_Edit", commonLookUpModel);
+                var viewModel = commonLookUpservice.BindCommonLookUpVM(obj);
+                return PartialView("_Edit", viewModel);
             }
         }
         [HttpPost]

@@ -32,23 +32,32 @@ namespace CRMS.Services
 
         public List<Role> GetRolesList()
         {
-            return rolerepository.Collection().Where(b => b.IsDeleted == false).OrderBy(x => x.Code).ToList();
+            return rolerepository.Collection().Where(b => b.IsDeleted == false && b.Code != "SADMIN").OrderBy(x => x.Code).ToList();
         }
 
         public Role GetRole(Guid Id)
         {
-            Role role = rolerepository.Find(Id); 
+            Role role = rolerepository.Find(Id);
             return role;
         }
 
         public void RemoveRole(Role removeRole)
         {
-            
+
             removeRole.IsDeleted = true;
             rolerepository.Commit();
         }
+        public RoleViewModel BindRoleVW(Role model)
+        {
+            //Role obj = GetRole(Id);
+            RoleViewModel viewmodel = new RoleViewModel();
+            viewmodel.RoleName = model.RoleName;
+            viewmodel.Code = model.Code;
 
-        public void UpdateRole(RoleViewModel model,Guid Id)
+            return viewmodel;
+        }
+
+        public void UpdateRole(RoleViewModel model, Guid Id)
         {
             Role roleToEdit = GetRole(Id);
             roleToEdit.RoleName = model.RoleName;

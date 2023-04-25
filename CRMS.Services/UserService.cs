@@ -69,6 +69,19 @@ namespace CRMS.Services
             userrepository.Commit();
         }
 
+        public UserViewModel BindUserVW(User model)
+        {
+            UserViewModel viewmodel = new UserViewModel();
+            viewmodel.Name = model.Name;
+            viewmodel.Email = model.Email;
+            viewmodel.Password = model.Password;
+            viewmodel.UserName = model.UserName;
+            viewmodel.Gender = model.Gender;
+            viewmodel.MobileNo = model.MobileNo;
+            viewmodel.Role = _userRoleService.GetUserRole(model.Id).RoleId; ;
+            viewmodel.RoleDropdown = _roleService.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
+            return viewmodel;
+        }
         public void UpdateUser(UserViewModel model, Guid Id)
         {
             User userToEdit = GetUserById(Id);           
@@ -124,6 +137,6 @@ namespace CRMS.Services
                 return true;
             }
             return false;
-        }
+        }       
     }
 }

@@ -42,7 +42,7 @@ namespace CRMS.Services
 
         public List<CommonLookUp> GetCommonLookUpsList()
         {
-            return commonLookUprepository.Collection().Where(b => b.IsDeleted == false).ToList();
+            return commonLookUprepository.Collection().Where(b => b.IsDeleted == false).OrderBy(x => x.DisplayOrder).ToList();
         }
 
         public void RemoveCommonLookUp(CommonLookUp removecommonLookUp)
@@ -50,7 +50,18 @@ namespace CRMS.Services
             removecommonLookUp.IsDeleted = true;
             commonLookUprepository.Commit();
         }
+        public CommonLookUpViewModel BindCommonLookUpVM(CommonLookUp model)
+        {
+            CommonLookUpViewModel viewModel = new CommonLookUpViewModel();
+            viewModel.ConfigName = model.ConfigName;
+            viewModel.ConfigKey = model.ConfigKey;
+            viewModel.DisplayOrder = model.DisplayOrder;
+            viewModel.Description = model.Description;
+            viewModel.ConfigValue = model.ConfigValue;
+            viewModel.IsActive = model.IsActive;
 
+            return viewModel;
+        }
         public void UpdateCommonLookUp(CommonLookUpViewModel model, Guid Id)
         {
             CommonLookUp commonLookUpToEdit = GetCommonLookUp(model.Id);

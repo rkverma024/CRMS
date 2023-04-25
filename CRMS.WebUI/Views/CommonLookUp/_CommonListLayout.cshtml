@@ -12,9 +12,7 @@
 </div>
 <script type="text/javascript">
     function editclup(e) {
-
-        var selectedId = this.dataItem($(e.currentTarget).closest("tr"));
-        var id = selectedId.Id;
+        var id = e;
         $.ajax({
             url: '@Url.Action("Edit","CommonLookUp")',
             type: "Get",
@@ -27,14 +25,13 @@
     }
 
     function DeleteModal(e) {
-        var selectedId = this.dataItem($(e.currentTarget).closest("tr")).Id;
+        var selectedId = e;
         if (confirm("Are You Sure. You Want To Delete.?") == true) {
             $.ajax({
                 url: '@Url.Action("Delete","CommonLookUp")',
                 data: { 'id': selectedId},
                 type: "post",
-                success: function (savingStatus) {
-                    debugger;
+                success: function (savingStatus) {                   
                     //location.reload();
                     location.href = "@Url.Action("Index","Home")";
                 },
@@ -71,8 +68,8 @@
     </div>  }
 
 
-<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>
+@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>
+<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
 <div class="container">
     <div class="row">
 
@@ -95,19 +92,19 @@
             "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
             "# } #"
             );
-          @*  if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
             {
                 columns.Bound(p => p.Id).ClientTemplate(
                  "#if ('" + CheckRoleRights.Edit + "'=='True') {#"
-                 + " <a onclick='editcommonlookup(\"#=Id#\")'><img src=\"/Content/image/edit.svg\" width=\"19\"></img></a>"
+                 + " <a onclick='editclup(\"#=Id#\")'class='btn btn-primary' '><i class='glyphicon glyphicon-pencil'></i></a>"
                  + "#}#"
                  + "#if ('" + CheckRoleRights.Delete + "'=='True') {#"
-                 + " | <a onclick='confirmDelete(\"#=Id#\")'><img src=\"/Content/image/trash.svg\"></img></i></a>"
+                 + " | <a onclick='DeleteModal(\"#=Id#\")'class='btn btn-danger' '><i class='glyphicon glyphicon-trash'></i></a>"
                  + "#}#"
-                 ).Width(100).Title("Action").Filterable(false);
-            }*@
+                 ).Width(120).Title("Action").Filterable(false);
+            }
 
-                if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+              @*  if (CheckRoleRights.Edit || CheckRoleRights.Delete)
                 {
                     columns.Command(c =>
                     {
@@ -121,7 +118,7 @@
                         }
                     }).Title("Action").Width(200);
                 }
-
+*@
 
             }).ToolBar(toolbar =>
             {
@@ -138,6 +135,7 @@
                         </div>
                     </text>);
             })
+            .HtmlAttributes(new { style = "height:360px;" })
             .NoRecords("No record found")
             .Sortable()
             .Scrollable()

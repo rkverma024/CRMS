@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace CRMS.WebUI.Controllers
 {
+    [Authorize]
     public class FormMstController : Controller
     {
         private IFormMstService formMstservice;
@@ -79,25 +80,15 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
-            FormMst formMst = formMstservice.GetFormMstById(Id);
-            if (formMst == null)
+            FormMst obj = formMstservice.GetFormMstById(Id);
+            if (obj == null)
             {
                 return HttpNotFound();
             }
             else
-            {
-                FormMstViewModel formMstModel = new FormMstViewModel();
-                formMstModel.Name = formMst.Name;
-                formMstModel.NavigateURL = formMst.NavigateURL;
-                formMstModel.ParentFormId = formMst.ParentFormId;
-                formMstModel.FormAccessCode = formMst.FormAccessCode;
-                formMstModel.DisplayIndex = formMst.DisplayIndex;
-                formMstModel.IsActive = formMst.IsActive;
-                formMstModel.IsMenu = formMst.IsMenu;
-                formMstModel.Dropdown = formMstservice.GetFormDropdownList()
-                    .Where(x => x.ParentFormId == null && x.Id != formMst.Id)
-                    .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                return View(formMstModel);
+            {                
+                var viewModel = formMstservice.BindFormVM(obj);
+                return View(viewModel);
             }
         }
 

@@ -22,24 +22,34 @@ namespace CRMS.Services
         {
             _conferenceRoomRepository.AddConferenceRoom(model);
         }
-       
+
         public ConferenceRoom GetConferenceRoomById(Guid Id)
         {
-           return _conferenceRoomRepository.GetById(Id);            
+            return _conferenceRoomRepository.GetById(Id);
         }
 
         public List<ConferenceRoom> GetConferenceRoomList()
         {
             return _conferenceRoomRepository.GetList();
-        }        
+        }
 
         public void RemoveConferenceRoom(ConferenceRoom removeConferenceRoom, Guid Id)
         {
             _conferenceRoomRepository.DeleteConferenceRoom(removeConferenceRoom, Id);
         }
+
+        public ConferenceRoomViewModel BindConferenceRoomVW(ConferenceRoom model)
+        {
+            ConferenceRoomViewModel viewModel = new ConferenceRoomViewModel();
+            viewModel.ConferenceRoomNo = model.ConferenceRoomNo;
+            viewModel.Capacity = model.Capacity;
+            return viewModel;
+
+        }
+
         public void UpdateConferenceRoom(ConferenceRoomViewModel model, Guid Id)
         {
-            _conferenceRoomRepository.EditConferenceRoom(model,Id);
+            _conferenceRoomRepository.EditConferenceRoom(model, Id);
         }
         public bool IsExist(ConferenceRoomViewModel model, bool IsAvailable)
         {

@@ -10,50 +10,54 @@ using System.Web;
 namespace CRMS.Services
 {
     public class CheckAccess 
-    {
-        /*  private FormMstService formMstservice;
-          private FormRoleMappingService rolemappingService;
-
-          public CheckAccess(FormMstService formMstService, FormRoleMappingService RoleMappingService)
-          {
-              formMstservice = formMstService;
-              rolemappingService = RoleMappingService;
-          }*/
-
+    {        
         public static bool ChechAccessPermission(string formAccessCode, string action)
         {
-            List<FormRoleMapping> formRole = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
-            if (formRole != null)
+            bool RoleCode = (bool)HttpContext.Current.Session["RoleCode"];
+            if (RoleCode == false)
             {
-                using (DataContext db = new DataContext())
+                List<FormRoleMapping> formRole = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
+                if (formRole != null)
                 {
-                    Guid FormId = db.FormMsts.Where(x => x.FormAccessCode == formAccessCode).Select(x => x.Id).FirstOrDefault();
-                    FormRoleMapping mapping = formRole.Where(x => x.FormId == FormId).FirstOrDefault();
-
-                    if (formRole != null)
+                    using (DataContext db = new DataContext())
                     {
-                        if (mapping.AllowView == true)
+                        Guid FormId = db.FormMsts.Where(x => x.FormAccessCode == formAccessCode).Select(x => x.Id).FirstOrDefault();
+                        FormRoleMapping mapping = formRole.Where(x => x.FormId == FormId).FirstOrDefault();
+
+                        if (formRole != null)
                         {
-                            CheckRoleRights.View = mapping.AllowView;
-                            CheckRoleRights.Insert = mapping.AllowInsert;
-                            CheckRoleRights.Edit = mapping.AllowEdit;
-                            CheckRoleRights.Delete = mapping.AllowDelete;
-                            if (action == CheckRoleRights.FormAccessCode.IsView.ToString())
+                            if (mapping.AllowView == true)
                             {
-                                return mapping.AllowView;
+                                CheckRoleRights.View = mapping.AllowView;
+                                CheckRoleRights.Insert = mapping.AllowInsert;
+                                CheckRoleRights.Edit = mapping.AllowEdit;
+                                CheckRoleRights.Delete = mapping.AllowDelete;
+                                if (action == CheckRoleRights.FormAccessCode.IsView.ToString())
+                                {
+                                    return mapping.AllowView;
+                                }
+                                else if (action == CheckRoleRights.FormAccessCode.IsInsert.ToString())
+                                {
+                                    return mapping.AllowInsert;
+                                }
+                                else if (action == CheckRoleRights.FormAccessCode.IsEdit.ToString())
+                                {
+                                    return mapping.AllowEdit;
+                                }
+                                else if (action == CheckRoleRights.FormAccessCode.IsDelete.ToString())
+                                {
+                                    return mapping.AllowDelete;
+                                }
                             }
-                            else if (action == CheckRoleRights.FormAccessCode.IsInsert.ToString())
+                            else
                             {
-                                return mapping.AllowInsert;
+                                CheckRoleRights.View = false;
+                                CheckRoleRights.Insert = false;
+                                CheckRoleRights.Edit = false;
+                                CheckRoleRights.Delete = false;
+                                return false;
                             }
-                            else if (action == CheckRoleRights.FormAccessCode.IsEdit.ToString())
-                            {
-                                return mapping.AllowEdit;
-                            }
-                            else if (action == CheckRoleRights.FormAccessCode.IsDelete.ToString())
-                            {
-                                return mapping.AllowDelete;
-                            }
+                            return false;
                         }
                         else
                         {
@@ -63,21 +67,20 @@ namespace CRMS.Services
                             CheckRoleRights.Delete = false;
                             return false;
                         }
-                        return false;
                     }
-                    else
-                    {
-                        CheckRoleRights.View = false;
-                        CheckRoleRights.Insert = false;
-                        CheckRoleRights.Edit = false;
-                        CheckRoleRights.Delete = false;
-                        return false;
-                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
             else
             {
-                return false;
+                CheckRoleRights.View = true;
+                CheckRoleRights.Insert = true;
+                CheckRoleRights.Edit = true;
+                CheckRoleRights.Delete = true;
+                return true;
             }
         }
     }

@@ -328,7 +328,6 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\ConferenceRoomManageController.cs" />
     <Compile Include="Controllers\FormMstController.cs" />
@@ -2485,7 +2484,6 @@
     <Content Include="Views\FormMst\Edit.cshtml" />
     <Content Include="Views\Shared\_FormPartialView.cshtml" />
     <Content Include="Views\FormRoleMapping\Index.cshtml" />
-    <Content Include="Views\Base\Index.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>

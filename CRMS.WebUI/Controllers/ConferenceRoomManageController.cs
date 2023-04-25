@@ -63,16 +63,14 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
-            ConferenceRoom conferenceRoom = conferenceroomService.GetConferenceRoomById(Id);
-            if (conferenceRoom == null)
+            ConferenceRoom obj = conferenceroomService.GetConferenceRoomById(Id);
+            if (obj == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                ConferenceRoomViewModel conferenceRoomroleModel = new ConferenceRoomViewModel();
-                conferenceRoomroleModel.ConferenceRoomNo = conferenceRoom.ConferenceRoomNo;
-                conferenceRoomroleModel.Capacity = conferenceRoom.Capacity;
+                var conferenceRoomroleModel = conferenceroomService.BindConferenceRoomVW(obj);
                 return View(conferenceRoomroleModel);
             }
         }

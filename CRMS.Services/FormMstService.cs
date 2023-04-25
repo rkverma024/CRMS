@@ -54,6 +54,22 @@ namespace CRMS.Services
 
         }
 
+        public FormMstViewModel BindFormVM(FormMst model)
+        {
+            FormMstViewModel viewModel = new FormMstViewModel();
+            viewModel.Name = model.Name;
+            viewModel.NavigateURL = model.NavigateURL;
+            viewModel.ParentFormId = model.ParentFormId;
+            viewModel.FormAccessCode = model.FormAccessCode;
+            viewModel.DisplayIndex = model.DisplayIndex;
+            viewModel.IsActive = model.IsActive;
+            viewModel.IsMenu = model.IsMenu;
+            viewModel.Dropdown = GetFormDropdownList()
+                .Where(x => x.ParentFormId == null && x.Id != model.Id)
+                .Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+            return viewModel;
+        }
+
         public void UpdateFormMst(FormMstViewModel model, Guid ID)
         {
             FormMst formMstToEdit = GetFormMstById(ID);
@@ -74,7 +90,7 @@ namespace CRMS.Services
         {
             bool existingmodel = GetFormMstsList().Where(x => (IsAvailable || x.Id != model.Id) &&
                                                              (x.Name.ToLower() == model.Name.ToLower() ||
-                                                              x.FormAccessCode.ToLower() == model.FormAccessCode.ToLower())).Any();            
+                                                              x.FormAccessCode.ToLower() == model.FormAccessCode.ToLower())).Any();
             if (existingmodel)
             {
                 return true;
@@ -89,7 +105,7 @@ namespace CRMS.Services
 
         public List<FormMstViewModel> GetFormMstsIndexList()
         {
-           return formMstrepository.GetFormMstsIndex();
+            return formMstrepository.GetFormMstsIndex();
         }
 
         public List<FormMstViewModel> NavBarFormList()

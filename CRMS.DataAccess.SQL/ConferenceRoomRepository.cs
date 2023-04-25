@@ -71,7 +71,7 @@ namespace CRMS.DataAccess.SQL
       
         public List<ConferenceRoom> GetList()
         {
-            return Collection().Where(b => b.IsDeleted == false).ToList();
+            return Collection().Where(b => b.IsDeleted == false).OrderBy((x => x.Capacity)).ToList();
         }
         
         public void DeleteConferenceRoom(ConferenceRoom removeConferenceRoom, Guid Id)
