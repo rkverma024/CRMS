@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.Models
 {
-    public class TicketComment
+    public class TicketComment : BaseEntity
     {
         public Guid TicketId { get; set; }
         public string Comment { get; set; }
+
+        public TicketComment()
+        {
+            Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
+        }
     }
 }

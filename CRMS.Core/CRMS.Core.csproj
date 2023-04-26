@@ -68,6 +68,10 @@
     <Compile Include="Models\FormRoleMapping.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\ConferenceRoom.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketAttachment.cs" />
+    <Compile Include="Models\TicketComment.cs" />
+    <Compile Include="Models\TicketStatusHistory.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -91,6 +91,14 @@
     <Compile Include="Migrations\202304210656319_FormMst_IsMenu.Designer.cs">
       <DependentUpon>202304210656319_FormMst_IsMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304261019501_Tickets.cs" />
+    <Compile Include="Migrations\202304261019501_Tickets.Designer.cs">
+      <DependentUpon>202304261019501_Tickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304261123376_Ticket.cs" />
+    <Compile Include="Migrations\202304261123376_Ticket.Designer.cs">
+      <DependentUpon>202304261123376_Ticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
@@ -132,6 +140,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304210656319_FormMst_IsMenu.resx">
       <DependentUpon>202304210656319_FormMst_IsMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304261019501_Tickets.resx">
+      <DependentUpon>202304261019501_Tickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304261123376_Ticket.resx">
+      <DependentUpon>202304261123376_Ticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,5 +21,9 @@ namespace CRMS.DataAccess.SQL
         public DbSet<CommonLookUp> CommonLookUps { get; set; }
         public DbSet<FormMst> FormMsts { get; set; }
         public DbSet<FormRoleMapping> FormRoleMappings { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketAttachment> TicketAttachments { get; set; }
+        public DbSet<TicketComment> TicketComments { get; set; }
+        public DbSet<TicketStatusHistory> TicketStatusHistorys { get; set; }
     }
 }

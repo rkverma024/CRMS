@@ -15,5 +15,10 @@ namespace CRMS.Core.Models
         public Guid PriorityId { get; set; }
         public Guid StatusId {get;set;}
 
+        public Ticket()
+        {
+            Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
+        }
     }
 }
