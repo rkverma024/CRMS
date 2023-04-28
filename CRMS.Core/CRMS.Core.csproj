@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +58,10 @@
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
+    <Compile Include="Contracts\ITicketAttachmentRepository.cs" />
+    <Compile Include="Contracts\ITicketAttachmentService.cs" />
+    <Compile Include="Contracts\ITicketRepository.cs" />
+    <Compile Include="Contracts\ITicketService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Contracts\IUserRoleRepository.cs" />
     <Compile Include="Contracts\IUserRoleService.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="ViewModel\IndexViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
+    <Compile Include="ViewModel\TicketViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

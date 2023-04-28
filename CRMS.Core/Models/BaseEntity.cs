@@ -16,7 +16,11 @@ namespace CRMS.Core.Models
         public DateTime? UpdatedOn { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        
+        public BaseEntity()
+        {
+            this.Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
+        }
     }
 }
 

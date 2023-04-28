@@ -13,9 +13,9 @@ namespace CRMS.Services
     {        
         public static bool ChechAccessPermission(string formAccessCode, string action)
         {
-            bool RoleCode = (bool)HttpContext.Current.Session["RoleCode"];
+           /* bool RoleCode = (bool)HttpContext.Current.Session["RoleCode"];
             if (RoleCode == false)
-            {
+            {*/
                 List<FormRoleMapping> formRole = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
                 if (formRole != null)
                 {
@@ -74,7 +74,7 @@ namespace CRMS.Services
                     return false;
                 }
             }
-            else
+            /*else
             {
                 CheckRoleRights.View = true;
                 CheckRoleRights.Insert = true;
@@ -82,7 +82,7 @@ namespace CRMS.Services
                 CheckRoleRights.Delete = true;
                 return true;
             }
-        }
+        }*/
     }
 }
 

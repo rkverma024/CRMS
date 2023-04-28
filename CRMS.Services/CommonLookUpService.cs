@@ -87,8 +87,11 @@ namespace CRMS.Services
                 return true;
             }
             return false;
+        }
 
-
+        public IEnumerable<CommonLookUp> GetDropDownList(string configname)
+        {
+            return commonLookUprepository.Collection().Where(b => b.IsDeleted == false && b.ConfigName == configname).ToList();
         }
     }
 }

@@ -68,6 +68,12 @@ namespace CRMS.WebUI
 
             container.RegisterType<IFormRoleMappingRepository, FormRoleMappingRepository>();
             container.RegisterType<IFormRoleMappingService, FormRoleMappingService>();
+
+            container.RegisterType<ITicketRepository, TicketRepository>();
+            container.RegisterType<ITicketService, TicketService>();
+
+            container.RegisterType<ITicketAttachmentRepository, TicketAttachmentRepository>();
+            container.RegisterType<ITicketAttachmentService, TicketAttachmentService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

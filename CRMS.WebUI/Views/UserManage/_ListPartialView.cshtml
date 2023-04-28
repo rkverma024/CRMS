@@ -27,10 +27,6 @@
     </div>}
 
 
-@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
-
-
 @(
     Html.Kendo().Grid(Model).Name("UserGrid").Columns(columns => {
         columns.Bound(expression: c => c.Name);
@@ -74,7 +70,7 @@
                     </div>
                 </text>);
     })
-    .HtmlAttributes(new { style = "height:360px;" })
+   @* .HtmlAttributes(new { style = "height:360px;" })*@
     .NoRecords("No record found")
     .Sortable()
     .Scrollable()

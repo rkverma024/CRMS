@@ -79,75 +79,69 @@
     </style>
 </head>
 <body>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <div class="section">
+        <div class="container" style="background-color:#efefef">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
+                            <div class="formDiv">
+                                <div class="topTitleHead pb20">
+                                    <h2> Edit Form</h2>
+                                </div>
+                                <div class="formSection">
+                                    <div class="inputBox">
+                                        <label>Name</label>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="inputBox">
+                                        <label>Navigate URL</label>
+                                        @Html.EditorFor(model => model.NavigateURL, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.NavigateURL, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="inputBox selectBox">
+                                        <label>Parent Form</label>
+                                        @Html.DropDownListFor(model => model.ParentFormId, new SelectList(Model.Dropdown, "Id", "Name"),
+                     "Select Parent", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "errorMsg" })
+                                    </div>
+                                    <div class="inputBox">
+                                        <label>Form Access Code</label>
+                                        @Html.EditorFor(model => model.FormAccessCode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FormAccessCode, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="inputBox">
+                                        <label>Display Index</label>
+                                        @Html.EditorFor(model => model.DisplayIndex, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DisplayIndex, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="inputBox">
+                                        <label>IsActive</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="toggle" name="IsActive" @(Model.IsActive ? "checked" : "")>
 
-        <div class="mainDiv">
-            <!-- Section -->
-            <div class="section">
-                <div class="container">
-                    <!----- Form ---->
-                    @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
-                    <div class="formDiv">
-                        <div class="topTitleHead pb20">
-                            <h2> Edit Form</h2>
-                        </div>
-                        <div class="formSection">
-                            <div class="inputBox">
-                                <label>Name</label>
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })                              
-                            </div>
-                            <div class="inputBox">
-                                <label>Navigate URL</label>
-                                @Html.EditorFor(model => model.NavigateURL, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NavigateURL, "", new { @class = "text-danger" })                              
-                            </div>
-                            <div class="inputBox">
-                                <label>Parent Form</label>                               
-                                @Html.DropDownListFor(model => model.ParentFormId, new SelectList(Model.Dropdown, "Id", "Name"),
-             "Select Parent", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "errorMsg" })
-                            </div>
-                            <div class="inputBox">
-                                <label>Form Access Code</label>
-                                @Html.EditorFor(model => model.FormAccessCode, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.FormAccessCode, "", new { @class = "text-danger" })                               
-                            </div>
-                            <div class="inputBox">
-                                <label>Display Index</label>
-                                @Html.EditorFor(model => model.DisplayIndex, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DisplayIndex, "", new { @class = "text-danger" })                               
-                            </div>
-                            <div class="inputBox">
-                                <label>IsActive</label>
-                                <label class="switch">
-                                    <input type="checkbox" id="toggle" name="IsActive" @(Model.IsActive ? "checked" : "")>
+                                            <span class="slider round"></span>
+                                        </label>
 
-                                    <span class="slider round"></span>
-                                </label>
+                                        <label>IsMenu</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="toggle1" name="IsMenu" @(Model.IsMenu ? "checked" : "")>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="btn col-lg-12">
+                                        <button type="submit" value="Save" class="btnDiv">Save</button>
+                                    </div>
+                                </div>
 
-                                <label>IsMenu</label>
-                                <label class="switch">
-                                    <input type="checkbox" id="toggle1" name="IsMenu" @(Model.IsMenu ? "checked" : "")>
-                                    <span class="slider round"></span>
-                                </label>
                             </div>
-                            <div class="btn col-lg-12">                                
-                                <button type="submit" value="Save" class="btnDiv">Save</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!----- END Form ---->
-                </div>
+            }
+            <div class="btn btn-primary">
+                <a style="color:white" href="javascript:history.go(-1);">Back to List</a>
+            </div>
             </div>
         </div>
-    }
-    <div class="btn btn-primary">
-        <a style="color:white" href="javascript:history.go(-1);">Back to List</a>
-    </div>
 </body>
 </html>
 <script>

@@ -29,35 +29,35 @@
                             <div class="inputBox">
                                 <label>Name</label>
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                 @* <p class="errorMsg">This field is required</p>*@
                             </div>
                             <div class="inputBox">
                                 <label>User Name</label>
                                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                                 @* <p class="errorMsg">This field is required</p>*@
                             </div>
                             <div class="inputBox selectBox">
                                 <label>Role</label>
                                 @Html.DropDownListFor(model => model.Role, new SelectList(Model.RoleDropdown, "Id", "Name"),
                "Select Role", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
                             </div>
                             <div class="inputBox">
                                 <label>Email</label>
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
                             <div class="inputBox">
                                 <label>Password</label>
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                             </div>
                             <div class="inputBox">
                                 <label>Mobile Number</label>
                                 @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "errorMsg" })
+                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
                             </div>
                             <div class="inputBox customRadioBtn w-100">
                                 <label>Gender</label>
@@ -83,9 +83,9 @@
                             </div>
 
                         </div>
-                        <div class="inputBox">
+                        <div class="btn" style="background: #d9534f">
                             @*   @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-primary" })*@
-                            <a href="javascript:history.go(-1);">Back to List</a>
+                            <a style="color:white" href="javascript:history.go(-1);">Cancel</a>
                         </div>
                     </div>
                     <!----- END Form ---->

@@ -18,5 +18,7 @@ namespace CRMS.Core.Contracts
         void RemoveCommonLookUp(CommonLookUp removecommonLookUp);
 
         bool IsExist(CommonLookUpViewModel model, bool IsAvailable);
+
+        IEnumerable<CommonLookUp> GetDropDownList(string configname);
     }
 }
