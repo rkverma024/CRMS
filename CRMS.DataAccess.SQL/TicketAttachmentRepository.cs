@@ -22,7 +22,7 @@ namespace CRMS.DataAccess.SQL
         public TicketAttachmentRepository(DataContext context)
         {
             this.context = context;
-            this.dbSet = context.Set<TicketAttachment>();
+            dbSet = this.context.Set<TicketAttachment>();
         }
 
         public IQueryable<TicketAttachment> Collection()
@@ -61,49 +61,21 @@ namespace CRMS.DataAccess.SQL
             context.Entry(model).State = EntityState.Modified;
         }
 
-        public void AddTicketAttachment(TicketViewModel model)
-        {
-            TicketAttachment obj = new TicketAttachment();
-            obj.TicketId = model.Id;
+        //public void AddTicketAttachment(TicketViewModel model)
+        //{
 
-            //string date = DateTime.Now.Ticks.ToString("yyyyMMddHHmmss");
-            string fileExtention = System.IO.Path.GetExtension(model.Image.FileName);
-            string imageName = obj.TicketId.ToString() + '_' + DateTime.Now.Ticks + fileExtention;
-            string ImagePath = ConfigurationManager.AppSettings["TicketImages"] + imageName;
-            model.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
-            obj.FileName = imageName;
-            obj.CreatedBy = model.CreatedBy;
-            Insert(obj);
-            Commit();
+        //    TicketAttachment obj = new TicketAttachment();
+        //    obj.TicketId = model.Id;
 
+        //    string fileExtention = System.IO.Path.GetExtension(model.Image.FileName);
+        //    string imageName = obj.TicketId.ToString() + '_' + DateTime.Now.Ticks + fileExtention;
+        //    string ImagePath = "~/Content/TicketImages/" + imageName;
+        //    model.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
+        //    obj.FileName = imageName;
+        //    obj.CreatedBy = model.CreatedBy;
+        //    Insert(obj);
+        //    Commit();
+        //}
 
-            /*  TicketAttachment obj = new TicketAttachment();
-              obj.TicketId = model.Id;
-
-              string fileExtention = System.IO.Path.GetExtension(model.Image.FileName);
-              string imageName = obj.TicketId.ToString() + '_' + DateTime.Now.Ticks + fileExtention;
-              string ImagePath = "~/Content/TicketImages/" + imageName;
-              model.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
-              obj.FileName = imageName;
-              obj.CreatedBy = model.CreatedBy;
-              Insert(obj);
-              Commit();*/
-        }
-
-
-        /* public void UpdateTicketAttachment(TicketViewModel model)
-         {
-             string fileName = System.IO.Path.GetFileName(model.Image.FileName);
-             string filePath = "/Content/TicketImages/" + fileName;
-             model.Image.SaveAs(HostingEnvironment.MapPath(filePath));
-
-             TicketAttachment obj = new TicketAttachment();
-             obj.TicketId = model.Id;
-             obj.FileName = fileName;
-             obj.UpdatedBy = model.UpdatedBy;
-             obj.UpdatedOn = DateTime.Now;
-             Update(obj);
-             Commit();
-         }*/
     }
 }

@@ -11,11 +11,14 @@ namespace CRMS.Core.Contracts
     public interface ITicketAttachmentService
     {
         void CreateTicketAttachment(TicketViewModel model);
-        void EditTicketAttachment(TicketViewModel model);
+        void EditTicketAttachment(TicketViewModel viewmodel);
         List<TicketAttachment> GetTicketAttachmentList();
-        TicketAttachment GetTicketAttachment(Guid Id);
-        void BindTicketAttachment(TicketAttachment model);
-        
+        TicketAttachment GetTicketAttachmentById(Guid Id);
+        TicketAttachment GetTicketId(Guid Id);
+        //TicketViewModel BindTicketAttachment(TicketAttachment model);
+
         void RemoveTicketAttachment(TicketAttachment model);
+
+        IEnumerable<TicketAttachment> GetTicketIdList(Guid ticketId);
     }
 }

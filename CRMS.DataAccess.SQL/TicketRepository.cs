@@ -54,25 +54,26 @@ namespace CRMS.DataAccess.SQL
             dbSet.Attach(model);
             context.Entry(model).State = EntityState.Modified;
         }
-
         public IEnumerable<TicketIndexViewModel> AllTicketList()
         {
             var list = from tk in context.Tickets.Where(x => x.IsDeleted == false)
-                       //from ta in context.TicketAttachments.Where(x => x.IsDeleted == false)                      
                        join user in context.Users.Where(x => x.IsDeleted == false) on tk.AssignTo equals user.Id
                        join clup in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.TypeId equals clup.Id
                        join clm in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.PriorityId equals clm.Id
-                       join clp in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.StatusId equals clp.Id
+                       join clp in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.StatusId equals clp.Id                      
+                      /* join ticketAttachment in context.TicketAttachments.Where(x => x.IsDeleted == false) on tk.Id 
+                       equals ticketAttachment.TicketId into tattach from ti in tattach.DefaultIfEmpty()*/
                        select new TicketIndexViewModel()
                        {
                            Id =  tk.Id,
                            Title = tk.Title,                           
-                           AssignTo = user.Name,
-                           //FileName = ta.FileName,
+                           AssignTo = user.Name,                           
                            TypeId = clup.ConfigValue,
                            PriorityId = clm.ConfigValue,
                            StatusId = clp.ConfigValue,                           
-                           Description = tk.Description
+                           Description = tk.Description,
+                           FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Any()
+                           //FileName = ti == null ? "" : ti.FileName
 
                        };
             return list;

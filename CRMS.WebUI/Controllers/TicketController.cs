@@ -5,8 +5,11 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
@@ -16,11 +19,13 @@ namespace CRMS.WebUI.Controllers
         ITicketService ticketService;
         IUserService userService;
         ICommonLookUpService commonLookUpService;
-        public TicketController(ITicketService TicketService, IUserService UserService, ICommonLookUpService CommonLookUpService)
+        ITicketAttachmentService ticketAttachmentService; 
+        public TicketController(ITicketService TicketService, IUserService UserService, ICommonLookUpService CommonLookUpService, ITicketAttachmentService TicketAttachmentService)
         {
             ticketService = TicketService;
             userService = UserService;
             commonLookUpService = CommonLookUpService;
+            ticketAttachmentService = TicketAttachmentService;
         }
 
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsView)]
@@ -80,6 +85,7 @@ namespace CRMS.WebUI.Controllers
                 viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
                 viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
                 viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
+                //viewmodel.TicketImage = ticketAttachmentService.GetTicketIdList(Id);
                 return View();
             }
             else
@@ -100,10 +106,38 @@ namespace CRMS.WebUI.Controllers
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
         }
+
+        public ActionResult DeleteTicketAttachment(Guid Id)
+        {
+            TicketAttachment ticketToDelete = ticketAttachmentService.GetTicketAttachmentById(Id);
+            ticketAttachmentService.RemoveTicketAttachment(ticketToDelete);
+            TempData["DeleteMessage"] = "Deleted Successfully..!";
+            return RedirectToAction("Index");
+        }
+
         public JsonResult TicketsGrid([DataSourceRequest] DataSourceRequest request)
         {
-            IEnumerable<Ticket> ticket = ticketService.GetTicketList().ToList();
+            IEnumerable<TicketIndexViewModel> ticket = ticketService.GetAllTicketLists().ToList();
             return Json(ticket.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult TicketAttachment(Guid ticketId)
+        {
+            var list = ticketAttachmentService.GetTicketIdList(ticketId).ToList();
+            return PartialView("_imageview", list);
+        }
+
+        public FileResult DownloadImg(Guid Id) // Ticket Id
+        {
+            var getDocument = ticketAttachmentService.GetTicketAttachmentById(Id);
+            string contentType = string.Empty;
+            if (getDocument != null)
+            {
+                contentType = "application/force-download";
+                string fullPath = Path.Combine(Server.MapPath("~/Content/TicketImages/") + getDocument.FileName);
+                return File(fullPath, contentType, getDocument.FileName);
+            }
+            return null;
         }
     }
 }

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CRMS.Core.Models.TicketAttachment>
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Image List</h3>
+        </div>
+        <div class="modal-body">
+            <form name="Createform" id="showimage">
+                <table class="table">
+                    @*<tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FileName)
+                            </th>
+                        </tr>*@
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileName)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Download", "DownloadImg", new { id = item.Id }) |*@
+                                <a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a>
+                                @*<a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

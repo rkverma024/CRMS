@@ -34,7 +34,10 @@ namespace CRMS.Services
             model.StatusId = viewmodel.StatusId;
             model.Description = viewmodel.Description;
             model.CreatedBy = viewmodel.CreatedBy;
-            ticketAttachmentService.CreateTicketAttachment(viewmodel);
+            if (viewmodel.Image != null)
+            {
+                ticketAttachmentService.CreateTicketAttachment(viewmodel);
+            }            
             ticketRepository.Insert(model);
             ticketRepository.Commit();
         }
@@ -53,17 +56,19 @@ namespace CRMS.Services
         public TicketViewModel BindTicketVM(Ticket model)
         {
             TicketViewModel viewmodel = new TicketViewModel();            
-            viewmodel.Title = model.Title;            
+            viewmodel.Title = model.Title;
             viewmodel.AssignTo = model.AssignTo;
             viewmodel.TypeId = model.TypeId;
             viewmodel.PriorityId = model.PriorityId;
             viewmodel.StatusId = model.StatusId;
             viewmodel.Description = model.Description;
-            //ticketAttachmentService.EditTicketAttachment(viewmodel);
+            viewmodel.TicketImage = ticketAttachmentService.GetTicketIdList(model.Id);
             viewmodel.DropdownAssignTo = userService.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name });
             viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
             viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
             viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
+
+            //ticketAttachmentService.BindTicketAttachment(model);
             return viewmodel;
         }
         public void UpdateTicket(TicketViewModel viewmodel, Guid Id)
@@ -77,7 +82,10 @@ namespace CRMS.Services
             ticketToEdit.Description = viewmodel.Description;
             ticketToEdit.UpdatedBy = viewmodel.UpdatedBy;
             ticketToEdit.UpdatedOn = DateTime.Now;
-            //ticketAttachmentService.EditTicketAttachment(viewmodel);
+            if (viewmodel.Image != null)
+            {
+                ticketAttachmentService.CreateTicketAttachment(viewmodel);
+            }
             viewmodel.DropdownAssignTo = userService.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name });
             viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
             viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
@@ -96,23 +104,6 @@ namespace CRMS.Services
         {
             return ticketRepository.AllTicketList();
         }
-
-        /*public bool IsExist(TicketViewModel viewmodel, bool IsAvailable)
-        {
-            bool existingmodel = GetTicketList().Where(x => (IsAvailable || x.Id != viewmodel.Id) &&
-                                                             (x..ToLower() == viewmodel.Name.ToLower() ||
-                                                              x.FormAccessCode.ToLower() == viewmodel.FormAccessCode.ToLower())).Any();
-            if (existingmodel)
-            {
-                return true;
-            }
-            return false;
-        }*/
-
-        /* public IEnumerable<TicketIndexViewModel> AllTicketList()
-         {
-             List<Ticket> tickets = GetTicketList();
-             IEnumerable<User> users = userService.GetUserList();
-         }*/
+       
     }
 }

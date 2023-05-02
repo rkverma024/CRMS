@@ -78,7 +78,7 @@ namespace CRMS.Services
             viewmodel.UserName = model.UserName;
             viewmodel.Gender = model.Gender;
             viewmodel.MobileNo = model.MobileNo;
-            viewmodel.Role = _userRoleService.GetUserRole(model.Id).RoleId; ;
+            viewmodel.Role = _userRoleService.GetUserRole(model.Id).RoleId;
             viewmodel.RoleDropdown = _roleService.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();
             return viewmodel;
         }

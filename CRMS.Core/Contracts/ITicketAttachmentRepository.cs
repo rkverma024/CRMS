@@ -17,7 +17,7 @@ namespace CRMS.Core.Contracts
         void Insert(TicketAttachment model);
         void Update(TicketAttachment model);
 
-        void AddTicketAttachment(TicketViewModel model);
+        //void AddTicketAttachment(TicketViewModel model);
         //void UpdateTicketAttachment(TicketViewModel model);
     }
 }

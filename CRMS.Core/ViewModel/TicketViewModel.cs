@@ -39,6 +39,8 @@ namespace CRMS.Core.ViewModel
         public string Description { get; set; }
 
         public HttpPostedFileBase Image { get; set; }
+
+        public IEnumerable<TicketAttachment> TicketImage{ get; set; }
     }
 
     public class TicketIndexViewModel : BaseEntity
@@ -62,6 +64,6 @@ namespace CRMS.Core.ViewModel
         public string Description { get; set; }
 
         [Display(Name = "File Name")]
-        public string FileName { get; set; }
+        public bool FileName { get; set; }
     }
 }

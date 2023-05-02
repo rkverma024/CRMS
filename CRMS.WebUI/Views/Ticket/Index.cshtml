@@ -9,6 +9,7 @@
 <br />
 <br />
 
+
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
@@ -21,55 +22,82 @@
         @TempData["DeleteMessage"]
     </div>  }
 
-<div class="align-center align-between pb20">
-    <h2>Ticket</h2>
-    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-    {
-        <div class="btnDiv">
-            <a href="@Url.Action("Create", "Ticket")">+ Create Ticket</a>
-        </div>
-    }
+<script src="~/Scripts/bootstrap.min.js"></script>
+<div id="image">
+    <div class="modal" id="showimage" data-url='@Url.Action("TicketAttachment","Ticket")'></div>
 </div>
-
-<div class="container">
-    <div class="row">
-
-        @(
-        Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
-            columns.Bound(expression: c => c.Title).Width(140);
-            columns.Bound(expression: c => c.AssignTo).Width(140);
-            columns.Bound(expression: c => c.TypeId);
-            columns.Bound(expression: c => c.PriorityId).Width(130);
-            columns.Bound(expression: c => c.StatusId).Width(130);
-            columns.Bound(expression: c => c.Description);
-            columns.Bound(expression: c => c.FileName);
-
-            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
-            {
-                columns.Bound(p => p.Id).ClientTemplate(
-                  "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
-                  + " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
-                  + "#}#"
-
-                  + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
-                  + " | <a href='" + Url.Action("Delete", "Ticket") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
-                  + "#}#"
-
-            ).Width(150).Title("Action").Filterable(false);
+<script>
+    function DisplayModal(Id) {
+        var id = Id;
+        $.ajax({
+            url: '/Ticket/TicketAttachment?ticketId=' + id,
+            type: "Get",
+            data: { 'id': id },
+            success: function (res) {
+                $("#showimage").html(res);
+                $("#showimage").modal('show');
             }
+        });
+    }
+</script>
 
-        }).ToolBar(toolbar =>
-        {
+<div class="section" style="background-color: #efefef">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>Ticket</h2>
+            @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+            {
+                <div class="btnDiv">
+                    <a href="@Url.Action("Create", "Ticket")">+ Create Ticket</a>
+                </div>
+            }
+        </div>
+        <div class="row">
+            @(
+             Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
+                columns.Bound(expression: c => c.Title).Width(140);
+                columns.Bound(expression: c => c.AssignTo).Width(120);
+                columns.Bound(expression: c => c.TypeId);
+                columns.Bound(expression: c => c.PriorityId).Width(130);
+                columns.Bound(expression: c => c.StatusId).Width(110);
+                columns.Bound(expression: c => c.Description);
+                //columns.Bound(expression: c => c.FileName);
+
+                @*columns.Bound(p => p.FileName).ClientTemplate(
+                "#if (FileName != \"\")"
+                +" {#"
+                    + "<a href='/Content/TicketImages/#=FileName#' download><i class='glyphicon glyphicon-download'></i></a>"
+                +"#}#");*@
+
+                columns.Bound(p => p.FileName).ClientTemplate(
+               "#if (FileName != \"\")"
+               + " {#"
+                   + "<a onclick='DisplayModal(\"#=Id#\")' class='btn btn-success'><i class='glyphicon glyphicon-download-alt'></i></a>"
+               + "#}#").Width(120).Title("Image");
+
+                if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+                {
+                    columns.Bound(p => p.Id).ClientTemplate(
+                      "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+                      + " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+                      + "#}#"
+
+                      + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                      + " | <a href='" + Url.Action("Delete", "Ticket") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+                      + "#}#"
+
+                ).Width(120).Title("Action").Filterable(false);
+                }
+
+            }).ToolBar(toolbar =>
+            {
             toolbar.Template(@<text>
                     <div class="toolbar">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                    <input type="text" class="form-control" id='TicketFieldFilter' placeholder="Search for...">
-                                    @*<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                    </span>*@
+                                    <input type="text" class="form-control" id='FormFieldFilter' placeholder="Search for...">
                                 </div>
                             </div>
                         </div>
@@ -84,19 +112,19 @@
         .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
         .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("TicketsGrid", "Ticket"))
         .Model(model => model.Id(p => p.Id)))
-    )
-
+     )
+        </div>
     </div>
 </div>
 
-<!--<script>
-    $(document).ready(function () {-->
-@* $('#Formgrid').data('kendoGrid').dataSource.read();
-    $('#Formgrid').data('kendoGrid').refresh();*@
+<script>
+    $(document).ready(function () {
+       @* $('#Formgrid').data('kendoGrid').dataSource.read();
+        $('#Formgrid').data('kendoGrid').refresh();*@
 
-<!--$("#TicketFieldFilter").keyup(function () {
+        $("#FormFieldFilter").keyup(function () {
 
-            var value = $("#TicketFieldFilter").val();
+            var value = $("#FormFieldFilter").val();
             grid = $("#Ticketgrid").data("kendoGrid");
 
             if (value) {
@@ -104,12 +132,7 @@
                     logic: "or",
                     filters: [
                         {
-                            field: "Titel",
-                            operator: "contains",
-                            value: value
-                        },
-                        {
-                            field: "Description",
+                            field: "Title",
                             operator: "contains",
                             value: value
                         },
@@ -133,6 +156,11 @@
                             operator: "contains",
                             value: value
                         },
+                        {
+                            field: "Description",
+                            operator: "contains",
+                            value: value
+                        },
                     ]
                 });
             } else {
@@ -140,7 +168,9 @@
             }
         });
     });
-</script>-->
+</script>
+
+
 @*@{
         ViewBag.Title = "Index";
     }
