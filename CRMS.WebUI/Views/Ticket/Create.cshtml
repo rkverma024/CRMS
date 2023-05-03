@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="section">
-        <div class="container" style="background-color:#efefef">
+        <div class="container" style="background-color: #efefef; box-shadow: 20px 20px 50px grey">
             @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
@@ -24,6 +24,7 @@
                 <div class="formDiv">
                     <div class="topTitleHead pb20">
                         <h2> Create Ticket</h2>
+                        <a class="backbtn" href="@Url.Action("Index", "Ticket")"><i class="glyphicon glyphicon-arrow-left"></i> Back To Index</a>
                     </div>
                     <div class="formSection">
                         <div class="inputBox">
@@ -68,7 +69,7 @@
                         </div>
                         <div class="inputBox">
                             <button type="submit" value="Create" class="btnDiv">Create</button>
-                            @Html.ActionLink("Back", "Index", null, new { @class = "btnCla" })
+                           @* @Html.ActionLink("Back", "Index", null, new { @class = "btnCla" })*@
                         </div>
                     </div>
                 </div>

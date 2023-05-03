@@ -17,6 +17,7 @@ namespace CRMS.Core.Contracts
         void UpdateTicket(TicketViewModel viewmodel, Guid Id);
         void RemoveTicket(Ticket model);
         IEnumerable<TicketIndexViewModel> GetAllTicketLists();
+        //IEnumerable<TicketIndexViewModel> GetStatus();
         /*bool IsExist(TicketViewModel viewmodel, bool IsAvailable);*/
     }
 }

@@ -13,17 +13,22 @@
         <div class="modal-body">
             <form name="Createform" id="showimage">
                 <table class="table">
-                    @*<tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FileName)
-                            </th>
-                        </tr>*@
 
+                    @*<tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileName)
+                        </th>
+                    </tr>*@
+                    @{ int count = 0;}
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FileName)
+                                @{count += 1; }
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileName.Split('_')[1])
                             </td>
                             <td>
                                 @*@Html.ActionLink("Download", "DownloadImg", new { id = item.Id }) |*@

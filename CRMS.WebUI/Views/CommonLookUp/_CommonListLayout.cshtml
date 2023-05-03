@@ -1,8 +1,20 @@
 ﻿@model IEnumerable<CRMS.Core.Models.CommonLookUp>
 @using CRMS.Core.ViewModel
-@{
-    ViewBag.Title = "Index";
-}
+
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        <span class="glyphicon glyphicon-saved"></span>
+
+        @TempData["AlertMessage"]
+    </div>}
+
+@if (@TempData["DeleteMessage"] != null)
+{<div class="alert alert-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        @TempData["DeleteMessage"]
+        <button type="button" class="close" data-dismiss="alert">
+        </button>
+    </div>}
 <script src="~/Scripts/bootstrap.min.js"></script>
 <div id="EditModal">
     <div class="modal" id="modaledit" data-url='@Url.Action("Edit","CommonLookUp")'></div>
@@ -31,7 +43,7 @@
                 url: '@Url.Action("Delete","CommonLookUp")',
                 data: { 'id': selectedId},
                 type: "post",
-                success: function (savingStatus) {                   
+                success: function (savingStatus) {
                     //location.reload();
                     location.href = "@Url.Action("Index","Home")";
                 },
@@ -41,39 +53,20 @@
         }
     }
 </script>
+<div class="section" style="background-color: #efefef; box-shadow: 5px 5px 15px grey">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>Common LookUp</h2>
+            @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+            {
+                <button class="btnDiv">
+                    <a onclick="createcommonlookup()">+ Add CommonLookUp</a>
+                </button>
+            }
+        </div>
+        <div class="row">
 
-<div class="align-center align-between pb20">
-    <h2>Common LookUp</h2>
-    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-    {
-        <button class="btnDiv">
-            <a onclick="createcommonlookup()">+ Add CommonLookUp</a>
-        </button>
-    }
-</div>
-
-@if (@TempData["AlertMessage"] != null)
-{<div class="alert alert-success">
-        <span class="glyphicon glyphicon-saved"></span>
-
-        @TempData["AlertMessage"]
-    </div>}
-
-@if (@TempData["DeleteMessage"] != null)
-{<div class="alert alert-danger">
-        <span class="glyphicon glyphicon-trash"></span>
-        @TempData["DeleteMessage"]
-        <button type="button" class="close" data-dismiss="alert">
-        </button>
-    </div>  }
-
-
-@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
-<div class="container">
-    <div class="row">
-
-        @(
+            @(
             Html.Kendo().Grid(Model).Name("Commongrid").Columns(columns => {
             columns.Bound(expression: c => c.ConfigName);
             columns.Bound(expression: c => c.ConfigKey);
@@ -104,22 +97,6 @@
                  ).Width(120).Title("Action").Filterable(false);
             }
 
-              @*  if (CheckRoleRights.Edit || CheckRoleRights.Delete)
-                {
-                    columns.Command(c =>
-                    {
-                        if (CheckRoleRights.Edit)
-                        {
-                            c.Custom("Edit").Click("editclup");
-                        }
-                        if (CheckRoleRights.Delete)
-                        {
-                            c.Custom("Delete").Click("DeleteModal");
-                        }
-                    }).Title("Action").Width(200);
-                }
-*@
-
             }).ToolBar(toolbar =>
             {
             toolbar.Template(@<text>
@@ -135,7 +112,7 @@
                         </div>
                     </text>);
             })
-            .HtmlAttributes(new { style = "height:360px;" })
+           @* .HtmlAttributes(new { style = "height:360px;" })*@
             .NoRecords("No record found")
             .Sortable()
             .Scrollable()
@@ -144,8 +121,10 @@
             .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("CommonLookUpGrid", "CommonLookUp"))
             .Model(model => model.Id(p => p.Id)))
         )
+        </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $("#commonFieldFilter").keyup(function () {

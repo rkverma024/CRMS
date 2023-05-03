@@ -64,6 +64,7 @@ namespace CRMS.Core.ViewModel
         public string Description { get; set; }
 
         [Display(Name = "File Name")]
-        public bool FileName { get; set; }
+        public int FileName { get; set; }
+        public List<DropDown> StatusDropDown { get; set; }
     }
 }

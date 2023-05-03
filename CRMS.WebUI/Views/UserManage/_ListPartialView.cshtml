@@ -2,18 +2,6 @@
 @model IEnumerable<CRMS.Core.ViewModel.IndexViewModel>
 @using CRMS.Core.ViewModel
 
-
-<div class="align-center align-between pb20">
-    <h2>User Management</h2>
-    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-    {
-        <div class="btnDiv">
-            <a href="@Url.Action("Create", "UserManage")">+ Add User</a>          
-        </div>
-    }
- </div>
-
-
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
@@ -26,61 +14,69 @@
         @TempData["DeleteMessage"]
     </div>}
 
+<div class="section" style="background-color: #efefef; box-shadow: 5px 5px 15px grey">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>User Management</h2>
+            @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+            {
+                <div class="btnDiv">
+                    <a href="@Url.Action("Create", "UserManage")">+ Add User</a>
+                </div>
+            }
+        </div>
 
-@(
-    Html.Kendo().Grid(Model).Name("UserGrid").Columns(columns => {
-        columns.Bound(expression: c => c.Name);
-        columns.Bound(expression: c => c.Email);
-        columns.Bound(expression: c => c.UserName);
-        columns.Bound(expression: c => c.Role);
-        columns.Bound(expression: c => c.Gender);
-        columns.Bound(expression: c => c.MobileNo);
-       @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
-                       .Title("Action").Filterable(false);*@
+        @(
+            Html.Kendo().Grid(Model).Name("UserGrid").Columns(columns => {
+            columns.Bound(expression: c => c.Name);
+            columns.Bound(expression: c => c.Email);
+            columns.Bound(expression: c => c.UserName);
+            columns.Bound(expression: c => c.Role);
+            columns.Bound(expression: c => c.Gender);
+            columns.Bound(expression: c => c.MobileNo);
+           @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
+                           .Title("Action").Filterable(false);*@
 
-        if (CheckRoleRights.Edit || CheckRoleRights.Delete)
-        {
-            columns.Bound(p => p.Id).ClientTemplate(
-             "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
-             + " <a href='" + Url.Action("Edit", "UserManage") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
-             + "#}#"
-             + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
-             + " | <a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+            {
+                columns.Bound(p => p.Id).ClientTemplate(
+                 "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+                 + " <a href='" + Url.Action("Edit", "UserManage") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+                 + "#}#"
+                 + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                 + " | <a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
 
-             + "#}#"
-             ).Width(200).Title("Action").Filterable(false);
-        }
-
-    }).ToolBar(toolbar =>
-    {
-    toolbar.Template(@<text>
-                    <div class="toolbar">
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                    <input type="text" class="form-control" id='UserFieldFilter' placeholder="Search for...">
-                                    @*<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                    </span>*@
+                 + "#}#"
+                 ).Width(200).Title("Action").Filterable(false);
+                }}).ToolBar(toolbar =>
+                        {toolbar.Template(@<text>
+                            <div class="toolbar">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                            <input type="text" class="form-control" id='UserFieldFilter' placeholder="Search for...">
+                                            @*<span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                            </span>*@
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </text>);
-    })
-   @* .HtmlAttributes(new { style = "height:360px;" })*@
-    .NoRecords("No record found")
-    .Sortable()
-    .Scrollable()
-    .Filterable()
-    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
-    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("UserGrid", "UserManage"))
-    .Model(model => model.Id(p => p.Id)))
+            </text>);
+        })
+       @* .HtmlAttributes(new { style = "height:360px;" })*@
+        .NoRecords("No record found")
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("UserGrid", "UserManage"))
+        .Model(model => model.Id(p => p.Id)))
     )
 
-
+    </div>
+</div>
 <script>
     $(document).ready(function () {
        @* $('#UserGrid').data('kendoGrid').dataSource.read();

@@ -4,22 +4,7 @@
 <br />
 <br />
 <br />
-<br />
-<br />
 
-<div class="align-center align-between pb20">
-    <h2>Form</h2>
-    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-    {
-        <div class="btnDiv">
-            <a href="@Url.Action("Create", "FormMst")">+Add Form</a>
-        </div>
-    }
-    </div>
-@*<h3>
-        <a href="@Url.Action("Create", "FormMst")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-    </h3>
-*@
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
         <span class="glyphicon glyphicon-saved"></span>
@@ -30,87 +15,88 @@
 {<div class="alert alert-danger">
         <span class="glyphicon glyphicon-trash"></span>
         @TempData["DeleteMessage"]
-    </div> }
-
-@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
-
-<div class="container">
-    <div class="row">
-
-        @(
-        Html.Kendo().Grid(Model).Name("Formgrid").Columns(columns => {
-        columns.Bound(expression: c => c.Name);
-        columns.Bound(expression: c => c.NavigateURL);
-        columns.Bound(expression: c => c.ParentForm);
-        columns.Bound(expression: c => c.FormAccessCode);
-        columns.Bound(expression: c => c.DisplayIndex);
-        @*columns.Bound(expression: c => c.IsActive);*@
-       @* columns.Bound(expression: c => c.IsMenu);*@
-        columns.Bound(p => p.IsMenu)
-            .Title("IsMenu")
-            .Width(100)
-            .ClientTemplate(
-            "# if (IsMenu) { #" +
-            "<div class=\"img-circle\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/check.png\" alt=\"editok\" width=\"22\"></div>" +
-            "# } else { #" +
-            "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
-            "# } #"
-            );
-        columns.Bound(p => p.IsActive)
-        .Title("Active")
-        .Width(90)
-        .ClientTemplate(
-        "# if (IsActive) { #" +
-        "<div class=\"img-circle\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/check.png\" alt=\"editok\" width=\"22\"></div>" +
-        "# } else { #" +
-        "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
-        "# } #"
-        );
-           @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='btn btn-primary'  " + ">Edit</a>" + " | " + "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'>  Delete </a>")
-                           .Title("Action").Filterable(false).Width(200);*@
-            if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+    </div>  }
+<div class="section" style="background-color: #efefef; box-shadow: 20px 20px 50px grey">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>Form</h2>
+            @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
             {
-                columns.Bound(p => p.Id).ClientTemplate(
-                  "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
-                  + " <a href='" + Url.Action("Edit", "FormMst") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
-                  + "#}#"
-
-                  + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
-                  + " | <a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
-                  + "#}#"
-
-            ).Width(150).Title("Action").Filterable(false);
+                <div class="btnDiv">
+                    <a href="@Url.Action("Create", "FormMst")">+Add Form</a>
+                </div>
             }
+        </div>
+        <div class="row">
+            @(
+                    Html.Kendo().Grid(Model).Name("Formgrid").Columns(columns => {
+                    columns.Bound(expression: c => c.Name);
+                    columns.Bound(expression: c => c.NavigateURL);
+                    columns.Bound(expression: c => c.ParentForm);
+                    columns.Bound(expression: c => c.FormAccessCode);
+                    columns.Bound(expression: c => c.DisplayIndex);
+                    @*columns.Bound(expression: c => c.IsActive);*@
+                   @* columns.Bound(expression: c => c.IsMenu);*@
+                    columns.Bound(p => p.IsMenu)
+                        .Title("IsMenu")
+                        .Width(100)
+                        .ClientTemplate(
+                        "# if (IsMenu) { #" +
+                        "<div class=\"img-circle\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/check.png\" alt=\"editok\" width=\"22\"></div>" +
+                        "# } else { #" +
+                        "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
+                        "# } #");
 
-        }).ToolBar(toolbar =>
-        {
-        toolbar.Template(@<text>
-                    <div class="toolbar">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                    <input type="text" class="form-control" id='FormFieldFilter' placeholder="Search for...">
-                                    @*<span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                    </span>*@
+                        columns.Bound(p => p.IsActive)
+                        .Title("Active")
+                        .Width(90)
+                        .ClientTemplate(
+                        "# if (IsActive) { #" +
+                        "<div class=\"img-circle\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/check.png\" alt=\"editok\" width=\"22\"></div>" +
+                        "# } else { #" +
+                        "<div class=\"\" style=\"display: flex; justify-content: center; align-items: center;\"><img src=\"/Content/image/close.png\" alt=\"edit\" width=\"22\"></div>" +
+                        "# } #");
+
+                        if (CheckRoleRights.Edit || CheckRoleRights.Delete)
+                        {
+                            columns.Bound(p => p.Id).ClientTemplate(
+                              "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+                              + " <a href='" + Url.Action("Edit", "FormMst") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+                              + "#}#"
+
+                              + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                              + " | <a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
+                              + "#}#"
+                        ).Width(150).Title("Action").Filterable(false);
+                        }
+                    }).ToolBar(toolbar =>
+                    {
+                    toolbar.Template(@<text>
+                                <div class="toolbar">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                                <input type="text" class="form-control" id='FormFieldFilter' placeholder="Search for...">
+                                                @*<span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                                </span>*@
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </text>);
-        })
-        .HtmlAttributes(new { style = "height:400px;" })
-        .NoRecords("No record found")
-        .Sortable()
-        .Scrollable()
-        .Filterable()
-        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
-        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("FormMstGrid", "FormMst"))
-        .Model(model => model.Id(p => p.Id)))
-    )
-
+                            </text>);
+                    })
+                    .HtmlAttributes(new { style = "height:400px;" })
+                    .NoRecords("No record found")
+                    .Sortable()
+                    .Scrollable()
+                    .Filterable()
+                    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+                    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("FormMstGrid", "FormMst"))
+                    .Model(model => model.Id(p => p.Id)))
+                )
+        </div>
     </div>
 </div>
 

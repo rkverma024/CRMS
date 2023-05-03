@@ -72,7 +72,13 @@ namespace CRMS.DataAccess.SQL
                            PriorityId = clm.ConfigValue,
                            StatusId = clp.ConfigValue,                           
                            Description = tk.Description,
-                           FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Any()
+                           StatusDropDown = (from c in context.CommonLookUps.Where(x => x.IsDeleted == false && x.ConfigName == "Status")
+                                             select new DropDown()
+                                             {
+                                                 Id = c.Id,
+                                                 Name = c.ConfigValue
+                                             }).ToList(),
+                           FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Count()
                            //FileName = ti == null ? "" : ti.FileName
 
                        };

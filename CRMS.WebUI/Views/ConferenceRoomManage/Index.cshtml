@@ -4,23 +4,6 @@
 <br />
 <br />
 <br />
-<br />
-<br />
-
-<div class="align-center align-between pb20">
-    <h2>Conference Room</h2>
-    @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
-    {
-        <div class="btnDiv">
-            <a href="@Url.Action("Create", "ConferenceRoomManage")">+Add Conference Room</a>
-        </div>
-    }
-    </div>
-
-@*<h3>
-        <a href="@Url.Action("Create", "ConferenceRoomManage")" class="btn btn-success"><i class=" glyphicon glyphicon-plus">Add</i></a>
-    </h3>
-    <hr>*@
 
 @if (@TempData["AlertMessage"] != null)
 {<div class="alert alert-success">
@@ -36,74 +19,74 @@
         @TempData["DeleteMessage"]
         <button type="button" class="close" data-dismiss="alert">
         </button>
-    </div> }
+    </div>  }
 
+<div class="section" style="background-color: #efefef; box-shadow: 20px 20px 50px grey">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>Conference Room</h2>
+            @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
+            {
+                <div class="btnDiv">
+                    <a href="@Url.Action("Create", "ConferenceRoomManage")">+Add Conference Room</a>
+                </div>
+            }
+        </div>
+        @(
+            Html.Kendo().Grid(Model).Name("ConferenceGrid").Columns(columns => {
+            columns.Bound(expression: c => c.ConferenceRoomNo);
+            columns.Bound(expression: c => c.Capacity);
 
-@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>
-<script src="~/Scripts/kendo/kendo.aspnetmvc.min.js"></script>*@
+            if (CheckRoleRights.Edit  || CheckRoleRights.Delete )
+            {
+                columns.Bound(p => p.Id).ClientTemplate(
 
+                      "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
+                      + " <a href='" + Url.Action("Edit", "ConferenceRoomManage") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
+                      + "#}#"
+                      + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                      + " | <a href='" + Url.Action("Delete", "ConferenceRoomManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
 
-@(
-    Html.Kendo().Grid(Model).Name("ConferenceGrid").Columns(columns => {
-    columns.Bound(expression: c => c.ConferenceRoomNo);
-    columns.Bound(expression: c => c.Capacity);
+                      + "#}#"
+                      ).Width(200).Title("Action").Filterable(false);
+            }
+            }) .ToolBar(toolbar =>
+            {
+                toolbar.Template(@<text>
+                        <div class="toolbar">
 
-       @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "ConferenceRoomManage") +
-            "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" +
-            " | " + "<a href='" + Url.Action("Delete", "ConferenceRoomManage") +
-            "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'><i class='glyphicon glyphicon-trash'></i></a>")
-            .Title("Action").Filterable(false);*@
-
-    if (CheckRoleRights.Edit  || CheckRoleRights.Delete )
-    {
-        columns.Bound(p => p.Id).ClientTemplate(
-
-              "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Edit + "'=='True') {#"
-              + " <a href='" + Url.Action("Edit", "ConferenceRoomManage") + "/#=Id#'class='btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></a>"
-              + "#}#"
-              + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
-              + " | <a href='" + Url.Action("Delete", "ConferenceRoomManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
-
-              + "#}#"
-              ).Width(200).Title("Action").Filterable(false);
-    }         
-    }) .ToolBar(toolbar =>
-    {
-    toolbar.Template(@<text>
-                <div class="toolbar">
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                <input type="text" class="form-control" id='CRFieldFilter' placeholder="Search for...">
-                                @*<span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                </span>*@
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                                        <input type="text" class="form-control" id='CRFieldFilter' placeholder="Search for...">
+                                        @*<span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                        </span>*@
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </text>);
-    })
-    .HtmlAttributes(new { style = "height:400px;" })
-    .NoRecords("No record found")
-    .Sortable()
-    .Resizable(resizing => resizing.Columns(true))
-    .Scrollable()
-    .Filterable()
-    .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
-    .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("ConferenceGrid", "ConferenceRoomManage"))
-    .Model(model => model.Id(p => p.Id)))
-  )
-
+                 </text>);
+            })
+        .HtmlAttributes(new { style = "height:400px;" })
+        .NoRecords("No record found")
+        .Sortable()
+        .Resizable(resizing => resizing.Columns(true))
+        .Scrollable()
+        .Filterable()
+        .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("ConferenceGrid", "ConferenceRoomManage"))
+        .Model(model => model.Id(p => p.Id)))
+      )
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('#ConferenceGrid').data('kendoGrid').dataSource.read();
         $('#ConferenceGrid').data('kendoGrid').refresh();
 
         $("#CRFieldFilter").keyup(function () {
-
             var value = $("#CRFieldFilter").val();
             grid = $("#ConferenceGrid").data("kendoGrid");
 
@@ -115,5 +98,4 @@
             }
         });
     });
-
 </script>

@@ -103,7 +103,6 @@ namespace CRMS.Services
         public IEnumerable<TicketIndexViewModel> GetAllTicketLists()
         {
             return ticketRepository.AllTicketList();
-        }
-       
+        }     
     }
 }
