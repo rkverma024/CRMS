@@ -84,8 +84,7 @@ namespace CRMS.WebUI.Controllers
                 viewmodel.DropdownAssignTo = userService.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name });
                 viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
                 viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
-                viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
-                //viewmodel.TicketImage = ticketAttachmentService.GetTicketIdList(Id);
+                viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });                
                 return View();
             }
             else
@@ -94,7 +93,6 @@ namespace CRMS.WebUI.Controllers
                 ticketService.UpdateTicket(viewmodel, Id);
                 TempData["AlertMessage"] = "Updated Successfully..!";
                 return RedirectToAction("Index");
-
             }
         }
 
@@ -139,9 +137,5 @@ namespace CRMS.WebUI.Controllers
             }
             return null;
         }
-        /*public JsonResult DropdownStatusKendo([DataSourceRequest] DataSourceRequest request)
-        {                        
-            return Json(ticketService.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
-        }*/
     }
 }

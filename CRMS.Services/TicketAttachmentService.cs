@@ -8,17 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Hosting;
+using System.Web.UI;
 
 namespace CRMS.Services
 {
-    public class TicketAttachmentService : ITicketAttachmentService
+    public class TicketAttachmentService : Page, ITicketAttachmentService
     {
         ITicketAttachmentRepository ticketAttachmentRepository;
         
         public TicketAttachmentService(ITicketAttachmentRepository TicketAttachmentRepository)
         {
-            this.ticketAttachmentRepository = TicketAttachmentRepository;
-          
+            this.ticketAttachmentRepository = TicketAttachmentRepository;          
         }
         public void CreateTicketAttachment(TicketViewModel model)
         {            
@@ -30,7 +30,8 @@ namespace CRMS.Services
             string ImagePath = ConfigurationManager.AppSettings["TicketImages"] + imageName;
             model.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
             obj.FileName = imageName;
-            obj.CreatedBy = model.CreatedBy;
+            obj.CreatedBy = (Guid)Session["Id"];
+            //obj.CreatedBy = model.CreatedBy;
             ticketAttachmentRepository.Insert(obj);
             ticketAttachmentRepository.Commit();
         }
@@ -48,7 +49,8 @@ namespace CRMS.Services
             viewmodel.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
 
             obj.FileName = imageName;
-            obj.UpdatedBy = viewmodel.UpdatedBy;
+            obj.UpdatedBy = (Guid)Session["Id"];
+            //obj.UpdatedBy = viewmodel.UpdatedBy;
             obj.UpdatedOn = DateTime.Now;
             ticketAttachmentRepository.Update(obj);
             ticketAttachmentRepository.Commit();

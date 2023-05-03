@@ -38,7 +38,7 @@
     }
 </script>
 
-<div class="section" style="background-color: #efefef; box-shadow: 20px 20px 50px grey">
+<div class="section" style="background-color: #efefef;  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px">
     <div class="container">
         <div class="align-center align-between pb20">
             <h2>Ticket</h2>
@@ -48,12 +48,12 @@
                     <a href="@Url.Action("Create", "Ticket")">+ Create Ticket</a>
                 </div>
             }
-        </div>             
-            <div class="row">
-                @{
-                    var DropDown = Model.FirstOrDefault().StatusDropDown;
-                }
-                @(Html.Kendo().DropDownList()
+        </div>
+        <div class="row">
+            @{
+                var DropDown = Model.FirstOrDefault().StatusDropDown;
+            }
+            @(Html.Kendo().DropDownList()
                      .Name("Status")
                      .OptionLabel("Select Status")
                      .DataTextField("Name")
@@ -62,7 +62,7 @@
                      .Filter("contains")
                      .BindTo(DropDown)
                      )
-                @(
+            @(
              Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
                 columns.Bound(expression: c => c.Title).Width(140);
                 columns.Bound(expression: c => c.AssignTo).Width(120);
@@ -107,9 +107,9 @@
                             </div>
                         </div>
                     </div>
-                </text>); 
+                </text>);
         })
-        @*.HtmlAttributes(new { style = "height:400px;" })*@
+        .HtmlAttributes(new { style = "height:390px;" })
         .NoRecords("No record found")
         .Sortable()
         .Scrollable()
@@ -118,9 +118,9 @@
         .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("TicketsGrid", "Ticket"))
         .Model(model => model.Id(p => p.Id)))
      )
-            </div>
-            </div>
         </div>
+    </div>
+</div>
 
 <script>
     function onChange(e) {
@@ -181,4 +181,4 @@
             }
         });
     });
- </script>
+</script>

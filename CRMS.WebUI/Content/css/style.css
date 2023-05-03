@@ -191,17 +191,19 @@ table tbody tr td { padding: 10px; font-weight: 400; font-size: 16px; line-heigh
 /*Back button*/
 .backbtn {
     position: absolute;
-    top: 150px;
-    right: 550px;
+    top: 185px;
+    right: 470px;
     font-size: 18px;
 }
 
 .backbtnCR {
     position: absolute;
     top: 225px;
-    right: 550px;
+    right: 470px;
     font-size: 18px;
 }
+
+
 /*Switch*/
 .switch {
     position: relative;
