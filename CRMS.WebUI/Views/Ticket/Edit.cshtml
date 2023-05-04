@@ -1,8 +1,6 @@
 ﻿@model CRMS.Core.ViewModel.TicketViewModel
 
-@{
-    ViewBag.Title = "Create";
-}
+<br/><br/>
 
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
@@ -15,7 +13,7 @@
 </head>
 <body>
     <div class="section">
-        <div class="container" style="background-color: #efefef;  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px"  >
+        <div class="container">
             @using (Html.BeginForm("Edit", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
@@ -30,82 +28,68 @@
                         <div class="inputBox">
                             <label>Title</label>
                             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })                           
                         </div>
                         <div class="inputBox selectBox">
                             <label>Assign</label>
                             @Html.DropDownListFor(model => model.AssignTo, new SelectList(Model.DropdownAssignTo, "Id", "Name"),
             "Select Employee", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })                            
                         </div>
                         <div class="inputBox selectBox">
                             <label>Type</label>
                             @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.DropdownTypeId, "Id", "Name"),
             "Select Type", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })                          
                         </div>
                         <div class="inputBox selectBox">
                             <label>Priority</label>
                             @Html.DropDownListFor(model => model.PriorityId, new SelectList(Model.DropdownPriorityId, "Id", "Name"),
            "Select Priority", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })                            
                         </div>
                         <div class="inputBox selectBox">
                             <label>Status</label>
                             @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.DropdownStatusId, "Id", "Name"),
             "Select Status", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })                            
                         </div>
                         <div class="inputBox">
                             <label>Description</label>
                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })                            
                         </div>
                         <div class="inputBox">
-                            <label>Image</label>
-                            @*</div>
-                                <div class="col-md-8">*@
+                            <label>Image</label>                           
                             @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "form-control" })
                         </div>
                         <div class="inputBox">
                             <label>Available Images</label>
                             <table>
+                                @{ int count = 0;}
                                 @foreach (var item in Model.TicketImage)
                                 {
                                     <tr>
                                         <td>
-                                            <li>                                                
-                                                @Html.DisplayFor(modelItem => item.FileName.Split('_')[1])|
-                                                @*@Html.DisplayFor(modelItem => item.FileName)|*@
-                                                <a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a> |
-                                                @* @Html.ActionLink("Delete", "DeleteTicketAttachment", new { id = item.Id })*@
-                                                <a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>
-                                            </li>
+                                            @{count += 1; }
+                                            @count.
+                                        </td>
+                                        <td>
+                                          @*@Html.DisplayFor(modelItem => item.FileName.Split('_')[1])|*@                                           
+                                            @*<a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a> |*@
+                                             @Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) |
+                                            <a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>
                                         </td>
                                     </tr>
-                                }
+                                 }
                             </table>
                         </div>
                         <div class="inputBox">
-                            <button type="submit" value="Save" class="btnDiv">  Save </button>
-                            @*@Html.ActionLink("Back", "Index", null, new { @class = "btnCla" })*@
-                            @*<a href="@Url.Action("Index", "Ticket")"><i class="glyphicon glyphicon-arrow-left"></i>Back</a>     *@                       
+                            <button type="submit" value="Save" class="btnDiv">  Save </button>                            
                         </div>
                     </div>
                 </div>
-            }
-            <div>
-              @*  <div>
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-                </div>*@
-                @* @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })*@
-            </div>
+             }
         </div>
     </div>
 </body>

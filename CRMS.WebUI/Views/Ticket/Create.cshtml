@@ -1,8 +1,6 @@
 ﻿@model CRMS.Core.ViewModel.TicketViewModel
 
-@{
-    ViewBag.Title = "Create";
-}
+<br/><br/>
 
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
@@ -16,7 +14,7 @@
 </head>
 <body>
     <div class="section">
-        <div class="container" style="background-color: #efefef;  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px">
+        <div class="container">
             @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
@@ -24,7 +22,7 @@
                 <div class="formDiv">
                     <div class="topTitleHead pb20">
                         <h2> Create Ticket</h2>
-                        <a class="backbtn" href="@Url.Action("Index", "Ticket")"><i class="glyphicon glyphicon-arrow-left"></i> Back To Index</a>
+                        <a class="backbtn" href="@Url.Action("Index", "Ticket")"><i class="glyphicon glyphicon-arrow-left"></i>  Back To Index</a>
                     </div>
                     <div class="formSection">
                         <div class="inputBox">

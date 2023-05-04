@@ -38,10 +38,23 @@
     }
 </script>
 
-<div class="section" style="background-color: #efefef;  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px">
+<div class="section">
     <div class="container">
         <div class="align-center align-between pb20">
             <h2>Ticket</h2>
+            <div class="dropdown">
+                @{
+                    var DropDown = Model.FirstOrDefault().StatusDropDown;
+                }
+                @(Html.Kendo().DropDownList().Name("Status")
+                     .OptionLabel("Select status..")
+                     .DataTextField("Name")
+                     .DataValueField("Name")
+                     .Events(e=>e.Change("onChange"))
+                     .Filter("contains")
+                     .BindTo(DropDown)
+                     )
+            </div>
             @if (CRMS.Core.ViewModel.CheckRoleRights.Insert == true)
             {
                 <div class="btnDiv">
@@ -50,20 +63,8 @@
             }
         </div>
         <div class="row">
-            @{
-                var DropDown = Model.FirstOrDefault().StatusDropDown;
-            }
-            @(Html.Kendo().DropDownList()
-                     .Name("Status")
-                     .OptionLabel("Select Status")
-                     .DataTextField("Name")
-                     .DataValueField("Name")
-                     .Events(e=>e.Change("onChange"))
-                     .Filter("contains")
-                     .BindTo(DropDown)
-                     )
-            @(
-             Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
+
+            @(Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
                 columns.Bound(expression: c => c.Title).Width(140);
                 columns.Bound(expression: c => c.AssignTo).Width(120);
                 columns.Bound(expression: c => c.TypeId);
@@ -128,13 +129,13 @@
         grid = $("#Ticketgrid").data("kendoGrid");
         if (value) {
             grid.dataSource.filter({ field: "StatusId", operator: "contains", value: value });
+        } else {
+            grid.dataSource.filter({});
         }
     }
+
     $(document).ready(function () {
-       @* $('#Formgrid').data('kendoGrid').dataSource.read();
-        $('#Formgrid').data('kendoGrid').refresh();*@
-
-
+       
         $("#FormFieldFilter").keyup(function () {
 
             var value = $("#FormFieldFilter").val();
