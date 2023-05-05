@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RepositoryInterface\ITicketCommentRepository.cs" />
     <Compile Include="ServiceInterface\IFormRoleMappingService.cs" />
     <Compile Include="ServiceInterface\ICommonLookUpService.cs" />
     <Compile Include="RepositoryInterface\IConferenceRoomRepository.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="RepositoryInterface\ITicketAttachmentRepository.cs" />
     <Compile Include="ServiceInterface\ITicketAttachmentService.cs" />
     <Compile Include="RepositoryInterface\ITicketRepository.cs" />
+    <Compile Include="ServiceInterface\ITicketCommentService.cs" />
     <Compile Include="ServiceInterface\ITicketService.cs" />
     <Compile Include="RepositoryInterface\IUserRepository.cs" />
     <Compile Include="RepositoryInterface\IUserRoleRepository.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="ViewModel\IndexViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
+    <Compile Include="ViewModel\TicketCommentViewModel.cs" />
     <Compile Include="ViewModel\TicketViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>

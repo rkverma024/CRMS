@@ -84,5 +84,26 @@ namespace CRMS.DataAccess.SQL
                        };
             return list;
         }
+
+        public IEnumerable<TicketIndexViewModel> GetTicketDetailsByTicketId(Guid Id)
+        {
+            var list = from tk in context.Tickets
+                       join user in context.Users on tk.AssignTo equals user.Id
+                       join clup in context.CommonLookUps on tk.TypeId equals clup.Id
+                       join clm in context.CommonLookUps on tk.PriorityId equals clm.Id
+                       join clp in context.CommonLookUps on tk.StatusId equals clp.Id
+                       where tk.Id == Id 
+                       select new TicketIndexViewModel()
+                       {
+                           Id = tk.Id,
+                           Title = tk.Title,
+                           AssignTo = user.Name,
+                           TypeId = clup.ConfigValue,
+                           PriorityId = clm.ConfigValue,
+                           StatusId = clp.ConfigValue,
+                           Description = tk.Description
+                       };
+            return list;
+        }
     }
 }

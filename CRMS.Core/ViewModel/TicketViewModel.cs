@@ -41,6 +41,7 @@ namespace CRMS.Core.ViewModel
         public HttpPostedFileBase Image { get; set; }
 
         public IEnumerable<TicketAttachment> TicketImage{ get; set; }
+        public string AttachmentListView { get; set; }
     }
 
     public class TicketIndexViewModel : BaseEntity

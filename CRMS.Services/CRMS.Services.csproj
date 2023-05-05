@@ -87,6 +87,7 @@
     <Compile Include="Services\TicketAttachmentService.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Services\TicketCommentService.cs" />
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\UserRoleService.cs" />
     <Compile Include="Services\UserService.cs" />

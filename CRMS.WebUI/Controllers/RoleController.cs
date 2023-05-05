@@ -35,7 +35,7 @@ namespace CRMS.WebUI.Controllers
             return View(roles);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
             if (!ModelState.IsValid)

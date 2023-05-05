@@ -3,6 +3,7 @@ using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -77,7 +78,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(TicketViewModel viewmodel, Guid Id)
+        public ActionResult Edit(TicketViewModel viewmodel, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
@@ -89,8 +90,15 @@ namespace CRMS.WebUI.Controllers
             }
             else
             {
+                if(viewmodel.AttachmentListView != null)
+                {
+                List<string> imagelist = JsonConvert.DeserializeObject<List<string>>(viewmodel.AttachmentListView);
+                ticketAttachmentService.RemoveTicketAttachment(imagelist);
+                }
+
+                viewmodel.Image = file;
                 viewmodel.UpdatedBy = (Guid)Session["Id"];
-                ticketService.UpdateTicket(viewmodel, Id);
+                ticketService.UpdateTicket(viewmodel);
                 TempData["AlertMessage"] = "Updated Successfully..!";
                 return RedirectToAction("Index");
             }
@@ -105,13 +113,13 @@ namespace CRMS.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteTicketAttachment(Guid Id)
+      /*  public ActionResult DeleteTicketAttachment(Guid Id)
         {
             TicketAttachment ticketToDelete = ticketAttachmentService.GetTicketAttachmentById(Id);
             ticketAttachmentService.RemoveTicketAttachment(ticketToDelete);
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
-        }
+        }*/
 
         public JsonResult TicketsGrid([DataSourceRequest] DataSourceRequest request)
         {
@@ -136,6 +144,12 @@ namespace CRMS.WebUI.Controllers
                 return File(fullPath, contentType, getDocument.FileName);
             }
             return null;
+        }
+
+        public ActionResult Details(Guid Id)
+        {
+            TicketIndexViewModel model = ticketService.TicketDetailsByTicketId(Id);
+            return View(model);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model CRMS.Core.ViewModel.TicketViewModel
 
-<br/><br/>
+<br />
+<br />
 
 @if (@TempData["Already"] != null)
 {<div class="alert alert-danger">
@@ -10,14 +11,46 @@
 <html>
 <head>
     <title></title>
+    <script>
+        var ListOfId = new Array();
+        function DeleteAttachment(data) {
+            ListOfId.push(data);
+        }
+       
+        function saveEdit() {
+            debugger;
+            var mydataArray = $("form").serializeArray();
+            mydataArray.push({
+                name: 'AttachmentListView',
+                value: JSON.stringify(ListOfId),
+            });
+            var formdata = new FormData();
+            var fileInput = document.getElementById('imageid').files[0];
+            formdata.append('file', fileInput)
+            for (var i = 1; i < mydataArray.length; i++) {
+                formdata.append(mydataArray[i].name, mydataArray[i].value);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/Ticket/Edit/',
+                data: formdata,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="section">
         <div class="container">
-            @using (Html.BeginForm("Edit", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                
+                @Html.HiddenFor(model=>model.Id)
                 @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
                 <div class="formDiv">
                     <div class="topTitleHead pb20">
@@ -28,40 +61,40 @@
                         <div class="inputBox">
                             <label>Title</label>
                             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })                           
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox selectBox">
                             <label>Assign</label>
                             @Html.DropDownListFor(model => model.AssignTo, new SelectList(Model.DropdownAssignTo, "Id", "Name"),
             "Select Employee", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })                            
+                            @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox selectBox">
                             <label>Type</label>
                             @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.DropdownTypeId, "Id", "Name"),
             "Select Type", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })                          
+                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox selectBox">
                             <label>Priority</label>
                             @Html.DropDownListFor(model => model.PriorityId, new SelectList(Model.DropdownPriorityId, "Id", "Name"),
-           "Select Priority", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })                            
+                         "Select Priority", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox selectBox">
                             <label>Status</label>
                             @Html.DropDownListFor(model => model.StatusId, new SelectList(Model.DropdownStatusId, "Id", "Name"),
             "Select Status", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })                            
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox">
                             <label>Description</label>
                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })                            
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
                         <div class="inputBox">
-                            <label>Image</label>                           
-                            @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "form-control" })
+                            <label>Image</label>
+                            @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "form-control" , @id = "imageid" })
                         </div>
                         <div class="inputBox">
                             <label>Available Images</label>
@@ -75,21 +108,23 @@
                                             @count.
                                         </td>
                                         <td>
-                                          @*@Html.DisplayFor(modelItem => item.FileName.Split('_')[1])|*@                                           
+                                            @*@Html.DisplayFor(modelItem => item.FileName.Split('_')[1])|*@
                                             @*<a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a> |*@
-                                             @Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) |
-                                            <a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>
+                                            @Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) |
+                                            @*<a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>*@
+                                            @*@Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) *@
+                                            <a onclick="DeleteAttachment('@item.Id')" class='btn btn-danger' ><i class='glyphicon glyphicon-trash'></i></a>
                                         </td>
                                     </tr>
-                                 }
+                                }
                             </table>
                         </div>
                         <div class="inputBox">
-                            <button type="submit" value="Save" class="btnDiv">  Save </button>                            
+                            <button value="Save" onclick="saveEdit()" class="btnDiv">  Save </button>
                         </div>
                     </div>
                 </div>
-             }
+            }
         </div>
     </div>
 </body>

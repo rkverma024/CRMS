@@ -107,6 +107,7 @@
     <Compile Include="Repository\TicketAttachmentRepository.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Repository\TicketCommentRepository.cs" />
     <Compile Include="Repository\TicketRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\UserRoleRepository.cs" />

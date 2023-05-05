@@ -17,7 +17,7 @@ namespace CRMS.Core.Contracts
         TicketAttachment GetTicketId(Guid Id);
         //TicketViewModel BindTicketAttachment(TicketAttachment model);
 
-        void RemoveTicketAttachment(TicketAttachment model);
+        void RemoveTicketAttachment(List<string> imagelist);
 
         IEnumerable<TicketAttachment> GetTicketIdList(Guid ticketId);
     }

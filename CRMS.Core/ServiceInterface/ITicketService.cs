@@ -12,11 +12,13 @@ namespace CRMS.Core.Contracts
     {
         void CreateTicket(TicketViewModel viewmodel);       
         List<Ticket> GetTicketList();
-        Ticket GetTicketById(Guid Id);
+        Ticket GetTicketById(Guid Id);        
         TicketViewModel BindTicketVM(Ticket model);
-        void UpdateTicket(TicketViewModel viewmodel, Guid Id);
+        void UpdateTicket(TicketViewModel viewmodel);
         void RemoveTicket(Ticket model);
         IEnumerable<TicketIndexViewModel> GetAllTicketLists();
+
+        TicketIndexViewModel TicketDetailsByTicketId(Guid Id);
         //IEnumerable<TicketIndexViewModel> GetStatus();
         /*bool IsExist(TicketViewModel viewmodel, bool IsAvailable);*/
     }

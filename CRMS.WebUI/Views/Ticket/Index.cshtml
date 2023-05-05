@@ -61,7 +61,7 @@
         <div class="row">
 
             @(Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
-                columns.Bound(expression: c => c.Title).Width(140);
+                columns.Bound(expression: c => c.Title).Width(120);
                 columns.Bound(expression: c => c.AssignTo).Width(120);
                 columns.Bound(expression: c => c.TypeId);
                 columns.Bound(expression: c => c.PriorityId).Width(130);
@@ -72,7 +72,7 @@
                "#if (FileName > 0)"
                + " {#"
                    + "<a onclick='DisplayModal(\"#=Id#\")' class='btn btn-success'><i class='glyphicon glyphicon-picture'></i>  #=FileName#</a>"
-               + "#}#").Width(120).Title("Image");
+               + "#}#").Width(100).Title("Image");
 
                 if (CheckRoleRights.Edit || CheckRoleRights.Delete)
                 {
@@ -85,7 +85,11 @@
                       + " | <a href='" + Url.Action("Delete", "Ticket") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure..?\")'><i class='glyphicon glyphicon-trash'></i></a>"
                       + "#}#"
 
-                ).Width(120).Title("Action").Filterable(false);
+                      + "#if ('" + CRMS.Core.ViewModel.CheckRoleRights.Delete + "'=='True') {#"
+                      + " | <a href='" + Url.Action("Details", "Ticket") + "/#=Id#' class='btn btn-info'><i class='glyphicon glyphicon-eye-open'></i></a>"
+                      + "#}#"
+
+                ).Width(180).Title("Action").Filterable(false);
                 }
 
             }).ToolBar(toolbar =>

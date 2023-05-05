@@ -2490,6 +2490,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\_imageview.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

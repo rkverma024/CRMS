@@ -55,7 +55,8 @@ namespace CRMS.Services
 
         public TicketViewModel BindTicketVM(Ticket model)
         {
-            TicketViewModel viewmodel = new TicketViewModel();            
+            TicketViewModel viewmodel = new TicketViewModel();
+            viewmodel.Id = model.Id;
             viewmodel.Title = model.Title;
             viewmodel.AssignTo = model.AssignTo;
             viewmodel.TypeId = model.TypeId;
@@ -71,9 +72,13 @@ namespace CRMS.Services
             //ticketAttachmentService.BindTicketAttachment(model);
             return viewmodel;
         }
-        public void UpdateTicket(TicketViewModel viewmodel, Guid Id)
+        public void UpdateTicket(TicketViewModel viewmodel)
         {
-            Ticket ticketToEdit = GetTicketById(Id);
+            Ticket ticketToEdit = GetTicketById(viewmodel.Id);
+
+
+
+            
             ticketToEdit.Title = viewmodel.Title;
             ticketToEdit.AssignTo = viewmodel.AssignTo;
             ticketToEdit.TypeId = viewmodel.TypeId;
@@ -103,6 +108,11 @@ namespace CRMS.Services
         public IEnumerable<TicketIndexViewModel> GetAllTicketLists()
         {
             return ticketRepository.AllTicketList();
-        }     
+        }
+
+        public TicketIndexViewModel TicketDetailsByTicketId(Guid Id)
+        {
+            return ticketRepository.GetTicketDetailsByTicketId(Id).FirstOrDefault();
+        }
     }
 }

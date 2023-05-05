@@ -1,0 +1,45 @@
+﻿@model CRMS.Core.ViewModel.TicketIndexViewModel
+<br/><br/>
+<div class="section" style=" background-color: white;max-width: 450px;">
+    <div class="container" style="max-width: 450px;">
+        <div class="inputBox">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center; color:white; background-color: #2C053F">Ticket Details</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><label>Title</label></td>
+                    <td> @Html.DisplayFor(model => model.Title)</td>
+                </tr>
+                <tr>
+                    <td><label>Description</label></td>
+                    <td> @Html.DisplayFor(model => model.Description)</td>
+                </tr>
+                <tr>
+                    <td><label>Assign</label></td>
+                    <td> @Html.DisplayFor(model => model.AssignTo)</td>
+                </tr>
+                <tr>
+                    <td><label>Type</label></td>
+                    <td> @Html.DisplayFor(model => model.TypeId)</td>
+                </tr>
+                <tr>
+                    <td><label>Priority</label></td>
+                    <td> @Html.DisplayFor(model => model.PriorityId)</td>
+                </tr>
+                <tr>
+                    <td><label>Status</label></td>
+                    <td> @Html.DisplayFor(model => model.StatusId)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+@*<div>
+    <lable>Comment</lable>
+    <textarea id="comment" name="comment" rows="2" cols="20"></textarea>
+    <br>
+    <input type="submit" value="Submit">
+</div>*@

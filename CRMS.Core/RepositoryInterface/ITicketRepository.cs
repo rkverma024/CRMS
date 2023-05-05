@@ -17,8 +17,7 @@ namespace CRMS.Core.Contracts
         void Insert(Ticket model);
         void Update(Ticket model);
         IEnumerable<TicketIndexViewModel> AllTicketList();
-        /*List<TicketViewModel> GetFormMstsIndex();
-        List<TicketViewModel> NavBarList();
-        List<TicketViewModel> TabFormList();*/
+        IEnumerable<TicketIndexViewModel> GetTicketDetailsByTicketId(Guid Id);
+
     }
 }

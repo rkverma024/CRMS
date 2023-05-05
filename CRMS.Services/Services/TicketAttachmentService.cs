@@ -71,9 +71,17 @@ namespace CRMS.Services
             return ticketAttachmentRepository.Collection().Where(x => x.IsDeleted == false).ToList();
         }
 
-        public void RemoveTicketAttachment(TicketAttachment model)
+        public void RemoveTicketAttachment(List<string> imagelist)
         {
-            model.IsDeleted = true;
+            List<TicketAttachment> list = new List<TicketAttachment>();
+            foreach (var img in imagelist)
+            {
+               list = ticketAttachmentRepository.Collection().Where(x => x.Id.ToString() == img).ToList();
+            }
+            foreach(var id in list)
+            {
+                id.IsDeleted = true;
+            }
             ticketAttachmentRepository.Commit();
         }
 
