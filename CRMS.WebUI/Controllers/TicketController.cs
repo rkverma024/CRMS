@@ -1,5 +1,6 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
+using CRMS.Core.ServiceInterface;
 using CRMS.Core.ViewModel;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -20,13 +21,15 @@ namespace CRMS.WebUI.Controllers
         ITicketService ticketService;
         IUserService userService;
         ICommonLookUpService commonLookUpService;
-        ITicketAttachmentService ticketAttachmentService; 
-        public TicketController(ITicketService TicketService, IUserService UserService, ICommonLookUpService CommonLookUpService, ITicketAttachmentService TicketAttachmentService)
+        ITicketAttachmentService ticketAttachmentService;
+        ITicketCommentService ticketCommentService;
+        public TicketController(ITicketService TicketService, IUserService UserService, ICommonLookUpService CommonLookUpService, ITicketAttachmentService TicketAttachmentService, ITicketCommentService TicketCommentService)
         {
             ticketService = TicketService;
             userService = UserService;
             commonLookUpService = CommonLookUpService;
             ticketAttachmentService = TicketAttachmentService;
+            ticketCommentService = TicketCommentService;
         }
 
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsView)]
@@ -85,15 +88,15 @@ namespace CRMS.WebUI.Controllers
                 viewmodel.DropdownAssignTo = userService.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name });
                 viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
                 viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
-                viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });                
+                viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
                 return View();
             }
             else
             {
-                if(viewmodel.AttachmentListView != null)
+                if (viewmodel.AttachmentListView != null)
                 {
-                List<string> imagelist = JsonConvert.DeserializeObject<List<string>>(viewmodel.AttachmentListView);
-                ticketAttachmentService.RemoveTicketAttachment(imagelist);
+                    List<string> imagelist = JsonConvert.DeserializeObject<List<string>>(viewmodel.AttachmentListView);
+                    ticketAttachmentService.RemoveTicketAttachment(imagelist);
                 }
 
                 viewmodel.Image = file;
@@ -113,13 +116,13 @@ namespace CRMS.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-      /*  public ActionResult DeleteTicketAttachment(Guid Id)
-        {
-            TicketAttachment ticketToDelete = ticketAttachmentService.GetTicketAttachmentById(Id);
-            ticketAttachmentService.RemoveTicketAttachment(ticketToDelete);
-            TempData["DeleteMessage"] = "Deleted Successfully..!";
-            return RedirectToAction("Index");
-        }*/
+        /*  public ActionResult DeleteTicketAttachment(Guid Id)
+          {
+              TicketAttachment ticketToDelete = ticketAttachmentService.GetTicketAttachmentById(Id);
+              ticketAttachmentService.RemoveTicketAttachment(ticketToDelete);
+              TempData["DeleteMessage"] = "Deleted Successfully..!";
+              return RedirectToAction("Index");
+          }*/
 
         public JsonResult TicketsGrid([DataSourceRequest] DataSourceRequest request)
         {
@@ -148,8 +151,75 @@ namespace CRMS.WebUI.Controllers
 
         public ActionResult Details(Guid Id)
         {
-            TicketIndexViewModel model = ticketService.TicketDetailsByTicketId(Id);
+            TicketCommentViewModel model = ticketService.TicketDetailsByTicketId(Id);
             return View(model);
+        }
+
+        /* Here Methods of Ticket Comments*/
+
+        public ActionResult IndexOfTicketComment(Guid TicketId)
+        {
+            var list = ticketCommentService.GetAllCommentLists(TicketId).ToList();
+            return PartialView("_IndexOfTicketComment", list);
+        }
+
+        public ActionResult CreateTicketComment(Guid TicketId)
+        {
+            TicketCommentViewModel ticketComment = new TicketCommentViewModel();
+            ticketComment.TicketId = TicketId;
+            return PartialView("_CreateTicketComment", ticketComment);
+        }
+
+        [HttpPost]
+        public ActionResult CreateTicketComment(TicketCommentViewModel viewmodel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewmodel);
+            }
+            else
+            {
+                viewmodel.CreatedBy = (Guid)Session["Id"];
+                ticketCommentService.CreateTicketComment(viewmodel);
+                TempData["AlertMessage"] = "Added Successfully..!";
+                return Content("true");
+            }
+        }
+
+        public ActionResult EditTicketComment(Guid Id)
+        {
+            TicketComment obj = ticketCommentService.GetTicketCommentById(Id);
+            if (obj == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                var ticketComment = ticketCommentService.BindTicketComment(obj);
+                return View(ticketComment);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditTicketComment(TicketCommentViewModel viewmodel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                ticketCommentService.UpdateTicketComment(viewmodel);
+                TempData["AlertMessage"] = "Updated Successfully..!";
+                return RedirectToAction("Details");
+            }
+        }
+        public ActionResult DeleteTicketComment(Guid Id)
+        {
+            TicketComment ticketToDelete = ticketCommentService.GetTicketCommentById(Id);
+            ticketCommentService.RemoveTicketComment(ticketToDelete);
+            TempData["DeleteMessage"] = "Deleted Successfully..!";
+            return Content("True");
         }
     }
 }

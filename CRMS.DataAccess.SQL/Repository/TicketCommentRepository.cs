@@ -1,5 +1,6 @@
 ﻿using CRMS.Core.Models;
 using CRMS.Core.RepositoryInterface;
+using CRMS.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -42,7 +43,7 @@ namespace CRMS.DataAccess.SQL.Repository
         public TicketComment Find(Guid Id)
         {
             return dbSet.Find(Id);
-        }
+        } 
 
         public void Insert(TicketComment model)
         {
@@ -54,5 +55,22 @@ namespace CRMS.DataAccess.SQL.Repository
             dbSet.Attach(model);
             context.Entry(model).State = EntityState.Modified;
         }
+
+        public IEnumerable<CommentIndexViewModel> GetAllCommentList(Guid TicketId)
+        {
+            var list = (from us in context.Users
+                       join tcomment in context.TicketComments.Where(x => x.IsDeleted == false && x.TicketId == TicketId) on us.Id equals tcomment.CreatedBy
+                       select new CommentIndexViewModel()
+                       {
+                           Id = tcomment.Id,
+                           TicketId = tcomment.TicketId,
+                           Comment = tcomment.Comment,
+                           UserName = us.Name,
+                           CreatedOn = tcomment.CreatedOn
+                       }).ToList();
+            return list;
+        }
+
+       
     }
 }

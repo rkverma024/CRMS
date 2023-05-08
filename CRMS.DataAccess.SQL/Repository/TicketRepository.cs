@@ -85,7 +85,7 @@ namespace CRMS.DataAccess.SQL
             return list;
         }
 
-        public IEnumerable<TicketIndexViewModel> GetTicketDetailsByTicketId(Guid Id)
+        public IEnumerable<TicketCommentViewModel> GetTicketDetailsByTicketId(Guid Id)
         {
             var list = from tk in context.Tickets
                        join user in context.Users on tk.AssignTo equals user.Id
@@ -93,7 +93,7 @@ namespace CRMS.DataAccess.SQL
                        join clm in context.CommonLookUps on tk.PriorityId equals clm.Id
                        join clp in context.CommonLookUps on tk.StatusId equals clp.Id
                        where tk.Id == Id 
-                       select new TicketIndexViewModel()
+                       select new TicketCommentViewModel()
                        {
                            Id = tk.Id,
                            Title = tk.Title,

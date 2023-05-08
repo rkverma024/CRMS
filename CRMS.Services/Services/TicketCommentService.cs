@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 
 namespace CRMS.Services.Services
 {
-    public class TicketCommentService : ITicketCommentService
+    public class TicketCommentService :Page, ITicketCommentService
     {
         ITicketCommentRepository ticketCommentRepository;
         public TicketCommentService(ITicketCommentRepository TicketCommentRepository)
@@ -23,29 +24,48 @@ namespace CRMS.Services.Services
             model.Id = viewmodel.Id;
             model.TicketId = viewmodel.TicketId;
             model.Comment = viewmodel.Comment;
+            model.CreatedBy = viewmodel.CreatedBy;            
+            ticketCommentRepository.Insert(model);
+            ticketCommentRepository.Commit();
         }
 
         public TicketComment GetTicketCommentById(Guid Id)
         {
-            throw new NotImplementedException();
+            TicketComment model = ticketCommentRepository.Find(Id);
+            return model;
         }
 
-        public List<TicketCommentViewModel> GetTicketCommentList()
+        public List<TicketComment> GetTicketCommentList(Guid TicketId)
         {
-            throw new NotImplementedException();
+            return ticketCommentRepository.Collection().Where(b => b.IsDeleted == false && b.TicketId == TicketId).ToList();
         }
-
+       
+        public TicketCommentViewModel BindTicketComment(TicketComment model)
+        {
+            TicketCommentViewModel viewModel = new TicketCommentViewModel();
+            viewModel.Id = model.Id;
+            viewModel.TicketId = model.TicketId;
+            viewModel.Comment = model.Comment;           
+            return viewModel;                           
+        }
+        public void UpdateTicketComment(TicketCommentViewModel viewModel)
+        {
+            TicketComment ticketCommentToEdit =  GetTicketCommentById(viewModel.Id);
+            ticketCommentToEdit.Comment = viewModel.Comment;
+            ticketCommentToEdit.UpdatedBy = (Guid)Session["Id"];
+            ticketCommentToEdit.UpdatedOn = DateTime.Now;
+            ticketCommentRepository.Update(ticketCommentToEdit);
+            ticketCommentRepository.Collection();
+        }
         public void RemoveTicketComment(TicketComment model)
         {
-            throw new NotImplementedException();
+            model.IsDeleted = true;
+            ticketCommentRepository.Commit();
         }
-        public FormMstViewModel BindTicketComment(TicketComment model)
+
+        public IEnumerable<CommentIndexViewModel> GetAllCommentLists(Guid TicketId)
         {
-            throw new NotImplementedException();
-        }
-        public void UpdateTicketComment(FormMstViewModel TicketComment)
-        {
-            throw new NotImplementedException();
+            return ticketCommentRepository.GetAllCommentList(TicketId).ToList();
         }
     }
 }

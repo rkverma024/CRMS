@@ -5,6 +5,10 @@ using CRMS.Services;
 using CRMS.DataAccess.SQL;
 using CRMS.Core.Models;
 using CRMS.Core;
+using CRMS.Services.Services;
+using CRMS.Core.ServiceInterface;
+using CRMS.Core.RepositoryInterface;
+using CRMS.DataAccess.SQL.Repository;
 
 namespace CRMS.WebUI
 {
@@ -74,6 +78,9 @@ namespace CRMS.WebUI
 
             container.RegisterType<ITicketAttachmentRepository, TicketAttachmentRepository>();
             container.RegisterType<ITicketAttachmentService, TicketAttachmentService>();
+
+            container.RegisterType<ITicketCommentRepository, TicketCommentRepository>();
+            container.RegisterType<ITicketCommentService, TicketCommentService>();
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

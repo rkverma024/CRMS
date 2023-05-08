@@ -1,4 +1,5 @@
 ﻿using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace CRMS.Core.RepositoryInterface
         TicketComment Find(Guid Id);
         void Insert(TicketComment model);
         void Update(TicketComment model);
+        IEnumerable<CommentIndexViewModel> GetAllCommentList(Guid TicketId);
     }
 }

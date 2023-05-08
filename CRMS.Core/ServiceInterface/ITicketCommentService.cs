@@ -11,10 +11,12 @@ namespace CRMS.Core.ServiceInterface
     public interface ITicketCommentService
     {
         void CreateTicketComment(TicketCommentViewModel viewmodel);
-        List<TicketCommentViewModel> GetTicketCommentList();
+        List<TicketComment> GetTicketCommentList(Guid TicketId);
         TicketComment GetTicketCommentById(Guid Id);
-        FormMstViewModel BindTicketComment(TicketComment model);
-        void UpdateTicketComment(FormMstViewModel TicketComment);
-        void RemoveTicketComment(TicketComment model);       
+        TicketCommentViewModel BindTicketComment(TicketComment model);
+        void UpdateTicketComment(TicketCommentViewModel viewModel);
+        void RemoveTicketComment(TicketComment model);
+
+        IEnumerable<CommentIndexViewModel> GetAllCommentLists(Guid TicketId);
     }
 }

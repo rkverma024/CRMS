@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CRMS.Core.ViewModel.CommentIndexViewModel>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<style>
+    div.index {
+        position: absolute;
+        top: 345px;
+        right: 140px;
+        width: 600px;
+    }
+
+    h5 {
+        font-family:Bookman Old Style;
+        color: cornflowerblue;
+        font-weight: bold;
+    }
+
+    p {
+        font-family: Sans-serif;
+        font-weight: 600;
+    }
+</style>
+<div class="index">
+    <div class="section" style=" background-color: white;max-width: 450px;">
+        <div class="container" style="max-width: 450px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: center; color:white; background-color: #2C053F">Comments</th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <h5>@Html.DisplayFor(modelItem => item.UserName)</h5> <h6>@Html.DisplayFor(modelItem => item.CreatedOn)</h6>
+                            <p id="@item.Id">@item.Comment</p>
+                        </td>
+                        <td>
+                            @*<a href="@Url.Action("EditTicketComment", "Ticket", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |*@
+                            @*<a href="@Url.Action("DeleteTicketComment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.Comment')"><i class=" glyphicon glyphicon-trash"></i></a>*@
+
+                            <a onclick="EditComment('@item.Id', '@item.Comment')" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a> |
+                            <a onclick="DeleteComment('@item.Id')" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function DeleteComment(e) {
+            var selectedId = e;
+            if (confirm("Are You Sure. You Want To Delete.?") == true) {
+                $.ajax({
+                        url: '@Url.Action("DeleteTicketComment", "Ticket")',
+                        data: { 'id': selectedId},
+                        type: "post",
+                        success: function (savingStatus) {
+                        location.reload();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                    }
+                });
+            }
+    }
+
+    function EditComment() {
+
+    }
+
+</script>

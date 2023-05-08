@@ -75,9 +75,6 @@ namespace CRMS.Services
         public void UpdateTicket(TicketViewModel viewmodel)
         {
             Ticket ticketToEdit = GetTicketById(viewmodel.Id);
-
-
-
             
             ticketToEdit.Title = viewmodel.Title;
             ticketToEdit.AssignTo = viewmodel.AssignTo;
@@ -110,7 +107,7 @@ namespace CRMS.Services
             return ticketRepository.AllTicketList();
         }
 
-        public TicketIndexViewModel TicketDetailsByTicketId(Guid Id)
+        public TicketCommentViewModel TicketDetailsByTicketId(Guid Id)
         {
             return ticketRepository.GetTicketDetailsByTicketId(Id).FirstOrDefault();
         }

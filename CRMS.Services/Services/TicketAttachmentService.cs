@@ -30,8 +30,7 @@ namespace CRMS.Services
             string ImagePath = ConfigurationManager.AppSettings["TicketImages"] + imageName;
             model.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
             obj.FileName = imageName;
-            obj.CreatedBy = (Guid)Session["Id"];
-            //obj.CreatedBy = model.CreatedBy;
+            obj.CreatedBy = (Guid)Session["Id"];            
             ticketAttachmentRepository.Insert(obj);
             ticketAttachmentRepository.Commit();
         }

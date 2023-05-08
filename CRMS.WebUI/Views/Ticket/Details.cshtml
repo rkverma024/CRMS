@@ -1,5 +1,19 @@
-﻿@model CRMS.Core.ViewModel.TicketIndexViewModel
-<br/><br/>
+﻿@model CRMS.Core.ViewModel.TicketCommentViewModel
+<br />
+<br />
+<br />
+<br />
+@if (@TempData["AlertMessage"] != null)
+{<div class="alert alert-success">
+        <span class="glyphicon glyphicon-saved"></span>
+        @TempData["AlertMessage"]
+    </div>  }
+
+@if (@TempData["DeleteMessage"] != null)
+{<div class="alert alert-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        @TempData["DeleteMessage"]
+    </div>  }
 <div class="section" style=" background-color: white;max-width: 450px;">
     <div class="container" style="max-width: 450px;">
         <div class="inputBox">
@@ -14,12 +28,12 @@
                     <td> @Html.DisplayFor(model => model.Title)</td>
                 </tr>
                 <tr>
-                    <td><label>Description</label></td>
-                    <td> @Html.DisplayFor(model => model.Description)</td>
-                </tr>
-                <tr>
                     <td><label>Assign</label></td>
                     <td> @Html.DisplayFor(model => model.AssignTo)</td>
+                </tr>
+                <tr>
+                    <td><label>Status</label></td>
+                    <td> @Html.DisplayFor(model => model.StatusId)</td>
                 </tr>
                 <tr>
                     <td><label>Type</label></td>
@@ -30,16 +44,18 @@
                     <td> @Html.DisplayFor(model => model.PriorityId)</td>
                 </tr>
                 <tr>
-                    <td><label>Status</label></td>
-                    <td> @Html.DisplayFor(model => model.StatusId)</td>
+                    <td><label>Description</label></td>
+                    <td> @Html.DisplayFor(model => model.Description)</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-@*<div>
-    <lable>Comment</lable>
-    <textarea id="comment" name="comment" rows="2" cols="20"></textarea>
-    <br>
-    <input type="submit" value="Submit">
-</div>*@
+<div>
+    @Html.Action("CreateTicketComment", "Ticket", new { TicketId = Model.Id })
+</div>
+
+<div>
+    @Html.Action("IndexOfTicketComment", "Ticket", new { TicketId = Model.Id })
+</div>
+
