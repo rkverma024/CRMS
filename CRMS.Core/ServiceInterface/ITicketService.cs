@@ -16,7 +16,7 @@ namespace CRMS.Core.Contracts
         TicketViewModel BindTicketVM(Ticket model);
         void UpdateTicket(TicketViewModel viewmodel);
         void RemoveTicket(Ticket model);
-        IEnumerable<TicketIndexViewModel> GetAllTicketLists();
+        TicketIndexViewModel GetAllTicketLists();
 
         TicketCommentViewModel TicketDetailsByTicketId(Guid Id);
         //IEnumerable<TicketIndexViewModel> GetStatus();

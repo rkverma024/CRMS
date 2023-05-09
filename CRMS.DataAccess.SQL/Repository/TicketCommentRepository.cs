@@ -67,7 +67,7 @@ namespace CRMS.DataAccess.SQL.Repository
                            Comment = tcomment.Comment,
                            UserName = us.Name,
                            CreatedOn = tcomment.CreatedOn
-                       }).ToList();
+                       }).OrderByDescending(x => x.CreatedOn).ToList();
             return list;
         }
 

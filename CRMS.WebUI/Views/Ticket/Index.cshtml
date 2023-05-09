@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRMS.Core.ViewModel.TicketIndexViewModel>
+﻿@model CRMS.Core.ViewModel.TicketIndexViewModel
 @using Kendo.Mvc.UI
 @using CRMS.Core.ViewModel
 <br /><br /><br />
@@ -40,7 +40,7 @@
             <h2>Ticket</h2>
             <div class="dropdown">
                 @{
-                    var DropDown = Model.FirstOrDefault().StatusDropDown;
+                    var DropDown = Model.StatusDropDown;
                 }
                 @(Html.Kendo().DropDownList().Name("Status")
                      .OptionLabel("Select status..")
@@ -60,7 +60,7 @@
         </div>
         <div class="row">
 
-            @(Html.Kendo().Grid(Model).Name("Ticketgrid").Columns(columns => {
+            @(Html.Kendo().Grid(Model.Tickets).Name("Ticketgrid").Columns(columns => {
                 columns.Bound(expression: c => c.Title).Width(120);
                 columns.Bound(expression: c => c.AssignTo).Width(120);
                 columns.Bound(expression: c => c.TypeId);

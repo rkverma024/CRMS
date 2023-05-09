@@ -50,12 +50,13 @@ namespace CRMS.Services.Services
         }
         public void UpdateTicketComment(TicketCommentViewModel viewModel)
         {
-            TicketComment ticketCommentToEdit =  GetTicketCommentById(viewModel.Id);
+            TicketComment ticketCommentToEdit =  GetTicketCommentById(viewModel.TicketId);
+           /* ticketCommentToEdit.TicketId = viewModel.TicketId;*/
             ticketCommentToEdit.Comment = viewModel.Comment;
             ticketCommentToEdit.UpdatedBy = (Guid)Session["Id"];
             ticketCommentToEdit.UpdatedOn = DateTime.Now;
             ticketCommentRepository.Update(ticketCommentToEdit);
-            ticketCommentRepository.Collection();
+            ticketCommentRepository.Commit();
         }
         public void RemoveTicketComment(TicketComment model)
         {

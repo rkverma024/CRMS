@@ -1,59 +1,73 @@
 ﻿@model IEnumerable<CRMS.Core.ViewModel.CommentIndexViewModel>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 <style>
     div.index {
         position: absolute;
-        top: 345px;
-        right: 140px;
+        top: 330px;
+        right: 180px;
         width: 600px;
+        height: 300px;
     }
 
-    h5 {
-        font-family:Bookman Old Style;
+    .username {
+       
         color: cornflowerblue;
-        font-weight: bold;
     }
 
-    p {
+    .comment {
         font-family: Sans-serif;
         font-weight: 600;
     }
 </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/jquery.timeago.min.js"
+        integrity="sha512-gdWUVos7+EJk5jtktjRAtVxZKOYcjnjq0ubOYKIQ4jRLN/7jP+Fq35OwPYJt9FpdDdZO6yyICf6SFbVv+OXl1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
 <div class="index">
-    <div class="section" style=" background-color: white;max-width: 450px;">
-        <div class="container" style="max-width: 450px;">
+
+    <div class="container" style="overflow: scroll; height: 300px; background-color: white; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; ">
+        <form id="form">
             <table class="table">
                 <thead>
                     <tr>
                         <th colspan="2" style="text-align: center; color:white; background-color: #2C053F">Comments</th>
                     </tr>
                 </thead>
-
                 @foreach (var item in Model)
                 {
+                    @Html.HiddenFor(modelItem => item.TicketId)
+                    @Html.HiddenFor(modelItem => item.Id)
                     <tr>
-                        <td>
-                            <h5>@Html.DisplayFor(modelItem => item.UserName)</h5> <h6>@Html.DisplayFor(modelItem => item.CreatedOn)</h6>
-                            <p id="@item.Id">@item.Comment</p>
+                        <td class="col-md-8">
+                            <strong class="username">@Html.DisplayFor(modelItem => item.UserName)</strong> <small>( <time class="timeago" datetime="">@item.CreatedOn</time>)</small>
+                            <br/>
+                            <h class="comment" id="@item.Id">@item.Comment</h>
                         </td>
-                        <td>
-                            @*<a href="@Url.Action("EditTicketComment", "Ticket", new { id = item.Id })" class="btn btn-primary"><i class=" glyphicon glyphicon-pencil"></i></a> |*@
-                            @*<a href="@Url.Action("DeleteTicketComment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.Comment')"><i class=" glyphicon glyphicon-trash"></i></a>*@
-
+                        <td class="col-md-2">
                             <a onclick="EditComment('@item.Id', '@item.Comment')" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></a> |
                             <a onclick="DeleteComment('@item.Id')" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></a>
                         </td>
                     </tr>
                 }
             </table>
-        </div>
+        </form>
     </div>
 </div>
 
+
 <script>
+
+    $(document).ready(function () {
+        var dateVal;
+        $(".timeago").each(function (i, item) {
+            dateVal = moment($(item).html(), 'DD/MM/YYYY hh:mm:ss');
+            $(item).attr('datetime', dateVal.toISOString());
+        })
+        $("time.timeago").timeago();
+    });
+
     function DeleteComment(e) {
             var selectedId = e;
             if (confirm("Are You Sure. You Want To Delete.?") == true) {
@@ -70,8 +84,53 @@
             }
     }
 
-    function EditComment() {
-
+    function EditComment(id, comment) {
+        $(".button").hide();
+        $('#' + id).html('<input id = "editsave" value = "' + comment + '"/> <button class="btn btn-success" onclick="Comment(\'' + id + '\')"> Save</button>|<button class="btn btn-danger" onclick="Cancel(\'' + id + '\',\'' + comment + '\')"> Cancel</button>');
     }
 
+    function Comment(id) {
+        var data = $("#editsave").val();
+        var dataform = $("form").serializeArray();
+        dataform[2].value = data;
+        dataform[1].value = id;
+
+    @*    dataform.push({
+            name: 'Id',
+            data: id
+        });*@
+
+        $.ajax({
+            type: 'POST',
+            url: '/Ticket/EditTicketComment/',
+            data: dataform,
+            success: function (response) {
+                if (response != null) {
+                    location.href = '/Ticket/Details?Id=' + $("#item_TicketId").val();
+                }
+            },
+            error: function (error) {
+                alert("error");
+            }
+        });
+    }
+
+    function Cancel(id, comment) {
+        $('#' + id).html('<p>' + comment + '</p>');
+        $(".button").show();
+    }
+
+    function SaveEditComment(e) {
+            var selectedId = e;
+                $.ajax({
+                        url: '@Url.Action("EditTicketComment", "Ticket")',
+                        data: { 'id': selectedId},
+                        type: "post",
+                        success: function (savingStatus) {
+                        location.reload();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                    }
+                });
+    }
 </script>

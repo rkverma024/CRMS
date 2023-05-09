@@ -102,10 +102,14 @@ namespace CRMS.Services
             ticketRepository.Commit();
         }
 
-        public IEnumerable<TicketIndexViewModel> GetAllTicketLists()
+        public TicketIndexViewModel GetAllTicketLists()
         {
-            return ticketRepository.AllTicketList();
+            var status = new TicketIndexViewModel();
+            status.Tickets = ticketRepository.AllTicketList().ToList();
+            status.StatusDropDown = ticketRepository.StatusFilterList().ToList();
+            return status;
         }
+
 
         public TicketCommentViewModel TicketDetailsByTicketId(Guid Id)
         {

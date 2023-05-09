@@ -14,43 +14,44 @@
         <span class="glyphicon glyphicon-trash"></span>
         @TempData["DeleteMessage"]
     </div>  }
-<div class="section" style=" background-color: white;max-width: 450px;">
+
+
+<div class="inputBox" style="max-width: 450px; background-color: white; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; right:100px;">
     <div class="container" style="max-width: 450px;">
-        <div class="inputBox">
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2" style="text-align: center; color:white; background-color: #2C053F">Ticket Details</th>
-                    </tr>
-                </thead>
+        <table>
+            <thead>
                 <tr>
-                    <td><label>Title</label></td>
-                    <td> @Html.DisplayFor(model => model.Title)</td>
+                    <th colspan="2" style="text-align: center; color:white; background-color: #2C053F">Ticket Details</th>
                 </tr>
-                <tr>
-                    <td><label>Assign</label></td>
-                    <td> @Html.DisplayFor(model => model.AssignTo)</td>
-                </tr>
-                <tr>
-                    <td><label>Status</label></td>
-                    <td> @Html.DisplayFor(model => model.StatusId)</td>
-                </tr>
-                <tr>
-                    <td><label>Type</label></td>
-                    <td> @Html.DisplayFor(model => model.TypeId)</td>
-                </tr>
-                <tr>
-                    <td><label>Priority</label></td>
-                    <td> @Html.DisplayFor(model => model.PriorityId)</td>
-                </tr>
-                <tr>
-                    <td><label>Description</label></td>
-                    <td> @Html.DisplayFor(model => model.Description)</td>
-                </tr>
-            </table>
-        </div>
+            </thead>
+            <tr>
+                <td><label>Title</label></td>
+                <td> @Html.DisplayFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td><label>Assign</label></td>
+                <td> @Html.DisplayFor(model => model.AssignTo)</td>
+            </tr>
+            <tr>
+                <td><label>Status</label></td>
+                <td> @Html.DisplayFor(model => model.StatusId)</td>
+            </tr>
+            <tr>
+                <td><label>Type</label></td>
+                <td> @Html.DisplayFor(model => model.TypeId)</td>
+            </tr>
+            <tr>
+                <td><label>Priority</label></td>
+                <td> @Html.DisplayFor(model => model.PriorityId)</td>
+            </tr>
+            <tr>
+                <td><label>Description</label></td>
+                <td> @Html.DisplayFor(model => model.Description)</td>
+            </tr>
+        </table>
     </div>
 </div>
+
 <div>
     @Html.Action("CreateTicketComment", "Ticket", new { TicketId = Model.Id })
 </div>

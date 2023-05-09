@@ -35,7 +35,7 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            var list = ticketService.GetAllTicketLists().ToList();
+            var list = ticketService.GetAllTicketLists();
             return View(list);
         }
 
@@ -126,11 +126,11 @@ namespace CRMS.WebUI.Controllers
 
         public JsonResult TicketsGrid([DataSourceRequest] DataSourceRequest request)
         {
-            IEnumerable<TicketIndexViewModel> ticket = ticketService.GetAllTicketLists().ToList();
-            return Json(ticket.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            TicketIndexViewModel ticket = ticketService.GetAllTicketLists();
+            return Json(ticket.Tickets.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult TicketAttachment(Guid ticketId)
+        public ActionResult TicketAttachment(Guid ticketId) //Image Modal
         {
             var list = ticketAttachmentService.GetTicketIdList(ticketId).ToList();
             return PartialView("_imageview", list);
@@ -211,7 +211,7 @@ namespace CRMS.WebUI.Controllers
             {
                 ticketCommentService.UpdateTicketComment(viewmodel);
                 TempData["AlertMessage"] = "Updated Successfully..!";
-                return RedirectToAction("Details");
+                return Content("True");
             }
         }
         public ActionResult DeleteTicketComment(Guid Id)

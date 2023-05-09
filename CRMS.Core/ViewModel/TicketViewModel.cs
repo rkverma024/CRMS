@@ -44,28 +44,33 @@ namespace CRMS.Core.ViewModel
         public string AttachmentListView { get; set; }
     }
 
-    public class TicketIndexViewModel : BaseEntity
-    {       
+    public class TicketIndexViewModel
+    {  
+        public IEnumerable<TicketListViewModel> Tickets { get; set; }
+        public List<DropDown> StatusDropDown { get; set; }
+    }
+
+    public class TicketListViewModel : BaseEntity
+    {
         [Display(Name = "Name")]
         public string Title { get; set; }
-       
+
         [Display(Name = "Assign To")]
-        public string AssignTo { get; set; }      
-       
+        public string AssignTo { get; set; }
+
         [Display(Name = "Type")]
         public string TypeId { get; set; }
-              
+
         [Display(Name = "Priority")]
         public string PriorityId { get; set; }
-             
+
         [Display(Name = "Status")]
-        public string StatusId { get; set; }        
+        public string StatusId { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Display(Name = "File Name")]
-        public int FileName { get; set; }
-        public List<DropDown> StatusDropDown { get; set; }
+        public int FileName { get; set; }       
     }
 }
