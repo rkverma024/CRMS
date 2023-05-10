@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
 using CRMS.Services;
+using CRMS.WebUI.AuditLogFilter;
+
 namespace CRMS.WebUI.Controllers
 {
     [Authorize]
@@ -18,6 +20,8 @@ namespace CRMS.WebUI.Controllers
             userRoleService = userroleService;
             formRoleMappingService = FormRoleMappingService;
         }
+
+        [AuditLogsFilter()]
         [ActionFilter("SS", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {           
@@ -41,7 +45,6 @@ namespace CRMS.WebUI.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

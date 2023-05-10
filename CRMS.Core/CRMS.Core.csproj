@@ -49,7 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AuditLogs.cs" />
+    <Compile Include="RepositoryInterface\IAuditLogsRepository.cs" />
     <Compile Include="RepositoryInterface\ITicketCommentRepository.cs" />
+    <Compile Include="ServiceInterface\IAuditLogsService.cs" />
     <Compile Include="ServiceInterface\IFormRoleMappingService.cs" />
     <Compile Include="ServiceInterface\ICommonLookUpService.cs" />
     <Compile Include="RepositoryInterface\IConferenceRoomRepository.cs" />
@@ -82,6 +85,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AuditLogsViewModel.cs" />
     <Compile Include="ViewModel\CheckRoleRights.cs" />
     <Compile Include="ViewModel\CommonLookUpViewModel.cs" />
     <Compile Include="ViewModel\ConferenceRoomViewModel.cs" />

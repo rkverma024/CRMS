@@ -2,6 +2,7 @@
 using CRMS.Core.Models;
 using CRMS.Core.ServiceInterface;
 using CRMS.Core.ViewModel;
+using CRMS.WebUI.AuditLogFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
@@ -32,6 +33,7 @@ namespace CRMS.WebUI.Controllers
             ticketCommentService = TicketCommentService;
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
@@ -39,6 +41,7 @@ namespace CRMS.WebUI.Controllers
             return View(list);
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -50,6 +53,7 @@ namespace CRMS.WebUI.Controllers
             return View(ticket);
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Create(TicketViewModel model)
         {
@@ -66,6 +70,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -80,6 +85,8 @@ namespace CRMS.WebUI.Controllers
                 return View(ticket);
             }
         }
+
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(TicketViewModel viewmodel, HttpPostedFileBase file)
         {
@@ -107,6 +114,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("TT", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
@@ -123,19 +131,21 @@ namespace CRMS.WebUI.Controllers
               TempData["DeleteMessage"] = "Deleted Successfully..!";
               return RedirectToAction("Index");
           }*/
-
+        [AuditLogsFilter()]
         public JsonResult TicketsGrid([DataSourceRequest] DataSourceRequest request)
         {
             TicketIndexViewModel ticket = ticketService.GetAllTicketLists();
             return Json(ticket.Tickets.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
+        [AuditLogsFilter()]
         public ActionResult TicketAttachment(Guid ticketId) //Image Modal
         {
             var list = ticketAttachmentService.GetTicketIdList(ticketId).ToList();
             return PartialView("_imageview", list);
         }
 
+        [AuditLogsFilter()]
         public FileResult DownloadImg(Guid Id) // Ticket Id
         {
             var getDocument = ticketAttachmentService.GetTicketAttachmentById(Id);
@@ -149,6 +159,7 @@ namespace CRMS.WebUI.Controllers
             return null;
         }
 
+        [AuditLogsFilter()]
         public ActionResult Details(Guid Id)
         {
             TicketCommentViewModel model = ticketService.TicketDetailsByTicketId(Id);
@@ -156,13 +167,15 @@ namespace CRMS.WebUI.Controllers
         }
 
         /* Here Methods of Ticket Comments*/
-
+        
+        [AuditLogsFilter()]
         public ActionResult IndexOfTicketComment(Guid TicketId)
         {
             var list = ticketCommentService.GetAllCommentLists(TicketId).ToList();
             return PartialView("_IndexOfTicketComment", list);
         }
 
+        [AuditLogsFilter()]
         public ActionResult CreateTicketComment(Guid TicketId)
         {
             TicketCommentViewModel ticketComment = new TicketCommentViewModel();
@@ -170,6 +183,7 @@ namespace CRMS.WebUI.Controllers
             return PartialView("_CreateTicketComment", ticketComment);
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult CreateTicketComment(TicketCommentViewModel viewmodel)
         {
@@ -186,6 +200,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         public ActionResult EditTicketComment(Guid Id)
         {
             TicketComment obj = ticketCommentService.GetTicketCommentById(Id);
@@ -200,6 +215,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult EditTicketComment(TicketCommentViewModel viewmodel)
         {
@@ -214,6 +230,8 @@ namespace CRMS.WebUI.Controllers
                 return Content("True");
             }
         }
+
+        [AuditLogsFilter()]
         public ActionResult DeleteTicketComment(Guid Id)
         {
             TicketComment ticketToDelete = ticketCommentService.GetTicketCommentById(Id);

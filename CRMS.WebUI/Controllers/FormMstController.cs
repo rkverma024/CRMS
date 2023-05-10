@@ -2,6 +2,7 @@
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
 using CRMS.Services;
+using CRMS.WebUI.AuditLogFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -21,7 +22,7 @@ namespace CRMS.WebUI.Controllers
             formMstservice = formMstService;
         }
 
-        //
+        [AuditLogsFilter()]
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
@@ -30,12 +31,14 @@ namespace CRMS.WebUI.Controllers
             return View(formMsts);
         }
 
+        [AuditLogsFilter()]
         public JsonResult GetFormLists()
         {
             List<FormMstViewModel> formMsts = formMstservice.NavBarFormList();
             return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
 
+        [AuditLogsFilter()]
         public JsonResult GetFormTabList()
         {
             List<FormMstViewModel> formMsts = formMstservice.TabFormLists();
@@ -43,6 +46,7 @@ namespace CRMS.WebUI.Controllers
             return Json(formMsts, JsonRequestBehavior.AllowGet);
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -51,6 +55,7 @@ namespace CRMS.WebUI.Controllers
             return View(formMstViewModel);
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Create(FormMstViewModel model)
         {
@@ -78,6 +83,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -93,6 +99,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(FormMstViewModel model, Guid Id)
         {
@@ -120,6 +127,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("FMI", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
@@ -128,7 +136,8 @@ namespace CRMS.WebUI.Controllers
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
         }
-
+       
+        [AuditLogsFilter()]
         public JsonResult FormMstGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<FormMstViewModel> formMst = formMstservice.GetFormMstsIndexList().ToList();

@@ -81,6 +81,11 @@ namespace CRMS.WebUI
 
             container.RegisterType<ITicketCommentRepository, TicketCommentRepository>();
             container.RegisterType<ITicketCommentService, TicketCommentService>();
+            
+            container.RegisterType<IAuditLogsRepository, AuditLogsRepository>();
+            container.RegisterType<IAuditLogsService, AuditLogsService>();
+
+
             //container.RegisterType<IUserRepository, UserService>(); 
         }
     }

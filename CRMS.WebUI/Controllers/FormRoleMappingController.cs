@@ -1,6 +1,7 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using CRMS.WebUI.AuditLogFilter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,15 @@ namespace CRMS.WebUI.Controllers
             roleservice = roleService;
         }
 
+        [AuditLogsFilter()]
         // GET: FormRoleMapping
         public ActionResult Index(Guid? Id)
         {
             IEnumerable<FormRoleMappingViewModel> formRoleService = formRoleMappingService.GetFormRoleRights(Id);
             return View(formRoleService);
         }
+
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult FormRights(IEnumerable<FormRoleMapping> model)
         {

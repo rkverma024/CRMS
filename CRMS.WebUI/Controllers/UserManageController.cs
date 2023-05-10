@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Scrypt;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using CRMS.WebUI.AuditLogFilter;
 
 namespace CRMS.WebUI.Controllers
 {
@@ -26,6 +27,7 @@ namespace CRMS.WebUI.Controllers
             _useroleservice = useroleservice;
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {            
@@ -33,6 +35,7 @@ namespace CRMS.WebUI.Controllers
             return View(list);           
         }
 
+        [AuditLogsFilter()]
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -40,6 +43,8 @@ namespace CRMS.WebUI.Controllers
             user.RoleDropdown = roleservice.GetRolesList().Select(x => new DropDown() { Id = x.Id, Name = x.RoleName }).ToList();                
             return View(user);
         }
+
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {            
@@ -68,6 +73,8 @@ namespace CRMS.WebUI.Controllers
                 }               
             }
         }
+
+        [AuditLogsFilter()]
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {            
@@ -83,6 +90,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(UserViewModel model, Guid Id)
         {                        
@@ -110,6 +118,8 @@ namespace CRMS.WebUI.Controllers
                 }                             
            }
         }
+
+        [AuditLogsFilter()]
         [ActionFilter("US", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
@@ -120,6 +130,7 @@ namespace CRMS.WebUI.Controllers
             return RedirectToAction("Index","Home");           
         }
 
+        [AuditLogsFilter()]
         public JsonResult UserGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<IndexViewModel> list = userservice.GetUserRoleList().ToList();

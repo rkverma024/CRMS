@@ -1,6 +1,7 @@
 ﻿using CRMS.Core.Contracts;
 using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
+using CRMS.WebUI.AuditLogFilter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace CRMS.WebUI.Controllers
 {
+    
     [Authorize]
     public class CommonLookUpController : Controller
     {
@@ -20,18 +22,21 @@ namespace CRMS.WebUI.Controllers
         {
             commonLookUpservice = CommonLookUpservice;
         }
+        [AuditLogsFilter()]
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<CommonLookUp> commonLookUp = commonLookUpservice.GetCommonLookUpsList().ToList();
             return PartialView("_CommonListLayout", commonLookUp);
         }
+        [AuditLogsFilter()]
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             CommonLookUpViewModel commonlookup = new CommonLookUpViewModel();
             return PartialView("_Create", commonlookup);
         }
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Create(CommonLookUpViewModel model)
         {
@@ -58,6 +63,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+        [AuditLogsFilter()]
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -72,6 +78,7 @@ namespace CRMS.WebUI.Controllers
                 return PartialView("_Edit", viewModel);
             }
         }
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(CommonLookUpViewModel commonLookUp, Guid Id)
         {
@@ -97,6 +104,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+        [AuditLogsFilter()]
         [ActionFilter("CML", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
@@ -106,6 +114,7 @@ namespace CRMS.WebUI.Controllers
             //TempData["FormName"] = "CommonLookUp";
             return Content("True");
         }
+        [AuditLogsFilter()]
         public JsonResult CommonLookUpGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<CommonLookUp> commonLookup = commonLookUpservice.GetCommonLookUpsList().ToList();

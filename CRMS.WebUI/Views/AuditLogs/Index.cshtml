@@ -1,0 +1,90 @@
+﻿@model IEnumerable<CRMS.Core.Models.AuditLogs>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutionTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutionDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrowserInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HttpMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+       @* <th>
+            @Html.DisplayNameFor(model => model.Exception)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.HttpStatusCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parameters)
+        </th>
+       @* <th>
+            @Html.DisplayNameFor(model => model.Headres)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExecutionTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExecutionDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrowserInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HttpMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+       @* <td>
+            @Html.DisplayFor(modelItem => item.Exception)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.HttpStatusCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parameters)
+        </td>
+       @* <td>
+            @Html.DisplayFor(modelItem => item.Headres)
+        </td>*@
+       @* <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

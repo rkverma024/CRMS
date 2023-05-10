@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\AuditLogsService.cs" />
     <Compile Include="Services\CheckAccess.cs" />
     <Compile Include="Services\CommonLookUpService.cs">
       <SubType>ASPXCodeBehind</SubType>

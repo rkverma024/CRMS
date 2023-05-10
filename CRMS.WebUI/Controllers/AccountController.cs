@@ -3,6 +3,7 @@ using CRMS.Core.Models;
 using CRMS.Core.ViewModel;
 using CRMS.DataAccess.SQL;
 using CRMS.Services;
+using CRMS.WebUI.AuditLogFilter;
 using CRMS.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -40,8 +41,8 @@ namespace CRMS.WebUI.Controllers
             userRoleService = userroleService;
             formRoleMappingService = FormRoleMappingService;
             roleService = roleservice;
-        }        
-
+        }
+        //[AuditLogsFilter()]
         //[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -49,6 +50,7 @@ namespace CRMS.WebUI.Controllers
 
             return View("");
         }
+        //[AuditLogsFilter()]
         [HttpPost]
         //[AllowAnonymous]
         public ActionResult Login(LoginViewModel model, string returnUrl)
@@ -71,6 +73,7 @@ namespace CRMS.WebUI.Controllers
                         Session["UserName"] = user.UserName;
                         Session["Name"] = user.Name;
                         Session["Id"] = user.Id;
+                        
                         
                         var loginRoleId = userRoleService.GetUserRoleList().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
                         IEnumerable<FormRoleMapping> formRoleMappings = formRoleMappingService.GetList().Where(x => x.RoleId == loginRoleId).ToList();
@@ -97,6 +100,8 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+
+        [AuditLogsFilter()]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

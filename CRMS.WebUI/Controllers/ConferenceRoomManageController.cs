@@ -9,6 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRMS.Services;
+using CRMS.WebUI.AuditLogFilter;
+
 namespace CRMS.WebUI.Controllers
 {
     [Authorize]
@@ -20,21 +22,21 @@ namespace CRMS.WebUI.Controllers
         {
             conferenceroomService = conferenceRoomService;
         }
-
+        [AuditLogsFilter()]
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
             List<ConferenceRoom> conferenceRoom = conferenceroomService.GetConferenceRoomList().ToList();
             return View(conferenceRoom);
         }
-
+        [AuditLogsFilter()]
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
             ConferenceRoomViewModel conferenceRoom = new ConferenceRoomViewModel();
             return View(conferenceRoom);
         }
-
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Create(ConferenceRoomViewModel model)
         {
@@ -59,7 +61,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-
+        [AuditLogsFilter()]
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -74,7 +76,7 @@ namespace CRMS.WebUI.Controllers
                 return View(conferenceRoomroleModel);
             }
         }
-
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(ConferenceRoomViewModel model, Guid Id)
         {
@@ -99,7 +101,7 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
-
+        [AuditLogsFilter()]
         [ActionFilter("CRM", CheckRoleRights.FormAccessCode.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
@@ -108,7 +110,7 @@ namespace CRMS.WebUI.Controllers
             TempData["DeleteMessage"] = "Deleted Successfully..!";
             return RedirectToAction("Index");
         }
-
+        [AuditLogsFilter()]
         public JsonResult ConferenceGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<ConferenceRoom> conferenceRoom = conferenceroomService.GetConferenceRoomList().ToList();

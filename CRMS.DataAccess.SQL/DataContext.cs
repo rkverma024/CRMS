@@ -11,9 +11,9 @@ namespace CRMS.DataAccess.SQL
     public class DataContext : DbContext
     {
         public DataContext()
-            :base("CRMS"){
-        }           
-        //public DbSet<BaseEntity> BaseEntity { get; set; }
+            : base("CRMS")
+        {
+        }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
@@ -25,5 +25,6 @@ namespace CRMS.DataAccess.SQL
         public DbSet<TicketAttachment> TicketAttachments { get; set; }
         public DbSet<TicketComment> TicketComments { get; set; }
         public DbSet<TicketStatusHistory> TicketStatusHistorys { get; set; }
+        public DbSet<AuditLogs> AuditLog { get; set; }
     }
 }

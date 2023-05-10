@@ -327,7 +327,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="AuditLogFilter\AuditLogsFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuditLogsController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\ConferenceRoomManageController.cs" />
     <Compile Include="Controllers\FormMstController.cs" />
@@ -2493,6 +2495,7 @@
     <Content Include="Views\Ticket\Details.cshtml" />
     <Content Include="Views\Ticket\_CreateTicketComment.cshtml" />
     <Content Include="Views\Ticket\_IndexOfTicketComment.cshtml" />
+    <Content Include="Views\AuditLogs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

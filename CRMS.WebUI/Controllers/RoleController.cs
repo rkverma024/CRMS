@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Kendo.Mvc;
+using CRMS.WebUI.AuditLogFilter;
 
 namespace CRMS.WebUI.Controllers
 {
@@ -20,7 +21,9 @@ namespace CRMS.WebUI.Controllers
         {
             roleservice = roleService;
         }
+        
         // GET: RoleManagement
+        [AuditLogsFilter()]
         [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
@@ -28,6 +31,8 @@ namespace CRMS.WebUI.Controllers
             return PartialView("_RoleListLayout", roles);
             /*return View(roles);*/
         }
+
+        [AuditLogsFilter()]
         [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsInsert)]
         public ActionResult Create()
         {
@@ -35,7 +40,8 @@ namespace CRMS.WebUI.Controllers
             return View(roles);
         }
 
-        //[HttpPost]
+        [AuditLogsFilter()]
+        [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
             if (!ModelState.IsValid)
@@ -62,6 +68,8 @@ namespace CRMS.WebUI.Controllers
                 }
             }
         }
+
+        [AuditLogsFilter()]
         [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsEdit)]
         public ActionResult Edit(Guid Id)
         {
@@ -77,6 +85,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         [HttpPost]
         public ActionResult Edit(RoleViewModel role, Guid Id)
         {
@@ -104,6 +113,7 @@ namespace CRMS.WebUI.Controllers
             }
         }
 
+        [AuditLogsFilter()]
         /* [HttpPost]
          [ActionName("Delete")]*/
         [ActionFilter("RL", CheckRoleRights.FormAccessCode.IsDelete)]
@@ -116,6 +126,8 @@ namespace CRMS.WebUI.Controllers
             return RedirectToAction("Index", "Home");
             //return new RedirectResult(Url.Action("Index", "Home"));
         }
+
+        [AuditLogsFilter()]
         public JsonResult RoleGrid([DataSourceRequest] DataSourceRequest request)
         {
             IEnumerable<Role> roles = roleservice.GetRolesList().ToList();
