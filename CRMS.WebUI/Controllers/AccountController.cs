@@ -77,7 +77,7 @@ namespace CRMS.WebUI.Controllers
                         Session["Permission"] = formRoleMappings;
                         Session["FormLists"] = formMstService.NavBarFormList();
 
-                        //Session["RoleCode"] = roleService.GetRolesList().Where(x => x.Id == loginRoleId).Select(x => x.Code == "SADMIN").FirstOrDefault();
+                        Session["RoleCode"] = roleService.GetRolesList().Where(x => x.Id == loginRoleId).Select(x => x.Code == "SADMIN").FirstOrDefault();
 
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/

@@ -57,28 +57,57 @@ namespace CRMS.DataAccess.SQL
         }
         public IEnumerable<TicketListViewModel> AllTicketList()
         {
-            var userId = (Guid)HttpContext.Current.Session["Id"];
-            var list = from tk in context.Tickets.Where(x => x.IsDeleted == false && x.AssignTo == userId)
-                       join user in context.Users.Where(x => x.IsDeleted == false) on tk.AssignTo equals user.Id
-                       join clup in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.TypeId equals clup.Id
-                       join clm in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.PriorityId equals clm.Id
-                       join clp in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.StatusId equals clp.Id
-                       /* join ticketAttachment in context.TicketAttachments.Where(x => x.IsDeleted == false) on tk.Id 
-                        equals ticketAttachment.TicketId into tattach from ti in tattach.DefaultIfEmpty()*/
-                       select new TicketListViewModel()
-                       {
-                           Id = tk.Id,
-                           Title = tk.Title,
-                           AssignTo = user.Name,
-                           TypeId = clup.ConfigValue,
-                           PriorityId = clm.ConfigValue,
-                           StatusId = clp.ConfigValue,
-                           Description = tk.Description,
-                           FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Count()
-                           //FileName = ti == null ? "" : ti.FileName
 
-                       };
-            return list;
+            var userId = (Guid)HttpContext.Current.Session["Id"];
+            bool role = (bool)HttpContext.Current.Session["RoleCode"];
+            if (role == false)
+            {
+                var list = from tk in context.Tickets.Where(x => x.IsDeleted == false && x.AssignTo == userId)
+                           join user in context.Users.Where(x => x.IsDeleted == false) on tk.AssignTo equals user.Id
+                           join clup in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.TypeId equals clup.Id
+                           join clm in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.PriorityId equals clm.Id
+                           join clp in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.StatusId equals clp.Id
+                           /* join ticketAttachment in context.TicketAttachments.Where(x => x.IsDeleted == false) on tk.Id 
+                            equals ticketAttachment.TicketId into tattach from ti in tattach.DefaultIfEmpty()*/
+                           select new TicketListViewModel()
+                           {
+                               Id = tk.Id,
+                               Title = tk.Title,
+                               AssignTo = user.Name,
+                               TypeId = clup.ConfigValue,
+                               PriorityId = clm.ConfigValue,
+                               StatusId = clp.ConfigValue,
+                               Description = tk.Description,
+                               FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Count()
+                               //FileName = ti == null ? "" : ti.FileName
+
+                           };
+                return list;
+            }
+            else
+            {
+                var list = from tk in context.Tickets.Where(x => x.IsDeleted == false)
+                           join user in context.Users.Where(x => x.IsDeleted == false) on tk.AssignTo equals user.Id
+                           join clup in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.TypeId equals clup.Id
+                           join clm in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.PriorityId equals clm.Id
+                           join clp in context.CommonLookUps.Where(x => x.IsDeleted == false) on tk.StatusId equals clp.Id
+                           /* join ticketAttachment in context.TicketAttachments.Where(x => x.IsDeleted == false) on tk.Id 
+                            equals ticketAttachment.TicketId into tattach from ti in tattach.DefaultIfEmpty()*/
+                           select new TicketListViewModel()
+                           {
+                               Id = tk.Id,
+                               Title = tk.Title,
+                               AssignTo = user.Name,
+                               TypeId = clup.ConfigValue,
+                               PriorityId = clm.ConfigValue,
+                               StatusId = clp.ConfigValue,
+                               Description = tk.Description,
+                               FileName = context.TicketAttachments.Where(x => x.TicketId == tk.Id && x.IsDeleted == false).Count()
+                               //FileName = ti == null ? "" : ti.FileName
+
+                           };
+                return list;
+            }
         }
 
         public IEnumerable<TicketCommentViewModel> GetTicketDetailsByTicketId(Guid Id)
