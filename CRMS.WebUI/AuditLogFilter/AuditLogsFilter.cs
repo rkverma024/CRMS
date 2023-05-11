@@ -13,7 +13,17 @@ namespace CRMS.WebUI.AuditLogFilter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var logs = DependencyResolver.Current.GetService<IAuditLogsService>();
-            logs.CreateTicketComment();
-        }       
+            logs.CreateTicketComment(null);
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            filterContext.ExceptionHandled = true;
+            var logs = DependencyResolver.Current.GetService<IAuditLogsService>();
+            if (filterContext.Exception != null)
+            {
+                logs.CreateTicketComment(filterContext.Exception.Message);
+            }
+        }
     }
 }

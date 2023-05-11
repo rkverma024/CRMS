@@ -42,5 +42,9 @@ namespace CRMS.WebUI.Controllers
             AuditLogsIndexViewModel model = auditLogsService.AuditLogDetailsById(Id);
             return View(model);
         }
+
+      
+
+        
     }
 }

@@ -27,14 +27,14 @@ namespace CRMS.Services.Services
             return auditLogsRepository.Collection();
         }
 
-        public void CreateTicketComment()
-        {
+        public void CreateTicketComment(string error)
+        {           
             HttpContextBase currentContext = new HttpContextWrapper(HttpContext.Current);
             UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             RouteData routeData = urlHelper.RouteCollection.GetRouteData(currentContext);
             AuditLogs model = new AuditLogs();
             model.UserId = (Guid)HttpContext.Current.Session["Id"];
-            model.Comments = "Controller : " + routeData.Values["controller"].ToString() + " Action : " + routeData.Values["action"].ToString();
+            model.Comments = "Controller :: " + routeData.Values["controller"].ToString() + " Action :: " + routeData.Values["action"].ToString();
             model.ClientAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
             model.Parameters = routeData.Values["Id"].ToString();
             model.Url = HttpContext.Current.Request.Path;
@@ -43,6 +43,7 @@ namespace CRMS.Services.Services
             model.ExecutionTime = DateTime.Now;
             model.ExecutionDuration = DateTime.Now.Millisecond;
             model.HttpStatusCode = HttpContext.Current.Response.StatusCode;
+            model.Exception = error;
             auditLogsRepository.Insert(model);
             auditLogsRepository.Commit();
         }
@@ -55,6 +56,11 @@ namespace CRMS.Services.Services
         public AuditLogsIndexViewModel AuditLogDetailsById(Guid Id)
         {
             return auditLogsRepository.GetAuditLogDetails(Id).FirstOrDefault();
+        }
+
+        public List<AuditLogs> IndexErrorLog()
+        {
+            return auditLogsRepository.Collection().ToList();
         }
     }
 }

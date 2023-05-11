@@ -41,7 +41,7 @@ namespace CRMS.DataAccess.SQL.Repository
                         {
                             Id = adt.Id,
                             UserName = us.UserName,
-                            ExecutionTime = adt.ExecutionTime,
+                            ExecutionTime = adt.ExecutionTime.ToString(),
                             ExecutionDuration = adt.ExecutionDuration,
                             ClientAddress = adt.ClientAddress,
                             BrowserInfo = adt.BrowserInfo,
@@ -63,7 +63,7 @@ namespace CRMS.DataAccess.SQL.Repository
                         {
                             Id = adt.Id,
                             UserName = us.UserName,
-                            ExecutionTime = adt.ExecutionTime,
+                            ExecutionTime = adt.ExecutionTime.ToString(),
                             ExecutionDuration = adt.ExecutionDuration,
                             ClientAddress = adt.ClientAddress,
                             BrowserInfo = adt.BrowserInfo,
@@ -75,5 +75,16 @@ namespace CRMS.DataAccess.SQL.Repository
                         }).OrderByDescending(x => x.ExecutionTime);
             return list;
         }
+
+       /* public IEnumerable<AuditLogsIndexViewModel> GetErrorLogList()
+        {
+            var list = (from adt in context.AuditLog                       
+                        select new AuditLogsIndexViewModel()
+                        {
+                            Id = adt.Id,
+                            Exception = adt.Exception
+                        }).OrderByDescending(x => x.ExecutionTime);
+            return list;
+        }*/
     }
 }

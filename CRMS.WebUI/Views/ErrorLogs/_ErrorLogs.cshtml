@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CRMS.Core.Models.AuditLogs>
+
+@*<div class="section">
+    <div class="container">*@
+        <div class="align-center align-between pb20">
+            <h2>Audit Logs</h2>
+        </div>
+        <div class="row">
+
+          
+            @(
+                Html.Kendo().Grid(Model).Name("ErrorLogs").Columns(columns => {
+                    columns.Bound(expression: c => c.Exception).Width(140);
+                
+
+                })
+               @* .HtmlAttributes(new { style = "width:1170px;" })*@
+                .NoRecords("No record found")
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+                .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("ErrorLogGrid", "ErrorLogs"))
+                .Model(model => model.Id(p => p.Id)))
+             )
+        </div>
+@*    </div>
+</div>*@

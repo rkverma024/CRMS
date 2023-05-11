@@ -332,6 +332,7 @@
     <Compile Include="Controllers\AuditLogsController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\ConferenceRoomManageController.cs" />
+    <Compile Include="Controllers\ErrorLogsController.cs" />
     <Compile Include="Controllers\FormMstController.cs" />
     <Compile Include="Controllers\FormRoleMappingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2498,6 +2499,8 @@
     <Content Include="Views\AuditLogs\Index.cshtml" />
     <Content Include="Views\AuditLogs\_AuditLogView.cshtml" />
     <Content Include="Views\AuditLogs\Details.cshtml" />
+    <Content Include="Views\ErrorLogs\Index.cshtml" />
+    <Content Include="Views\ErrorLogs\_ErrorLogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

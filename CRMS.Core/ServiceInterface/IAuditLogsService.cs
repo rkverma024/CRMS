@@ -10,10 +10,12 @@ namespace CRMS.Core.ServiceInterface
 {
     public interface IAuditLogsService
     {
-        void CreateTicketComment();
+        void CreateTicketComment(string error);
         IEnumerable<AuditLogs> GetListOfAuditLogs();
         IEnumerable<AuditLogsIndexViewModel> IndexOfAuditLogs();
 
         AuditLogsIndexViewModel AuditLogDetailsById(Guid Id);
+
+        List<AuditLogs> IndexErrorLog();
     }
 }

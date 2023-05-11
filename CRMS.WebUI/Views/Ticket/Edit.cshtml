@@ -106,12 +106,8 @@
                                             @{count += 1; }
                                             @count.
                                         </td>
-                                        <td>
-                                            @*@Html.DisplayFor(modelItem => item.FileName.Split('_')[1])|*@
-                                            @*<a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a> |*@
-                                            @Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) |
-                                            @*<a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>*@
-                                            @*@Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) *@
+                                        <td>                                            
+                                            @Html.ActionLink(@item.FileName.Split('_')[1], "DownloadImg", new { id = item.Id }) |                                           
                                             <a onclick="DeleteAttachment('@item.Id')" class='btn btn-danger' ><i class='glyphicon glyphicon-trash'></i></a>
                                         </td>
                                     </tr>
