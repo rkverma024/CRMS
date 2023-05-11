@@ -14,6 +14,6 @@ namespace CRMS.WebUI.AuditLogFilter
         {
             var logs = DependencyResolver.Current.GetService<IAuditLogsService>();
             logs.CreateTicketComment();
-        }
+        }       
     }
 }

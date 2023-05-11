@@ -46,5 +46,15 @@ namespace CRMS.Services.Services
             auditLogsRepository.Insert(model);
             auditLogsRepository.Commit();
         }
+
+        public IEnumerable<AuditLogsIndexViewModel> IndexOfAuditLogs()
+        {
+            return auditLogsRepository.GetAllAuditLogList();
+        }
+
+        public AuditLogsIndexViewModel AuditLogDetailsById(Guid Id)
+        {
+            return auditLogsRepository.GetAuditLogDetails(Id).FirstOrDefault();
+        }
     }
 }

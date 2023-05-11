@@ -2496,6 +2496,8 @@
     <Content Include="Views\Ticket\_CreateTicketComment.cshtml" />
     <Content Include="Views\Ticket\_IndexOfTicketComment.cshtml" />
     <Content Include="Views\AuditLogs\Index.cshtml" />
+    <Content Include="Views\AuditLogs\_AuditLogView.cshtml" />
+    <Content Include="Views\AuditLogs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

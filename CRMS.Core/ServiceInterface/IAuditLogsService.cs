@@ -12,5 +12,8 @@ namespace CRMS.Core.ServiceInterface
     {
         void CreateTicketComment();
         IEnumerable<AuditLogs> GetListOfAuditLogs();
+        IEnumerable<AuditLogsIndexViewModel> IndexOfAuditLogs();
+
+        AuditLogsIndexViewModel AuditLogDetailsById(Guid Id);
     }
 }

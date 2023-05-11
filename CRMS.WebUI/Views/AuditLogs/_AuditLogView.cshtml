@@ -1,0 +1,139 @@
+﻿@model IEnumerable<CRMS.Core.ViewModel.AuditLogsIndexViewModel>
+
+
+
+<div class="section">
+    <div class="container">
+        <div class="align-center align-between pb20">
+            <h2>Audit Logs</h2>
+        </div>
+        <div class="row">
+
+            @(
+                Html.Kendo().Grid(Model).Name("AuditLog").Columns(columns => {
+                    columns.Bound(expression: c => c.UserName).Width(140);
+                    //columns.Bound(expression: c => c.ExecutionTime);
+                    //columns.Bound(expression: c => c.ExecutionDuration);
+                    //columns.Bound(expression: c => c.ClientAddress);
+                    //columns.Bound(expression: c => c.BrowserInfo);
+                    columns.Bound(expression: c => c.HttpMethod).Width(140);
+                    columns.Bound(expression: c => c.Url);
+                    columns.Bound(expression: c => c.HttpStatusCode).Width(140);
+                    //columns.Bound(expression: c => c.Comments);
+                    //columns.Bound(expression: c => c.Parameters);
+
+                    columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Details", "AuditLogs") + "/#=Id#' class='btn btn-info'  " + "><i class='glyphicon glyphicon-eye-open'></i></a>")
+                    .Title("Action").Width(80).Filterable(false);
+
+                })
+               @* .HtmlAttributes(new { style = "width:1170px;" })*@
+                .NoRecords("No record found")
+                .Sortable()
+                .Scrollable()
+                .Filterable()
+                .Pageable(pageable => pageable.Refresh(true).PageSizes(true))
+                .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("AuditLogGrid", "AuditLogs"))
+                .Model(model => model.Id(p => p.Id)))
+             )
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@*
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrowserInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HttpMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+             <th>
+                    @Html.DisplayNameFor(model => model.Exception)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HttpStatusCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parameters)
+            </th>
+             <th>
+                    @Html.DisplayNameFor(model => model.Headres)
+                </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExecutionTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExecutionDuration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrowserInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HttpMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                 <td>
+                        @Html.DisplayFor(modelItem => item.Exception)
+                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HttpStatusCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parameters)
+                </td>
+                 <td>
+                        @Html.DisplayFor(modelItem => item.Headres)
+                    </td>
+                 <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>
+            </tr>
+        }
+
+    </table>
+
+*@

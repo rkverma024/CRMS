@@ -1,4 +1,5 @@
 ﻿using CRMS.Core.Models;
+using CRMS.Core.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace CRMS.Core.RepositoryInterface
         void Insert(AuditLogs model);
         void Commit();
         IEnumerable<AuditLogs> Collection();
+        IEnumerable<AuditLogsIndexViewModel> GetAllAuditLogList();
+        IEnumerable<AuditLogsIndexViewModel> GetAuditLogDetails(Guid Id);
     }
 }

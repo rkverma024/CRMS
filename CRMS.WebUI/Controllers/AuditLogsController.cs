@@ -2,6 +2,8 @@
 using CRMS.Core.ServiceInterface;
 using CRMS.Core.ViewModel;
 using CRMS.WebUI.AuditLogFilter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +26,21 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("ADL", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            IEnumerable<AuditLogs> auditLogs = auditLogsService.GetListOfAuditLogs().ToList();
-            return View(auditLogs);
+            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs().ToList();
+            return PartialView("_AuditLogView", auditLogs);
+        }
+
+        [AuditLogsFilter()]
+        public JsonResult AuditLogGrid([DataSourceRequest] DataSourceRequest request)
+        {
+            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs().ToList();
+            return Json(auditLogs.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Details(Guid Id)
+        {
+            AuditLogsIndexViewModel model = auditLogsService.AuditLogDetailsById(Id);
+            return View(model);
         }
     }
 }

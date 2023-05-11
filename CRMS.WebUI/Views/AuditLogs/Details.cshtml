@@ -1,0 +1,177 @@
+﻿@model CRMS.Core.ViewModel.AuditLogsIndexViewModel
+<br/>
+<div class="inputBox" style="background-color: white; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th  colspan="2" style="text-align: center; color:white; background-color: #2C053F" >Audit Logs Details</th>
+                </tr>
+            </thead>
+            <tr>
+                <td><label>User Name</label></td>
+                <td> @Html.DisplayFor(model => model.UserName)</td>
+            </tr>
+            <tr>
+                <td><label>Execution Time</label></td>
+                <td> @Html.DisplayFor(model => model.ExecutionTime)</td>
+            </tr>
+            <tr>
+                <td><label>Execution Duration</label></td>
+                <td> @Html.DisplayFor(model => model.ExecutionDuration)</td>
+            </tr>
+            <tr>
+                <td><label>Client Address</label></td>
+                <td> @Html.DisplayFor(model => model.ClientAddress)</td>
+            </tr>
+            <tr>
+                <td><label>Browser Info</label></td>
+                <td> @Html.DisplayFor(model => model.BrowserInfo)</td>
+            </tr>
+            <tr>
+                <td><label>Http Method</label></td>
+                <td> @Html.DisplayFor(model => model.HttpMethod)</td>
+            </tr>
+            <tr>
+                <td><label>Url</label></td>
+                <td> @Html.DisplayFor(model => model.Url)</td>
+            </tr>
+           @* <tr>
+                <td><label>Exception</label></td>
+                <td> @Html.DisplayFor(model => model.Exception)</td>
+            </tr>*@
+            <tr>
+                <td><label>Http Status Code</label></td>
+                <td> @Html.DisplayFor(model => model.HttpStatusCode)</td>
+            </tr>
+            <tr>
+                <td><label>Comments</label></td>
+                <td> @Html.DisplayFor(model => model.Comments)</td>
+            </tr>
+            <tr>
+                <td><label>Parameters</label></td>
+                <td> @Html.DisplayFor(model => model.Parameters)</td>
+            </tr>
+            <tr>
+                <td><label>Headres</label></td>
+                <td> @Html.DisplayFor(model => model.Headres)</td>
+            </tr>
+            <tr colspan="2" sstyle="text-align: center;">
+               
+                <td colspan="2" style="text-align: center;"><a href="javascript:history.go(-1);" class="btn btn-primary">Back</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@*
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExecutionTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ExecutionTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ExecutionDuration)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ExecutionDuration)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ClientAddress)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ClientAddress)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BrowserInfo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BrowserInfo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HttpMethod)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HttpMethod)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Url)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Url)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Exception)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Exception)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.HttpStatusCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.HttpStatusCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Comments)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Parameters)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Headres)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Headres)
+                </dd>
+
+            </dl>
+        </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
