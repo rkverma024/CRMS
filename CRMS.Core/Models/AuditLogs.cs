@@ -21,10 +21,12 @@ namespace CRMS.Core.Models
         public string Comments { get; set; }
         public string Parameters { get; set; }
         public string Headres { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public AuditLogs()
         {
             Id = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
         }
     }
 }

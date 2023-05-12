@@ -24,7 +24,7 @@ namespace CRMS.Services
                         Guid FormId = db.FormMsts.Where(x => x.FormAccessCode == formAccessCode).Select(x => x.Id).FirstOrDefault();
                         FormRoleMapping mapping = formRole.Where(x => x.FormId == FormId).FirstOrDefault();
 
-                        if (formRole != null)
+                        if (mapping != null)
                         {
                             if (mapping.AllowView == true)
                             {

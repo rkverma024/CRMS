@@ -115,6 +115,7 @@ namespace CRMS.WebUI.Controllers
            {
                return ();
            }*/
+        [AuditLogsFilter()]
         public ActionResult AccessDenied()
         {
             return View();

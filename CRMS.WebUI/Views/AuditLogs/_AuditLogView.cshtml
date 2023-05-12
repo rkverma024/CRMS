@@ -10,9 +10,10 @@
         <div class="row">
 
             @(
+                //Html.Kendo().Grid<CRMS.Core.ViewModel.AuditLogsIndexViewModel>().Name("AuditLog").Columns(columns => {
                 Html.Kendo().Grid(Model).Name("AuditLog").Columns(columns => {
                     columns.Bound(expression: c => c.UserName).Width(140);
-                    //columns.Bound(expression: c => c.ExecutionTime);
+                    columns.Bound(expression: c => c.ExecutionTime).Sortable(true);
                     //columns.Bound(expression: c => c.ExecutionDuration);
                     //columns.Bound(expression: c => c.ClientAddress);
                     //columns.Bound(expression: c => c.BrowserInfo);

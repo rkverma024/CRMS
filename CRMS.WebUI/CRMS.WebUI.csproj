@@ -354,6 +354,7 @@
     <Content Include="Content\Custom.js" />
     <Content Include="Content\image\check.png" />
     <Content Include="Content\image\close.png" />
+    <Content Include="Content\image\tms-logo.png" />
     <Content Include="Content\kendo\2017.2.621\Black\editor.png" />
     <Content Include="Content\kendo\2017.2.621\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2017.2.621\Black\indeterminate.gif" />

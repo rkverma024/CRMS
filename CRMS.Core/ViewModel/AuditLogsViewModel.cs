@@ -27,6 +27,7 @@ namespace CRMS.Core.ViewModel
         public Guid Id { get; set; }
         public string UserName { get; set; }
         public string ExecutionTime { get; set; }
+        //public DateTime ExecutionTime { get; set; }
         public int ExecutionDuration { get; set; }
         public string ClientAddress { get; set; }
         public string BrowserInfo { get; set; }
@@ -37,11 +38,14 @@ namespace CRMS.Core.ViewModel
         public string Comments { get; set; }
         public string Parameters { get; set; }
         public string Headres { get; set; }
+        public DateTime CreatedOn { get; set; }
+        
     }
 
     public class ErrorLogsIndexViewModel
     {
         public Guid Id { get; set; }
         public string Exception { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

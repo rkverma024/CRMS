@@ -32,8 +32,8 @@ namespace CRMS.WebUI
                     { "action","AccessDenied"},
                     { "returnUrl", HttpContext.Current.Request.Url}
                 });
+                throw new UnauthorizedAccessException();
             }
-            base.OnActionExecuting(filterContext);
         }
     }
 }

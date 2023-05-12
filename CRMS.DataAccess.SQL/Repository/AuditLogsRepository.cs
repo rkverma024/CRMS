@@ -36,12 +36,14 @@ namespace CRMS.DataAccess.SQL.Repository
         public IEnumerable<AuditLogsIndexViewModel> GetAllAuditLogList()
         {
             var list = (from adt in context.AuditLog 
-                        join us in context.Users on adt.UserId equals us.Id                       
+                        join us in context.Users on adt.UserId equals us.Id
+                        orderby adt.ExecutionTime descending
                         select new AuditLogsIndexViewModel()
                         {
                             Id = adt.Id,
                             UserName = us.UserName,
                             ExecutionTime = adt.ExecutionTime.ToString(),
+                            //ExecutionTime = adt.ExecutionTime,
                             ExecutionDuration = adt.ExecutionDuration,
                             ClientAddress = adt.ClientAddress,
                             BrowserInfo = adt.BrowserInfo,
@@ -50,19 +52,22 @@ namespace CRMS.DataAccess.SQL.Repository
                             HttpStatusCode = adt.HttpStatusCode,
                             Comments = adt.Comments,
                             Parameters = adt.Parameters
-                        }).OrderByDescending(x => x.UserName);
+                        }).ToList();
+            
+            
             return list;
         }
 
-        public IEnumerable<AuditLogsIndexViewModel> GetAuditLogDetails(Guid Id)
+        public AuditLogsIndexViewModel GetAuditLogDetailsById(Guid Id)
         {
-            var list = (from adt in context.AuditLog
+            var record = (from adt in context.AuditLog
                         join us in context.Users on adt.UserId equals us.Id
-                        where  adt.Id == Id
+                        where adt.Id == Id
                         select new AuditLogsIndexViewModel()
                         {
                             Id = adt.Id,
                             UserName = us.UserName,
+                            //ExecutionTime = adt.ExecutionTime,
                             ExecutionTime = adt.ExecutionTime.ToString(),
                             ExecutionDuration = adt.ExecutionDuration,
                             ClientAddress = adt.ClientAddress,
@@ -72,8 +77,8 @@ namespace CRMS.DataAccess.SQL.Repository
                             HttpStatusCode = adt.HttpStatusCode,
                             Comments = adt.Comments,
                             Parameters = adt.Parameters
-                        }).OrderByDescending(x => x.ExecutionTime);
-            return list;
+                        }).FirstOrDefault();
+            return record;
         }
 
        /* public IEnumerable<AuditLogsIndexViewModel> GetErrorLogList()

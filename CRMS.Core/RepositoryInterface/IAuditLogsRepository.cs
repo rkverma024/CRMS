@@ -14,7 +14,7 @@ namespace CRMS.Core.RepositoryInterface
         void Commit();
         IEnumerable<AuditLogs> Collection();
         IEnumerable<AuditLogsIndexViewModel> GetAllAuditLogList();
-        IEnumerable<AuditLogsIndexViewModel> GetAuditLogDetails(Guid Id);
+        AuditLogsIndexViewModel GetAuditLogDetailsById(Guid Id);
 
         //IEnumerable<AuditLogsIndexViewModel> GetErrorLogList();
     }

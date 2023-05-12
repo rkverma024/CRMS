@@ -26,25 +26,22 @@ namespace CRMS.WebUI.Controllers
         [ActionFilter("ADL", CheckRoleRights.FormAccessCode.IsView)]
         public ActionResult Index()
         {
-            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs().ToList();
+            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs();
             return PartialView("_AuditLogView", auditLogs);
         }
 
         [AuditLogsFilter()]
         public JsonResult AuditLogGrid([DataSourceRequest] DataSourceRequest request)
         {
-            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs().ToList();
+            IEnumerable<AuditLogsIndexViewModel> auditLogs = auditLogsService.IndexOfAuditLogs();
             return Json(auditLogs.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
+        [AuditLogsFilter()]
         public ActionResult Details(Guid Id)
         {
             AuditLogsIndexViewModel model = auditLogsService.AuditLogDetailsById(Id);
             return View(model);
         }
-
-      
-
-        
     }
 }

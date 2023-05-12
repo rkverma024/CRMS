@@ -40,7 +40,7 @@ namespace CRMS.Services.Services
             model.Url = HttpContext.Current.Request.Path;
             model.HttpMethod = HttpContext.Current.Request.HttpMethod;
             model.BrowserInfo = HttpContext.Current.Request.Browser.Browser + " " + HttpContext.Current.Request.Browser.Version;
-            model.ExecutionTime = DateTime.Now;
+            model.ExecutionTime = DateTime.UtcNow;
             model.ExecutionDuration = DateTime.Now.Millisecond;
             model.HttpStatusCode = HttpContext.Current.Response.StatusCode;
             model.Exception = error;
@@ -55,12 +55,12 @@ namespace CRMS.Services.Services
 
         public AuditLogsIndexViewModel AuditLogDetailsById(Guid Id)
         {
-            return auditLogsRepository.GetAuditLogDetails(Id).FirstOrDefault();
+            return auditLogsRepository.GetAuditLogDetailsById(Id);
         }
 
         public List<AuditLogs> IndexErrorLog()
         {
-            return auditLogsRepository.Collection().ToList();
+            return auditLogsRepository.Collection().Where(x => x.Exception != null).OrderByDescending(x => x.CreatedOn).ToList();
         }
     }
 }
