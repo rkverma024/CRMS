@@ -24,11 +24,7 @@
 </html>
 
 <script>
-    function loadTab(SystemsName) {
-       @* if (SystemsName == "User") {
-            url = $("#"+SystemsName).data('url');
-            $("#User").load(url)
-        }*@
+    function loadTab(SystemsName) {     
         url = $("#"+SystemsName).data('url');
         $("#" + SystemsName).load(url)
 
@@ -69,31 +65,9 @@
         });
     });
     function afterLoad(tabName) {
-        var activeTabId = sessionStorage.getItem("tabName");
-        //var tabcontent = document.getElementsByClassName("tabcontent");
-        //var tablinks = document.getElementsByClassName("tablinks");
+        var activeTabId = sessionStorage.getItem("tabName");       
         var tablinks = $("#tab_" + activeTabId);
-
-       //if (activeTabId == '')
-       //{
-       //    tablinks = $("#tab_" + tabName);
-       //    loadTab(tabName);
-       //    tablinks[0].className = 'tablinks active';
-       //}
-      @* else if (window.performance.getEntriesByType("navigation")[0].type == 'reload' && activeTabId != "")
-       {
-           var tabcontent = $("#" + activeTabId);
-           tabcontent[0].style.display = "block";
-           loadTab(activeTabId);
-           tablinks[0].className = 'tablinks active';
-       }*@
-       //else
-       //{
-       //    var tabcontent = $("#" + activeTabId);
-       //     tabcontent[0].style.display = "block";
-       //     loadTab(activeTabId);
-       //     tablinks[0].className = 'tablinks active';
-        // }
+       
         if (window.performance.getEntriesByType("navigation")[0].type == 'reload' || activeTabId == "" || activeTabId == null) {
             tablinks = $("#tab_" + tabName);
            loadTab(tabName);
@@ -104,7 +78,6 @@
             tabcontent[0].style.display = "block";
             loadTab(activeTabId);
             tablinks[0].className = 'tablinks active';
-        }
-       @* sessionStorage.setItem("tabName", "");*@
+        }       
     }
 </script>

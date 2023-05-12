@@ -15,13 +15,9 @@ namespace CRMS.DataAccess.SQL
         public LoginRepository(DataContext context)
         {
             this.context = context;
-            //context = new DataContext();
+            
         }
-        /*public IQueryable<UserRole> loginRepository()
-        {
-            var user = context.Users.Where(x => x.RoleName == "Admin");
-            return user;
-        }*/
+      
 
         public User Login(string email)
         {

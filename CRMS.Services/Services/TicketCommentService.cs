@@ -16,7 +16,7 @@ namespace CRMS.Services.Services
         ITicketCommentRepository ticketCommentRepository;
         public TicketCommentService(ITicketCommentRepository TicketCommentRepository)
         {
-            this.ticketCommentRepository = TicketCommentRepository;
+            ticketCommentRepository = TicketCommentRepository;
         }
         public void CreateTicketComment(TicketCommentViewModel viewmodel)
         {
@@ -50,8 +50,7 @@ namespace CRMS.Services.Services
         }
         public void UpdateTicketComment(TicketCommentViewModel viewModel)
         {
-            TicketComment ticketCommentToEdit =  GetTicketCommentById(viewModel.TicketId);
-           /* ticketCommentToEdit.TicketId = viewModel.TicketId;*/
+            TicketComment ticketCommentToEdit =  GetTicketCommentById(viewModel.TicketId);          
             ticketCommentToEdit.Comment = viewModel.Comment;
             ticketCommentToEdit.UpdatedBy = (Guid)Session["Id"];
             ticketCommentToEdit.UpdatedOn = DateTime.Now;

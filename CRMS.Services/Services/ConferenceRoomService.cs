@@ -16,7 +16,7 @@ namespace CRMS.Services
 
         public ConferenceRoomService(IConferenceRoomRepository conferenceRoomRepository)
         {
-            this._conferenceRoomRepository = conferenceRoomRepository;
+            _conferenceRoomRepository = conferenceRoomRepository;
         }
         public void CreateConferenceRoom(ConferenceRoomViewModel model)
         {

@@ -14,7 +14,7 @@ namespace CRMS.Services
 
         public UserRoleService(IUserRoleRepository userRoleRepository)
         {
-            this.userRolerepository = userRoleRepository;
+            userRolerepository = userRoleRepository;
         }
         public void CreateUserRole(UserRole model)
         {

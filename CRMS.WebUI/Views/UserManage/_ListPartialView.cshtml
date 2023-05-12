@@ -34,9 +34,7 @@
             columns.Bound(expression: c => c.Role);
             columns.Bound(expression: c => c.Gender);
             columns.Bound(expression: c => c.MobileNo);
-           @* columns.Bound(p => p.Id).ClientTemplate("<a href='" + Url.Action("Edit", "UserManage") + "/#=Id#' class='btn btn-primary'  " + "><i class='glyphicon glyphicon-pencil'></i></a>" + " | " + "<a href='" + Url.Action("Delete", "UserManage") + "/#=Id#' class='btn btn-danger'  onclick='return confirm(\"Are you sure....?\")'> <i class='glyphicon glyphicon-trash'></i> </a>")
-                           .Title("Action").Filterable(false);*@
-
+          
             if (CheckRoleRights.Edit || CheckRoleRights.Delete)
             {
                 columns.Bound(p => p.Id).ClientTemplate(
@@ -55,17 +53,13 @@
                                     <div class="col-md-4">
                                         <div class="input-group">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-                                            <input type="text" class="form-control" id='UserFieldFilter' placeholder="Search for...">
-                                            @*<span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                            </span>*@
+                                            <input type="text" class="form-control" id='UserFieldFilter' placeholder="Search for...">                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
             </text>);
-        })
-       @* .HtmlAttributes(new { style = "height:360px;" })*@
+        })      
         .NoRecords("No record found")
         .Sortable()
         .Scrollable()
@@ -78,17 +72,10 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-       @* $('#UserGrid').data('kendoGrid').dataSource.read();
-        $('#UserGrid').data('kendoGrid').refresh();*@
-
+    $(document).ready(function () {       
         $("#UserFieldFilter").keyup(function () {
             var value = $("#UserFieldFilter").val();
-            grid = $("#UserGrid").data("kendoGrid");
-
-           @* if (value) {
-                grid.dataSource.filter({ field: "Name", operator: "contains", value: value });
-            }*@
+            grid = $("#UserGrid").data("kendoGrid");          
             if (value) {
                 grid.dataSource.filter({
                     logic: "or",

@@ -6,7 +6,8 @@
         @TempData["Already"]
     </div>}
 
-<br/><br/>
+<br />
+<br />
 <html>
 <head>
     <title></title>
@@ -29,13 +30,11 @@
                             <label>Name</label>
                             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            @* <p class="errorMsg">This field is required</p>*@
                         </div>
                         <div class="inputBox">
                             <label>User Name</label>
                             @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            @* <p class="errorMsg">This field is required</p>*@
                         </div>
                         <div class="inputBox selectBox">
                             <label>Role</label>
@@ -48,11 +47,6 @@
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
-                        @*<div class="inputBox">
-                                <label>Password</label>
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>*@
                         <div class="inputBox">
                             <label>Mobile Number</label>
                             @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
@@ -73,21 +67,15 @@
                                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                                     <span class="checkmark"></span>
                                 </div>
-
                             </div>
                         </div>
-
                         <div class="inputBox">
                             <button type="submit" value="Save" class="btnDiv">Save</button>
                         </div>
                     </div>
                 </div>
             }
-            <!--<div class="btn" style="background: #d9534f">
-                <a style="color:white" href="javascript:history.go(-1);">Cancel</a>-->
-                @*@Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-primary" })*@
-            <!--</div>-->
-            </div>
         </div>
+    </div>
 </body>
 </html>

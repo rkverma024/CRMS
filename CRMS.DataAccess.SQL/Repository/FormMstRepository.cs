@@ -73,9 +73,7 @@ namespace CRMS.DataAccess.SQL
                                 FormAccessCode = form.FormAccessCode,
                                 IsActive = form.IsActive,
                                 IsMenu = form.IsMenu,
-                                DisplayIndex = form.DisplayIndex,
-
-                                /*IsChild = list.Where(x => x.ParentFormId == form.Id && x.IsMenu).Select(x => x.Id).Any()*/
+                                DisplayIndex = form.DisplayIndex,                               
                             }).OrderBy(x => x.DisplayIndex).ToList();
             return formList;
         }
@@ -84,8 +82,7 @@ namespace CRMS.DataAccess.SQL
 
             var list = context.FormMsts;
             var userId = (Guid)HttpContext.Current.Session["Id"];
-            var loginRoleId = context.UserRoles.Where(x => x.UserId == userId && !x.IsDeleted ).Select(x => x.RoleId).FirstOrDefault();
-            //var formrolelist = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
+            var loginRoleId = context.UserRoles.Where(x => x.UserId == userId && !x.IsDeleted ).Select(x => x.RoleId).FirstOrDefault();            
             var formList = (from form in context.FormMsts.ToList()
                             join fm in context.FormMsts.ToList()
                             on form.ParentFormId equals fm.Id into parentforms
@@ -113,8 +110,7 @@ namespace CRMS.DataAccess.SQL
         public List<FormMstViewModel> TabFormList()
         {
             var userId = (Guid)HttpContext.Current.Session["Id"];
-            var loginRoleId = context.UserRoles.Where(x => x.UserId == userId && !x.IsDeleted).Select(x => x.RoleId).FirstOrDefault();
-            //var formrolelist = HttpContext.Current.Session["Permission"] as List<FormRoleMapping>;
+            var loginRoleId = context.UserRoles.Where(x => x.UserId == userId && !x.IsDeleted).Select(x => x.RoleId).FirstOrDefault();            
             var formList = (from form in context.FormMsts.ToList()
                             join fm in context.FormMsts.ToList()
                             on form.ParentFormId equals fm.Id into parentforms

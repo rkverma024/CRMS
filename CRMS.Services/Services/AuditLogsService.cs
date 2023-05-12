@@ -19,7 +19,7 @@ namespace CRMS.Services.Services
         IAuditLogsRepository auditLogsRepository;
         public AuditLogsService(IAuditLogsRepository AuditLogsRepository)
         {
-            this.auditLogsRepository = AuditLogsRepository;
+            auditLogsRepository = AuditLogsRepository;
         }
 
         public IEnumerable<AuditLogs> GetListOfAuditLogs()
@@ -27,7 +27,7 @@ namespace CRMS.Services.Services
             return auditLogsRepository.Collection();
         }
 
-        public void CreateTicketComment(string error)
+        public void CreateAuditLog(string error)
         {           
             HttpContextBase currentContext = new HttpContextWrapper(HttpContext.Current);
             UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);

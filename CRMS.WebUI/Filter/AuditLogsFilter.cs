@@ -13,7 +13,7 @@ namespace CRMS.WebUI.AuditLogFilter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var logs = DependencyResolver.Current.GetService<IAuditLogsService>();
-            logs.CreateTicketComment(null);
+            logs.CreateAuditLog(null);
         }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -22,7 +22,7 @@ namespace CRMS.WebUI.AuditLogFilter
             var logs = DependencyResolver.Current.GetService<IAuditLogsService>();
             if (filterContext.Exception != null)
             {
-                logs.CreateTicketComment(filterContext.Exception.Message);
+                logs.CreateAuditLog(filterContext.Exception.Message);
             }
         }
     }

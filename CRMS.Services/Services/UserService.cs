@@ -14,18 +14,15 @@ namespace CRMS.Services
     public class UserService : IUserService
     {
         IUserRepository userrepository;
-        IUserRoleRepository userRolerepository;
-        IRoleRepository rolerepository;
+        IUserRoleRepository userRolerepository;       
         IUserRoleService _userRoleService;
         IRoleService _roleService;
-        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository,
-            IUserRoleService userRoleService, IRoleService roleService)
+        public UserService(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IUserRoleService userRoleService, IRoleService roleService)
         {
-            this.userrepository = userRepository;
-            this.userRolerepository = userRoleRepository;
-            this.rolerepository = roleRepository;
-            this. _userRoleService = userRoleService;
-            this._roleService = roleService;
+            userrepository = userRepository;
+            userRolerepository = userRoleRepository;            
+            _userRoleService = userRoleService;
+            _roleService = roleService;
         }
 
         public void CreateUser(UserViewModel model)
@@ -40,8 +37,7 @@ namespace CRMS.Services
             user.UserName = model.UserName;
             user.Gender = model.Gender;
             user.MobileNo = model.MobileNo;
-            user.CreatedBy = model.CreatedBy;
-            /*user.CreatedOn = model.CreatedOn;*/
+            user.CreatedBy = model.CreatedBy;            
             userrepository.Insert(user);
             userrepository.Commit();
 
@@ -106,7 +102,6 @@ namespace CRMS.Services
 
         public IEnumerable<IndexViewModel> GetUserRoleList()
         {
-
             List<User> user = GetUserList();
             IEnumerable<Role> role = _roleService.GetRolesList();
             IEnumerable<UserRole> userrole = _userRoleService.GetUserRoleList();
@@ -125,7 +120,6 @@ namespace CRMS.Services
                            Role = r.RoleName
                        };
             return list;
-
         }
 
         public bool IsExist(UserViewModel model, bool IsAvailable)

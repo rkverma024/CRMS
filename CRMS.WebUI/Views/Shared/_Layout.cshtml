@@ -29,13 +29,7 @@
                 <div class="align-center">
                     <div class="logoDiv"> <a href="@Url.Action("Index","Home")"> <img src="~/Content/image/tms-logo.png" alt="CRB Logo"> </a> </div>
                     <div class="menuDiv">
-                        <ul id="my-list" class="align-center">
-                            @* <li>@Html.ActionLink("System", "Index", "Home")</li>
-                                <li>@Html.ActionLink("Conference", "Index", "ConferenceRoomManage")</li>
-                                <li class="active"> @Html.ActionLink("Systems", "Index", "Home")</li>
-                                <li> @Html.ActionLink("Systems", "Index", "Home")</li>
-                                <li> @Html.ActionLink("Form", "Index", "FormMst")</li>  *@
-
+                        <ul id="my-list" class="align-center">                         
                             @if (Session["FormLists"] != null)
                             {
                                 var navbarlist = (IEnumerable<CRMS.Core.ViewModel.FormMstViewModel>)Session["FormLists"];
@@ -127,91 +121,3 @@
         sessionStorage.setItem("tabName", "");
     }
 </script>
-
-
-@*<script>
-        function result() {
-            $(".dropdown").hover(
-                function () {
-                    $(this).find(".dropdown-menu").stop(true, true).fadeIn("fast");
-                },
-                function () {
-                    $(this).find(".dropdown-menu").stop(true, true).fadeOut("fast");
-                }
-            );
-        }
-        function setTabName() {
-            sessionStorage.setItem("tabName", "");
-        }
-        $(document).ready(function() {
-          $.ajax({
-            url: '@Url.Action("GetFormLists","FormMst")',
-            type: "GET",
-            dataType: "json",
-              success: function (data) {
-                  var result = data.filter(x => x.ParentFormId == null);
-                  $.each(result, function (index, item) {
-                      var dropdown = data.filter(x => x.ParentFormId == item.Id);
-                      if (dropdown.length == 0) {
-                          $("<li><a onClick=setTabName() href='" + item.NavigateURL + "'>" + item.Name + "</a></li>").appendTo("#my-list");
-                      }
-                      else {
-                          //var li = $("<a class='popout' href='#'>" + item.Name + "</a>").appendTo(".dropdown");
-                          var li = $('<li class="dropdown"><a onmouseover="result()" class="popout" href="#"> ' + item.Name + '<i><img style="padding: 0 4px 0 4px" src="/Content/image/down-arrow.svg"></i></a></li>)').appendTo("#my-list");
-                          var ul = $("<ul class='level2 dropdown-menu userInfoDiv'></ul>").appendTo(li);
-                          var result = data.filter(x => x.ParentFormId == item.Id);
-                          $.each(result, function (i, child) {
-                              $("<li><a href='" + child.NavigateURL + "'>" + child.Name + "</a></li>").appendTo(ul);
-                          });
-                      }
-                  });
-              },
-              error: function (xhr, status, error) {
-                console.log(error);
-              }
-          });
-        });
-    </script>*@
-
-
-
-
-
-
-
-
-
-
-
-<!--$(document).ready(function() {
-  $.ajax({
-    url: '@Url.Action("GetFormLists","FormMst")',
-    type: "GET",
-    dataType: "json",
-      success: function (data) {
-          var result = data.filter(x => x.ParentFormId == null);
-          $.each(result, function (index, item) {
-              var dropdown = data.filter(x => x.ParentFormId == item.Id);
-              if (dropdown.length == 0) {
-
-                  $("<li><a href='" + item.NavigateURL + "'>" + item.Name + "</a></li>").appendTo("#my-list");
-              }
-              else {-->
-@*  //var li = $("<a class='popout' href='#'>" + item.Name + "</a>").appendTo(".dropdown");*@
-@*var li = $('<li class="dropdown"><a onmouseover="result()" class="popout" href="#"> ' + item.Name + '<i><img style="padding: 0 4px 0 4px" src="/Content/image/down-arrow.svg"></i></a></li>)').appendTo("#my-list");*@
-
-<!--var li = $("<li><a href='" + item.NavigateURL + "'>" + item.Name + "</a></li>").appendTo("#my-list");
-var ul = $("<ul class='level2 dropdown-menu userInfoDiv'></ul>").appendTo(li);
-var result = data.filter(x => x.ParentFormId == item.Id);-->
-@*$.each(result, function (i, child) {
-        $("<li><a href='" + child.NavigateURL + "'>" + child.Name + "</a></li>").appendTo(ul);
-    });*@
-<!--}
-              });
-          },
-          error: function (xhr, status, error) {
-            console.log(error);
-          }
-      });
-    });
-</script>-->

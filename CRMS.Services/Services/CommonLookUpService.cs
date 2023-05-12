@@ -15,7 +15,7 @@ namespace CRMS.Services
 
         public CommonLookUpService(IRepository<CommonLookUp> commonLookUpRepository)
         {
-            this.commonLookUprepository = commonLookUpRepository;
+            commonLookUprepository = commonLookUpRepository;
         }
 
         public void CreateCommonLookUp(CommonLookUpViewModel model)
@@ -27,11 +27,9 @@ namespace CRMS.Services
             commonLookUp.Description = model.Description;
             commonLookUp.ConfigValue = model.ConfigValue;
             commonLookUp.IsActive = model.IsActive;
-            commonLookUp.CreatedBy = model.CreatedBy;
-            /*commonLookUp.CreatedOn = DateTime.Now;*/
+            commonLookUp.CreatedBy = model.CreatedBy;           
             commonLookUprepository.Insert(commonLookUp);
             commonLookUprepository.Commit();
-
         }
 
         public CommonLookUp GetCommonLookUp(Guid Id)

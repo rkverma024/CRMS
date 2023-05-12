@@ -321,13 +321,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilter\ActionFilter.cs" />
+    <Compile Include="Filter\ActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="AuditLogFilter\AuditLogsFilter.cs" />
+    <Compile Include="Filter\AuditLogsFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuditLogsController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
@@ -2452,21 +2452,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
-    <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\UserManage\Create.cshtml" />
     <Content Include="Views\UserManage\Edit.cshtml" />
-    <Content Include="Views\UserManage\Delete.cshtml" />
     <Content Include="Views\UserManage\Index.cshtml" />
     <Content Include="Views\ConferenceRoomManage\Index.cshtml" />
     <Content Include="Views\ConferenceRoomManage\Create.cshtml" />
     <Content Include="Views\ConferenceRoomManage\Edit.cshtml" />
-    <Content Include="Views\ConferenceRoomManage\Delete.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -2487,7 +2482,6 @@
     <Content Include="Views\FormMst\Index.cshtml" />
     <Content Include="Views\FormMst\Create.cshtml" />
     <Content Include="Views\FormMst\Edit.cshtml" />
-    <Content Include="Views\Shared\_FormPartialView.cshtml" />
     <Content Include="Views\FormRoleMapping\Index.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
@@ -2504,7 +2498,6 @@
     <Content Include="Views\ErrorLogs\_ErrorLogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\TicketImages\" />
     <Folder Include="Models\" />
   </ItemGroup>

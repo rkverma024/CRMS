@@ -16,12 +16,11 @@ namespace CRMS.Services
         LoginRepository loginrepository;
         public LoginService(LoginRepository loginRepository)
         {
-            this.loginrepository = loginRepository;
+            loginrepository = loginRepository;
         }
 
         public User Login(LoginViewModel model)
-        {
-            
+        {            
             User user = loginrepository.Login(model.Email);           
             return user;
         }

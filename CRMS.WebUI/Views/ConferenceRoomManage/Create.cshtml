@@ -31,26 +31,20 @@
                         <div class="inputBox">
                             <label>ConferenceRoomNo</label>
                             @Html.EditorFor(model => model.ConferenceRoomNo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ConferenceRoomNo, "", new { @class = "errorMsg" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.ConferenceRoomNo, "", new { @class = "errorMsg" })                            
                         </div>
                         <div class="inputBox">
                             <label>Capacity</label>
                             @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "errorMsg" })
-                            @*<p class="errorMsg">This field is required</p>*@
+                            @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "errorMsg" })                           
                         </div>
                         <div class="inputBox">
-                            @*<button class="btnDiv">Login</button>*@
+                           
                             <button type="submit" value="Create" class="btnDiv">Create</button>
                         </div>
                     </div>
                 </div>
             }
-            <div>
-               @* <a class="backbtn" href="javascript:history.go(-1);"><i class="glyphicon glyphicon-arrow-left"></i> Back to List</a>*@
-                @* @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })*@
-            </div>
         </div>
     </div>
 </body>

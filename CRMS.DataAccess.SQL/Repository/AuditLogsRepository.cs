@@ -80,16 +80,5 @@ namespace CRMS.DataAccess.SQL.Repository
                         }).FirstOrDefault();
             return record;
         }
-
-       /* public IEnumerable<AuditLogsIndexViewModel> GetErrorLogList()
-        {
-            var list = (from adt in context.AuditLog                       
-                        select new AuditLogsIndexViewModel()
-                        {
-                            Id = adt.Id,
-                            Exception = adt.Exception
-                        }).OrderByDescending(x => x.ExecutionTime);
-            return list;
-        }*/
     }
 }

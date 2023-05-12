@@ -18,7 +18,7 @@ namespace CRMS.Services
         
         public TicketAttachmentService(ITicketAttachmentRepository TicketAttachmentRepository)
         {
-            this.ticketAttachmentRepository = TicketAttachmentRepository;          
+            ticketAttachmentRepository = TicketAttachmentRepository;          
         }
         public void CreateTicketAttachment(TicketViewModel model)
         {            
@@ -48,8 +48,7 @@ namespace CRMS.Services
             viewmodel.Image.SaveAs(HostingEnvironment.MapPath(ImagePath));
 
             obj.FileName = imageName;
-            obj.UpdatedBy = (Guid)Session["Id"];
-            //obj.UpdatedBy = viewmodel.UpdatedBy;
+            obj.UpdatedBy = (Guid)Session["Id"];            
             obj.UpdatedOn = DateTime.Now;
             ticketAttachmentRepository.Update(obj);
             ticketAttachmentRepository.Commit();

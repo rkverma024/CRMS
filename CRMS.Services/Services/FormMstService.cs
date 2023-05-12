@@ -17,8 +17,8 @@ namespace CRMS.Services
 
         public FormMstService(IFormMstRepository formMstRepository, IRoleRepository RoleRepository)
         {
-            this.formMstrepository = formMstRepository;
-            this.roleRepository = RoleRepository;
+            formMstrepository = formMstRepository;
+            roleRepository = RoleRepository;
         }
         public List<FormMst> GetFormMstsList()
         {
@@ -51,7 +51,6 @@ namespace CRMS.Services
         {
             formMstrepository.Delete(removeformMst.Id);
             formMstrepository.Commit();
-
         }
 
         public FormMstViewModel BindFormVM(FormMst model)

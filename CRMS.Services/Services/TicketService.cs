@@ -17,10 +17,10 @@ namespace CRMS.Services
         ITicketAttachmentService ticketAttachmentService;
         public TicketService(ITicketRepository ticketrepository, IUserService UserService, ICommonLookUpService CommonLookUpService, ITicketAttachmentService TicketAttachmentService)
         {
-            this.ticketRepository = ticketrepository;
-            this.userService = UserService;
-            this.commonLookUpService = CommonLookUpService;
-            this.ticketAttachmentService = TicketAttachmentService;
+            ticketRepository = ticketrepository;
+            userService = UserService;
+            commonLookUpService = CommonLookUpService;
+            ticketAttachmentService = TicketAttachmentService;
         }
 
         public void CreateTicket(TicketViewModel viewmodel)
@@ -67,9 +67,7 @@ namespace CRMS.Services
             viewmodel.DropdownAssignTo = userService.GetUserList().Select(x => new DropDown() { Id = x.Id, Name = x.Name });
             viewmodel.DropdownPriorityId = commonLookUpService.GetDropDownList("Priority").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
             viewmodel.DropdownTypeId = commonLookUpService.GetDropDownList("Type").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
-            viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });
-
-            //ticketAttachmentService.BindTicketAttachment(model);
+            viewmodel.DropdownStatusId = commonLookUpService.GetDropDownList("Status").Select(x => new DropDown() { Id = x.Id, Name = x.ConfigValue });           
             return viewmodel;
         }
         public void UpdateTicket(TicketViewModel viewmodel)

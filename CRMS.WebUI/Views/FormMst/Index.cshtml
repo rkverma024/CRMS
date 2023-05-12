@@ -36,8 +36,6 @@
                     columns.Bound(expression: c => c.ParentForm);
                     columns.Bound(expression: c => c.FormAccessCode);
                     columns.Bound(expression: c => c.DisplayIndex);
-                    @*columns.Bound(expression: c => c.IsActive);*@
-                   @* columns.Bound(expression: c => c.IsMenu);*@
                     columns.Bound(p => p.IsMenu)
                         .Title("IsMenu")
                         .Width(100)
@@ -79,9 +77,6 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
                                                 <input type="text" class="form-control" id='FormFieldFilter' placeholder="Search for...">
-                                                @*<span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
-                                                </span>*@
                                             </div>
                                         </div>
                                     </div>
@@ -103,10 +98,7 @@
 
 <script>
     $(document).ready(function () {
-       @* $('#Formgrid').data('kendoGrid').dataSource.read();
-        $('#Formgrid').data('kendoGrid').refresh();*@
-
-        $("#FormFieldFilter").keyup(function () {
+         $("#FormFieldFilter").keyup(function () {
 
             var value = $("#FormFieldFilter").val();
             grid = $("#Formgrid").data("kendoGrid");
@@ -144,7 +136,7 @@
                 });
             } else {
                 grid.dataSource.filter({});
-            }
-        });
+                }
+         });
     });
 </script>

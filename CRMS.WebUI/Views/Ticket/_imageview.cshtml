@@ -12,13 +12,7 @@
         </div>
         <div class="modal-body">
             <form name="Createform" id="showimage">
-                <table class="table">
-
-                    @*<tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileName)
-                        </th>
-                    </tr>*@
+                <table class="table">                  
                     @{ int count = 0;}
                     @foreach (var item in Model)
                     {
@@ -30,10 +24,8 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.FileName.Split('_')[1])
                             </td>
-                            <td>
-                                @*@Html.ActionLink("Download", "DownloadImg", new { id = item.Id }) |*@
-                                <a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a>
-                                @*<a href="@Url.Action("DeleteTicketAttachment", "Ticket", new { id = item.Id })" class="btn btn-danger" onclick="return confirm('Are you sure? @item.FileName')"><i class=" glyphicon glyphicon-trash"></i></a>*@
+                            <td>                                
+                                <a href="@Url.Action("DownloadImg", "Ticket", new { id = item.Id })" class="btn btn-success"><i class=" glyphicon glyphicon-download-alt"></i></a>                                
                             </td>
                         </tr>
                     }

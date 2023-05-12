@@ -16,7 +16,7 @@ namespace CRMS.Services
 
         public RoleService(IRoleRepository roleRepository)
         {
-            this.rolerepository = roleRepository;
+            rolerepository = roleRepository;
         }
 
         public void CreateRole(RoleViewModel model)
@@ -24,16 +24,15 @@ namespace CRMS.Services
             Role role = new Role();
             role.RoleName = model.RoleName;
             role.Code = model.Code;
-            role.CreatedBy = model.CreatedBy;
-            //role.CreatedOn = DateTime.Now;
+            role.CreatedBy = model.CreatedBy;            
             rolerepository.Insert(role);
             rolerepository.Commit();
         }
 
         public List<Role> GetRolesList()
         {
-            return rolerepository.Collection().Where(b => b.IsDeleted == false && b.Code != "SADMIN").OrderBy(x => x.Code).ToList();
-            //return rolerepository.Collection().Where(b => b.IsDeleted == false).OrderBy(x => x.Code).ToList();
+            //return rolerepository.Collection().Where(b => b.IsDeleted == false && b.Code != "SADMIN").OrderBy(x => x.Code).ToList();
+            return rolerepository.Collection().Where(b => b.IsDeleted == false).OrderBy(x => x.Code).ToList();
         }
 
         public Role GetRole(Guid Id)
@@ -44,17 +43,14 @@ namespace CRMS.Services
 
         public void RemoveRole(Role removeRole)
         {
-
             removeRole.IsDeleted = true;
             rolerepository.Commit();
         }
         public RoleViewModel BindRoleVW(Role model)
-        {
-            //Role obj = GetRole(Id);
+        {            
             RoleViewModel viewmodel = new RoleViewModel();
             viewmodel.RoleName = model.RoleName;
             viewmodel.Code = model.Code;
-
             return viewmodel;
         }
 
