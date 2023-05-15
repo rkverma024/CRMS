@@ -90,16 +90,16 @@
         $('#' + id).html('<input id = "editsave" value = "' + comment + '"/> <button class="btn btn-success" onclick="Comment(\'' + id + '\')"> Save</button>|<button class="btn btn-danger" onclick="Cancel(\'' + id + '\',\'' + comment + '\')"> Cancel</button>');
     }
 
+    function Cancel(id, comment) {
+        $('#' + id).html('<p>' + comment + '</p>');
+        $(".button").show();
+    }
+
     function Comment(id) {
         var data = $("#editsave").val();
         var dataform = $("form").serializeArray();
         dataform[2].value = data;
         dataform[1].value = id;
-
-    @*    dataform.push({
-            name: 'Id',
-            data: id
-        });*@
 
         $.ajax({
             type: 'POST',
@@ -115,12 +115,7 @@
             }
         });
     }
-
-    function Cancel(id, comment) {
-        $('#' + id).html('<p>' + comment + '</p>');
-        $(".button").show();
-    }
-
+   
     function SaveEditComment(e) {
             var selectedId = e;
                 $.ajax({
