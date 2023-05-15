@@ -86,13 +86,13 @@
     }
 
     function EditComment(id, comment) {
-        $(".button").hide();
+        $(".button").hide(); @*.button*@
         $('#' + id).html('<input id = "editsave" value = "' + comment + '"/> <button class="btn btn-success" onclick="Comment(\'' + id + '\')"> Save</button>|<button class="btn btn-danger" onclick="Cancel(\'' + id + '\',\'' + comment + '\')"> Cancel</button>');
     }
 
     function Cancel(id, comment) {
         $('#' + id).html('<p>' + comment + '</p>');
-        $(".button").show();
+        $(".button").show(); @*.button *@
     }
 
     function Comment(id) {
