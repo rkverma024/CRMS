@@ -1,5 +1,6 @@
 ﻿﻿@model IEnumerable<CRMS.Core.Models.AuditLogs>
 
+<title>ErrorLog</title>
 <div class="section">
     <div class="container">
         <div class="align-center align-between pb20">
@@ -7,15 +8,12 @@
         </div>
         <div class="row">
 
-
-            @(
-             //Html.Kendo().Grid<CRMS.Core.Models.AuditLogs>().Name("ErrorGrid").Columns(columns => {
+            @(           
              Html.Kendo().Grid(Model).Name("ErrorGrid").Columns(columns => {
                  columns.Bound(expression: c => c.Comments);
                  columns.Bound(expression: c => c.Url);
                  columns.Bound(expression: c => c.Exception);
-             })
-               @* .HtmlAttributes(new { style = "width:1170px;" })*@
+             })              
                 .NoRecords("No record found")
                 .Sortable()
                 .Scrollable()
