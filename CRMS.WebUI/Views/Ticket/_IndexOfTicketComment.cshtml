@@ -87,7 +87,7 @@
 
     function EditComment(id, comment) {
         $(".button").hide(); @*.button*@
-        $('#' + id).html('<input id = "editsave" value = "' + comment + '"/> <button class="btn btn-success" onclick="Comment(\'' + id + '\')"> Save</button>|<button class="btn btn-danger" onclick="Cancel(\'' + id + '\',\'' + comment + '\')"> Cancel</button>');
+        $('#' + id).html('<input id = "editsave_' + id + '" value = "' + comment + '"/> <button class="btn btn-success" onclick="Comment(\'' + id + '\')"> Save</button>|<button class="btn btn-danger" onclick="Cancel(\'' + id + '\',\'' + comment + '\')"> Cancel</button>');
     }
 
     function Cancel(id, comment) {
@@ -96,7 +96,7 @@
     }
 
     function Comment(id) {
-        var data = $("#editsave").val();
+        var data = $("#editsave_" + id).val();
         var dataform = $("form").serializeArray();
         dataform[2].value = data;
         dataform[1].value = id;
@@ -115,7 +115,7 @@
             }
         });
     }
-   
+   @*
     function SaveEditComment(e) {
             var selectedId = e;
                 $.ajax({
@@ -128,5 +128,5 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                     }
                 });
-    }
+    }*@
 </script>
