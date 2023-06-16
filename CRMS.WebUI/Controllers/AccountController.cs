@@ -22,7 +22,8 @@ using System.Web.Security;
 
 namespace CRMS.WebUI.Controllers
 {
-    //[Authorize]
+    //[RoutePrefix("Account")]
+    
     public class AccountController : Controller
     {
         private LoginService loginService;
@@ -42,8 +43,10 @@ namespace CRMS.WebUI.Controllers
             formRoleMappingService = FormRoleMappingService;
             roleService = roleservice;
         }
+        
+        //[Route("Login")]
         //[AuditLogsFilter()]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -52,7 +55,7 @@ namespace CRMS.WebUI.Controllers
         }
         //[AuditLogsFilter()]
         [HttpPost]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -85,7 +88,7 @@ namespace CRMS.WebUI.Controllers
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/
 
-                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                        return RedirectToAction("Dashbord", new RouteValueDictionary(new { controller = "Home", action = "Dashbord" }));
                     }
                     else
                     {

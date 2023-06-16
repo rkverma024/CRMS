@@ -80,6 +80,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Services\ConferenceRoomService.cs" />
+    <Compile Include="Services\DashBordService.cs" />
     <Compile Include="Services\FormMstService.cs" />
     <Compile Include="Services\FormRoleMappingSevice.cs" />
     <Compile Include="Services\LoginService.cs" />

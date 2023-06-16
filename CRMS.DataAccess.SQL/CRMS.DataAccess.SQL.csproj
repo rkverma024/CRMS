@@ -66,6 +66,7 @@
     <Compile Include="Repository\AuditLogsRepository.cs" />
     <Compile Include="Repository\ConferenceRoomRepository.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="Repository\DashBordRepository.cs" />
     <Compile Include="Repository\FormMstRepository.cs" />
     <Compile Include="Repository\FormRoleMappingRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />

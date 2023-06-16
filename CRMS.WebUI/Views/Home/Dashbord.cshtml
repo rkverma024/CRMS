@@ -1,0 +1,227 @@
+﻿@model CRMS.Core.ViewModel.DashBordViewModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width: 50%;
+        height: 500px;                
+    }
+
+
+@*Card View*@
+
+@*    body {
+        margin-top: 20px;
+        background: #FAFAFA;
+    }
+*@
+    .order-card {
+        color: #fff;
+        margin-top: 20px;
+    }
+
+    .bg-c-blue {
+        background: linear-gradient(45deg,#4099ff,#73b4ff);
+        margin-top: 20px;
+    }
+
+    .bg-c-green {
+        background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+        margin-top: 20px;
+    }
+
+    .bg-c-yellow {
+        background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        margin-top: 20px;
+    }
+
+    .bg-c-pink {
+        background: linear-gradient(45deg,#FF5370,#ff869a);
+        margin-top: 20px;
+    }
+
+
+    .card {
+        @*border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+        box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+        border: none;
+        margin-bottom: 30px;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;*@
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0px solid rgba(0, 0, 0, 0);
+        border-radius: .25rem;
+        margin-bottom: 1.5rem;        
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+
+        .card .card-block {
+            padding: 25px;
+        }
+
+    .order-card i {
+        font-size: 26px;
+    }
+
+    .f-left {
+        float: left;
+    }
+
+    .f-right {
+        float: right;
+    }
+    .cr {
+        width:100%;
+    }
+
+</style>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="" id="cr">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20">Total Ticket Count</h3>
+                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.TotalCount</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20">New Ticket</h3>
+                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.NewCount</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20">Resolved Tcket</h3>
+                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.ResolvedCount</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h3 class="m-b-20">Pending Ticket</h3>
+                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.PendingCount</span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Chart code -->
+<script>
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv");
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root)
+        ]);
+
+
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+        var chart = root.container.children.push(am5percent.PieChart.new(root, {
+            radius: am5.percent(90),
+            innerRadius: am5.percent(50),
+            layout: root.horizontalLayout
+        }));
+
+        // Create series
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+        var series = chart.series.push(am5percent.PieSeries.new(root, {
+
+            valueField: "value",
+            categoryField: "category"
+        }));
+
+        // Set data
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+        var data1 = @Html.Raw(Json.Encode(ViewBag.ChartData));
+        series.data.setAll(data1);
+
+        // Disabling labels and ticks
+        series.labels.template.set("visible", false);
+        series.ticks.template.set("visible", false);
+
+        // Adding gradients
+        series.slices.template.set("strokeOpacity", 0);
+        series.slices.template.set("fillGradient", am5.RadialGradient.new(root, {
+            stops: [{
+                brighten: -0.8
+            }, {
+                brighten: -0.8
+            }, {
+                brighten: -0.5
+            }, {
+                brighten: 0
+            }, {
+                brighten: -0.5
+            }]
+        }));
+
+        // Create legend
+        // https://www.amcharts.com/docs/v5/charts/percent-charts/legend-percent-series/
+        var legend = chart.children.push(am5.Legend.new(root, {
+            centerY: am5.percent(50),
+            y: am5.percent(50),
+            layout: root.verticalLayout
+        }));
+        // set value labels align to right
+        legend.valueLabels.template.setAll({ textAlign: "right" })
+        // set width and max width of labels
+        legend.labels.template.setAll({
+            maxWidth: 140,
+            width: 140,
+            oversizedBehavior: "wrap"
+        });
+
+        legend.data.setAll(series.dataItems);
+
+
+        // Play initial series animation
+        // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+        series.appear(1000, 100);
+
+    }); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
+amCharts
+
+@*@Html.Partial("TypeChart")*@
+
+@*<div>
+    @Html.Action("TypeChart", "Home");
+</div>*@
+
+
