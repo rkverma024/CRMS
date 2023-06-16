@@ -51,10 +51,10 @@
   <ItemGroup>
     <Compile Include="Models\AuditLogs.cs" />
     <Compile Include="RepositoryInterface\IAuditLogsRepository.cs" />
-    <Compile Include="RepositoryInterface\IDashBordRepository.cs" />
+    <Compile Include="RepositoryInterface\IDashBoardRepository.cs" />
     <Compile Include="RepositoryInterface\ITicketCommentRepository.cs" />
     <Compile Include="ServiceInterface\IAuditLogsService.cs" />
-    <Compile Include="ServiceInterface\IDashBordService.cs" />
+    <Compile Include="ServiceInterface\IDashBoardService.cs" />
     <Compile Include="ServiceInterface\IFormRoleMappingService.cs" />
     <Compile Include="ServiceInterface\ICommonLookUpService.cs" />
     <Compile Include="RepositoryInterface\IConferenceRoomRepository.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="ViewModel\CheckRoleRights.cs" />
     <Compile Include="ViewModel\CommonLookUpViewModel.cs" />
     <Compile Include="ViewModel\ConferenceRoomViewModel.cs" />
-    <Compile Include="ViewModel\DashBordViewModel.cs" />
+    <Compile Include="ViewModel\DashBoardViewModel.cs" />
     <Compile Include="ViewModel\DropDown.cs" />
     <Compile Include="ViewModel\FormMstViewModel.cs" />
     <Compile Include="ViewModel\FormRoleMappingViewModel.cs" />

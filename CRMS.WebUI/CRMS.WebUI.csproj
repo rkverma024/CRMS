@@ -2496,7 +2496,7 @@
     <Content Include="Views\AuditLogs\Details.cshtml" />
     <Content Include="Views\ErrorLogs\Index.cshtml" />
     <Content Include="Views\ErrorLogs\_ErrorLogs.cshtml" />
-    <Content Include="Views\Home\Dashbord.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\TypeChart.cshtml" />
   </ItemGroup>
   <ItemGroup>

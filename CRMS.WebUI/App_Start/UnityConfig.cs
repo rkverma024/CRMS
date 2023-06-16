@@ -85,8 +85,8 @@ namespace CRMS.WebUI
             container.RegisterType<IAuditLogsRepository, AuditLogsRepository>();
             container.RegisterType<IAuditLogsService, AuditLogsService>();
 
-            container.RegisterType<IDashBordRepository, DashBordRepository>();
-            container.RegisterType<IDashBordService, DashBordService>();
+            container.RegisterType<IDashBoardRepository, DashBoardRepository>();
+            container.RegisterType<IDashBoardService, DashBoardService>();
 
 
             //container.RegisterType<IUserRepository, UserService>(); 

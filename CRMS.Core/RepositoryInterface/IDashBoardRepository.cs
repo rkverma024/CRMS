@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.RepositoryInterface
 {
-    public interface IDashBordRepository
+    public interface IDashBoardRepository
     {
-        DashBordViewModel StatusCount();
-        DashBordViewModel PriorityCount();
-        DashBordViewModel TypeCount();
+        DashBoardViewModel StatusCount();
+        DashBoardViewModel PriorityCount();
+        DashBoardViewModel TypeCount();
     }
 }

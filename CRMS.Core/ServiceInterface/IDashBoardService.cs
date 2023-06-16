@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ServiceInterface
 {
-    public interface IDashBordService
+    public interface IDashBoardService
     {
-        DashBordViewModel GetTicketCount();
+        DashBoardViewModel GetTicketCount();
 
-        DashBordViewModel GetChart();
-        DashBordViewModel GetTypeChart();
+        DashBoardViewModel GetChart();
+        DashBoardViewModel GetTypeChart();
     }
 }

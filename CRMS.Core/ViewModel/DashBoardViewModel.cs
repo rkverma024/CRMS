@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMS.Core.ViewModel
 {
-    public class DashBordViewModel
+    public class DashBoardViewModel
     {
         public int TotalCount { get; set; }
         public int NewCount { get; set; }

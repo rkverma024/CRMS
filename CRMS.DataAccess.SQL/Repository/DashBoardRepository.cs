@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace CRMS.DataAccess.SQL.Repository
 {
-    public class DashBordRepository : IDashBordRepository
+    public class DashBoardRepository : IDashBoardRepository
     {
         internal DataContext context;
         internal DbSet<Ticket> dbSet;
-        public DashBordRepository(DataContext context)
+        public DashBoardRepository(DataContext context)
         {
             this.context = context;
             this.dbSet = context.Set<Ticket>();
         }
 
-        public DashBordViewModel PriorityCount()
+        public DashBoardViewModel PriorityCount()
         {
-            var viewModel = new DashBordViewModel();
+            var viewModel = new DashBoardViewModel();
             List<ChartViewModel> chartviewmodel = (from tc in context.Tickets
                                           join com in context.CommonLookUps on tc.PriorityId equals com.Id
                                           select new ChartViewModel
@@ -56,9 +56,9 @@ namespace CRMS.DataAccess.SQL.Repository
             return viewModel;
         }
 
-        public DashBordViewModel StatusCount()
+        public DashBoardViewModel StatusCount()
         {
-            DashBordViewModel viewmodel = new DashBordViewModel();
+            DashBoardViewModel viewmodel = new DashBoardViewModel();
             viewmodel.TotalCount = (from tc in context.Tickets where !tc.IsDeleted select tc).Count();
 
             viewmodel.NewCount = (from tc in context.Tickets 
@@ -77,9 +77,9 @@ namespace CRMS.DataAccess.SQL.Repository
             return viewmodel;
         }
 
-        public DashBordViewModel TypeCount()
+        public DashBoardViewModel TypeCount()
         {
-            var viewModel = new DashBordViewModel();
+            var viewModel = new DashBoardViewModel();
             List<TypeViewModel> typeviewmodel = (from tc in context.Tickets
                                                    join com in context.CommonLookUps on tc.TypeId equals com.Id
                                                    select new TypeViewModel

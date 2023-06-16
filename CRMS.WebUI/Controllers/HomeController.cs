@@ -17,12 +17,12 @@ namespace CRMS.WebUI.Controllers
     {
         private UserRoleService userRoleService;
         private FormRoleMappingService formRoleMappingService;
-        private IDashBordService dashBordService;
-        public HomeController(UserRoleService userroleService, FormRoleMappingService FormRoleMappingService, IDashBordService dashBordService)
+        private IDashBoardService DashBoardService;
+        public HomeController(UserRoleService userroleService, FormRoleMappingService FormRoleMappingService, IDashBoardService DashBoardService)
         {
             userRoleService = userroleService;
             formRoleMappingService = FormRoleMappingService;
-            this.dashBordService = dashBordService;
+            this.DashBoardService = DashBoardService;
         }
         //[Route("Index")]
         [AuditLogsFilter()]
@@ -41,20 +41,20 @@ namespace CRMS.WebUI.Controllers
         }*/
 
 
-        /*Dashbord*/
+        /*DashBoard*/
 
         [AuditLogsFilter()]
         [ActionFilter("DB", CheckRoleRights.FormAccessCode.IsView)]
-        public ActionResult Dashbord()
+        public ActionResult DashBoard()
         {
-            DashBordViewModel viewModel = dashBordService.GetTicketCount();
+            DashBoardViewModel viewModel = DashBoardService.GetTicketCount();
 
-            DashBordViewModel priorityList = dashBordService.GetChart();
+            DashBoardViewModel priorityList = DashBoardService.GetChart();
             var data = priorityList.ChartData.ToList();
             viewModel.Chart= data;
             ViewBag.ChartData = data;
 
-            DashBordViewModel typeList = dashBordService.GetTypeChart();
+            DashBoardViewModel typeList = DashBoardService.GetTypeChart();
             var datatype = typeList.TypeChartData.ToList();
             viewModel.TypeChart = datatype;
             ViewBag.TypeChartData = datatype;

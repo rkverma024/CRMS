@@ -88,7 +88,7 @@ namespace CRMS.WebUI.Controllers
                         /*TempData["AlertMessage"] = "Login Successfully..!";*/
                         /* return RedirectToAction("Index", "Home");*/
 
-                        return RedirectToAction("Dashbord", new RouteValueDictionary(new { controller = "Home", action = "Dashbord" }));
+                        return RedirectToAction("DashBoard", new RouteValueDictionary(new { controller = "Home", action = "DashBoard" }));
                     }
                     else
                     {
