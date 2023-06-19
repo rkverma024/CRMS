@@ -1,24 +1,24 @@
 ﻿@model CRMS.Core.ViewModel.DashBoardViewModel
 
 <style>
-    #chartdiv {
+    #chartdivtype {
         width: 100%;
-        height: 400px;
+        height: 100%;
     }
 </style>
 
 <!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
+<script src="~/amcharts5/index.js"></script>
+<script src="~/amcharts5/percent.js"></script>
+<script src="~/amcharts5/themes/Animated.js"></script>
+<script src="~/amcharts5/xy.js"></script>
 <!-- Chart code -->
 <script>
 am5.ready(function() {
 
 // Create root element
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-var root = am5.Root.new("chartdiv");
+var root = am5.Root.new("chartdivtype");
 
 
 var myTheme = am5.Theme.new(root);
@@ -37,7 +37,7 @@ root.setThemes([
 
 
 // Create chart
-// https://www.amcharts.com/docs/v5/charts/xy-chart/
+//https://www.amcharts.com/docs/v5/charts/xy-chart/
 var chart = root.container.children.push(
   am5xy.XYChart.new(root, {
     panX: false,
@@ -173,11 +173,21 @@ function sortCategoryAxis() {
 }
 
 // Set data
-    var data1 = @Html.Raw(Json.Encode(ViewBag.TypeChartData));
-    series.data.setAll(data1);
+    var datatype = @Html.Raw(Json.Encode(ViewBag.TypeChartData));
+    //series.data.setAll(datatype);
+    
+    var data1 = [];
 
-    yAxis.data.setAll(data);
-    series.data.setAll(data);
+    for (var i = 0; i < datatype.length; i++)
+    {
+        data1.push({
+            country: "datatype[i]".TypeChartData,
+            value: "datatype[i]".count
+        });
+    }
+
+    yAxis.data.setAll(data1);
+    series.data.setAll(data1);
 
 
 // Make stuff animate on load
@@ -189,7 +199,7 @@ chart.appear(1000, 100);
 </script>
 
 <!-- HTML -->
-<div id="chartdiv"></div>
+<div id="chartdivtype"></div>
 amCharts
 
 

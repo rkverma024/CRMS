@@ -5,44 +5,48 @@
 
 <!-- Styles -->
 <style>
+
+    @*Chart*@
+
     #chartdiv {
-        width: 50%;
-        height: 500px;                
+        width: 100%;
+        height: 500px;
+        margin: 10px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+    #chartdiv1 {
+        width: 100%;
+        height: 500px;
+        margin: 10px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     }
 
+    @*Cards*@
 
-@*Card View*@
-
-@*    body {
-        margin-top: 20px;
-        background: #FAFAFA;
-    }
-*@
     .order-card {
-        color: #fff;
+        color: #ffff;
         margin-top: 20px;
     }
 
     .bg-c-blue {
-        background: linear-gradient(45deg,#4099ff,#73b4ff);
-        margin-top: 20px;
+        background: linear-gradient(45deg,#4099ff,#7b2cbf);
+        margin-top: 30px;
     }
 
     .bg-c-green {
-        background: linear-gradient(45deg,#2ed8b6,#59e0c5);
-        margin-top: 20px;
+        background: linear-gradient(45deg,#57cc99,#6a994e);
+        margin-top: 30px;
     }
 
     .bg-c-yellow {
-        background: linear-gradient(45deg,#FFB64D,#ffcb80);
-        margin-top: 20px;
+        background: linear-gradient(45deg,#f4845f,#f25c54);
+        margin-top: 30px;
     }
 
     .bg-c-pink {
-        background: linear-gradient(45deg,#FF5370,#ff869a);
-        margin-top: 20px;
+        background: linear-gradient(45deg,#f26a8d,#ef476f);
+        margin-top: 30px;
     }
-
 
     .card {
         @*border-radius: 5px;
@@ -61,13 +65,14 @@
         background-clip: border-box;
         border: 0px solid rgba(0, 0, 0, 0);
         border-radius: .25rem;
-        margin-bottom: 1.5rem;        
+        margin-bottom: 1.5rem;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
     }
 
-        .card .card-block {
-            padding: 25px;
-        }
+    .card .card-block {
+        padding: 25px;
+    }
 
     .order-card i {
         font-size: 26px;
@@ -82,57 +87,64 @@
     }
     .cr {
         width:100%;
+        margin:10px;
     }
 
 </style>
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="" id="cr">
-    <div class="row">
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-blue order-card">
-                <div class="card-block">
-                    <h3 class="m-b-20">Total Ticket Count</h3>
-                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.TotalCount</span></h2>
-                </div>
-            </div>
-        </div>
+<div class="section" style=" background-color: white;">
+    <div class="container">
+        <div class="topTitleHead pb20">
+            <div class="" id="cr">
+                <div class="row">
 
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-green order-card">
-                <div class="card-block">
-                    <h3 class="m-b-20">New Ticket</h3>
-                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.NewCount</span></h2>
-                </div>
-            </div>
-        </div>
+                    <div class="col-md-3 col-xl-3">
+                        <div class="card bg-c-yellow order-card">
+                            <div class="card-block">
+                                <h3 class="m-b-20">New Ticket</h3>
+                                <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.NewCount</span></h2>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-yellow order-card">
-                <div class="card-block">
-                    <h3 class="m-b-20">Resolved Tcket</h3>
-                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.ResolvedCount</span></h2>
-                </div>
-            </div>
-        </div>
+                    <div class="col-md-3 col-xl-3">
+                        <div class="card bg-c-blue order-card">
+                            <div class="card-block">
+                                <h3 class="m-b-20">Total Ticket</h3>
+                                <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.TotalCount</span></h2>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">
-                <div class="card-block">
-                    <h3 class="m-b-20">Pending Ticket</h3>
-                    <h2 class="text-right"><i class="fa fa-ticket f-left"></i><span>@Model.PendingCount</span></h2>
+                    <div class="col-md-3 col-xl-3">
+                        <div class="card bg-c-green order-card">
+                            <div class="card-block">
+                                <h3 class="m-b-20">Resolved Tcket</h3>
+                                <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.ResolvedCount</span></h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xl-3">
+                        <div class="card bg-c-pink order-card">
+                            <div class="card-block">
+                                <h3 class="m-b-20">Pending Ticket</h3>
+                                <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.PendingCount</span></h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-<!-- Chart code -->
+<script src="~/amcharts5/index.js"></script>
+<script src="~/amcharts5/percent.js"></script>
+<script src="~/amcharts5/xy.js"></script>
+<script src="~/amcharts5/themes/Animated.js"></script>
+<script src="~/amcharts5/themes/Dataviz.js"></script>
+<!-- Chart code 1  -->
 <script>
     am5.ready(function () {
 
@@ -143,7 +155,8 @@
         // Set themes
         // https://www.amcharts.com/docs/v5/concepts/themes/
         root.setThemes([
-            am5themes_Animated.new(root)
+            am5themes_Animated.new(root),
+
         ]);
 
 
@@ -158,7 +171,6 @@
         // Create series
         // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
         var series = chart.series.push(am5percent.PieSeries.new(root, {
-
             valueField: "value",
             categoryField: "category"
         }));
@@ -214,14 +226,200 @@
     }); // end am5.ready()
 </script>
 
+<script>
+    am5.ready(function () {
+
+        // Create root element
+        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+        var root = am5.Root.new("chartdiv1");
+
+
+        var myTheme = am5.Theme.new(root);
+
+        myTheme.rule("Grid", ["base"]).setAll({
+            strokeOpacity: 0.1
+        });
+
+
+        // Set themes
+        // https://www.amcharts.com/docs/v5/concepts/themes/
+        root.setThemes([
+            am5themes_Animated.new(root),
+            myTheme
+        ]);
+
+
+        // Create chart
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+        var chart = root.container.children.push(
+            am5xy.XYChart.new(root, {
+                panX: false,
+                panY: false,
+                wheelX: "none",
+                wheelY: "none"
+            })
+        );
+
+
+        // Create axes
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+        var yRenderer = am5xy.AxisRendererY.new(root, { minGridDistance: 30 });
+        yRenderer.grid.template.set("location", 1);
+
+        var yAxis = chart.yAxes.push(
+            am5xy.CategoryAxis.new(root, {
+                maxDeviation: 0,
+                categoryField: "country",
+                renderer: yRenderer
+            })
+        );
+
+        var xAxis = chart.xAxes.push(
+            am5xy.ValueAxis.new(root, {
+                maxDeviation: 0,
+                min: 0,
+                renderer: am5xy.AxisRendererX.new(root, {
+                    visible: true,
+                    strokeOpacity: 0.1
+                })
+            })
+        );
+
+
+        // Create series
+        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+        var series = chart.series.push(
+            am5xy.ColumnSeries.new(root, {
+                name: "Series 1",
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueXField: "value",
+                sequencedInterpolation: true,
+                categoryYField: "country"
+            })
+        );
+
+        var columnTemplate = series.columns.template;
+
+        columnTemplate.setAll({
+            draggable: true,
+            cursorOverStyle: "pointer",
+            tooltipText: "drag to rearrange",
+            cornerRadiusBR: 10,
+            cornerRadiusTR: 10,
+            strokeOpacity: 0
+        });
+        columnTemplate.adapters.add("fill", (fill, target) => {
+            return chart.get("colors").getIndex(series.columns.indexOf(target));            
+        });
+
+        columnTemplate.adapters.add("stroke", (stroke, target) => {
+            return chart.get("colors").getIndex(series.columns.indexOf(target));
+        });
+
+        columnTemplate.events.on("dragstop", () => {
+            sortCategoryAxis();
+        });
+
+        // Get series item by category
+        function getSeriesItem(category) {
+            for (var i = 0; i < series.dataItems.length; i++) {
+                var dataItem = series.dataItems[i];
+                if (dataItem.get("categoryY") == category) {
+                    return dataItem;
+                }
+            }
+        }
+
+
+        // Axis sorting
+        function sortCategoryAxis() {
+            // Sort by value
+            series.dataItems.sort(function (x, y) {
+                return y.get("graphics").y() - x.get("graphics").y();
+            });
+
+            var easing = am5.ease.out(am5.ease.cubic);
+
+            // Go through each axis item
+            am5.array.each(yAxis.dataItems, function (dataItem) {
+                // get corresponding series item
+                var seriesDataItem = getSeriesItem(dataItem.get("category"));
+
+                if (seriesDataItem) {
+                    // get index of series data item
+                    var index = series.dataItems.indexOf(seriesDataItem);
+
+                    var column = seriesDataItem.get("graphics");
+
+                    // position after sorting
+                    var fy =
+                        yRenderer.positionToCoordinate(yAxis.indexToPosition(index)) -
+                        column.height() / 2;
+
+                    // set index to be the same as series data item index
+                    if (index != dataItem.get("index")) {
+                        dataItem.set("index", index);
+
+                        // current position
+                        var x = column.x();
+                        var y = column.y();
+
+                        column.set("dy", -(fy - y));
+                        column.set("dx", x);
+
+                        column.animate({ key: "dy", to: 0, duration: 600, easing: easing });
+                        column.animate({ key: "dx", to: 0, duration: 600, easing: easing });
+                    } else {
+                        column.animate({ key: "y", to: fy, duration: 600, easing: easing });
+                        column.animate({ key: "x", to: 0, duration: 600, easing: easing });
+                    }
+                }
+            });
+
+            // Sort axis items by index.
+            // This changes the order instantly, but as dx and dy is set and animated,
+            // they keep in the same places and then animate to true positions.
+            yAxis.dataItems.sort(function (x, y) {
+                return x.get("index") - y.get("index");
+            });
+        }
+
+
+
+        var datatype = @Html.Raw(Json.Encode(ViewBag.TypeChartData));
+
+
+        var data1 = [];
+
+        for (var i = 0; i < datatype.length; i++)
+        {
+            data1.push({
+                country: datatype[i].category,
+                value: datatype[i].value
+            });
+        }
+
+    yAxis.data.setAll(data1);
+    series.data.setAll(data1);
+
+        // Make stuff animate on load
+        // https://www.amcharts.com/docs/v5/concepts/animations/
+        series.appear(1000);
+        chart.appear(1000, 100);
+
+    }); // end am5.ready()
+</script>
+
+
 <!-- HTML -->
-<div id="chartdiv"></div>
-amCharts
-
-@*@Html.Partial("TypeChart")*@
-
-@*<div>
-    @Html.Action("TypeChart", "Home");
-</div>*@
+<div class="row">
+    <div class="col-md-6">
+        <div id="chartdiv"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="chartdiv1"></div>
+    </div>
+</div>
 
 

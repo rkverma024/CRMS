@@ -98,12 +98,7 @@ namespace CRMS.DataAccess.SQL.Repository
                 value = typeviewmodel.Where(x => x.category == "Defect").Count(),
                 category = "Defect"
             });
-
-            viewModel.TypeChartData.Add(new TypeViewModel
-            {
-                value = typeviewmodel.Where(x => x.category == "Enhancement").Count(),
-                category = "Enhancement"
-            });
+          
             viewModel.TypeChartData.Add(new TypeViewModel
             {
                 value = typeviewmodel.Where(x => x.category == "Bug").Count(),
@@ -113,6 +108,12 @@ namespace CRMS.DataAccess.SQL.Repository
             {
                 value = typeviewmodel.Where(x => x.category == "Finetuning").Count(),
                 category = "Finetuning"
+            });
+
+            viewModel.TypeChartData.Add(new TypeViewModel
+            {
+                value = typeviewmodel.Where(x => x.category == "Enhancement").Count(),
+                category = "Enhancement"
             });
 
             return viewModel;

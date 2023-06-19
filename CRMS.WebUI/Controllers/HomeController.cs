@@ -55,7 +55,7 @@ namespace CRMS.WebUI.Controllers
             ViewBag.ChartData = data;
 
             DashBoardViewModel typeList = DashBoardService.GetTypeChart();
-            var datatype = typeList.TypeChartData.ToList();
+            var datatype = typeList.TypeChartData.OrderByDescending(x => x.value).ToList();
             viewModel.TypeChart = datatype;
             ViewBag.TypeChartData = datatype;
 
