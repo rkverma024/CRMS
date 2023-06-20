@@ -19,7 +19,7 @@ namespace CRMS.Core.ViewModel
         public List<TypeViewModel> TypeChart { get; set; }
         public List<TypeViewModel> TypeChartData { get; set; }
 
-        public List<TcketsChartViewModel> TicketChart { get; set; }
-        public List<TcketsChartViewModel> TicketChartData { get; set; }
+        public List<TicketsChartViewModel> TicketChart { get; set; }
+        public List<TicketsChartViewModel> TicketChartData { get; set; }
     }
 }

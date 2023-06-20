@@ -12,7 +12,7 @@ namespace CRMS.Core.ViewModel
         public string category { get; set; }
     }
 
-    public class TcketsChartViewModel
+    public class TicketsChartViewModel
     {
         public int value { get; set; }
         public string category { get; set; }
