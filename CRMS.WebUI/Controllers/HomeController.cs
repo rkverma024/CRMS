@@ -59,6 +59,11 @@ namespace CRMS.WebUI.Controllers
             viewModel.TypeChart = datatype;
             ViewBag.TypeChartData = datatype;
 
+            DashBoardViewModel ticketList = DashBoardService.GetTicketChart();
+            var dataticket = ticketList.TicketChartData.OrderBy(x => x.value).ToList();
+            viewModel.TicketChart = dataticket;
+            ViewBag.TicketChartData = dataticket;
+
             return View(viewModel);
         }
 

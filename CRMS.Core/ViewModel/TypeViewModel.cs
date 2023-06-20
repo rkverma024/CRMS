@@ -11,4 +11,10 @@ namespace CRMS.Core.ViewModel
         public int value { get; set; }
         public string category { get; set; }
     }
+
+    public class TcketsChartViewModel
+    {
+        public int value { get; set; }
+        public string category { get; set; }
+    }
 }

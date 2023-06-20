@@ -77,6 +77,29 @@ namespace CRMS.DataAccess.SQL.Repository
             return viewmodel;
         }
 
+
+        public DashBoardViewModel TicketsCount()
+        {
+            var viewModel = new DashBoardViewModel();
+            viewModel.TicketChartData = new List<TcketsChartViewModel>();
+            List<TcketsChartViewModel> ticketviewmodel = (from tc in context.Tickets
+                                                          join com in context.CommonLookUps on tc.StatusId equals com.Id
+                                                          select new TcketsChartViewModel
+                                                          {
+                                                              category = com.ConfigValue
+                                                          }).ToList();
+            foreach (var title in ticketviewmodel.GroupBy(x => x.category))
+            {                
+                viewModel.TicketChartData.Add(new TcketsChartViewModel
+                {
+                    value = ticketviewmodel.Where(x => x.category == title.Key).Count(),
+                    category = title.Key
+                });
+            }
+
+            return viewModel;
+        }
+
         public DashBoardViewModel TypeCount()
         {
             var viewModel = new DashBoardViewModel();
@@ -117,6 +140,6 @@ namespace CRMS.DataAccess.SQL.Repository
             });
 
             return viewModel;
-        }
+        }       
     }
 }

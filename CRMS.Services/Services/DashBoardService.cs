@@ -32,5 +32,10 @@ namespace CRMS.Services.Services
         {
             return DashBoardRepository.TypeCount();
         }
+
+        public DashBoardViewModel GetTicketChart()
+        {
+            return DashBoardRepository.TicketsCount();
+        }
     }
 }
