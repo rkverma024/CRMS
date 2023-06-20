@@ -21,5 +21,8 @@ namespace CRMS.Core.ViewModel
 
         public List<TicketsChartViewModel> TicketChart { get; set; }
         public List<TicketsChartViewModel> TicketChartData { get; set; }
+
+        public List<UserChartViewModel> UserChart { get; set; }
+        public List<UserChartViewModel> UserChartData { get; set; }
     }
 }

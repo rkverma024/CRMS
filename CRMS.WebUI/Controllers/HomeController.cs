@@ -64,6 +64,11 @@ namespace CRMS.WebUI.Controllers
             viewModel.TicketChart = dataticket;
             ViewBag.TicketChartData = dataticket;
 
+            DashBoardViewModel userList = DashBoardService.GetUserChart();
+            var datauser = userList.UserChartData.OrderByDescending(x => x.value).ToList();
+            viewModel.UserChart = datauser;
+            ViewBag.UserChartData = datauser;
+
             return View(viewModel);
         }
 

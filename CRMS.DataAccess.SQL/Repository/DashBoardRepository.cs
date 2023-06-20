@@ -140,6 +140,28 @@ namespace CRMS.DataAccess.SQL.Repository
             });
 
             return viewModel;
-        }       
+        }
+
+        public DashBoardViewModel UserCount()
+        {
+            var viewModel = new DashBoardViewModel();
+            viewModel.UserChartData = new List<UserChartViewModel>();
+            List<UserChartViewModel> userviewmodel = (from tc in context.Tickets
+                                                           join u in context.Users on tc.AssignTo equals u.Id
+                                                           select new UserChartViewModel
+                                                           {
+                                                               category = u.Name
+                                                           }).ToList();
+            foreach (var title in userviewmodel.GroupBy(x => x.category))
+            {
+                viewModel.UserChartData.Add(new UserChartViewModel
+                {
+                    value = userviewmodel.Where(x => x.category == title.Key).Count(),
+                    category = title.Key
+                });
+            }
+
+            return viewModel;
+        }
     }
 }

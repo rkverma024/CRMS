@@ -17,4 +17,10 @@ namespace CRMS.Core.ViewModel
         public int value { get; set; }
         public string category { get; set; }
     }
+
+    public class UserChartViewModel
+    {
+        public int value { get; set; }
+        public string category { get; set; }
+    }
 }

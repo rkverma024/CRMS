@@ -13,6 +13,7 @@ namespace CRMS.Core.RepositoryInterface
         DashBoardViewModel PriorityCount();
         DashBoardViewModel TypeCount();
         DashBoardViewModel TicketsCount();
+        DashBoardViewModel UserCount();
        
     }
 }

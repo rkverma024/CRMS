@@ -37,5 +37,9 @@ namespace CRMS.Services.Services
         {
             return DashBoardRepository.TicketsCount();
         }
+        public DashBoardViewModel GetUserChart()
+        {
+            return DashBoardRepository.UserCount();
+        }
     }
 }

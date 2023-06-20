@@ -14,5 +14,6 @@ namespace CRMS.Core.ServiceInterface
         DashBoardViewModel GetChart();
         DashBoardViewModel GetTypeChart();
         DashBoardViewModel GetTicketChart();
+        DashBoardViewModel GetUserChart();
     }
 }
