@@ -50,23 +50,19 @@ namespace CRMS.WebUI.Controllers
             DashBoardViewModel viewModel = DashBoardService.GetTicketCount();
 
             DashBoardViewModel priorityList = DashBoardService.GetChart();
-            var data = priorityList.ChartData.ToList();
-            viewModel.Chart= data;
+            var data = priorityList.ChartData.ToList();            
             ViewBag.ChartData = data;
 
             DashBoardViewModel typeList = DashBoardService.GetTypeChart();
-            var datatype = typeList.TypeChartData.OrderByDescending(x => x.value).ToList();
-            viewModel.TypeChart = datatype;
+            var datatype = typeList.TypeChartData.OrderByDescending(x => x.value).ToList();           
             ViewBag.TypeChartData = datatype;
 
             DashBoardViewModel ticketList = DashBoardService.GetTicketChart();
-            var dataticket = ticketList.TicketChartData.OrderBy(x => x.value).ToList();
-            viewModel.TicketChart = dataticket;
+            var dataticket = ticketList.TicketChartData.OrderBy(x => x.value).ToList();            
             ViewBag.TicketChartData = dataticket;
 
             DashBoardViewModel userList = DashBoardService.GetUserChart();
-            var datauser = userList.UserChartData.OrderByDescending(x => x.value).ToList();
-            viewModel.UserChart = datauser;
+            var datauser = userList.UserChartData.OrderByDescending(x => x.value).ToList();            
             ViewBag.UserChartData = datauser;
 
             return View(viewModel);

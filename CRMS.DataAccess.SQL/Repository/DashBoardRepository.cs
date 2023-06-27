@@ -75,30 +75,7 @@ namespace CRMS.DataAccess.SQL.Repository
                                      select tc).Count();
 
             return viewmodel;
-        }
-
-
-        public DashBoardViewModel TicketsCount()
-        {
-            var viewModel = new DashBoardViewModel();
-            viewModel.TicketChartData = new List<TicketsChartViewModel>();
-            List<TicketsChartViewModel> ticketviewmodel = (from tc in context.Tickets
-                                                          join com in context.CommonLookUps on tc.StatusId equals com.Id
-                                                          select new TicketsChartViewModel
-                                                          {
-                                                              category = com.ConfigValue
-                                                          }).ToList();
-            foreach (var title in ticketviewmodel.GroupBy(x => x.category))
-            {                
-                viewModel.TicketChartData.Add(new TicketsChartViewModel
-                {
-                    value = ticketviewmodel.Where(x => x.category == title.Key).Count(),
-                    category = title.Key
-                });
-            }
-
-            return viewModel;
-        }
+        }       
 
         public DashBoardViewModel TypeCount()
         {
@@ -141,6 +118,30 @@ namespace CRMS.DataAccess.SQL.Repository
 
             return viewModel;
         }
+
+
+        public DashBoardViewModel TicketsCount()
+        {
+            var viewModel = new DashBoardViewModel();
+            viewModel.TicketChartData = new List<TicketsChartViewModel>();
+            List<TicketsChartViewModel> ticketviewmodel = (from tc in context.Tickets
+                                                           join com in context.CommonLookUps on tc.StatusId equals com.Id
+                                                           select new TicketsChartViewModel
+                                                           {
+                                                               category = com.ConfigValue
+                                                           }).ToList();
+            foreach (var title in ticketviewmodel.GroupBy(x => x.category))
+            {
+                viewModel.TicketChartData.Add(new TicketsChartViewModel
+                {
+                    value = ticketviewmodel.Where(x => x.category == title.Key).Count(),
+                    category = title.Key
+                });
+            }
+
+            return viewModel;
+        }
+
 
         public DashBoardViewModel UserCount()
         {

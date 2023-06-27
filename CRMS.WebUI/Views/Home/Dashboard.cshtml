@@ -10,27 +10,43 @@
 
     #chartdiv {
         width: 100%;
-        height: 500px;
+        height: 350px;
         margin: 10px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     }
     #chartdiv1 {
         width: 100%;
-        height: 500px;
+        height: 350px;
         margin: 10px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     }
     #chartdiv3 {
         width: 100%;
-        height: 500px;
+        height: 350px;
         margin: 10px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     }
     #chartdiv4 {
         width: 100%;
-        height: 500px;
+        height: 350px;
         margin: 10px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+
+    #priority {
+       margin-top:10px
+    }
+
+    #type {
+        margin-top: 10px
+    }
+
+    #status {
+        margin-top: 10px
+    }
+
+    #assign {
+        margin-top: 10px
     }
 
     @*Cards*@
@@ -60,13 +76,6 @@
     }
 
     .card {
-        @*border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-        box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-        border: none;
-        margin-bottom: 30px;
-        -webkit-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;*@
         position: relative;
         display: flex;
         flex-direction: column;
@@ -78,7 +87,6 @@
         border-radius: .25rem;
         margin-bottom: 1.5rem;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-
     }
 
     .card .card-block {
@@ -101,6 +109,10 @@
         margin:10px;
     }
 
+    .card div:hover {
+        transform: scale(0.9);
+    }
+
 </style>
 
 <div class="section" style=" background-color: white;">
@@ -108,21 +120,21 @@
         <div class="topTitleHead pb20">
             <div class="" id="cr">
                 <div class="row">
-
+                    <a href="@Url.Action("Index","Ticket")">
+                        <div class="col-md-3 col-xl-3">
+                            <div class="card bg-c-blue order-card">
+                                <div class="card-block">
+                                    <h3 class="m-b-20">Total Ticket</h3>
+                                    <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.TotalCount</span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <div class="col-md-3 col-xl-3">
                         <div class="card bg-c-yellow order-card">
                             <div class="card-block">
                                 <h3 class="m-b-20">New Ticket</h3>
                                 <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.NewCount</span></h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-xl-3">
-                        <div class="card bg-c-blue order-card">
-                            <div class="card-block">
-                                <h3 class="m-b-20">Total Ticket</h3>
-                                <h2 class="text-right" style="color:white"><i class="fa fa-ticket f-left"></i><span>@Model.TotalCount</span></h2>
                             </div>
                         </div>
                     </div>
@@ -154,8 +166,8 @@
 <script src="~/amcharts5/percent.js"></script>
 <script src="~/amcharts5/xy.js"></script>
 <script src="~/amcharts5/themes/Animated.js"></script>
-<script src="~/amcharts5/themes/Dataviz.js"></script>
-<!-- Chart code 1  -->
+
+<!-- Chart code 1-->
 <script>
     am5.ready(function () {
 
@@ -237,7 +249,7 @@
     }); // end am5.ready()
 </script>
 
-
+<!-- Chart code 2-->
 <script>
     am5.ready(function () {
 
@@ -423,7 +435,7 @@
     }); // end am5.ready()
 </script>
 
-
+<!-- Chart code 3-->
 <script>
     am5.ready(function () {
 
@@ -534,7 +546,7 @@
     }); // end am5.ready()
 </script>
 
-
+<!-- Chart code 4-->
 <script>
     am5.ready(function () {
 
@@ -649,12 +661,43 @@
 <!-- HTML -->
 <div class="row">
     <div class="col-md-6">
+        <div id="priority">
+            <strong>Priority</strong>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="type">
+            <strong>Type</strong>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
         <div id="chartdiv"></div>
+
     </div>
     <div class="col-md-6">
         <div id="chartdiv1"></div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="status">
+            <strong>Status</strong>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div id="assign">
+            <strong>Assign To</strong>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6">
         <div id="chartdiv3"></div>
@@ -663,7 +706,3 @@
         <div id="chartdiv4"></div>
     </div>
 </div>
-
-
-
-
