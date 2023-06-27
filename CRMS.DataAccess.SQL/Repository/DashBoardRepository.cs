@@ -119,7 +119,7 @@ namespace CRMS.DataAccess.SQL.Repository
             return viewModel;
         }
 
-
+/*Ticket Status Chart (like assigned, closed, new etc.... )*/
         public DashBoardViewModel TicketsCount()
         {
             var viewModel = new DashBoardViewModel();
@@ -143,6 +143,7 @@ namespace CRMS.DataAccess.SQL.Repository
         }
 
 
+/*User Chart*/
         public DashBoardViewModel UserCount()
         {
             var viewModel = new DashBoardViewModel();
